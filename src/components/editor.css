@@ -1,0 +1,23 @@
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=large]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+    content: "medium"
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=huge]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+    content: "large"
+}
+
+.ql-editor .ql-size-small {
+    font-size: 14px;
+}
+
+.ql-editor p {
+    font-size: 18px;
+}
+
+.ql-editor .ql-size-large {
+    font-size: 24px;
+}
+
+.ql-editor .ql-size-huge {
+    font-size: 32px;
+}
