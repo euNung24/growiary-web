@@ -17,9 +17,15 @@ const Menu = ({ items }: MenuProps) => {
         <li key={i} className="mb-4">
           <a
             href={item.href}
-            className="flex gap-1 items-center px-3.5 py-2 text-gray-700 font-sb12 lg:justify-center"
+            className="flex gap-1 items-center px-3.5 py-2 text-gray-700 font-sb12 lg:justify-center lg:gap-0"
           >
-            <Image src={item.src} width={16} height={16} alt={item.alt} />
+            <Image
+              src={item.src}
+              width={16}
+              height={16}
+              alt={item.alt}
+              className="min-w-[16px]"
+            />
             <span className="lg:indent-[-9999px]">{item.name}</span>
           </a>
         </li>
@@ -77,7 +83,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="lg:w-[68px] w-[200px] h-screen bg-gray-50">
+    <aside className="lg:w-[68px] w-[200px] bg-gray-50">
       <a href="/" className="block py-[22px]">
         <picture>
           <source
