@@ -1,4 +1,9 @@
+'use client';
+
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 type MenuType = {
   src: string;
@@ -11,23 +16,29 @@ type MenuProps = {
   items: MenuType[];
 };
 const Menu = ({ items }: MenuProps) => {
+  const active = 'rounded bg-primary-900 text-white-0 mx-[10px]';
+  const pathname = usePathname();
+
   return (
     <ul>
       {items.map((item, i) => (
         <li key={i} className="mb-4">
-          <a
+          <Link
             href={item.href}
-            className="flex gap-1 items-center px-3.5 py-2 text-gray-700 font-sb12 lg:justify-center lg:gap-0"
+            className={cn(
+              'flex gap-1 items-center px-3.5 py-2 text-gray-700 font-sb12 lg:justify-center lg:gap-0',
+              item.href === pathname && active,
+            )}
           >
             <Image
-              src={item.src}
+              src={item.src + (item.href === pathname ? '_white.png' : '.png')}
               width={16}
               height={16}
               alt={item.alt}
               className="min-w-[16px]"
             />
             <span className="lg:indent-[-9999px]">{item.name}</span>
-          </a>
+          </Link>
         </li>
       ))}
     </ul>
@@ -36,31 +47,31 @@ const Menu = ({ items }: MenuProps) => {
 const Sidebar = () => {
   const menu1 = [
     {
-      src: '/assets/icons/pencil.png',
+      src: '/assets/icons/edit',
       alt: 'write a diary',
       name: '기록하기',
-      href: '#',
+      href: '/post',
     },
     {
-      src: '/assets/icons/calendar.png',
+      src: '/assets/icons/calendar',
       alt: 'history',
       name: '나의 기록들',
       href: '#',
     },
     {
-      src: '/assets/icons/cards.png',
+      src: '/assets/icons/multi-window',
       alt: 'recommended templates',
       name: '추천 질문 둘러보기',
       href: '#',
     },
     {
-      src: '/assets/icons/charts.png',
+      src: '/assets/icons/report',
       alt: 'monthly report',
       name: '월간 리포트',
       href: '#',
     },
     {
-      src: '/assets/icons/book.png',
+      src: '/assets/icons/book',
       alt: 'retrospect tip',
       name: '회고 TIP',
       href: '#',
@@ -69,13 +80,13 @@ const Sidebar = () => {
 
   const menu2 = [
     {
-      src: '/assets/icons/setting.png',
+      src: '/assets/icons/settings',
       alt: 'setting',
       name: '설정하기',
       href: '#',
     },
     {
-      src: '/assets/icons/mail.png',
+      src: '/assets/icons/forward-message',
       alt: 'feedback',
       name: '의견 보내기',
       href: '#',
@@ -83,8 +94,8 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="lg:w-[68px] w-[200px] bg-gray-50">
-      <a href="/" className="block py-[22px]">
+    <aside className="lg:w-[68px] w-[200px] bg-gray-50 min-h-screen">
+      <Link href="/" className="block py-[22px]">
         <picture>
           <source
             srcSet="/assets/icons/logo/squre.png"
@@ -97,10 +108,11 @@ const Sidebar = () => {
             width={114}
             height={27.26}
             alt="Growiary"
-            className="m-auto"
+            className="m-auto w-auto h-auto"
+            priority
           />
         </picture>
-      </a>
+      </Link>
       <Menu items={menu1} />
       <hr className="my-6 border-gray-200" />
       <Menu items={menu2} />
