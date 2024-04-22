@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import LoginDialog from '@/components/LoginDialog';
 
 type MenuType = {
   src: string;

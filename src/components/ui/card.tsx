@@ -110,7 +110,6 @@ const CardContent = React.forwardRef<
   const { size, variant } = useContext(CardContext);
 
   let marginTop;
-  let fontColor;
 
   switch (size) {
     case 'lg':
