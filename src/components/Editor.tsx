@@ -30,13 +30,13 @@ const Editor = forwardRef<Quill, { defaultValue: Delta }>(({ defaultValue }, ref
   ];
 
   useEffect(() => {
-    if (typeof ref === 'function') {
+    if (typeof ref === 'function' || !containerRef.current) {
       return;
     }
 
     const container = containerRef.current;
     const editorContainer = container!.appendChild(
-      container!.ownerDocument.createElement('div'),
+      container.ownerDocument.createElement('div'),
     );
     const quill = new Quill(editorContainer, {
       modules: {
@@ -53,7 +53,7 @@ const Editor = forwardRef<Quill, { defaultValue: Delta }>(({ defaultValue }, ref
 
     return () => {
       ref && (ref.current = null);
-      container!.innerHTML = '';
+      container.innerHTML = '';
     };
   }, [ref]);
 
