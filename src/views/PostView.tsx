@@ -1,8 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
-import Editor from '@/components/Editor';
-import { Delta } from 'quill/core';
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -27,6 +24,7 @@ import {
   AlertDialogTitleIcon,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import Editor from '@/components/Editor';
 
 const FormSchema = z.object({
   title: z.string(),
@@ -36,7 +34,6 @@ const FormSchema = z.object({
   // }),
 });
 const PostView = () => {
-  const quillRef = useRef(null);
   const ops = [
     { insert: 'Keep', attributes: { bold: true } },
     { insert: '\n', attributes: { header: 2 } },
@@ -133,7 +130,7 @@ const PostView = () => {
           />
           <div>태그</div>
         </div>
-        <Editor ref={quillRef} defaultValue={new Delta(ops)} />
+        <Editor defaultValue={ops} />
         <div className="text-end">
           <Button type="submit">저장하기</Button>
         </div>

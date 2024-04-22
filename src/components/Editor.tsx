@@ -1,65 +1,21 @@
-import React, { forwardRef, useEffect, useRef } from 'react';
-import Quill from 'quill';
-import { Delta } from 'quill/core';
-import 'quill/dist/quill.snow.css';
-import './editor.css';
+import dynamic from 'next/dynamic';
+import React from 'react';
+import { Op } from 'quill-delta';
 
-const Editor = forwardRef<Quill, { defaultValue: Delta }>(({ defaultValue }, ref) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const defaultValueRef = useRef(defaultValue);
-  const toolbarOptions = [
-    [{ size: ['small', false, 'large', 'huge'] }],
-    ['bold', 'italic', 'underline', 'strike'],
-    [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-    [
-      {
-        color: [
-          'black',
-          'gray',
-          'red',
-          'orange',
-          'yellow',
-          'green',
-          'blue',
-          'indigo',
-          'purple',
-        ],
-      },
-    ],
-    [{ align: [] }],
-  ];
+type QuillComponentProps = {
+  defaultValue?: Op[] | { ops: Op[] };
+};
 
-  useEffect(() => {
-    if (typeof ref === 'function' || !containerRef.current) {
-      return;
-    }
-
-    const container = containerRef.current;
-    const editorContainer = container!.appendChild(
-      container.ownerDocument.createElement('div'),
-    );
-    const quill = new Quill(editorContainer, {
-      modules: {
-        toolbar: toolbarOptions,
-      },
-      theme: 'snow',
-    });
-
-    ref && (ref.current = quill);
-
-    if (defaultValueRef.current) {
-      quill.setContents(defaultValueRef.current);
-    }
-
-    return () => {
-      ref && (ref.current = null);
-      container.innerHTML = '';
+const Editor = dynamic(
+  async () => {
+    const { default: QuillComponent } = await import('./ReactQuill');
+    const { Delta } = await import('quill/core');
+    const QuillA = ({ defaultValue }: QuillComponentProps) => {
+      return <QuillComponent defaultValue={new Delta(defaultValue)} />;
     };
-  }, [ref]);
-
-  return <div ref={containerRef}></div>;
-});
-
-Editor.displayName = 'Editor';
+    return QuillA;
+  },
+  { loading: () => <div>...loading</div>, ssr: false },
+);
 
 export default Editor;
