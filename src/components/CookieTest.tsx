@@ -4,10 +4,10 @@ const CookieTest = () => {
   const send = () => {
     fetch(`https://asia-northeast3-growiary-v2.cloudfunctions.net/api/auth/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      credentials: 'include',
+      // headers: {
+      //   'Content-Type': 'application/json; charset=utf-8',
+      // },
+      // credentials: 'include',
     });
     // .then(res => res.json())
     // .then(data => console.log(data));
