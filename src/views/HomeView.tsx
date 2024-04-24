@@ -1,13 +1,12 @@
 import { Card, CardChip, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const HomeView = () => {
-  const headerStyle = 'font-sb18 text-primary-900';
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
 
   return (
-    <>
+    <div className="space-y-[72px]">
       <section>
-        <h2 className={headerStyle}>기록 리포트</h2>
+        <h2 className="title">기록 리포트</h2>
         <p className={headerDescriptionStyle}>작성해주신 기록을 그루어리가 분석했어요</p>
         <div className="flex gap-5">
           {[...Array(3)].map((v, i) => (
@@ -18,7 +17,7 @@ const HomeView = () => {
         </div>
       </section>
       <section>
-        <h2 className={headerStyle}>오늘의 추천 주제</h2>
+        <h2 className="title">오늘의 추천 주제</h2>
         <p className={headerDescriptionStyle}>추천 주제로 기록을 쉽게 시작해보세요</p>
         <div className="flex gap-5">
           {[...Array(3)].map((v, i) => (
@@ -40,7 +39,7 @@ const HomeView = () => {
         </div>
       </section>
       <section>
-        <h2 className={headerStyle}>나의 기록</h2>
+        <h2 className="title">나의 기록</h2>
         <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>
         <div className="flex gap-5">
           {[...Array(3)].map((v, i) => (
@@ -63,7 +62,7 @@ const HomeView = () => {
           ))}
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

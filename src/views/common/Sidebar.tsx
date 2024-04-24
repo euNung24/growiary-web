@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import LoginDialog from '@/components/LoginDialog';
 
 type MenuType = {
   src: string;
@@ -16,7 +17,7 @@ type MenuProps = {
   items: MenuType[];
 };
 const Menu = ({ items }: MenuProps) => {
-  const active = 'rounded bg-primary-900 text-white-0 mx-[10px]';
+  const active = 'rounded bg-primary-900 text-white-0';
   const pathname = usePathname();
 
   return (
@@ -26,7 +27,7 @@ const Menu = ({ items }: MenuProps) => {
           <Link
             href={item.href}
             className={cn(
-              'flex gap-1 items-center px-3.5 py-2 text-gray-700 font-sb12 lg:justify-center lg:gap-0',
+              'flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-700 font-sb12 lg:justify-center lg:gap-0',
               item.href === pathname && active,
             )}
           >
@@ -60,9 +61,9 @@ const Sidebar = () => {
     },
     {
       src: '/assets/icons/multi-window',
-      alt: 'recommended templates',
-      name: '추천 질문 둘러보기',
-      href: '#',
+      alt: 'recommended questions',
+      name: '추천 질문',
+      href: '/suggestion',
     },
     {
       src: '/assets/icons/report',
@@ -116,6 +117,7 @@ const Sidebar = () => {
       <Menu items={menu1} />
       <hr className="my-6 border-gray-200" />
       <Menu items={menu2} />
+      <Sidebar />
     </aside>
   );
 };

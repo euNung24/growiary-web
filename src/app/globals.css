@@ -136,5 +136,12 @@
     line-height: 16px;
     font-family: Pretendard, sans-serif;
   }
+
+  .title {
+    @apply font-semibold text-primary-900;
+    font-size: 18px;
+    line-height: 28px;
+    font-family: Pretendard, sans-serif;
+  }
 }
 

@@ -34,6 +34,7 @@ const buttonVariants = cva(
         sm: 'h-8 px-6 py-2 font-sb12',
         lg: 'h-12 rounded-lg px-6 py-[13px] font-sb16',
         xl: 'h-16 rounded-lg px-6 py-5 font-sb18',
+        full: 'w-full rounded-lg py-[13px] font-sb16',
         icon: 'h-10 w-10',
       },
     },
@@ -108,6 +109,10 @@ const ButtonIcon = ({ src, alt }: { src: string; alt: string }) => {
     case 'xl':
       width = 24;
       marginRight = 'mr-[2px]';
+      break;
+    case 'full':
+      width = 22;
+      marginRight = 'mr-2';
       break;
     default:
       width = 20;

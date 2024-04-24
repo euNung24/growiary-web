@@ -28,7 +28,7 @@ export interface CardProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof cardVariants> {}
 
-const CardContext = createContext<CardProps>({ size: 'default' });
+export const CardContext = createContext<CardProps>({ size: 'default' });
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant, size, ...props }, ref) => (
