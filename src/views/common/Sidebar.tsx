@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import LoginDialog from '@/components/LoginDialog';
 
 type MenuType = {
   src: string;
@@ -116,7 +117,7 @@ const Sidebar = () => {
       <Menu items={menu1} />
       <hr className="my-6 border-gray-200" />
       <Menu items={menu2} />
-      <Sidebar />
+      <LoginDialog />
     </aside>
   );
 };
