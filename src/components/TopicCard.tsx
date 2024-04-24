@@ -7,12 +7,10 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-  CardContext,
 } from '@/components/ui/card';
 import { cva, VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { useContext } from 'react';
 
 const topicCardVariants = cva('group hover:shadow w-[300px]', {
   variants: {
