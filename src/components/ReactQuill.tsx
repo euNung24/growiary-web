@@ -5,7 +5,7 @@ import './editor.css';
 import Delta from 'quill-delta';
 
 const ReactQuill = forwardRef<Quill, { defaultValue?: Delta }>(
-  ({ defaultValue }, ref) => {
+  ({ defaultValue, ...props }, ref) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const defaultValueRef = useRef(defaultValue);
     const toolbarOptions = [
@@ -58,7 +58,7 @@ const ReactQuill = forwardRef<Quill, { defaultValue?: Delta }>(
       };
     }, [ref]);
 
-    return <div ref={containerRef}></div>;
+    return <div ref={containerRef} {...props}></div>;
   },
 );
 
