@@ -43,7 +43,7 @@ const SuggestionView = () => {
         <div className="flex gap-5 mt-6">
           {topics.map((v, i) => (
             <div key={i}>
-              <TopicCard className="shrink-0" variant={i === 0 ? 'primary' : 'default'}>
+              <TopicCard className="shrink-0">
                 <TopicCardHeader>
                   <TopicCardChip>주간 인기</TopicCardChip>
                   <TopicCardTitle>{v.category}</TopicCardTitle>
@@ -59,10 +59,7 @@ const SuggestionView = () => {
                   <Button
                     size="full"
                     className={cn(
-                      'text-primary-900/90 dark:text-primary-900/90',
-                      i === 0
-                        ? 'bg-white-0 dark:bg-white-0'
-                        : 'bg-gray-50 dark:bg-bg-gray-50',
+                      'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
                     )}
                   >
                     <ButtonIcon src="/assets/icons/edit.png" alt="write" />이 주제로
@@ -99,7 +96,8 @@ const SuggestionView = () => {
               key={i}
               className={cn(
                 'px-6 py-4 rounded-md',
-                i === 0 ? 'bg-primary-900 text-white-0' : 'border border-gray-100',
+                'hover:bg-primary-900 hover:text-white-0',
+                'border border-gray-100',
               )}
             >
               정말 하고 싶었는데 못했던 일이 있나요? 원했던 그 일을 할 수 없었던 이유는

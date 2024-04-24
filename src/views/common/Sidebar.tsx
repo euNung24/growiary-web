@@ -17,7 +17,8 @@ type MenuProps = {
   items: MenuType[];
 };
 const Menu = ({ items }: MenuProps) => {
-  const active = 'rounded bg-primary-900 text-white-0';
+  const active =
+    'rounded bg-primary-900 text-white-0 hover:bg-primary-900 hover:text-white-0';
   const pathname = usePathname();
 
   return (
@@ -27,7 +28,7 @@ const Menu = ({ items }: MenuProps) => {
           <Link
             href={item.href}
             className={cn(
-              'flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-700 font-sb12 lg:justify-center lg:gap-0',
+              'flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-700 font-sb12 lg:justify-center lg:gap-0 hover:bg-gray-50 hover:text-primary-900',
               item.href === pathname && active,
             )}
           >
@@ -95,21 +96,27 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="lg:w-[68px] w-[200px] bg-gray-50 min-h-screen">
+    <aside className="lg:w-[68px] w-[200px] bg-[#F7F7F7] min-h-screen">
       <Link href="/" className="block py-[22px]">
         <picture>
           <source
-            srcSet="/assets/icons/logo/squre.png"
+            srcSet="/assets/icons/logo/square.png"
             width={30}
             height={28.29}
             media="(max-width: 1024px)"
           />
-          <Image
-            src="/assets/icons/logo/wide.png"
+          <source
+            srcSet="/assets/icons/logo/wide.png"
             width={114}
             height={27.26}
+            media="(min-width: 1024px)"
+          />
+          <Image
+            src="/assets/icons/logo/square.png"
+            width={30}
+            height={28.29}
             alt="Growiary"
-            className="m-auto w-auto h-auto"
+            className="m-auto"
             priority
           />
         </picture>

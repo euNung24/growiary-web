@@ -1,4 +1,12 @@
-import { Card, CardChip, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardChip,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import Image from 'next/image';
 
 const HomeView = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -21,13 +29,17 @@ const HomeView = () => {
         <p className={headerDescriptionStyle}>추천 주제로 기록을 쉽게 시작해보세요</p>
         <div className="flex gap-5">
           {[...Array(3)].map((v, i) => (
-            <Card
-              key={i}
-              className="shrink-0"
-              variant={`${i === 0 ? 'primary' : 'default'}`}
-            >
-              <CardHeader>
+            <Card key={i} className="shrink-0" variant="disabled">
+              <CardHeader className="flex gap-2">
+                <Image src="/vercel.svg" width={24} height={24} alt="icon" />
                 <CardTitle>타이틀 텍스트</CardTitle>
+                <Image
+                  src="/vercel.svg"
+                  width={24}
+                  height={24}
+                  alt="icon"
+                  className="ml-auto"
+                />
               </CardHeader>
               <CardContent>
                 보조텍스트 작성 영역
@@ -43,21 +55,26 @@ const HomeView = () => {
         <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>
         <div className="flex gap-5">
           {[...Array(3)].map((v, i) => (
-            <Card
-              key={i}
-              className="shrink-0"
-              size="lg"
-              variant={`${i === 0 ? 'primary' : 'default'}`}
-            >
+            <Card key={i} className="shrink-0" size="lg">
               <CardHeader>
                 <CardChip>No.{i}</CardChip>
                 <CardTitle>제목 타이틀</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex flex-col">
                 내용 텍스트입니다.내용 텍스트입니다.내용 텍스트입니다.내용
                 텍스트입니다.내용 텍스트입니다.내용 텍스트입니다.내용 텍스트입니다.내용
                 텍스트입니다.내용 텍스트입니다.
+                <span className="self-end mt-auto font-r14 text-gray-500 group-hover:text-gray-50">
+                  00월 00일
+                </span>
               </CardContent>
+              <CardFooter>
+                {['칩1', '칩222', '칩333', '칩444'].map((v, i) => (
+                  <CardChip key={i} position="footer">
+                    {v}
+                  </CardChip>
+                ))}
+              </CardFooter>
             </Card>
           ))}
         </div>

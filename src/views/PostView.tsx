@@ -8,7 +8,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import Image from 'next/image';
@@ -25,6 +24,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import Editor from '@/components/Editor';
+import Tag from '@/components/Tag';
 
 const FormSchema = z.object({
   title: z.string(),
@@ -65,7 +65,7 @@ const PostView = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/3 space-y-4 min-w-[960px]"
+        className="w-2/3 flex flex-col gap-y-4 min-w-[960px] h-full"
       >
         <FormField
           control={form.control}
@@ -83,13 +83,13 @@ const PostView = () => {
             </FormItem>
           )}
         />
-        <div className="space-y-1">
+        <div className="space-y-[14px]">
           <FormField
             control={form.control}
             name="date"
             render={({ field }) => (
-              <FormItem className="flex space-y-0">
-                <FormLabel className="flex gap-0.5 items-center">
+              <FormItem className="flex space-y-0 space-x-[52px]">
+                <FormLabel className="flex gap-2 items-center font-r16">
                   <Image
                     src="/assets/icons/calendar.png"
                     width={22}
@@ -102,14 +102,13 @@ const PostView = () => {
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
-                        variant={'outline'}
+                        variant={'ghost'}
                         className={cn(
-                          'w-[240px] pl-3 text-left font-normal',
+                          'flex-1 pl-3 py-2 font-r16 text-gray-700 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
                           !field.value && 'text-muted-foreground',
                         )}
                       >
                         {format(field.value, 'yyyy년 M월 d일')}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
@@ -128,9 +127,15 @@ const PostView = () => {
               </FormItem>
             )}
           />
-          <div>태그</div>
+          <FormItem className="flex space-y-0 space-x-[52px]">
+            <FormLabel className="flex gap-2 items-center font-r16">
+              <Image src="/assets/icons/calendar.png" width={22} height={22} alt="date" />
+              태그
+            </FormLabel>
+            <Tag />
+          </FormItem>
         </div>
-        <Editor defaultValue={ops} />
+        <Editor className="flex flex-col flex-1" defaultValue={ops} />
         <div className="text-end">
           <Button type="submit">저장하기</Button>
         </div>
