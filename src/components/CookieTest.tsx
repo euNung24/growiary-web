@@ -6,12 +6,19 @@ const CookieTest = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        origin: 'https://localhost:3000',
       },
       credentials: 'include',
     });
     // .then(res => res.json())
     // .then(data => console.log(data));
+    // fetch(`https://localhost:3000/api`, {
+    //   // method: 'POST',
+    //   // headers: {
+    //   //   'Content-Type': 'application/json; charset=utf-8',
+    //   //   origin: 'https://localhost:3000',
+    //   // },
+    //   // credentials: 'include',
+    // });
   };
 
   // useEffect(() => {
