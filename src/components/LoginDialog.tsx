@@ -16,7 +16,7 @@ const LoginDialog = () => {
   const kakaoLogin = async () => {
     const url = 'https://kauth.kakao.com/oauth/authorize';
     const response_type = 'code';
-    const kakaoURL = `${url}?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}&response_type=${response_type}`;
+    const kakaoURL = `${url}?client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${process.env.KAKAO_REDIRECT_URL}&response_type=${response_type}`;
 
     window.location.assign(kakaoURL);
   };
@@ -29,7 +29,7 @@ const LoginDialog = () => {
     const include_granted_scopes = 'true';
     const state = 'state_parameter_passthrough_value';
     const prompt = 'consent';
-    const googleURL = `${url}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL}&response_type=${response_type}&scope=${scope}&access_type=${access_type}&include_granted_scopes=${include_granted_scopes}&state=${state}&prompt=${prompt}`;
+    const googleURL = `${url}?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_REDIRECT_URL}&response_type=${response_type}&scope=${scope}&access_type=${access_type}&include_granted_scopes=${include_granted_scopes}&state=${state}&prompt=${prompt}`;
 
     window.location.assign(googleURL);
   };
