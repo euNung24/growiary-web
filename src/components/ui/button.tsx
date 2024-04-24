@@ -9,25 +9,20 @@ import { createContext, useContext } from 'react';
 import Image from 'next/image';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        default:
-          'bg-primary-900 text-white-0 focus:bg-primary-900/90 dark:bg-primary-900 dark:text-white-0 dark:focus:bg-primary-900/90',
-        secondary:
-          'bg-secondary-700 text-white-0 focus:bg-secondary-700/90 dark:bg-secondary-700 dark:text-white-0 dark:focus:bg-secondary-700/90',
+        default: 'bg-primary-900 text-white-0 focus:bg-primary-900/90',
+        secondary: 'bg-secondary-700 text-white-0 focus:bg-secondary-700/90',
         outline:
-          'border border-primary-900 bg-white-0 text-primary-900 hover:border-primary-900/90 hover:text-primary-900/90 focus:border-2 dark:border-primary-900 dark:bg-white-0 dark:hover:border-primary-900/90 dark:hover:text-primary-900/90',
+          'border border-primary-900 bg-white-0 text-primary-900 hover:border-primary-900/90 hover:text-primary-900/90 focus:border-2',
         outlineGray:
-          'border border-gray-200 bg-white-0 text-gray-900 hover:border-gray-200/90 hover:text-gray-900/90 focus:border-2 focus:border-gray-400 dark:border-gray-200 dark:bg-white-0 dark:hover:border-gray-200/90 dark:hover:text-gray-900/90 dark:focus:border-gray-400',
-        ghost:
-          'text-primary-900 hover:text-primary-900/90 focus:bg-primary-50 dark:hover:text-primary-900/90 dark:focus:bg-primary-50',
-        ghostGray:
-          'text-gray-900 hover:text-gray-900/90 focus:bg-gray-50 dark:hover:text-gray-900/90 dark:focus:bg-gray-50',
-        destructive:
-          'bg-red-500 text-slate-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-slate-50 dark:hover:bg-red-900/90',
-        link: 'text-slate-900 underline-offset-4 hover:underline dark:text-slate-50',
+          'border border-gray-200 bg-white-0 text-gray-900 hover:border-gray-200/90 hover:text-gray-900/90 focus:border-2 focus:border-gray-400',
+        ghost: 'text-primary-900 hover:text-primary-900/90 focus:bg-primary-50',
+        ghostGray: 'text-gray-900 hover:text-gray-900/90 focus:bg-gray-50 ',
+        destructive: 'bg-red-500 text-slate-50 hover:bg-red-500/90',
+        link: 'text-slate-900 underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-10 px-6 py-[11px] font-sb14',
@@ -63,21 +58,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       disableClass = 'pointer-events-none ';
       switch (variant) {
         case 'outline':
-          disableClass +=
-            'border-gray-100 text-gray-400 dark:border-gray-100 dark:text-gray-400';
+          disableClass += 'border-gray-100 text-gray-400';
           break;
         case 'outlineGray':
-          disableClass +=
-            'border-gray-100 text-gray-400 dark:border-gray-100 dark:text-gray-400';
+          disableClass += 'border-gray-100 text-gray-400';
           break;
         case 'ghost':
-          disableClass += 'text-gray-400 dark:text-gray-400';
+          disableClass += 'text-gray-400 ';
           break;
         case 'ghostGray':
-          disableClass += 'text-gray-400 dark:text-gray-400';
+          disableClass += 'text-gray-400 ';
           break;
         default:
-          disableClass += 'bg-gray-400 text-white-0 dark:bg-gray-400 dark:text-white-0';
+          disableClass += 'bg-gray-400 text-white-0';
           break;
       }
     }
