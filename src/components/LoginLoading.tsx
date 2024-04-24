@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import crypto from 'crypto-js';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-const secretKey = process.env.LOGIN_SECRET_KEY || '';
+const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
 function encodeUrlSafe(text: string): string {
   return text.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
