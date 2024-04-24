@@ -14,7 +14,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { useContext } from 'react';
 
-const topicCardVariants = cva('hover:shadow w-[300px]', {
+const topicCardVariants = cva('group hover:shadow w-[300px]', {
   variants: {
     variant: {
       default: 'bg-white-0 border border-gray-100 text-gray-400',
@@ -44,10 +44,10 @@ TopicCard.displayName = 'TopicCard';
 const TopicCardChip = (props: TopicCardProps) => {
   return (
     <div
-      className={cn(
-        'font-r14 rounded px-2 py-0.5 self-start mb-2 bg-primary-400 text-white-0',
-      )}
       {...props}
+      className={cn(
+        'inline-block font-r14 rounded px-2 py-0.5 self-start mb-2 bg-primary-400 text-white-0',
+      )}
     />
   );
 };
@@ -57,10 +57,12 @@ const TopicCardHeader = CardHeader;
 TopicCardHeader.displayName = 'TopicCardHeader';
 
 const TopicCardTitle = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-  const { variant } = useContext(CardContext);
-  const fontColor = variant === 'default' && 'text-primary-900';
-
-  return <CardTitle {...props} className={cn('font-sb22', fontColor)} />;
+  return (
+    <CardTitle
+      {...props}
+      className={cn('font-sb22 text-primary-900 group-hover:text-white-0')}
+    />
+  );
 };
 TopicCardTitle.displayName = 'TopicCardTitle';
 
@@ -69,7 +71,7 @@ const TopicCardDescription = CardDescription;
 TopicCardDescription.displayName = 'TopicCardDescription';
 
 const TopicCardContent = (props: React.HTMLAttributes<HTMLDivElement>) => {
-  return <CardContent {...props} className="flex-1 flex items-center" />;
+  return <CardContent {...props} className="flex-1 flex items-center text-gray-500" />;
 };
 TopicCardContent.displayName = 'TopicCardContent';
 
