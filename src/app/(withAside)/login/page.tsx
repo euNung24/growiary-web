@@ -1,5 +1,10 @@
 import LoginLoading from '@/components/LoginLoading';
+import { Suspense } from 'react';
 
 export default function Page() {
-  return <LoginLoading />;
+  return (
+    <Suspense>
+      <LoginLoading />
+    </Suspense>
+  );
 }
