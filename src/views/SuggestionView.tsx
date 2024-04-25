@@ -16,6 +16,7 @@ import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/types/topicTypes';
 import { useState } from 'react';
 import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
+import Link from 'next/link';
 
 const SuggestionView = () => {
   const [category, setCategory] = useState(() => {
@@ -71,9 +72,12 @@ const SuggestionView = () => {
                     className={cn(
                       'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
                     )}
+                    asChild
                   >
-                    <ButtonIcon src="/assets/icons/edit.png" alt="write" />이 주제로
-                    글쓰기
+                    <Link href="/post">
+                      <ButtonIcon src="/assets/icons/edit.png" alt="write" />이 주제로
+                      글쓰기
+                    </Link>
                   </Button>
                 </TopicCardFooter>
               </TopicCard>

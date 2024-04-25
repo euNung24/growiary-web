@@ -8,9 +8,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { Calendar as CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
-import Image from 'next/image';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import Editor from '@/components/Editor';
 import Tag from '@/components/Tag';
+import { Hash } from 'lucide-react';
 
 const FormSchema = z.object({
   title: z.string(),
@@ -89,13 +90,8 @@ const PostView = () => {
             name="date"
             render={({ field }) => (
               <FormItem className="flex space-y-0 space-x-[52px]">
-                <FormLabel className="flex gap-2 items-center font-r16">
-                  <Image
-                    src="/assets/icons/calendar.png"
-                    width={22}
-                    height={22}
-                    alt="date"
-                  />
+                <FormLabel className="flex gap-2 items-center font-r16 text-gray-700">
+                  <CalendarIcon width={22} height={22} />
                   날짜
                 </FormLabel>
                 <Popover>
@@ -128,8 +124,8 @@ const PostView = () => {
             )}
           />
           <FormItem className="flex space-y-0 space-x-[52px]">
-            <FormLabel className="flex gap-2 items-center font-r16">
-              <Image src="/assets/icons/calendar.png" width={22} height={22} alt="date" />
+            <FormLabel className="flex gap-2 items-center font-r16 text-gray-700">
+              <Hash width={22} height={22} />
               태그
             </FormLabel>
             <Tag />
