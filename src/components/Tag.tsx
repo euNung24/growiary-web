@@ -1,14 +1,22 @@
-import { ChangeEventHandler, KeyboardEventHandler, useRef, useState } from 'react';
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Input } from '@/components/ui/input';
+import { X } from 'lucide-react';
 
 type TagProps = {
   list?: string[];
 };
 const Tag = ({ list }: TagProps) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const spanRef = useRef<HTMLSpanElement | null>(null);
-  const spanWidthRef = useRef(0);
   const [input, setInput] = useState('');
   const [tags, setTags] = useState(list || []);
+
   const handleRemoveTag = (idx: number) => {
     const filteredTags = tags.filter((v, i) => i !== idx);
     setTags(filteredTags);
@@ -19,6 +27,11 @@ const Tag = ({ list }: TagProps) => {
     setInput(target.value);
   };
 
+  const handleDeleteInput = () => {
+    setInput('');
+    inputRef.current?.focus();
+  };
+
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -27,10 +40,9 @@ const Tag = ({ list }: TagProps) => {
   };
 
   const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = e => {
-    const target = e.target as HTMLInputElement;
-
-    if (!input) {
-      target.style.width = '67px';
+    if (!input && inputRef.current) {
+      inputRef.current.style.width =
+        spanRef.current?.getBoundingClientRect().width + 'px';
       return;
     }
 
@@ -42,10 +54,13 @@ const Tag = ({ list }: TagProps) => {
       setInput('');
       return;
     }
-
-    spanWidthRef.current = spanRef.current?.getBoundingClientRect().width || 0;
-    target.style.width = spanWidthRef.current + 'px';
   };
+
+  useEffect(() => {
+    if (!inputRef.current) return;
+
+    inputRef.current.style.width = spanRef.current?.getBoundingClientRect().width + 'px';
+  }, [input]);
 
   return (
     <div className="flex gap-2">
@@ -56,17 +71,21 @@ const Tag = ({ list }: TagProps) => {
             className="bg-secondary-50 font-r16 text-gray-800 py-[11px] pl-[10px] pr-[6px] rounded"
           >
             {v}
-            <button className="w-[22px] h-[22px] ml-1" onClick={() => handleRemoveTag(i)}>
-              X
-            </button>
+            <X
+              width={22}
+              height={22}
+              className="ml-1 inline-block text-gray-700 cursor-pointer"
+              onClick={() => handleRemoveTag(i)}
+            />
           </li>
         ))}
       </ul>
       <div className="flex items-center relative">
         <Input
+          ref={inputRef}
           type="text"
           placeholder="태그입력"
-          className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-400"
+          className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-700"
           onChange={handleChangeInput}
           onKeyDown={handleKeyDown}
           onKeyUp={handleKeyUp}
@@ -75,9 +94,12 @@ const Tag = ({ list }: TagProps) => {
         <span ref={spanRef} className="absolute pl-3 opacity-0 z-[-1]">
           {input || '태그입력'}
         </span>
-        <button className="w-[22px] h-[22px] ml-1" onClick={() => {}}>
-          X
-        </button>
+        <X
+          width={22}
+          height={22}
+          className="ml-1 inline-block text-gray-400 hover:text-gray-700 cursor-pointer"
+          onClick={handleDeleteInput}
+        />
       </div>
     </div>
   );
