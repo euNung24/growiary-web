@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import {
+  FindTopicType,
+  PostTopicType,
+  TopicType,
+  UpdateTopicType,
+} from '@/types/topicTypes';
+
 const topicApiUrl = process.env.NEXT_PUBLIC_API + '/topic';
 
 export const getAllTopics = async (): Promise<ApiSuccessResponse<TopicType[]>> => {

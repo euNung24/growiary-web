@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-type TopicType = {
+export type TopicCategory = '회고' | '하루생각' | '자아탐험' | '크리에이티브';
+
+export type TopicType = {
   id: number;
   category: string;
   title: string;
@@ -8,11 +10,14 @@ type TopicType = {
   createdAt: string;
   updatedAt: string;
 };
-type PostTopicType = Pick<TopicType, 'category' | 'title' | 'content'>;
-type UpdateTopicType = {
+
+export type PostTopicType = Pick<TopicType, 'category' | 'title' | 'content'>;
+
+export type UpdateTopicType = {
   id: number;
   title?: string;
   icon?: string;
   content?: string;
 };
-type FindTopicType = Pick<TopicType, 'id'>;
+
+export type FindTopicType = Pick<TopicType, 'id'>;

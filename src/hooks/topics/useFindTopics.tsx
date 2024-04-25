@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { findTopic } from '@/apis/topics';
+import { FindTopicType } from '@/types/topicTypes';
 const useFindTopic = (id: FindTopicType['id']) => {
   const mutation = useMutation({
     mutationKey: ['allTopics', id],

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   TopicCard,
   TopicCardChip,
@@ -9,9 +11,24 @@ import {
 import { Button, ButtonIcon } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import Chip from '@/components/Chip';
+import { topicCategory } from '@/utils/topicCategory';
+import { TopicCategory } from '@/types/topicTypes';
+import { useState } from 'react';
+import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
 
 const SuggestionView = () => {
-  const topics = [
+  const [category, setCategory] = useState(() => {
+    return Object.keys(topicCategory)[0] as TopicCategory;
+  });
+
+  const topics = useGetTopicsByCategory();
+
+  const handleClickCategory = (category: TopicCategory) => {
+    setCategory(category);
+  };
+
+  const topics2 = [
     {
       category: '하루를 돌아보는 소소한',
       questions: ['하루를 돌아보는 소소한1', '하루를 돌아보는 소소한2'],
@@ -29,19 +46,12 @@ const SuggestionView = () => {
     },
   ];
 
-  const categories = [
-    '성장을 위한 회고 프레임워크',
-    '몰랐던 나를 발견하는',
-    '하루를 돌아보는 소소한',
-    '하루를 돌아보는 소소한',
-  ];
-
   return (
     <>
       <section>
         <h2 className="title">다채로운 질문들을 만나보세요</h2>
         <div className="flex gap-5 mt-6">
-          {topics.map((v, i) => (
+          {topics2.map((v, i) => (
             <div key={i}>
               <TopicCard className="shrink-0">
                 <TopicCardHeader>
@@ -74,34 +84,48 @@ const SuggestionView = () => {
       </section>
       <hr className="border-gray-100 mt-[46px] mb-6" />
       <section>
-        <ul className="flex justify-between">
-          {categories.map((v, i) => (
-            <li
-              key={i}
-              className={cn(
-                'flex font-sb16 p-3 gap-2',
-                i === 0
-                  ? 'text-primary-900 border-b-2 border-primary-900'
-                  : 'text-gray-500',
-              )}
-            >
-              <Image src="/assets/icons/edit.png" alt="" width={24} height={24} />
-              {v}
-            </li>
-          ))}
+        <ul className="flex gap-x-3">
+          {(Object.keys(topicCategory) as TopicCategory[]).map((v, i) => {
+            const { Icon } = topicCategory[v];
+
+            return (
+              <li
+                key={i}
+                className={cn(
+                  'flex font-sb16 p-3 gap-2 cursor-pointer',
+                  category === v
+                    ? 'text-primary-900 border-b-2 border-primary-900'
+                    : 'text-gray-500',
+                )}
+                onClick={() => handleClickCategory(v)}
+              >
+                <Icon color={category === v ? '#002861' : '#8A9299'} />
+                {v}
+              </li>
+            );
+          })}
         </ul>
         <ul className="flex flex-col gap-6 text-gray-700 mt-9">
-          {[...new Array(8)].map((v, i) => (
+          {topics[category]?.map((topic, i) => (
             <li
               key={i}
               className={cn(
-                'px-6 py-4 rounded-md',
+                'group px-6 py-4 rounded-md',
                 'hover:bg-primary-900 hover:text-white-0',
                 'border border-gray-100',
               )}
             >
-              정말 하고 싶었는데 못했던 일이 있나요? 원했던 그 일을 할 수 없었던 이유는
-              무엇인가요?
+              <Image
+                src="/assets/icons/edit_white.png"
+                alt="icon"
+                width={22}
+                height={22}
+                className="hidden	group-hover:inline-block group-hover:mr-3"
+              />
+              {topic.title}
+              <Chip className="ml-3 group-hover:bg-gray-50 group-hover:text-gray-900">
+                Best
+              </Chip>
             </li>
           ))}
         </ul>
