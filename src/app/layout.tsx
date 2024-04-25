@@ -23,9 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ReactQueryProvider>
-          <RecoilProvider>{children}</RecoilProvider>
-        </ReactQueryProvider>
+        <RecoilProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </RecoilProvider>
       </body>
     </html>
   );

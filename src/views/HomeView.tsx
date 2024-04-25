@@ -23,7 +23,7 @@ const HomeView = () => {
       <section>
         <h2 className="title">기록 리포트</h2>
         <p className={headerDescriptionStyle}>작성해주신 기록을 그루어리가 분석했어요</p>
-        <div className="flex gap-5">
+        <div className="flex gap-5 flex-wrap">
           {[...Array(3)].map((v, i) => (
             <Card key={i} className="shrink-0">
               i
@@ -34,35 +34,36 @@ const HomeView = () => {
       <section>
         <h2 className="title">오늘의 추천 주제</h2>
         <p className={headerDescriptionStyle}>추천 주제로 기록을 쉽게 시작해보세요</p>
-        <div className="flex gap-5">
-          {(Object.keys(topics) as TopicCategory[]).map((v, i) => {
-            const randomTopicIdx = genRandomNum(0, topics[v].length);
-            const topic = topics[v][randomTopicIdx];
-            const { Icon } = topicCategory[v];
+        <div className="flex gap-5 flex-wrap">
+          {topics &&
+            (Object.keys(topics) as TopicCategory[]).map((v, i) => {
+              const randomTopicIdx = genRandomNum(0, topics[v].length);
+              const topic = topics[v][randomTopicIdx];
+              const Icon = topicCategory[v]?.Icon;
 
-            return (
-              <Card key={i} className="shrink-0" variant="disabled">
-                <CardHeader className="flex gap-2">
-                  <Icon />
-                  <CardTitle>{topic.category}</CardTitle>
-                  <Image
-                    src="/vercel.svg"
-                    width={24}
-                    height={24}
-                    alt="icon"
-                    className="ml-auto"
-                  />
-                </CardHeader>
-                <CardContent>{topic.title}</CardContent>
-              </Card>
-            );
-          })}
+              return (
+                <Card key={i} className="shrink-0" variant="disabled">
+                  <CardHeader className="flex gap-2">
+                    {Icon && <Icon />}
+                    <CardTitle>{topic.category}</CardTitle>
+                    <Image
+                      src="/vercel.svg"
+                      width={24}
+                      height={24}
+                      alt="icon"
+                      className="ml-auto"
+                    />
+                  </CardHeader>
+                  <CardContent>{topic.title}</CardContent>
+                </Card>
+              );
+            })}
         </div>
       </section>
       <section>
         <h2 className="title">나의 기록</h2>
         <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>
-        <div className="flex gap-5">
+        <div className="flex gap-5 flex-wrap">
           {[...Array(3)].map((v, i) => (
             <Card key={i} className="shrink-0" size="lg">
               <CardHeader>

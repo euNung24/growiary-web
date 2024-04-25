@@ -2,14 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getAllTopics } from '@/apis/topics';
-import { useRecoilState } from 'recoil';
-import { TopicsByCategoryState } from '@/store/topics';
 import { useEffect } from 'react';
 import { TopicCategory, TopicType } from '@/types/topicTypes';
+import { topicCategory } from '@/utils/topicCategory';
 
 const useGetTopicsByCategory = () => {
-  const [topicsByCategory, setTopicsByCategory] = useRecoilState(TopicsByCategoryState);
-
   const {
     data: data,
     isError,
@@ -18,17 +15,15 @@ const useGetTopicsByCategory = () => {
   } = useQuery({
     queryKey: ['allTopics'],
     queryFn: getAllTopics,
-    enabled: !Object.keys(topicsByCategory).length,
-  });
-
-  useEffect(() => {
-    if (isError) {
-      alert(error.message);
-    }
-    if (isSuccess && data) {
+    staleTime: Infinity,
+    select: data => {
       const filteredByCategory: Record<TopicCategory, TopicType[]> = data.data.reduce(
         (f, v) => {
-          const category = v.title.split(':')[0].trim() as TopicCategory;
+          const category = v.category.split(':')[0].trim() as TopicCategory;
+
+          if (!(category in topicCategory)) {
+            return { ...f };
+          }
 
           return {
             ...f,
@@ -37,11 +32,21 @@ const useGetTopicsByCategory = () => {
         },
         {} as Record<TopicCategory, TopicType[]>,
       );
-      setTopicsByCategory(filteredByCategory);
+
+      return filteredByCategory;
+    },
+  });
+
+  useEffect(() => {
+    if (isError) {
+      alert(error.message);
+    }
+    if (isSuccess && data) {
+      // console.log('select', data);
     }
   }, [data]);
 
-  return topicsByCategory;
+  return data;
 };
 
 export default useGetTopicsByCategory;

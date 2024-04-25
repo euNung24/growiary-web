@@ -106,7 +106,7 @@ const SuggestionView = () => {
           })}
         </ul>
         <ul className="flex flex-col gap-6 text-gray-700 mt-9">
-          {topics[category]?.map((topic, i) => (
+          {topics?.[category]?.map((topic, i) => (
             <li
               key={i}
               className={cn(

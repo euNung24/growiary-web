@@ -1,10 +1,11 @@
 import Sidebar from '@/views/common/Sidebar';
+import { ReactNode } from 'react';
 
-export default async function asLayout({ children }: { children: React.ReactNode }) {
+export default async function asLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-w-full flex">
+    <div className="flex">
       <Sidebar />
-      <main className="mx-auto my-[72px]">{children}</main>
+      <main className="flex flex-col mx-auto max-w-[960px] my-[72px]">{children}</main>
     </div>
   );
 }

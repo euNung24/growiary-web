@@ -96,7 +96,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="lg:w-[68px] w-[200px] bg-[#F7F7F7] min-h-screen">
+    <aside className="lg:flex-[0_0_68px] flex-[0_0_200px] bg-[#F7F7F7] min-h-screen">
       <Link href="/" className="block py-[22px]">
         <picture>
           <source
