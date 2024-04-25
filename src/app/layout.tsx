@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
-import { RecoilRoot } from 'recoil';
 import RecoilProvider from '@/components/providers/RecoilProvider';
+import localFont from 'next/font/local';
+import { ReactNode } from 'react';
 
-const inter = Inter({ subsets: ['latin'] });
+const font = localFont({
+  src: './fonts/PretendardVariable.woff2',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,11 +18,11 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={font.className}>
         <ReactQueryProvider>
           <RecoilProvider>{children}</RecoilProvider>
         </ReactQueryProvider>
