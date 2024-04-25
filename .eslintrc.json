@@ -5,6 +5,7 @@
         "node": true
     },
     "extends": [
+        "plugin:@tanstack/eslint-plugin-query/recommended",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
@@ -17,6 +18,7 @@
         "sourceType": "module"
     },
     "plugins": [
+        "@tanstack/query",
         "@typescript-eslint",
         "react"
     ],
