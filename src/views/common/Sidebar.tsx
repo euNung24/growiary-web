@@ -58,19 +58,19 @@ const Sidebar = () => {
       src: '/assets/icons/calendar',
       alt: 'history',
       name: '나의 기록들',
-      href: '#',
+      href: '/history',
     },
     {
       src: '/assets/icons/multi-window',
       alt: 'recommended questions',
-      name: '추천 질문',
+      name: '추천 주제',
       href: '/suggestion',
     },
     {
       src: '/assets/icons/report',
       alt: 'monthly report',
       name: '월간 리포트',
-      href: '#',
+      href: '/report',
     },
     {
       src: '/assets/icons/book',
