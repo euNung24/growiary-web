@@ -9,6 +9,12 @@
     line-height: 60px;
   }
 
+  .font-m36 {
+    @apply font-medium;
+    font-size: 36px;
+    line-height: 48px;
+  }
+
   .font-b32 {
     @apply font-bold;
     font-size: 32px;
