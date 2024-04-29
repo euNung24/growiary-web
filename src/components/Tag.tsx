@@ -7,15 +7,17 @@ import {
 } from 'react';
 import { Input } from '@/components/ui/input';
 import { X } from 'lucide-react';
+import { ControllerRenderProps } from 'react-hook-form';
 
 type TagProps = {
-  list?: string[];
+  tags: string[];
+  setTags: ControllerRenderProps['onChange'];
 };
-const Tag = ({ list }: TagProps) => {
+
+const Tag = ({ tags, setTags }: TagProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const spanRef = useRef<HTMLSpanElement | null>(null);
   const [input, setInput] = useState('');
-  const [tags, setTags] = useState(list || []);
 
   const handleRemoveTag = (idx: number) => {
     const filteredTags = tags.filter((v, i) => i !== idx);
@@ -51,6 +53,7 @@ const Tag = ({ list }: TagProps) => {
       const copiedTags = [...tags];
       copiedTags.push(input);
       setTags(copiedTags);
+
       setInput('');
       return;
     }

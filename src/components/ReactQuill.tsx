@@ -3,9 +3,18 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import './editor.css';
 import Delta from 'quill-delta';
+import { ControllerRenderProps } from 'react-hook-form';
 
-const ReactQuill = forwardRef<Quill, { defaultValue?: Delta }>(
-  ({ defaultValue, ...props }, ref) => {
+type ReactQuillProps = {
+  defaultValue?: Delta | string;
+  events: {
+    handleContentChange: ControllerRenderProps['onChange'];
+    handleCountChange: ControllerRenderProps['onChange'];
+  };
+};
+
+const ReactQuill = forwardRef<Quill, ReactQuillProps>(
+  ({ defaultValue, events, ...props }, ref) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const defaultValueRef = useRef(defaultValue);
     const toolbarOptions = [
@@ -46,10 +55,19 @@ const ReactQuill = forwardRef<Quill, { defaultValue?: Delta }>(
         theme: 'snow',
       });
 
+      quill.on('text-change', () => {
+        events.handleContentChange(quill.getContents());
+        events.handleCountChange(quill.getText().length);
+      });
+
       ref && (ref.current = quill);
 
       if (defaultValueRef.current) {
-        quill.setContents(defaultValueRef.current);
+        if (typeof defaultValueRef.current === 'string') {
+          quill.clipboard.dangerouslyPasteHTML(defaultValueRef.current);
+        } else {
+          quill.setContents(defaultValueRef.current);
+        }
       }
 
       return () => {

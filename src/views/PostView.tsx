@@ -27,34 +27,62 @@ import Editor from '@/components/Editor';
 import Tag from '@/components/Tag';
 import { Hash } from 'lucide-react';
 
-const FormSchema = z.object({
+export const FormSchema = z.object({
+  topicId: z.number().nullish(),
   title: z.string(),
-  date: z.date(),
+  content: z.string().or(z.object({ ops: z.array(z.any()) })),
+  tags: z.array(z.string()),
+  charactersCount: z.number(),
+  writeDate: z.date(),
   // username: z.string().min(2, {
   //   message: 'Username must be at least 2 characters.',
   // }),
 });
 const PostView = () => {
-  const ops = [
-    { insert: 'Keep', attributes: { bold: true } },
-    { insert: '\n', attributes: { header: 2 } },
-    { insert: '현재 만족하고 있는 부분' },
-    { insert: '\n', attributes: { list: 'bullet' } },
-    { insert: '계속 이어갔으면 하는 부분' },
-    { insert: '\n', attributes: { list: 'bullet' } },
-    { insert: 'Problem', attributes: { bold: true } },
-    { insert: '\n', attributes: { header: 2 } },
-    { insert: '현재 만족하고 있는 부분' },
-    { insert: '\n', attributes: { list: 'bullet' } },
-    { insert: '계속 이어갔으면 하는 부분' },
-    { insert: '\n', attributes: { list: 'bullet' } },
-  ];
+  // const ops =
+  //   '<h2>\n' +
+  //   '<b>\n' +
+  //   'Keep\n' +
+  //   '</b>\n' +
+  //   '</h2>\n' +
+  //   '<ul>\n' +
+  //   '<li>\n' +
+  //   '현재 만족하고 있는 부분\n' +
+  //   '</li>\n' +
+  //   '<li>\n' +
+  //   '계속 이어갔으면 하는 부분\n' +
+  //   '</li>\n' +
+  //   '<li>\n' +
+  //   '계속 이어갔으면 하는 부분\n' +
+  //   '</li>\n' +
+  //   '</ul>';
+
+  const ops = {
+    ops: [
+      { insert: 'Keep', attributes: { bold: true } },
+      { insert: '\n', attributes: { header: 2 } },
+      { insert: '현재 만족하고 있는 부분' },
+      { insert: '\n', attributes: { list: 'bullet' } },
+      { insert: '계속 이어갔으면 하는 부분' },
+      { insert: '\n', attributes: { list: 'bullet' } },
+      { insert: 'Problem', attributes: { bold: true } },
+      { insert: '\n', attributes: { header: 2 } },
+      { insert: '현재 만족하고 있는 부분' },
+      { insert: '\n', attributes: { list: 'bullet' } },
+      { insert: '계속 이어갔으면 하는 부분' },
+      { insert: '\n', attributes: { list: 'bullet' } },
+    ],
+  };
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      topicId: undefined,
       title: '',
-      date: new Date(),
+      tags: [],
+      content: ops,
+      charactersCount: 0,
+      writeDate: new Date(),
     },
   });
 
@@ -87,7 +115,7 @@ const PostView = () => {
         <div className="space-y-[14px]">
           <FormField
             control={form.control}
-            name="date"
+            name="writeDate"
             render={({ field }) => (
               <FormItem className="flex space-y-0 space-x-[52px]">
                 <FormLabel className="flex gap-2 items-center font-r16 text-gray-700">
@@ -123,15 +151,40 @@ const PostView = () => {
               </FormItem>
             )}
           />
-          <FormItem className="flex space-y-0 space-x-[52px]">
-            <FormLabel className="flex gap-2 items-center font-r16 text-gray-700">
-              <Hash width={22} height={22} />
-              태그
-            </FormLabel>
-            <Tag />
-          </FormItem>
+          <FormField
+            control={form.control}
+            name="tags"
+            render={({ field }) => (
+              <FormItem className="flex space-y-0 space-x-[52px]">
+                <FormLabel className="flex gap-2 items-center font-r16 text-gray-700">
+                  <Hash width={22} height={22} />
+                  태그
+                </FormLabel>
+                <Tag setTags={field.onChange} tags={field.value} />
+              </FormItem>
+            )}
+          />
         </div>
-        <Editor className="flex flex-col flex-1" defaultValue={ops} />
+        <FormField
+          control={form.control}
+          name="content"
+          render={({ field }) => (
+            <FormField
+              control={form.control}
+              name="charactersCount"
+              render={({ field: countField }) => (
+                <Editor
+                  className="flex flex-col flex-1"
+                  defaultValue={field.value}
+                  events={{
+                    handleContentChange: field.onChange,
+                    handleCountChange: countField.onChange,
+                  }}
+                />
+              )}
+            />
+          )}
+        />
         <div className="text-end">
           <Button type="submit">저장하기</Button>
         </div>
