@@ -17,3 +17,10 @@ src
   - ButtonIcon
 - alert-dialog.tsx
   - AlertDialogTitleIcon
+
+## 라이브러리 정보
+[tailwind](https://tailwindcss.com/)
+
+[shadcn/ui](https://ui.shadcn.com/)
+
+[아이콘](https://lucide.dev/)
