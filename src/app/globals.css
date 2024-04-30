@@ -87,6 +87,11 @@
     line-height: 26px;
   }
 
+  .font-m16 {
+    @apply font-medium;
+    font-size: 16px;
+  }
+
   .font-r16-base {
     @apply font-normal;
     font-size: 16px;

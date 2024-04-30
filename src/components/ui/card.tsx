@@ -56,8 +56,8 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     <CardContext.Provider value={{ size, variant }}>
       <div
         ref={ref}
-        className={cn(cardVariants({ variant, size }), className)}
         {...props}
+        className={cn(cardVariants({ variant, size }), className)}
       />
     </CardContext.Provider>
   ),
@@ -69,8 +69,8 @@ const CardChip = React.forwardRef<HTMLDivElement, CardChipProps>(
     return (
       <div
         ref={ref}
-        className={cn(cardChipVariants({ position }), className)}
         {...props}
+        className={cn(cardChipVariants({ position }), className)}
       />
     );
   },
@@ -79,7 +79,7 @@ CardChip.displayName = 'CardChip';
 
 const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
-    return <div ref={ref} className={cn(className)} {...props} />;
+    return <div ref={ref} {...props} className={cn(className)} />;
   },
 );
 CardHeader.displayName = 'CardHeader';
@@ -93,12 +93,12 @@ const CardTitle = React.forwardRef<
   return (
     <h3
       ref={ref}
+      {...props}
       className={cn(
         size === 'lg' ? 'font-sb22' : 'font-sb16',
         variant === 'disabled' && 'text-gray-500',
         className,
       )}
-      {...props}
     />
   );
 });
@@ -113,8 +113,8 @@ const CardDescription = React.forwardRef<
   return (
     <p
       ref={ref}
-      className={cn(size === 'lg' ? 'font-r16' : 'font-r14', className)}
       {...props}
+      className={cn(size === 'lg' ? 'font-r16' : 'font-r14', className)}
     />
   );
 });
@@ -129,13 +129,13 @@ const CardContent = React.forwardRef<
   return (
     <div
       ref={ref}
+      {...props}
       className={cn(
         'flex-1 text-gray-800 group-hover:text-white-0',
         variant === 'disabled' && 'group-hover:text-gray-800',
         size === 'lg' ? 'pt-2' : 'pt-1',
         className,
       )}
-      {...props}
     />
   );
 });
@@ -143,7 +143,7 @@ CardContent.displayName = 'CardContent';
 
 const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex items-center mt-3', className)} {...props} />
+    <div ref={ref} {...props} className={cn('flex items-center mt-3', className)} />
   ),
 );
 CardFooter.displayName = 'CardFooter';

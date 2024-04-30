@@ -78,6 +78,12 @@ const Sidebar = () => {
       name: '회고 TIP',
       href: '#',
     },
+    {
+      src: '/assets/icons/challenge',
+      alt: 'challenge',
+      name: '도전과제',
+      href: '/challenge',
+    },
   ];
 
   const menu2 = [
