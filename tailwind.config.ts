@@ -61,6 +61,9 @@ const config: Config = {
           0: '#FFFFFF',
         },
       },
+      borderRadius: {
+        full: '100%',
+      },
       boxShadow: {
         DEFAULT: '0px 4px 4px rgba(0 0 0 / 0.12), 4px 4px 12px rgba(0 0 0 / 0.12)',
         dialog: '4px 14px 20px rgba(0 0 0 / 0.1)',

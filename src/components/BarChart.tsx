@@ -2,8 +2,9 @@
 
 import { Bar } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { CanvasHTMLAttributes } from 'react';
 
-type BarChartProps<T> = {
+type BarChartProps<T> = CanvasHTMLAttributes<HTMLCanvasElement> & {
   labels: string[];
   data: T[];
   backgroundColor: string[];
@@ -11,12 +12,15 @@ type BarChartProps<T> = {
 };
 
 Chart.register(BarElement, CategoryScale, LinearScale);
+Chart.defaults.font.size = 16;
+Chart.defaults.font.weight = 'normal';
 
 function BarChart<T>({
   labels,
   data,
   backgroundColor,
   axisDisplay = true,
+  ...props
 }: BarChartProps<T>) {
   const chartData = {
     labels: labels,
@@ -49,7 +53,7 @@ function BarChart<T>({
     },
   };
 
-  return <Bar data={chartData} options={options} />;
+  return <Bar data={chartData} options={options} {...props} />;
 }
 
 export default BarChart;

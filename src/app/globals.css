@@ -121,6 +121,13 @@
     line-height: 16px;
   }
 
+  .font-r10-5 {
+    @apply font-normal;
+    font-size: 10.5px;
+    line-height: 16.5px;
+    letter-spacing: -0.3px;
+  }
+
   .title {
     @apply font-semibold text-primary-900;
     font-size: 18px;

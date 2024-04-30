@@ -11,6 +11,7 @@ import Chip from '@/components/Chip';
 import BarChart from '@/components/BarChart';
 import PolarChart from '@/components/PolarChart';
 import RectAreaChart from '@/components/RectAreaChart';
+import DonutChart from '@/components/DonutChart';
 const HistoryView = () => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
@@ -61,7 +62,7 @@ const HistoryView = () => {
   };
 
   return (
-    <>
+    <div className="min-w-[940px]">
       <div>
         <div className="flex gap-x-3 items-center">
           <ChevronLeft
@@ -92,7 +93,7 @@ const HistoryView = () => {
           </span>
         </div>
       </div>
-      <article className="flex flex-col gap-y-[102px] mt-[60px]">
+      <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
         <section>
           <h2 className="title">리포트 요약</h2>
           <ul
@@ -125,7 +126,7 @@ const HistoryView = () => {
               <span className={strengthStyle}>38개</span>의 글을 작성했어요.
             </p>
             <div className="flex gap-x-5 h-[356px]">
-              <div className={cn(boxStyle, 'flex-2')}>
+              <div className={cn(boxStyle, 'flex-1')}>
                 <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
                   <span>
                     전체 <b className="ml-[5px] text-gray-700">00개</b>
@@ -138,17 +139,20 @@ const HistoryView = () => {
                   </span>
                 </div>
                 <BarChart
+                  height="130%"
                   data={[12, 19, 3, 5, 2, 3, 3, 4]}
                   labels={['1', '2', '3', '4', '5', '6', '7', '8']}
                   backgroundColor={['#BFCADF', '#204C90']}
                 />
               </div>
-              <div className={cn(boxStyle, 'w-[300px]')}>
-                <p className={cn(descriptionStyle, 'mt-0')}>
+              <div className={cn(boxStyle, 'w-[300px] flex flex-col')}>
+                <p className={cn(descriptionStyle, 'mt-0 mb-7')}>
                   전체 이용자보다 <br />
                   <span className={strengthStyle}>+12개</span> 더 기록했어요
                 </p>
                 <BarChart
+                  className="mt-auto"
+                  height={200}
                   data={[12, 19]}
                   labels={['그루어리 평균', '그루미님']}
                   backgroundColor={['#BEBFBF', '#204C90']}
@@ -250,7 +254,9 @@ const HistoryView = () => {
                   작성한 글 <b className="font-m36 text-primary-900">12</b> 개
                 </span>
               </div>
-              <div>표1</div>
+              <div>
+                <DonutChart data={[['Foo', 60]]} />
+              </div>
             </div>
             <div className="flex flex-col flex-1 gap-y-4">
               <div className="flex p-3 rounded-lg border border-gray-100 items-center">
@@ -265,13 +271,65 @@ const HistoryView = () => {
         </section>
         <section>
           <h2 className="title">태그</h2>
-          <p className={descriptionStyle}>
-            <span className={strengthStyle}>32개</span>의 태그를 사용했어요.
-          </p>
-          <div className={cn(boxStyle)}>표</div>
+          <div className="flex gap-x-[22px]">
+            <div>
+              <p className={descriptionStyle}>
+                <span className={strengthStyle}>32개</span>의 태그를 가장 많이 사용했어요.
+              </p>
+              <div className="space-y-4">
+                <div className="flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
+                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5">
+                    1
+                  </i>
+                  <span>태그 텍스트</span>
+                  <Chip variant="gray" className="self-auto">
+                    New
+                  </Chip>
+                  <span className="ml-auto text-gray-700">00개</span>
+                </div>
+                <div className="flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
+                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5">
+                    1
+                  </i>
+                  <span>태그 텍스트</span>
+                  <Chip variant="gray" className="self-auto">
+                    New
+                  </Chip>
+                  <span className="ml-auto text-gray-700">00개</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p className={descriptionStyle}>
+                이번에 새롭게 등장한 태그는 <span className={strengthStyle}>32개</span>
+                입니다.
+              </p>
+              <div className="space-y-4">
+                <div className="flex flex-col gap-x-3 gap-y-2.5 pl-10 pr-4 py-5 bg-primary-900 border border-gray-100 rounded-xl font-r22 text-white-0">
+                  <div className="flex justify-between">
+                    <span>태그 텍스트</span>
+                    <span>00월 00일</span>
+                  </div>
+                  <p className="text-gray-100 font-r18">이 태그가 사용된 글 00개</p>
+                </div>
+                <div className="flex gap-x-3 pl-10 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
+                  <span>태그 텍스트</span>
+                  <span className="ml-auto text-gray-700">00월 00일</span>
+                </div>
+                <div className="flex gap-x-3 pl-10 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
+                  <span>태그 텍스트</span>
+                  <span className="ml-auto text-gray-700">00월 00일</span>
+                </div>
+                <div className="flex gap-x-3 pl-10 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
+                  <span>태그 텍스트</span>
+                  <span className="ml-auto text-gray-700">00월 00일</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </article>
-    </>
+    </div>
   );
 };
 
