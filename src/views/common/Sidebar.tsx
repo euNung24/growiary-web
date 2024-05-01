@@ -72,12 +72,12 @@ const Sidebar = () => {
       name: '월간 리포트',
       href: '/report',
     },
-    {
-      src: '/assets/icons/book',
-      alt: 'retrospect tip',
-      name: '회고 TIP',
-      href: '#',
-    },
+    // {
+    //   src: '/assets/icons/book',
+    //   alt: 'retrospect tip',
+    //   name: '회고 TIP',
+    //   href: '#',
+    // },
     {
       src: '/assets/icons/challenge',
       alt: 'challenge',
@@ -127,10 +127,18 @@ const Sidebar = () => {
           />
         </picture>
       </Link>
+      <div className="mt-0.5 mb-8 lg:mb-5 text-center">
+        <div className="mx-auto flex justify-center items-center w-[74px] h-[74px] rounded-full bg-gray-100 lg:hidden">
+          <Image src="/assets/icons/profile.png" alt="profile" width={42} height={42} />
+        </div>
+        <span className="lg:hidden block mt-3 mb-2 font-r12 text-gray-900">
+          회고하며 성장하는 일기장
+        </span>
+        <LoginDialog />
+      </div>
       <Menu items={menu1} />
       <hr className="my-6 border-gray-200" />
       <Menu items={menu2} />
-      <LoginDialog />
     </aside>
   );
 };
