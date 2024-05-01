@@ -1,3 +1,5 @@
+@import 'quill/dist/quill.snow.css';
+
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value=large]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
     content: "medium"
 }

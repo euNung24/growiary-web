@@ -1,6 +1,5 @@
 import React, { forwardRef, useEffect, useRef } from 'react';
 import Quill from 'quill';
-import 'quill/dist/quill.snow.css';
 import './editor.css';
 import Delta from 'quill-delta';
 import { ControllerRenderProps } from 'react-hook-form';

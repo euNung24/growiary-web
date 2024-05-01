@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
-import { Op } from 'quill-delta';
+import Delta, { Op } from 'quill-delta';
 import { ControllerRenderProps } from 'react-hook-form';
 
 type QuillComponentProps = {
@@ -15,7 +15,6 @@ type QuillComponentProps = {
 const Editor = dynamic(
   async () => {
     const { default: QuillComponent } = await import('./ReactQuill');
-    const { Delta } = await import('quill/core');
     const Quill = ({ defaultValue, events, ...props }: QuillComponentProps) => {
       return (
         <QuillComponent
