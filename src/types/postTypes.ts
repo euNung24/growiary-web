@@ -3,6 +3,7 @@ import { Op } from 'quill-delta';
 
 type PostType = {
   topicId?: number;
+  category?: string;
   title: string;
   content: { ops: Op[] };
   tags: string[];
@@ -13,7 +14,7 @@ type PostType = {
 
 export type ResPostType = PostType & {
   writeDate: string;
-  id: string;
+  id: number;
 };
 
 export type ReqPostType = PostType & {

@@ -6,6 +6,7 @@ import { ControllerRenderProps } from 'react-hook-form';
 
 type ReactQuillProps = {
   defaultValue?: Delta | string;
+  placeholder?: string;
   events: {
     handleContentChange: ControllerRenderProps['onChange'];
     handleCountChange: ControllerRenderProps['onChange'];
@@ -13,13 +14,14 @@ type ReactQuillProps = {
 };
 
 const ReactQuill = forwardRef<Quill, ReactQuillProps>(
-  ({ defaultValue, events, ...props }, ref) => {
+  ({ defaultValue, placeholder, events, ...props }, ref) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const defaultValueRef = useRef(defaultValue);
     const toolbarOptions = [
       [{ size: ['small', false, 'large', 'huge'] }],
       ['bold', 'italic', 'underline', 'strike'],
       [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+      [{ align: [] }],
       [
         {
           color: [
@@ -35,7 +37,6 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
           ],
         },
       ],
-      [{ align: [] }],
     ];
 
     useEffect(() => {
@@ -51,12 +52,19 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
         modules: {
           toolbar: toolbarOptions,
         },
+        placeholder: placeholder,
         theme: 'snow',
       });
 
       quill.on('text-change', () => {
         events.handleContentChange(quill.getContents());
-        events.handleCountChange(quill.getText().length);
+
+        if (quill.getLength() > 2000) {
+          alert('2000자 이내의 글만 작성할 수 있습니다.');
+          quill.deleteText(1999, quill.getLength());
+        }
+
+        events.handleCountChange(quill.getLength());
       });
 
       ref && (ref.current = quill);

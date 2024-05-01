@@ -1,4 +1,9 @@
 import PostView from '@/views/PostView';
+import { Suspense } from 'react';
 export default function Home() {
-  return <PostView />;
+  return (
+    <Suspense>
+      <PostView />
+    </Suspense>
+  );
 }

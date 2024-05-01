@@ -4,7 +4,7 @@ export type TopicCategory = '회고' | '하루생각' | '자아탐험' | '크리
 
 export type TopicType = {
   id: number;
-  category: string;
+  category: TopicCategory;
   title: string;
   content: string;
   createdAt: string;

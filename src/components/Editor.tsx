@@ -5,6 +5,7 @@ import { ControllerRenderProps } from 'react-hook-form';
 
 type QuillComponentProps = {
   defaultValue?: string | { ops: Op[] };
+  placeholder?: string;
   events: {
     handleContentChange: ControllerRenderProps['onChange'];
     handleCountChange: ControllerRenderProps['onChange'];
@@ -15,10 +16,16 @@ type QuillComponentProps = {
 const Editor = dynamic(
   async () => {
     const { default: QuillComponent } = await import('./ReactQuill');
-    const Quill = ({ defaultValue, events, ...props }: QuillComponentProps) => {
+    const Quill = ({
+      defaultValue,
+      placeholder,
+      events,
+      ...props
+    }: QuillComponentProps) => {
       return (
         <QuillComponent
           {...props}
+          placeholder={placeholder}
           events={events}
           defaultValue={
             typeof defaultValue === 'string' ? defaultValue : new Delta(defaultValue)

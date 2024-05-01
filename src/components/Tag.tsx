@@ -71,7 +71,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
         {tags.map((v, i) => (
           <li
             key={`${i}_${v}`}
-            className="bg-secondary-50 font-r16 text-gray-800 py-[11px] pl-[10px] pr-[6px] rounded"
+            className="flex items-center bg-gray-50 font-r16 text-gray-800 py-[11px] pl-[10px] pr-[6px] rounded"
           >
             {v}
             <X
@@ -84,25 +84,30 @@ const Tag = ({ tags, setTags }: TagProps) => {
         ))}
       </ul>
       <div className="flex items-center relative">
-        <Input
-          ref={inputRef}
-          type="text"
-          placeholder="태그입력"
-          className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-700"
-          onChange={handleChangeInput}
-          onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
-          value={input}
-        />
-        <span ref={spanRef} className="absolute pl-3 opacity-0 z-[-1]">
-          {input || '태그입력'}
-        </span>
-        <X
-          width={22}
-          height={22}
-          className="ml-1 inline-block text-gray-400 hover:text-gray-700 cursor-pointer"
-          onClick={handleDeleteInput}
-        />
+        {tags.length <= 5 && (
+          <>
+            <Input
+              ref={inputRef}
+              type="text"
+              placeholder="태그입력"
+              className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-700"
+              onChange={handleChangeInput}
+              onKeyDown={handleKeyDown}
+              onKeyUp={handleKeyUp}
+              value={input}
+              maxLength={10}
+            />
+            <span ref={spanRef} className="absolute pl-3 opacity-0 z-[-1]">
+              {input || '태그입력'}
+            </span>
+            <X
+              width={22}
+              height={22}
+              className="ml-1 inline-block text-gray-400 hover:text-gray-700 cursor-pointer"
+              onClick={handleDeleteInput}
+            />
+          </>
+        )}
       </div>
     </div>
   );
