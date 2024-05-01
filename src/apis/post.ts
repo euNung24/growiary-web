@@ -5,10 +5,13 @@ import { getCookie } from '@/utils';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 
-export const getAllPosts = async (): Promise<ApiSuccessResponse<ResPostType[]>> => {
-  const accessToken = getCookie('accessToken');
+export const getAllPosts = async (
+  token?: string,
+): Promise<ApiSuccessResponse<ResPostType[]>> => {
+  const accessToken = token || getCookie('accessToken');
 
   const response = await fetch(postApiUrl + '/all', {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Bearer ${accessToken}`,
@@ -21,8 +24,11 @@ export const getAllPosts = async (): Promise<ApiSuccessResponse<ResPostType[]>> 
   return response.json();
 };
 
-export const findPost = async (id: number): Promise<ApiSuccessResponse<ResPostType>> => {
-  const accessToken = getCookie('accessToken');
+export const findPost = async (
+  id: number,
+  token?: string,
+): Promise<ApiSuccessResponse<ResPostType>> => {
+  const accessToken = token || getCookie('accessToken');
 
   const response = await fetch(postApiUrl + '/find', {
     method: 'POST',
@@ -41,8 +47,9 @@ export const findPost = async (id: number): Promise<ApiSuccessResponse<ResPostTy
 
 export const createPost = async (
   postData: ReqPostType,
+  token?: string,
 ): Promise<ApiSuccessResponse<ResPostType>> => {
-  const accessToken = getCookie('accessToken');
+  const accessToken = token || getCookie('accessToken');
 
   const response = await fetch(postApiUrl + '/create', {
     method: 'POST',
@@ -61,8 +68,9 @@ export const createPost = async (
 
 export const updatePost = async (
   postData: UpdatePostType,
+  token?: string,
 ): Promise<ApiSuccessResponse<ResPostType>> => {
-  const accessToken = getCookie('accessToken');
+  const accessToken = token || getCookie('accessToken');
 
   const response = await fetch(postApiUrl + '/update', {
     method: 'POST',

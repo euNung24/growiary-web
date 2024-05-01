@@ -26,9 +26,12 @@ import {
 import Editor from '@/components/Editor';
 import Tag from '@/components/Tag';
 import { Hash } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { ReqPostType, UpdatePostType } from '@/types/postTypes';
+import { createPost, updatePost } from '@/apis/post';
 
 export const FormSchema = z.object({
-  topicId: z.number().nullish(),
+  topicId: z.number().optional().or(z.string().optional()),
   title: z.string(),
   content: z.string().or(z.object({ ops: z.array(z.any()) })),
   tags: z.array(z.string()),
@@ -38,7 +41,15 @@ export const FormSchema = z.object({
   //   message: 'Username must be at least 2 characters.',
   // }),
 });
-const PostView = () => {
+
+type PostViewProps = {
+  post?: UpdatePostType;
+};
+const PostView = ({ post }: PostViewProps) => {
+  const searchParams = useSearchParams();
+  const topicId = Number(searchParams.get('topic'));
+  const category = searchParams.get('category');
+
   // const ops =
   //   '<h2>\n' +
   //   '<b>\n' +
@@ -77,17 +88,20 @@ const PostView = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      topicId: undefined,
-      title: '',
-      tags: [],
-      content: ops,
-      charactersCount: 0,
-      writeDate: new Date(),
+      topicId: post ? post.topicId : topicId ? topicId : undefined,
+      title: post?.title || '',
+      tags: post ? [...post.tags] : category ? [category] : [],
+      content: post?.content || ops,
+      charactersCount: post?.charactersCount || 0,
+      writeDate: post ? new Date(post.writeDate) : new Date(),
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
     console.log(data);
+    post
+      ? await updatePost({ id: post.id, ...(data as ReqPostType) })
+      : await createPost(data as ReqPostType);
   }
 
   return (
