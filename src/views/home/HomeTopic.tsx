@@ -62,7 +62,7 @@ const HomeTopic = () => {
       <div className="flex justify-between">
         <h2 className="title">오늘의 추천 주제</h2>
         <Button variant="ghostGray" size="sm" asChild>
-          <Link href="/suggestion">전체보기</Link>
+          <Link href="/topics">전체보기</Link>
         </Button>
       </div>
       <p className={headerDescriptionStyle}>추천 주제로 기록을 쉽게 시작해보세요</p>

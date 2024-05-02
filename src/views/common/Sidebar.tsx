@@ -64,7 +64,7 @@ const Sidebar = () => {
       src: '/assets/icons/multi-window',
       alt: 'recommended questions',
       name: '추천 주제',
-      href: '/suggestion',
+      href: '/topics',
     },
     {
       src: '/assets/icons/report',
