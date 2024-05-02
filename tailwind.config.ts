@@ -17,10 +17,22 @@ const config: Config = {
         xl: '1200px',
       },
       colors: {
-        info: '#E9F1FF',
-        success: '#DCF2EA',
-        caution: '#FFF7D0',
-        error: '#FFDEDE',
+        info: {
+          50: '#E9F1FF',
+          900: '#3978F4',
+        },
+        success: {
+          50: '#DCF2EA',
+          900: '#52BD94',
+        },
+        caution: {
+          50: '#FFF7D0',
+          900: '#FFB729',
+        },
+        error: {
+          50: '#FFDEDE',
+          900: '#E3004E',
+        },
         primary: {
           50: '#E6EAF2',
           100: '#BFCADF',
