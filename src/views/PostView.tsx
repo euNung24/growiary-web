@@ -3,14 +3,7 @@
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import { ControllerRenderProps, useForm } from 'react-hook-form';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -37,7 +30,7 @@ import { useSearchParams } from 'next/navigation';
 import { ReqPostType, ResPostType } from '@/types/postTypes';
 import { createPost, updatePost } from '@/apis/post';
 import useFindTopic from '@/hooks/topics/useFindTopics';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { TopicCategory, TopicType } from '@/types/topicTypes';
 import {
   Select,
@@ -48,7 +41,7 @@ import {
 } from '@/components/ui/select';
 import { topicCategory } from '@/utils/topicCategory';
 
-export const FormSchema = z.object({
+const FormSchema = z.object({
   topicId: z.number().nullish(),
   category: z.string().nullish(),
   title: z.string(),
@@ -91,6 +84,13 @@ const PostView = ({ post }: PostViewProps) => {
   ) => {
     field.onChange(value);
     setCategory(value);
+  };
+
+  const validateTextLength = (e: FormEvent) => {
+    const target = e.currentTarget as HTMLInputElement;
+    if (target.type === 'text' && target.value.length >= 10) return;
+    if (target.type === 'number' && +target.value >= 10) return;
+    target.setCustomValidity('10자 이상 작성해주세요');
   };
 
   async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
@@ -155,15 +155,22 @@ const PostView = ({ post }: PostViewProps) => {
             <FormItem>
               <FormControl>
                 <Input
+                  required
                   type="text"
                   placeholder={
                     template.title?.replaceAll('/n ', '') || '제목을 입력하세요'
                   }
                   className="font-r28 px-0 py-4 border-none"
-                  {...field}
+                  minLength={10}
+                  maxLength={50}
+                  onInvalid={validateTextLength}
+                  onChange={e => {
+                    const target = e.target as HTMLInputElement;
+                    field.onChange(target.value);
+                    target.setCustomValidity('');
+                  }}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -183,7 +190,7 @@ const PostView = ({ post }: PostViewProps) => {
                     handleChangeCategory(field, value as TopicCategory)
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger icon={false}>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="w-[316px]">
@@ -295,6 +302,19 @@ const PostView = ({ post }: PostViewProps) => {
                         })}
                       </div>
                     )}
+                    <Input
+                      type="number"
+                      min={10}
+                      className="opacity-0 pointer-events-none absolute bottom-[-10px]"
+                      value={countField.value}
+                      onChange={e => {
+                        const target = e.target as HTMLInputElement;
+                        countField.onChange(countField.value);
+                        target.setCustomValidity('');
+                      }}
+                      onInvalid={validateTextLength}
+                      required
+                    />
                   </div>
                 )}
               />
