@@ -71,7 +71,7 @@ function Calendar({
             {(defaultMonth || displayMonth).getDate()}일
           </div>
         ),
-        Head: () => (
+        HeadRow: () => (
           <tr className="flex">
             {weeks.map((week, i) => (
               <th
