@@ -37,7 +37,7 @@ import { useSearchParams } from 'next/navigation';
 import { ReqPostType, ResPostType } from '@/types/postTypes';
 import { createPost, updatePost } from '@/apis/post';
 import useFindTopic from '@/hooks/topics/useFindTopics';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TopicCategory, TopicType } from '@/types/topicTypes';
 import {
   Select,
@@ -51,9 +51,7 @@ import { topicCategory } from '@/utils/topicCategory';
 export const FormSchema = z.object({
   topicId: z.number().nullish(),
   category: z.string().nullish(),
-  title: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
+  title: z.string(),
   content: z.string().or(z.object({ ops: z.array(z.any()) })),
   tags: z.array(z.string()),
   charactersCount: z.number(),
@@ -96,50 +94,53 @@ const PostView = ({ post }: PostViewProps) => {
   };
 
   async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
-    // if (data.category === 'free') {
-    //   data.category = undefined;
-    // }
-    console.log(data);
+    if (data.category === 'free') {
+      data.category = undefined;
+    }
     post
       ? await updatePost({ id: post.id, ...(data as ReqPostType) })
       : await createPost(data as ReqPostType);
   }
 
   useEffect(function setInitTemplate() {
-    if (!topicId) return;
+    if (!topicId) {
+      setTemplate(v => ({ ...v, content: '일상의 소중한 경험을 기록하세요.' }));
+      return;
+    }
     mutation.mutateAsync().then(({ data }) => {
+      !data.content && (data['content'] = '일상의 소중한 경험을 기록하세요.');
       setTemplate(data);
       form.setValue('category', data.category);
     });
   }, []);
 
-  const isClickedFirst = useRef(false);
-
-  const handlePopState = useCallback(() => {
-    // 1. 뒤로 가기를 클릭한 순간 16라인이 바로 제거된다.
-    // if (!isSaved) {
-    history.pushState(null, '', ''); // 현재 경로를 다시 추가
-    // do sth
-    // } else {
-    //   history.go(-1); // 뒤로 이동
-    // }
-  }, []);
-
-  // 최초 한 번 실행
-  useEffect(() => {
-    if (!isClickedFirst.current) {
-      history.pushState(null, '', ''); // 처음 렌더링될 때 추가되고 뒤로 가기 클릭 시 제거된다.
-      isClickedFirst.current = true;
-    }
-  }, []);
-
-  // 이벤트
-  useEffect(() => {
-    window.addEventListener('popstate', handlePopState);
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, [handlePopState]);
+  // const isClickedFirst = useRef(false);
+  //
+  // const handlePopState = useCallback(() => {
+  //   // 1. 뒤로 가기를 클릭한 순간 16라인이 바로 제거된다.
+  //   // if (!isSaved) {
+  //   history.pushState(null, '', ''); // 현재 경로를 다시 추가
+  //   // do sth
+  //   // } else {
+  //   //   history.go(-1); // 뒤로 이동
+  //   // }
+  // }, []);
+  //
+  // // 최초 한 번 실행
+  // useEffect(() => {
+  //   if (!isClickedFirst.current) {
+  //     history.pushState(null, '', ''); // 처음 렌더링될 때 추가되고 뒤로 가기 클릭 시 제거된다.
+  //     isClickedFirst.current = true;
+  //   }
+  // }, []);
+  //
+  // // 이벤트
+  // useEffect(() => {
+  //   window.addEventListener('popstate', handlePopState);
+  //   return () => {
+  //     window.removeEventListener('popstate', handlePopState);
+  //   };
+  // }, [handlePopState]);
 
   return (
     <Form {...form}>
@@ -277,7 +278,7 @@ const PostView = ({ post }: PostViewProps) => {
                 render={({ field }) => (
                   <div className="relative flex-1">
                     <Editor
-                      placeholder={'일상의 소중한 경험을 기록하세요.'}
+                      placeholder={template.content}
                       className="flex flex-col h-full"
                       defaultValue={field.value}
                       events={{

@@ -28,7 +28,9 @@ const Editor = dynamic(
           placeholder={placeholder}
           events={events}
           defaultValue={
-            typeof defaultValue === 'string' ? defaultValue : new Delta(defaultValue)
+            typeof defaultValue === 'string' || typeof defaultValue == 'undefined'
+              ? defaultValue
+              : new Delta(defaultValue)
           }
         />
       );
