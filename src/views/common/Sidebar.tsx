@@ -16,6 +16,7 @@ type MenuType = {
 type MenuProps = {
   items: MenuType[];
 };
+
 const Menu = ({ items }: MenuProps) => {
   const active =
     'rounded bg-primary-900 text-white-0 hover:bg-primary-900 hover:text-white-0';
@@ -91,13 +92,13 @@ const Sidebar = () => {
       src: '/assets/icons/settings',
       alt: 'setting',
       name: '설정하기',
-      href: '#',
+      href: '/setting',
     },
     {
       src: '/assets/icons/forward-message',
       alt: 'feedback',
       name: '의견 보내기',
-      href: '#',
+      href: '/feedback',
     },
   ];
 
