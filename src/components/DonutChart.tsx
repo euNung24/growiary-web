@@ -14,7 +14,7 @@ const angleInRadians = (angleInDegrees: number) => {
 const calculateCoordinates = (angle: number, radius: number) => {
   const angleRad = angleInRadians(angle);
   const x = radius * Math.sin(angleRad);
-  const y = radius * Math.cos(angleRad);
+  const y = -radius * Math.cos(angleRad);
 
   return [Math.floor(x), Math.floor(y)];
 };
