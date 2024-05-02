@@ -20,7 +20,7 @@ const HomePosts = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
 
   const cardContentRefsArray = useRef<HTMLDivElement[]>([]);
-  const [posts, setPosts] = useState<ResPostType[]>([]);
+  const [posts, setPosts] = useState<(ResPostType & { count: number })[]>([]);
   const mutation = useGetPosts();
 
   const assignRef = (index: number) => (element: HTMLDivElement) => {
@@ -42,7 +42,13 @@ const HomePosts = () => {
 
   useEffect(function getPosts() {
     if (getCookie('accessToken')) {
-      mutation.mutateAsync('').then(res => setPosts([...res.data].slice(0, 3)));
+      mutation.mutateAsync('').then(res => {
+        const recentTwoPosts = [...res.data]
+          .slice(0, 2)
+          .reverse()
+          .map((post, i) => ({ ...post, count: res.data.length - i }));
+        setPosts(recentTwoPosts);
+      });
     }
   }, []);
 
@@ -56,44 +62,46 @@ const HomePosts = () => {
       </div>
       <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>
       <div className="flex gap-5 flex-wrap">
-        {posts.map((post, i) => (
-          <Card key={post.id} className="shrink-0" size="lg">
-            <CardHeader>
-              <CardChip>No.{post.id}</CardChip>
-              <CardTitle>{post.title}</CardTitle>
-            </CardHeader>
-            <CardContent
-              className="flex flex-col ql-container ql-snow"
-              style={{
-                border: 'none',
-              }}
-            >
-              <Suspense>
-                <div
-                  className="max-h-[185.5px] ql-editor full-height"
-                  style={{
-                    overflowY: 'hidden',
-                    padding: 0,
-                  }}
-                  ref={assignRef(i)}
-                ></div>
-              </Suspense>
-              <span className="self-end mt-auto font-r14 text-gray-500 group-hover:text-gray-50">
-                {getTwoFormatDate(new Date(post.writeDate).getMonth() + 1)}월{' '}
-                {getTwoFormatDate(new Date(post.writeDate).getDate())}일
-              </span>
-            </CardContent>
-            <CardFooter>
-              {post.tags.map((v, i) => (
-                <CardChip key={i} position="footer">
-                  {v}
-                </CardChip>
-              ))}
-            </CardFooter>
-          </Card>
-        ))}
         {[...Array(3 - posts.length)].map((v, i) => (
-          <NewCard key={i} />
+          <NewCard key={i} count={(posts[0]?.count || 0) + (3 - posts.length + i)} />
+        ))}
+        {posts.map((post, i) => (
+          <Link key={post.id} href="/history">
+            <Card className="shrink-0" size="lg">
+              <CardHeader>
+                <CardChip>No.{post.count}</CardChip>
+                <CardTitle>{post.title}</CardTitle>
+              </CardHeader>
+              <CardContent
+                className="flex flex-col ql-container ql-snow"
+                style={{
+                  border: 'none',
+                }}
+              >
+                <Suspense>
+                  <div
+                    className="max-h-[185.5px] ql-editor full-height"
+                    style={{
+                      overflowY: 'hidden',
+                      padding: 0,
+                    }}
+                    ref={assignRef(i)}
+                  ></div>
+                </Suspense>
+                <span className="self-end mt-auto font-r14 text-gray-500 group-hover:text-gray-50">
+                  {getTwoFormatDate(new Date(post.writeDate).getMonth() + 1)}월{' '}
+                  {getTwoFormatDate(new Date(post.writeDate).getDate())}일
+                </span>
+              </CardContent>
+              <CardFooter>
+                {post.tags.map((v, i) => (
+                  <CardChip key={i} position="footer">
+                    {v}
+                  </CardChip>
+                ))}
+              </CardFooter>
+            </Card>
+          </Link>
         ))}
       </div>
     </section>
