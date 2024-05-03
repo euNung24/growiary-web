@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { ReqPostType, ResPostType, UpdatePostType } from '@/types/postTypes';
+import {
+  DailyCheckerType,
+  ReqPostType,
+  ResPostType,
+  UpdatePostType,
+} from '@/types/postTypes';
 import { getCookie } from '@/utils';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
@@ -79,6 +84,25 @@ export const updatePost = async (
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(postData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+};
+
+export const getDailyCheckerPost = async (
+  token?: string,
+): Promise<ApiSuccessResponse<DailyCheckerType>> => {
+  const accessToken = token || getCookie('accessToken');
+
+  const response = await fetch(postApiUrl + '/continue-range', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
 
   if (!response.ok) {

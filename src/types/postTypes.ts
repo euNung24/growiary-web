@@ -8,17 +8,22 @@ type PostType = {
   content: { ops: Op[] };
   tags: string[];
   charactersCount: number;
-  // createdAt: string;
-  // updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type ResPostType = PostType & {
   writeDate: string;
-  id: number;
+  id: string;
 };
 
 export type ReqPostType = PostType & {
   writeDate: Date;
 };
 
-export type UpdatePostType = { id: number } & ReqPostType;
+export type UpdatePostType = { id: string } & ReqPostType;
+
+export type DailyCheckerType = {
+  post: boolean[];
+  count: number;
+};

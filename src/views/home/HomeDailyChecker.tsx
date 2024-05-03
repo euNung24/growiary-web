@@ -1,20 +1,21 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DailyChecker from '@/components/DailyChecker';
+import { getDailyCheckerPost } from '@/apis/post';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
-  const [data, setData] = useState<number[]>([]);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [data, setData] = useState<number | undefined>(undefined);
+  const today = new Date();
 
   useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
-      setData([12, 13, 14, 15, 16, 1, 1, 1, 1]);
-    }, 2000);
-    return () => {
-      clearTimeout(timeoutRef.current!);
+    const fn = async () => {
+      const res = await getDailyCheckerPost();
+      setData(res.data.count);
     };
+
+    fn();
   }, []);
 
   return (
@@ -23,16 +24,38 @@ const HomeDailyChecker = () => {
         <h2 className="title">매일 글쓰기</h2>
       </div>
       <p className={headerDescriptionStyle}>
-        오늘까지 연속으로 <span className="font-sb16 text-primary-900">nn일</span> 기록에
+        오늘까지 연속으로{' '}
+        <span className="font-sb16 text-primary-900">{data || 0}일</span> 기록에
         성공했어요
       </p>
       <div className="border border-gray-200 rounded-xl flex justify-center gap-x-[52px] py-10 overflow-hidden">
-        {[...Array(4)].map((v, i) => (
-          <DailyChecker key={i} variant="prev" date={data[i]} count={data[i]} />
-        ))}
-        <DailyChecker variant="today" date={data[4]} count={data[4]} />
-        {[...Array(4)].map((v, i) => (
-          <DailyChecker key={i} variant="prev" date={data[i + 5]} count={data[i + 5]} />
+        <DailyChecker
+          variant="prev"
+          date={new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() - 1,
+            0,
+            0,
+            0,
+          ).getDate()}
+          count={data !== undefined ? 0 : undefined}
+        />
+        <DailyChecker variant="today" date={today.getDate()} count={data} />
+        {[...Array(7)].map((v, i) => (
+          <DailyChecker
+            key={i}
+            variant="next"
+            date={new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              today.getDate() + i + 1,
+              0,
+              0,
+              0,
+            ).getDate()}
+            count={data !== undefined ? data + i + 1 : undefined}
+          />
         ))}
       </div>
     </section>
