@@ -3,15 +3,17 @@ import { ReactNode } from 'react';
 
 type LayoutProps = {
   children: ReactNode;
-  modal: ReactNode;
+  // modal: ReactNode;
 };
 
-export default async function asLayout({ modal, children }: LayoutProps) {
+export default async function asLayout({ children }: LayoutProps) {
   return (
     <div className="flex">
-      {modal}
+      {/*{modal}*/}
       <Sidebar />
-      <main className="flex flex-col mx-auto max-w-[960px] my-[72px]">{children}</main>
+      <main className="mx-auto w-full my-[72px] min-w-[960px] lg:min-w-[auto]">
+        {children}
+      </main>
     </div>
   );
 }
