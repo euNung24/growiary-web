@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Op } from 'quill-delta';
+import { TopicCategory } from '@/types/topicTypes';
 
 type PostType = {
   topicId?: number;
-  category?: string;
+  category?: TopicCategory;
   title: string;
   content: { ops: Op[] };
   tags: string[];
@@ -24,6 +25,6 @@ export type ReqPostType = PostType & {
 export type UpdatePostType = { id: string } & ReqPostType;
 
 export type DailyCheckerType = {
-  post: boolean[];
+  post: number[];
   count: number;
 };

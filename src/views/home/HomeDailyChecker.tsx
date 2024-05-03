@@ -3,16 +3,23 @@
 import { useEffect, useState } from 'react';
 import DailyChecker from '@/components/DailyChecker';
 import { getDailyCheckerPost } from '@/apis/post';
+import { useRecoilValue } from 'recoil';
+import { TodayState } from '@/store/todayStore';
+import Link from 'next/link';
 
 const HomeDailyChecker = () => {
+  const {
+    date: { day },
+  } = useRecoilValue(TodayState);
+
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
-  const [data, setData] = useState<number | undefined>(undefined);
+  const [data, setData] = useState<number[] | undefined>(undefined);
   const today = new Date();
 
   useEffect(() => {
     const fn = async () => {
       const res = await getDailyCheckerPost();
-      setData(res.data.count);
+      setData(res.data.post);
     };
 
     fn();
@@ -29,20 +36,25 @@ const HomeDailyChecker = () => {
         성공했어요
       </p>
       <div className="border border-gray-200 rounded-xl flex justify-center gap-x-[52px] py-10 overflow-hidden">
-        <DailyChecker
-          variant="prev"
-          date={new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate() - 1,
-            0,
-            0,
-            0,
-          ).getDate()}
-          count={data !== undefined ? 0 : undefined}
-        />
-        <DailyChecker variant="today" date={today.getDate()} count={data} />
-        {[...Array(7)].map((v, i) => (
+        {[...Array(day)].map((v, i) => (
+          <DailyChecker
+            key={i}
+            variant="prev"
+            date={new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              today.getDate() - 1,
+              0,
+              0,
+              0,
+            ).getDate()}
+            count={i !== 0 && data ? data[i - 1] : 0}
+          />
+        ))}
+        <Link href="/post">
+          <DailyChecker variant="today" date={today.getDate()} count={data?.[day - 1]} />
+        </Link>
+        {[...Array(8 - day)].map((v, i) => (
           <DailyChecker
             key={i}
             variant="next"
@@ -54,7 +66,7 @@ const HomeDailyChecker = () => {
               0,
               0,
             ).getDate()}
-            count={data !== undefined ? data + i + 1 : undefined}
+            count={data && i + day !== data.length ? data[i + day] : 0}
           />
         ))}
       </div>
