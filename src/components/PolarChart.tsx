@@ -39,7 +39,7 @@ function PolarChart<T>({ labels, data, backgroundColor }: PolarChartProps<T>) {
   };
 
   const options = {
-    responsive: true,
+    responsive: false,
     scales: {
       r: {
         pointLabels: {
@@ -61,7 +61,7 @@ function PolarChart<T>({ labels, data, backgroundColor }: PolarChartProps<T>) {
     },
   };
 
-  return <PolarArea data={chartData} options={options} />;
+  return <PolarArea data={chartData} options={options} width={252} height={252} />;
 }
 
 export default PolarChart;

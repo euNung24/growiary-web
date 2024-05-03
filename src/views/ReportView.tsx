@@ -1,20 +1,26 @@
 'use client';
 
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Triangle } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { createContext, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import Line from '@/components/Line';
 import { cn } from '@/lib/utils';
 import Chip from '@/components/Chip';
-import BarChart from '@/components/BarChart';
-import PolarChart from '@/components/PolarChart';
-import RectAreaChart from '@/components/RectAreaChart';
-import DonutChart from '@/components/DonutChart';
-const HistoryView = () => {
-  const strengthStyle = 'font-b28 text-primary-900';
-  const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
+import ReportPost from '@/views/report/ReportPost';
+import ReportByDay from '@/views/report/ReportByDay';
+import ReportByTime from '@/views/report/ReportByTime';
+import ReportByChar from '@/views/report/ReportByChar';
+import ReportByTopic from '@/views/report/ReportByTopic';
+import useGetReport from '@/hooks/report/useGetReport';
+import { ReportType } from '@/types/reportTypes';
+import ReportByTag from '@/views/report/ReportByTag';
+
+type ReportContextType = ReportType & { month: number };
+export const ReportContext = createContext<ReportContextType>({} as ReportContextType);
+
+const ReportView = () => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const chipStyle = 'py-1 bg-gray-50 text-primary-900 font-medium mr-1';
 
@@ -24,6 +30,7 @@ const HistoryView = () => {
   const [selectedYear, setSelectedYear] = useState(year);
   const [selectedMonth, setSelectedMonth] = useState(month);
   const [lastDate, setLastDate] = useState(date);
+  const reports = useGetReport();
 
   const handleClickPrevMonth = () => {
     const prevMonth = selectedMonth - 1 > 0 ? selectedMonth - 1 : 12;
@@ -93,244 +100,47 @@ const HistoryView = () => {
           </span>
         </div>
       </div>
-      <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
-        <section>
-          <h2 className="title">리포트 요약</h2>
-          <ul
-            className={cn(
-              boxStyle,
-              'flex flex-col gap-y-4 mt-5 list-disc marker:text-gray-400 pl-10',
-            )}
-          >
-            <li>
-              총 <Chip className={chipStyle}>00개</Chip>의 글을{' '}
-              <Chip className={chipStyle}>000자</Chip>로 작성했어요.
-            </li>
-            <li>
-              주로 <Chip className={chipStyle}>00개</Chip>,{' '}
-              <Chip className={chipStyle}>000자</Chip>에 글 작성했어요.
-            </li>
-            <li>
-              <Chip className={chipStyle}>00개</Chip>와 관련한 글을 가장 많이 작성했어요.
-            </li>
-            <li>
-              지난 3월과 비교해 새로 등장한 태그는 <Chip className={chipStyle}>00개</Chip>
-              이에요.
-            </li>
-          </ul>
-        </section>
-        <section>
-          <div>
-            <h2 className="title">기록한 글</h2>
-            <p className={descriptionStyle}>
-              <span className={strengthStyle}>38개</span>의 글을 작성했어요.
-            </p>
-            <div className="flex gap-x-5 h-[356px]">
-              <div className={cn(boxStyle, 'flex-1')}>
-                <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
-                  <span>
-                    전체 <b className="ml-[5px] text-gray-700">00개</b>
-                  </span>
-                  <span>
-                    평균 <b className="ml-[5px] text-gray-700">00개</b>
-                  </span>
-                  <span>
-                    최대 <b className="ml-[5px] text-gray-700">00개</b>
-                  </span>
-                </div>
-                <BarChart
-                  height="130%"
-                  data={[12, 19, 3, 5, 2, 3, 3, 4]}
-                  labels={['1', '2', '3', '4', '5', '6', '7', '8']}
-                  backgroundColor={['#BFCADF', '#204C90']}
-                />
-              </div>
-              <div className={cn(boxStyle, 'w-[300px] flex flex-col')}>
-                <p className={cn(descriptionStyle, 'mt-0 mb-7')}>
-                  전체 이용자보다 <br />
-                  <span className={strengthStyle}>+12개</span> 더 기록했어요
-                </p>
-                <BarChart
-                  className="mt-auto"
-                  height={200}
-                  data={[12, 19]}
-                  labels={['그루어리 평균', '그루미님']}
-                  backgroundColor={['#BEBFBF', '#204C90']}
-                  axisDisplay={false}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="flex gap-x-5">
-          <div>
-            <h2 className="title">요일</h2>
-            <p className={descriptionStyle}>
-              <span className={strengthStyle}>목요일</span>에 주로 글을 작성했어요.
-            </p>
-            <div className={cn(boxStyle)}>
-              <PolarChart
-                labels={['월', '화', '수', '목', '금', '토', '일']}
-                data={[11, 16, 7, 3, 14, 12, 14]}
-                backgroundColor={[
-                  '#3B619D',
-                  '#4F72A7',
-                  '#6E86B4',
-                  '#154284',
-                  '#204C90',
-                  '#8094B0',
-                ]}
-              />
-            </div>
-          </div>
-          <div>
-            <h2 className="title">시간대</h2>
-            <p className={descriptionStyle}>
-              <span className={strengthStyle}>저녁</span>에 주로 글을 작성했어요.
-            </p>
-            <div className={cn(boxStyle)}>
-              <RectAreaChart />
-            </div>
-          </div>
-        </section>
-        <section>
-          <h2 className="title">글자수</h2>
-          <p className={descriptionStyle}>
-            <span className={strengthStyle}>12,310자</span> 글자를 작성했어요.
-          </p>
-          <div className={cn(boxStyle)}>
-            <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
-              <span>
-                전체 <b className="ml-[5px] text-gray-700">00개</b>
-              </span>
-              <span>
-                평균 <b className="ml-[5px] text-gray-700">00개</b>
-              </span>
-              <span>
-                최대 <b className="ml-[5px] text-gray-700">00개</b>
-              </span>
-            </div>
-            <div className="flex gap-x-3">
-              <div className="group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-700 hover:text-white-0">
-                <div className="flex justify-between text-gray-500 group-hover:text-white-0">
-                  <span className="font-r16">3월</span>
-                  <span className="font-r12 flex items-center gap-x-0.5">
-                    123자
-                    <Triangle
-                      className="text-primary-200"
-                      fill="#96A8CA"
-                      width={6}
-                      height={6}
-                    />
-                  </span>
-                </div>
-                <div className="flex items-center justify-center font-m36 mt-2 mb-[38px] group-hover:text-white-0">
-                  1234{' '}
-                  <span className="ml-2 text-gray-800 font-r16 group-hover:text-white-0">
-                    자
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>추후 변경</div>
-        </section>
-        <section>
-          <h2 className="title">주제</h2>
-          <p className={descriptionStyle}>
-            <span className={strengthStyle}>최종글자수</span>로 많은 글쓰기를 했어요.
-          </p>
-          <div className="flex rounded-lg overflow-hidden text-center h-9 leading-9">
-            <div className="w-[10%] bg-primary-900">1</div>
-            <div className="w-[20%] bg-primary-700">2</div>
-            <div className="w-[30%] bg-primary-400">3</div>
-            <div className="w-[40%] bg-primary-200">4</div>
-          </div>
-          <div className="flex gap-x-5 mt-5">
-            <div className={cn(boxStyle, 'flex gap-x-12')}>
-              <div className="flex flex-col justify-between">
-                <span className="font-sb22">하루생각</span>
-                <span className="font-r16 text-gray-800">
-                  작성한 글 <b className="font-m36 text-primary-900">12</b> 개
-                </span>
-              </div>
-              <div>
-                <DonutChart data={[['Foo', 60]]} />
-              </div>
-            </div>
-            <div className="flex flex-col flex-1 gap-y-4">
-              <div className="flex p-3 rounded-lg border border-gray-100 items-center">
-                <div className="font-r14 text-gray-500">4월 24일</div>
-                <div className="ml-[25px] mr-3 flex-1 font-r16 text-gray-900">
-                  글 타이틀
-                </div>
-                <Chip variant="secondary">오늘은 카페에서 기록</Chip>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h2 className="title">태그</h2>
-          <div className="flex gap-x-[22px]">
-            <div>
-              <p className={descriptionStyle}>
-                <span className={strengthStyle}>32개</span>의 태그를 가장 많이 사용했어요.
-              </p>
-              <div className="space-y-4">
-                <div className="flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
-                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5">
-                    1
-                  </i>
-                  <span>태그 텍스트</span>
-                  <Chip variant="gray" className="self-auto">
-                    New
-                  </Chip>
-                  <span className="ml-auto text-gray-700">00개</span>
-                </div>
-                <div className="flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
-                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5">
-                    1
-                  </i>
-                  <span>태그 텍스트</span>
-                  <Chip variant="gray" className="self-auto">
-                    New
-                  </Chip>
-                  <span className="ml-auto text-gray-700">00개</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <p className={descriptionStyle}>
-                이번에 새롭게 등장한 태그는 <span className={strengthStyle}>32개</span>
-                입니다.
-              </p>
-              <div className="space-y-4">
-                <div className="flex flex-col gap-x-3 gap-y-2.5 pl-10 pr-4 py-5 bg-primary-900 border border-gray-100 rounded-xl font-r22 text-white-0">
-                  <div className="flex justify-between">
-                    <span>태그 텍스트</span>
-                    <span>00월 00일</span>
-                  </div>
-                  <p className="text-gray-100 font-r18">이 태그가 사용된 글 00개</p>
-                </div>
-                <div className="flex gap-x-3 pl-10 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
-                  <span>태그 텍스트</span>
-                  <span className="ml-auto text-gray-700">00월 00일</span>
-                </div>
-                <div className="flex gap-x-3 pl-10 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
-                  <span>태그 텍스트</span>
-                  <span className="ml-auto text-gray-700">00월 00일</span>
-                </div>
-                <div className="flex gap-x-3 pl-10 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center">
-                  <span>태그 텍스트</span>
-                  <span className="ml-auto text-gray-700">00월 00일</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </article>
+      <ReportContext.Provider value={{ month: selectedMonth, ...reports }}>
+        <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
+          <section>
+            <h2 className="title">리포트 요약</h2>
+            <ul
+              className={cn(
+                boxStyle,
+                'flex flex-col gap-y-4 mt-5 list-disc marker:text-gray-400 pl-10',
+              )}
+            >
+              <li>
+                총 <Chip className={chipStyle}>00개</Chip>의 글을{' '}
+                <Chip className={chipStyle}>000자</Chip>로 작성했어요.
+              </li>
+              <li>
+                주로 <Chip className={chipStyle}>00개</Chip>,{' '}
+                <Chip className={chipStyle}>000자</Chip>에 글 작성했어요.
+              </li>
+              <li>
+                <Chip className={chipStyle}>00개</Chip>와 관련한 글을 가장 많이
+                작성했어요.
+              </li>
+              <li>
+                지난 3월과 비교해 새로 등장한 태그는{' '}
+                <Chip className={chipStyle}>00개</Chip>
+                이에요.
+              </li>
+            </ul>
+          </section>
+          <ReportPost />
+          <section className="flex gap-x-5">
+            <ReportByDay />
+            <ReportByTime />
+          </section>
+          <ReportByChar />
+          <ReportByTopic />
+          <ReportByTag />
+        </article>
+      </ReportContext.Provider>
     </div>
   );
 };
 
-export default HistoryView;
+export default ReportView;

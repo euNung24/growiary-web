@@ -22,3 +22,6 @@ export const getCookie = (key: string) => {
   }
   return '';
 };
+export const getPercentage = (data: number, total: number) => {
+  return Math.round((data / total) * 100);
+};

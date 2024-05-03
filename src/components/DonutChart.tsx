@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 
 type DonutChartProps = {
-  data: [label: string, value: number][];
+  data: number;
   color?: string;
 };
 
@@ -19,23 +19,16 @@ const calculateCoordinates = (angle: number, radius: number) => {
   return [Math.floor(x), Math.floor(y)];
 };
 
-const DonutChart = ({ data, color = '#154284' }: DonutChartProps) => {
+const DonutChart = ({ data: value, color = '#154284' }: DonutChartProps) => {
   let total: number = 0;
-  let [x, y] = [0, 0];
 
-  const values = data
-    .map(([, value]) => {
-      const angle = value * 3.6;
-      const separatorWidth = 0;
-      const slice = `${color} ${total}% ${(total += value - separatorWidth) - 0.2}%`;
-      const separator = `white ${total}% ${(total += separatorWidth) - 0.2}%`;
-      [x, y] = calculateCoordinates(angle, 56.5);
+  const angle = value * 3.6;
+  const separatorWidth = 0;
+  const slice = `${color} ${total}% ${(total += value - separatorWidth) - 0.2}%`;
+  const separator = `white ${total}% ${(total += separatorWidth) - 0.2}%`;
+  const [x, y] = calculateCoordinates(angle, 56.5);
 
-      return `${slice}, ${separator}`;
-    })
-    .join(', ');
-
-  const gradient = `conic-gradient(${values})`;
+  const gradient = `conic-gradient(${slice}, ${separator})`;
 
   const before =
     'before:block before:w-2.5 before:h-2.5 before:rounded-full before:bg-primary-700 before:absolute before:top-0 before:left-[50%] before:translate-x-[-50%]';
@@ -48,7 +41,7 @@ const DonutChart = ({ data, color = '#154284' }: DonutChartProps) => {
       style={{ background: gradient }}
     >
       <div className="absolute h-[103px] w-[103px] bg-primary-700 border border-[10px] border-white-0 rounded-full left-[10px] top-[10px] flex justify-center items-center text-white-0 font-sb20">
-        32%
+        {value}%
       </div>
       <div
         className={cn(after)}
