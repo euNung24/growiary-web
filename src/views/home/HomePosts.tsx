@@ -29,6 +29,7 @@ const HomePosts = () => {
 
   useEffect(function getPosts() {
     mutation.mutateAsync().then(res => {
+      if (!res) return;
       const recentTwoPosts = [...res.data]
         .reverse()
         .slice(0, 2)
