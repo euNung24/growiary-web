@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 import {
   DailyCheckerType,
   ReqPostType,
@@ -10,23 +9,16 @@ import { getCookie } from '@/utils';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 
-export const getAllPosts = async (
-  token?: string,
-): Promise<ApiSuccessResponse<ResPostType[]>> => {
+export const getAllPosts = async (token?: string) => {
   const accessToken = token || getCookie('accessToken');
 
-  const response = await fetch(postApiUrl + '/all', {
+  return await fetch(postApiUrl + '/all', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Bearer ${accessToken}`,
     },
   });
-
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
 };
 
 export const findPost = async (

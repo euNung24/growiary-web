@@ -16,7 +16,7 @@ const cardVariants = cva('group flex flex-col hover:shadow w-[300px]', {
     },
     size: {
       default: 'rounded-lg h-[118px] p-5 font-r14',
-      lg: 'rounded-xl h-[370px] p-6 font-r16',
+      lg: 'rounded-xl h-[320px] p-6 font-r16',
     },
   },
   defaultVariants: {

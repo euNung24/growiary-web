@@ -25,3 +25,46 @@ export const getCookie = (key: string) => {
 export const getPercentage = (data: number, total: number) => {
   return Math.round((data / total) * 100);
 };
+
+export const getYMD = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const returnedDate = date.getDate();
+
+  return {
+    year,
+    month,
+    date: returnedDate,
+  };
+};
+
+export const getStringYMD = ({
+  year,
+  month,
+  date,
+}: {
+  year: number;
+  month: number;
+  date: number;
+}) => {
+  return `${year}년 ${month}월 ${date}일`;
+};
+
+export const getStringMMDD = ({
+  month,
+  date,
+}: {
+  year?: number;
+  month: number;
+  date: number;
+}) => {
+  return `${month}월 ${date}일`;
+};
+
+export const getStringDateAndTime = (date: Date) => {
+  let hour = date.getHours();
+  hour = hour >= 13 ? hour - 12 : hour;
+  const dayNight = hour >= 13 ? '오후' : '오전';
+
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일. ${dayNight} ${hour}시 ${date.getMinutes()}분`;
+};
