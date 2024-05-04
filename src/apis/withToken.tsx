@@ -1,14 +1,33 @@
 import { setError } from '@/utils/api';
+import { getCookie } from '@/utils';
 
-function withToken<V, T>(callback: (args: T) => Promise<Response>) {
-  return async function (args: T): Promise<ApiSuccessResponse<V>> {
-    const response = await callback(args);
+type WithTokenType<T> = {
+  body?: T;
+  token?: string;
+};
 
-    if (!response.ok) {
-      throw await setError(response);
-    }
-    return response.json();
-  };
+async function withToken<T, V>(
+  url: string,
+  { body, token }: WithTokenType<V> = {},
+): Promise<ApiSuccessResponse<T> | undefined> {
+  const accessToken = token || getCookie('accessToken');
+
+  if (!accessToken) return;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    throw await setError(response);
+  }
+
+  return response.json();
 }
 
 export default withToken;

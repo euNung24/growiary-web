@@ -9,7 +9,7 @@ import { createContext, useContext } from 'react';
 import Image from 'next/image';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-white transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -23,6 +23,7 @@ const buttonVariants = cva(
         ghostGray: 'text-gray-900 hover:text-gray-900/90 focus:bg-gray-50 ',
         destructive: 'bg-red-500 text-slate-50 hover:bg-red-500/90',
         link: 'text-slate-900 underline-offset-4 hover:underline',
+        hidden: 'hidden',
       },
       size: {
         default: 'h-10 px-6 py-[11px] font-sb14',

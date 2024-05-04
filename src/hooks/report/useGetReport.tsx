@@ -1,22 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { getReport } from '@/apis/report';
-import { ReportType } from '@/types/reportTypes';
+import { getNewAccessToken } from '@/utils/api';
+import { useMutation } from '@tanstack/react-query';
 
 const useGetReport = () => {
-  const [report, setReport] = useState<ReportType>({} as ReportType);
-
-  useEffect(() => {
-    const fn = async () => {
-      const res = await getReport();
-      setReport(res.data);
-      console.log(res);
-    };
-    fn();
-  }, []);
-
-  return report;
+  return useMutation({
+    mutationKey: ['report'],
+    mutationFn: getReport,
+    onError: async error => {
+      await getNewAccessToken(error);
+      console.log(error.message);
+    },
+  });
 };
 
 export default useGetReport;

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
 'use client';
 
 import { Bar } from 'react-chartjs-2';
@@ -12,7 +11,6 @@ type BarChartProps<T, V> = CanvasHTMLAttributes<HTMLCanvasElement> & {
   labels: string[];
   data: T[];
   backgroundColor: string[];
-  axisDisplay?: boolean;
   options?: V;
 };
 

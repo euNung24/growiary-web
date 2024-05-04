@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
-import { getCookie, getTwoFormatDate } from '@/utils';
+import { getTwoFormatDate } from '@/utils';
 import NewCard from '@/components/NewCard';
 import { ResPostType } from '@/types/postTypes';
 import useGetPosts from '@/hooks/posts/useGetPosts';
@@ -28,16 +28,14 @@ const HomePosts = () => {
   const mutation = useGetPosts();
 
   useEffect(function getPosts() {
-    if (getCookie('accessToken')) {
-      mutation.mutateAsync('').then(res => {
-        const recentTwoPosts = [...res.data]
-          .reverse()
-          .slice(0, 2)
-          .reverse()
-          .map((post, i) => ({ ...post, count: res.data.length - i }));
-        setPosts(recentTwoPosts);
-      });
-    }
+    mutation.mutateAsync().then(res => {
+      const recentTwoPosts = [...res.data]
+        .reverse()
+        .slice(0, 2)
+        .reverse()
+        .map((post, i) => ({ ...post, count: res.data.length - i }));
+      setPosts(recentTwoPosts);
+    });
   }, []);
 
   return (

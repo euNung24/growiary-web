@@ -25,7 +25,7 @@ const HomeDailyChecker = () => {
   useEffect(() => {
     if (!getCookie('accessToken')) return;
 
-    mutation.mutateAsync('').then(res => {
+    mutation.mutateAsync().then(res => {
       setData(res.data.post);
     });
   }, []);

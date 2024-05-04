@@ -9,6 +9,7 @@ import useGetReport from '@/hooks/report/useGetReport';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import { color, getBoxImageSize, getImage } from '@/utils/report';
+import { ReportType } from '@/types/reportTypes';
 
 const DATE = ['일', '월', '화', '수', '목', '금', '토'];
 const TIME = ['새벽', '아침', '점심', '저녁'];
@@ -223,17 +224,24 @@ const HomeReport = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
   const historyDescriptionStyle = 'font-r22 text-gray-900 mt-5 mb-[43px]';
   const historyStrengthStyle = 'font-sb22 text-primary-900';
-  const report = useGetReport();
-  const { post } = report;
-  const [weekData, setWeekData] = useState<[string, number][] | undefined>(undefined);
-  const totalWeekRef = useRef(0);
-  const [timeData, setTimeData] = useState<[string, number][] | undefined>(undefined);
-  const totalTimeRef = useRef(0);
 
+  const mutation = useGetReport();
+  const [report, setReport] = useState<ReportType | null>(null);
+  const [weekData, setWeekData] = useState<[string, number][] | null>(null);
+  const totalWeekRef = useRef(0);
+  const [timeData, setTimeData] = useState<[string, number][] | null>(null);
+  const totalTimeRef = useRef(0);
   const {
     date: { month: monthPlusOne },
   } = useRecoilValue(TodayState);
   const month = monthPlusOne - 1;
+
+  useEffect(() => {
+    mutation.mutateAsync().then(res => {
+      if (!res) return;
+      setReport(res.data);
+    });
+  }, []);
 
   useEffect(() => {
     const monthWeek = report?.week?.[month];
@@ -291,8 +299,8 @@ const HomeReport = () => {
       <p className={headerDescriptionStyle}>작성해주신 기록을 그루어리가 분석했어요</p>
       <div className="flex gap-2.5">
         {/* 로그인 된 경우 */}
-        {post &&
-          (post?.user[month] > 3 ? (
+        {report?.post &&
+          (report?.post?.user[month] > 3 ? (
             <>
               <div className="p-6 border border-gray-200 rounded-xl w-[300px]">
                 <div className="flex justify-between items-center text-gray-800 font-r16">
@@ -306,8 +314,8 @@ const HomeReport = () => {
                       다른 이용자보다
                       <br />
                       <span className={historyStrengthStyle}>
-                        {post.user[month] - post.all[month] ? '+' : '-'}{' '}
-                        {Math.abs(post.user[month] - post.all[month])}개
+                        {report?.post.user[month] - report?.post.all[month] ? '+' : '-'}{' '}
+                        {Math.abs(report?.post.user[month] - report?.post.all[month])}개
                       </span>{' '}
                       더 기록했어요
                     </p>
@@ -320,10 +328,13 @@ const HomeReport = () => {
                       <BarChart
                         className="mt-auto"
                         height={200}
-                        data={[post.user[month], post.all[month]]}
+                        data={[report?.post.user[month], report?.post.all[month]]}
                         labels={['그루어리 평균', '그루미님']}
                         backgroundColor={['#BEBFBF', '#204C90']}
-                        options={firstDataOptions([post.user[month], post.all[month]])}
+                        options={firstDataOptions([
+                          report?.post.user[month],
+                          report?.post.all[month],
+                        ])}
                       />
                     </div>
                   </>
@@ -419,7 +430,7 @@ const HomeReport = () => {
             </>
           ))}
         {/* 로그인 안된 경우 */}
-        {!post && (
+        {!report?.post && (
           <>
             <Image
               src="/assets/images/report-example1.png"
