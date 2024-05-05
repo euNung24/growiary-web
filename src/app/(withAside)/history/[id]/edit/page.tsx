@@ -9,7 +9,7 @@ type PageProps = {
 export default async function Home({ params: { id } }: PageProps) {
   const token = cookies().get('accessToken')?.value;
   const res = await findPost(id, { token });
-  console.log(res);
+
   return (
     <Suspense>
       <PostView post={res.data} />

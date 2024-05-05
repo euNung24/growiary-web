@@ -62,7 +62,7 @@ const PostView = ({ post }: PostViewProps) => {
   }, []);
 
   return (
-    <div className="w-2/3 flex flex-col gap-y-4 w-[960px] h-full mx-auto">
+    <div className="w-2/3 mt-[72px] flex flex-col gap-y-4 w-[960px] h-full mx-auto">
       <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-0 py-4 text-gray-900">
         {post.title}
       </div>

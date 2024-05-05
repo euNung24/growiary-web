@@ -79,7 +79,7 @@ const HistoryView = () => {
   }, []);
 
   return (
-    <div className="w-full flex mt-[-72px] border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]">
+    <div className="w-full flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]">
       <div className="flex-1 mt-5">
         <div className="flex justify-between">
           <div className="flex gap-x-3 items-center">
@@ -184,7 +184,7 @@ const HistoryView = () => {
 
           {posts &&
             Object.keys(posts)
-              .toSorted((a, b) => (+a.split('-')[2] > +b.split('-')[2] ? -1 : 1))
+              ?.toSorted((a, b) => (+a.split('-')[2] > +b.split('-')[2] ? -1 : 1))
               .map(date => (
                 <div id={date} key={date}>
                   <div className="mb-3">

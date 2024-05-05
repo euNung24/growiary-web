@@ -63,8 +63,8 @@ export const getStringMMDD = ({
 
 export const getStringDateAndTime = (date: Date) => {
   let hour = date.getHours();
-  hour = hour >= 13 ? hour - 12 : hour;
   const dayNight = hour >= 13 ? '오후' : '오전';
+  hour = hour >= 13 ? hour - 12 : hour;
 
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일. ${dayNight} ${hour}시 ${date.getMinutes()}분`;
 };
