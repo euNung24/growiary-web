@@ -83,7 +83,7 @@ const PostView = ({ post }: PostViewProps) => {
 
   const movePageAfterSubmit = (post: ResPostType) => {
     form.reset();
-    router.push(`/post/${post.id}`);
+    router.push(`/history/${post.id}`);
     btnSaveToastRef.current?.click();
   };
 
@@ -93,7 +93,7 @@ const PostView = ({ post }: PostViewProps) => {
     post
       ? await updatePost({ id: post.id, ...(data as ReqPostType) })
           .then(res => {
-            movePageAfterSubmit(res.data);
+            movePageAfterSubmit(res.data[0]);
           })
           .catch(() => {
             isSavedRef.current = false;
@@ -152,9 +152,10 @@ const PostView = ({ post }: PostViewProps) => {
                     placeholder={
                       template.title?.replaceAll('/n ', '') || '제목을 입력하세요'
                     }
+                    defaultValue={titleField.value}
                     onChange={titleField.onChange}
                     className="font-r28 px-0 py-4 border-none"
-                    minLength={10}
+                    minLength={1}
                     maxLength={50}
                     // onInvalid={validateTextLength}
                     // onChange={e => {
@@ -179,6 +180,7 @@ const PostView = ({ post }: PostViewProps) => {
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
+                              disabled
                               variant={'ghost'}
                               className={cn(
                                 'flex-1 pl-3 py-2 font-r16 text-gray-700 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
@@ -256,7 +258,7 @@ const PostView = ({ post }: PostViewProps) => {
                       </span>
                       <Button
                         type="submit"
-                        disabled={titleField.value.length <= 10 || countField.value <= 10}
+                        disabled={titleField.value.length < 1 || countField.value <= 10}
                       >
                         저장하기
                       </Button>
@@ -279,7 +281,12 @@ const PostView = ({ post }: PostViewProps) => {
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitleIcon src="/next.svg" width={32} height={32} alt="temp" />
+            <AlertDialogTitleIcon
+              src="/assets/icons/info.png"
+              width={32}
+              height={32}
+              alt="info"
+            />
             <AlertDialogTitle>글쓰기를 중단하시겠습니까?</AlertDialogTitle>
             <AlertDialogDescription>
               변경사항이 저장되지 않을 수 있습니다.

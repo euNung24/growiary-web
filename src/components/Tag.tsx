@@ -8,10 +8,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { X } from 'lucide-react';
 import { ControllerRenderProps } from 'react-hook-form';
+import { cn } from '@/lib/utils';
 
 type TagProps = {
   tags: string[];
-  setTags: ControllerRenderProps['onChange'];
+  setTags?: ControllerRenderProps['onChange'];
 };
 
 const Tag = ({ tags, setTags }: TagProps) => {
@@ -21,7 +22,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
 
   const handleRemoveTag = (idx: number) => {
     const filteredTags = tags.filter((v, i) => i !== idx);
-    setTags(filteredTags);
+    setTags && setTags(filteredTags);
   };
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = e => {
@@ -52,7 +53,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
       e.preventDefault();
       const copiedTags = [...tags];
       copiedTags.push(input);
-      setTags(copiedTags);
+      setTags && setTags(copiedTags);
 
       setInput('');
       return;
@@ -68,23 +69,29 @@ const Tag = ({ tags, setTags }: TagProps) => {
   return (
     <div className="flex gap-2">
       <ul className="flex gap-2">
-        {tags.map((v, i) => (
+        {tags?.map((v, i) => (
           <li
             key={`${i}_${v}`}
-            className="flex items-center bg-gray-50 font-r16 text-gray-800 py-[11px] pl-[10px] pr-[6px] rounded"
+            className={cn(
+              'flex items-center bg-gray-50 font-r16 text-gray-800 py-[11px] pl-2.5 pr-1.5 rounded',
+              !setTags && 'px-2.5',
+            )}
           >
             {v}
             <X
               width={22}
               height={22}
-              className="ml-1 inline-block text-gray-700 cursor-pointer"
+              className={cn(
+                'ml-1 inline-block text-gray-700 cursor-pointer',
+                !setTags && 'hidden',
+              )}
               onClick={() => handleRemoveTag(i)}
             />
           </li>
         ))}
       </ul>
       <div className="flex items-center relative">
-        {tags.length <= 5 && (
+        {setTags && tags?.length <= 5 && (
           <>
             <Input
               ref={inputRef}
