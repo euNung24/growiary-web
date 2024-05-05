@@ -7,6 +7,7 @@ import Link from 'next/link';
 import LoginDialog from '@/components/LoginDialog';
 import { Button } from '@/components/ui/button';
 import useGetProfile from '@/hooks/profile/useGetProfile';
+import { menu } from '@/utils';
 
 type MenuType = {
   src: string;
@@ -52,45 +53,6 @@ const Menu = ({ items }: MenuProps) => {
 const Sidebar = () => {
   const profile = useGetProfile();
 
-  const menu1 = [
-    {
-      src: '/assets/icons/edit',
-      alt: 'write a diary',
-      name: '기록하기',
-      href: '/post',
-    },
-    {
-      src: '/assets/icons/calendar',
-      alt: 'history',
-      name: '나의 기록들',
-      href: '/history',
-    },
-    {
-      src: '/assets/icons/multi-window',
-      alt: 'recommended questions',
-      name: '추천 주제',
-      href: '/topics',
-    },
-    {
-      src: '/assets/icons/report',
-      alt: 'monthly report',
-      name: '월간 리포트',
-      href: '/report',
-    },
-    // {
-    //   src: '/assets/icons/book',
-    //   alt: 'retrospect tip',
-    //   name: '회고 TIP',
-    //   href: '#',
-    // },
-    {
-      src: '/assets/icons/challenge',
-      alt: 'challenge',
-      name: '도전과제',
-      href: '/challenge',
-    },
-  ];
-
   const menu2 = [
     {
       src: '/assets/icons/settings',
@@ -107,7 +69,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="lg:flex-[0_0_68px] flex-[0_0_200px] bg-[#F7F7F7] min-h-screen">
+    <aside className="sticky h-screen top-0 lg:flex-[0_0_68px] flex-[0_0_200px] bg-[#F7F7F7] min-h-screen">
       {/* 로고 */}
       <Link href="/" className="block py-[22px]">
         <picture>
@@ -179,7 +141,7 @@ const Sidebar = () => {
           </LoginDialog>
         )}
       </div>
-      <Menu items={menu1} />
+      <Menu items={menu} />
       <hr className="my-6 border-gray-200" />
       <Menu items={menu2} />
     </aside>

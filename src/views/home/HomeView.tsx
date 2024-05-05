@@ -5,7 +5,7 @@ import HomePosts from '@/views/home/HomePosts';
 
 const HomeView = () => {
   return (
-    <div className="space-y-[72px] max-w-[960px] mx-auto">
+    <div className="space-y-[72px] max-w-[960px] mb-[72px] mx-auto">
       <HomeDailyChecker />
       <HomePosts />
       <HomeTopic />

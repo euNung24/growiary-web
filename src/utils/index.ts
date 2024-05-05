@@ -68,3 +68,46 @@ export const getStringDateAndTime = (date: Date) => {
 
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일. ${dayNight} ${hour}시 ${date.getMinutes()}분`;
 };
+
+export const menu = [
+  {
+    src: '/assets/icons/edit',
+    alt: 'write a diary',
+    name: '기록하기',
+    href: '/post',
+    placeholder: '',
+  },
+  {
+    src: '/assets/icons/calendar',
+    alt: 'history',
+    name: '나의 기록들',
+    href: '/history',
+    placeholder: '',
+  },
+  {
+    src: '/assets/icons/multi-window',
+    alt: 'recommended questions',
+    name: '추천 주제',
+    href: '/topics',
+    placeholder: '간직하고 있는 좋은 질문이 있다면 공유해주세요',
+  },
+  {
+    src: '/assets/icons/report',
+    alt: 'monthly report',
+    name: '월간 리포트',
+    href: '/report',
+    placeholder: '더 알고 싶은 기록 관련 데이터가 있다면 알려주세요',
+  },
+  // {
+  //   src: '/assets/icons/book',
+  //   alt: 'retrospect tip',
+  //   name: '회고 TIP',
+  //   href: '#',
+  // },
+  {
+    src: '/assets/icons/challenge',
+    alt: 'challenge',
+    name: '도전과제',
+    href: '/challenge',
+  },
+];

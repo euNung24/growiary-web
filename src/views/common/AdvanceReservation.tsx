@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Dot } from 'lucide-react';
 import {
@@ -24,9 +24,6 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReqPostType } from '@/types/postTypes';
 import { Textarea } from '@/components/ui/textarea';
-import { menu } from '@/utils';
-import { Toaster } from '@/components/ui/toaster';
-import { toast } from '@/components/ui/use-toast';
 
 const FormSchema = z.object({
   category: z.string().nullish(),
@@ -35,39 +32,25 @@ const FormSchema = z.object({
 
 type FeedbackModalProps = {
   children?: ReactNode;
-  defaultOpen?: boolean;
-  defaultCategory?: string;
 };
 
-const FeedbackModal = ({
-  children,
-  defaultOpen = false,
-  defaultCategory = '',
-}: FeedbackModalProps) => {
+const FeedbackModal = ({ children }: FeedbackModalProps) => {
   const [isClient, setIsClient] = useState(false);
-  const [placeholder, setPlaceholder] = useState('');
-  const btnToastRef = useRef<HTMLButtonElement | null>(null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      category: defaultCategory,
+      category: '',
       content: '',
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
     console.log('data', data);
-    btnToastRef.current?.click();
     // post
     //   ? await updatePost({ id: post.id, ...(data as ReqPostType) })
     //   : await createPost(data as ReqPostType);
   }
-
-  const handleChangeCategory = (category: string) => {
-    const target = menu.find(v => v.name === category);
-    setPlaceholder(target?.placeholder || '');
-  };
 
   useEffect(() => {
     setIsClient(true);
@@ -76,7 +59,7 @@ const FeedbackModal = ({
   return (
     <>
       {isClient && (
-        <Dialog defaultOpen={defaultOpen}>
+        <Dialog>
           <DialogTrigger asChild>
             {children ? children : <Button className="hidden">의견 보내기 모달</Button>}
           </DialogTrigger>
@@ -99,34 +82,19 @@ const FeedbackModal = ({
                         <FormLabel className="mb-3 font-r14 text-gray-900">
                           컨텐츠
                         </FormLabel>
-                        <Select
-                          defaultValue={field.value || '그루어리'}
-                          onValueChange={handleChangeCategory}
-                        >
+                        <Select defaultValue={field.value || undefined}>
                           <SelectTrigger className="border border-gray-200 h-[54px]">
-                            <SelectValue
-                              placeholder={field.value || '카테고리를 선택해 주세요'}
-                            />
+                            <SelectValue placeholder="카테고리를 선택해 주세요" />
                           </SelectTrigger>
                           <SelectContent className="">
-                            <SelectItem value="그루어리" className="group">
+                            <SelectItem value="free" className="group">
                               <div className="flex gap-x-2.5 text-gray-400 group-hover:text-primary-900">
                                 <Dot width={20} height={20} color="currentColor" />
                                 <span className="text-gray-800 group-hover:text-primary-900">
-                                  그루어리 이용
+                                  자유
                                 </span>
                               </div>
                             </SelectItem>
-                            {menu.slice(2).map(v => (
-                              <SelectItem key={v.name} value={v.name} className="group">
-                                <div className="flex gap-x-2.5 text-gray-400 group-hover:text-primary-900">
-                                  <Dot width={20} height={20} color="currentColor" />
-                                  <span className="text-gray-800 group-hover:text-primary-900">
-                                    {v.name}
-                                  </span>
-                                </div>
-                              </SelectItem>
-                            ))}
                           </SelectContent>
                         </Select>
                       </FormItem>
@@ -142,11 +110,7 @@ const FeedbackModal = ({
                         </FormLabel>
                         <Textarea
                           {...field}
-                          placeholder={
-                            placeholder ||
-                            '궁금하거나 떠오르는 아이디어, 의견이 있다면 자유롭게 남겨주세요'
-                          }
-                          maxLength={300}
+                          placeholder="궁금하거나 떠오르는 아이디어, 의견이 있다면 자유럽게 남겨주세요"
                         />
                       </FormItem>
                     )}
@@ -160,18 +124,6 @@ const FeedbackModal = ({
           </DialogContent>
         </Dialog>
       )}
-      <Button
-        ref={btnToastRef}
-        variant="hidden"
-        onClick={() => {
-          toast({
-            description: '소중한 의견 감사합니다',
-          });
-        }}
-      >
-        Show Toast
-      </Button>
-      <Toaster />
     </>
   );
 };
