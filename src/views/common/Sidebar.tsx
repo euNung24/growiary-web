@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import LoginDialog from '@/components/LoginDialog';
+import { Button } from '@/components/ui/button';
 
 type MenuType = {
   src: string;
@@ -92,7 +93,7 @@ const Sidebar = () => {
       src: '/assets/icons/settings',
       alt: 'setting',
       name: '설정하기',
-      href: '/setting',
+      href: '/settings',
     },
     {
       src: '/assets/icons/forward-message',
@@ -135,7 +136,22 @@ const Sidebar = () => {
         <span className="lg:hidden block mt-3 mb-2 font-r12 text-gray-900">
           회고하며 성장하는 일기장
         </span>
-        <LoginDialog />
+        <LoginDialog>
+          <div>
+            <Button variant="outline" size="sm" className="rounded-[20px] lg:hidden">
+              그루어리 로그인
+            </Button>
+            <div className="w-[36px] h-[36px] mx-auto rounded-full bg-gray-100 hidden lg:flex lg:justify-center lg:items-center cursor-pointer">
+              <Image
+                src="/assets/icons/profile.png"
+                alt="profile"
+                width={24}
+                height={24}
+                className="lg:block hidden"
+              />
+            </div>
+          </div>
+        </LoginDialog>
       </div>
       <Menu items={menu1} />
       <hr className="my-6 border-gray-200" />

@@ -8,6 +8,9 @@ import { TodayState } from '@/store/todayStore';
 import Link from 'next/link';
 import { getCookie } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import LoginDialog from '@/components/LoginDialog';
 
 const HomeDailyChecker = () => {
   const {
@@ -31,7 +34,14 @@ const HomeDailyChecker = () => {
   }, []);
 
   return (
-    <section>
+    <section className={cn(data && 'mt-[72px]')}>
+      <div className={cn(data ? 'hidden' : 'flex py-[23px] mb-4 justify-end mx-2.5')}>
+        <LoginDialog>
+          <Button className="bg-gray-50 border-0" variant="outlineGray">
+            시작하기
+          </Button>
+        </LoginDialog>
+      </div>
       {data ? (
         <>
           <div className="flex justify-between">

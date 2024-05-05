@@ -10,8 +10,13 @@ import {
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ReactNode } from 'react';
 
-const LoginDialog = () => {
+type LoginDialogProps = {
+  children: ReactNode;
+};
+
+const LoginDialog = ({ children }: LoginDialogProps) => {
   const termsStyle = 'font-sb12 text-gray-700';
   const kakaoLogin = async () => {
     const url = 'https://kauth.kakao.com/oauth/authorize';
@@ -36,22 +41,7 @@ const LoginDialog = () => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <div>
-          <Button variant="outline" size="sm" className="rounded-[20px] lg:hidden">
-            그루어리 로그인
-          </Button>
-          <div className="w-[36px] h-[36px] mx-auto rounded-full bg-gray-100 hidden lg:flex lg:justify-center lg:items-center cursor-pointer">
-            <Image
-              src="/assets/icons/profile.png"
-              alt="profile"
-              width={24}
-              height={24}
-              className="lg:block hidden"
-            />
-          </div>
-        </div>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <Image
