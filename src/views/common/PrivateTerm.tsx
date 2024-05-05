@@ -17,7 +17,7 @@ type PrivateTermProps = {
 const PrivateTerm = ({ children }: PrivateTermProps) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+      <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="font-sb22">그루어리 서비스 약관</AlertDialogTitle>
