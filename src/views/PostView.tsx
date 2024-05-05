@@ -58,7 +58,7 @@ const PostView = ({ post }: PostViewProps) => {
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
   const btnStopPostRef = useRef<HTMLButtonElement | null>(null);
   const btnSaveToastRef = useRef<HTMLButtonElement | null>(null);
-  const historyFnRef = useRef(() => {});
+  const historyFnRef = useRef<() => void | false>(() => {});
   const isSavedRef = useRef(false);
   const { toast } = useToast();
 
@@ -119,7 +119,7 @@ const PostView = ({ post }: PostViewProps) => {
 
   const movePage = () => {
     form.reset();
-    historyFnRef.current && historyFnRef.current();
+    historyFnRef.current && historyFnRef.current() && history.back();
   };
 
   useEffect(function setInitTemplate() {

@@ -10,7 +10,7 @@ type StopMovePageProps = {
   fn: (
     url?: () => void,
     push?: () => (href: string, options?: NavigateOptions | undefined) => void,
-  ) => void;
+  ) => void | boolean;
 };
 
 const StopMovePage = ({ url, isPreventCondition, fn }: StopMovePageProps) => {
@@ -32,7 +32,7 @@ const StopMovePage = ({ url, isPreventCondition, fn }: StopMovePageProps) => {
     // 페이지를 벗어나지 않아야 하는 경우
     if (isPreventCondition) {
       // 함수
-      fn();
+      fn(() => true);
       history.pushState(null, '', '');
       return;
     }
@@ -70,7 +70,6 @@ const StopMovePage = ({ url, isPreventCondition, fn }: StopMovePageProps) => {
       // 페이지를 벗어나지 않아야 하는 경우
       if (href !== `${url}` && isPreventCondition) {
         // 함수
-        console.log(href);
         fn(() => originalPush(href, options));
         return;
       }
