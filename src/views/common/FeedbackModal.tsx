@@ -25,7 +25,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ReqPostType } from '@/types/postTypes';
 import { Textarea } from '@/components/ui/textarea';
 import { menu } from '@/utils';
-import { Toaster } from '@/components/ui/toaster';
 import { toast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 
@@ -178,7 +177,6 @@ const FeedbackModal = ({
       >
         Show Toast
       </Button>
-      <Toaster />
     </>
   );
 };

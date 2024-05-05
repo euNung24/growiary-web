@@ -13,6 +13,8 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import useGetProfile from '@/hooks/profile/useGetProfile';
 import { ChevronRight } from 'lucide-react';
+import ServiceTerm from '@/views/common/ServiceTerm';
+import PrivateTerm from '@/views/common/PrivateTerm';
 
 const SettingModal = () => {
   const [isClient, setIsClient] = useState(false);
@@ -62,11 +64,15 @@ const SettingModal = () => {
               </div>
               <div className="flex justify-between py-[13px]">
                 <span>서비스 이용약관</span>
-                <ChevronRight className="text-gray-500" />
+                <ServiceTerm>
+                  <ChevronRight className="text-gray-500" />
+                </ServiceTerm>
               </div>
               <div className="flex justify-between py-[13px]">
                 <span>개인정보 처리방침</span>
-                <ChevronRight className="text-gray-500" />
+                <PrivateTerm>
+                  <ChevronRight className="text-gray-500" />
+                </PrivateTerm>
               </div>
               <div className="flex justify-between py-[13px]">
                 <span>앱버전 정보</span>

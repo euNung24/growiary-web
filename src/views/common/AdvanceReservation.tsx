@@ -3,50 +3,56 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { Dot } from 'lucide-react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReqPostType } from '@/types/postTypes';
-import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { toast } from '@/components/ui/use-toast';
 
 const FormSchema = z.object({
-  category: z.string().nullish(),
-  content: z.string(),
+  q1: z.string(),
+  q2: z.string().min(1),
+  q3: z.string(),
+  q4: z.string(),
+  q5: z.string().min(1),
 });
 
-type FeedbackModalProps = {
+type AdvanceReservationProps = {
   children?: ReactNode;
 };
 
-const FeedbackModal = ({ children }: FeedbackModalProps) => {
+const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   const [isClient, setIsClient] = useState(false);
+  const btnToastRef = useRef<HTMLButtonElement | null>(null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      category: '',
-      content: '',
+      q1: '',
+      q2: '',
+      q3: '',
+      q4: '',
+      q5: '',
     },
+    mode: 'onChange',
   });
+
+  const { getFieldState } = form;
+  const fieldQ1State = getFieldState('q1');
+  const fieldQ2State = getFieldState('q2');
+  const fieldQ5State = getFieldState('q5');
 
   async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
     console.log('data', data);
+    btnToastRef.current?.click();
     // post
     //   ? await updatePost({ id: post.id, ...(data as ReqPostType) })
     //   : await createPost(data as ReqPostType);
@@ -61,66 +67,135 @@ const FeedbackModal = ({ children }: FeedbackModalProps) => {
       {isClient && (
         <Dialog>
           <DialogTrigger asChild>
-            {children ? children : <Button className="hidden">의견 보내기 모달</Button>}
+            {children ? (
+              children
+            ) : (
+              <Button className="hidden">사전 예약 신청 모달</Button>
+            )}
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader className="mb-14">
-              <DialogTitle className="text-primary-900 mt-10">의견 보내기</DialogTitle>
-              <DialogDescription className="text-gray-500 mt-12">
-                사용하시다 개선사항이나 좋은 제안이 떠오르셨나요?
-                <br /> 자유롭게 이야기해주세요. 소중한 의견 고맙습니다!
-              </DialogDescription>
+          <DialogContent className="sm:max-w-[425px] max-h-[80vh] flex flex-col">
+            <DialogHeader className="mb-6">
+              <DialogTitle className="text-primary-900 mt-10">사전 예약 신청</DialogTitle>
             </DialogHeader>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
-                <div className="flex flex-col space-y-[51px]">
-                  <FormField
-                    control={form.control}
-                    name="category"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="mb-3 font-r14 text-gray-900">
-                          컨텐츠
-                        </FormLabel>
-                        <Select defaultValue={field.value || undefined}>
-                          <SelectTrigger className="border border-gray-200 h-[54px]">
-                            <SelectValue placeholder="카테고리를 선택해 주세요" />
-                          </SelectTrigger>
-                          <SelectContent className="">
-                            <SelectItem value="free" className="group">
-                              <div className="flex gap-x-2.5 text-gray-400 group-hover:text-primary-900">
-                                <Dot width={20} height={20} color="currentColor" />
-                                <span className="text-gray-800 group-hover:text-primary-900">
-                                  자유
-                                </span>
-                              </div>
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="content"
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormLabel className="mb-3 font-r14 text-gray-900">
-                          내용
-                        </FormLabel>
-                        <Textarea
-                          {...field}
-                          placeholder="궁금하거나 떠오르는 아이디어, 의견이 있다면 자유럽게 남겨주세요"
-                        />
-                      </FormItem>
-                    )}
-                  />
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-col flex-1 overflow-hidden gap-y-6 text-gray-500"
+              >
+                <div className="flex flex-col relative h-[50%] overflow-y-scroll">
+                  <div className="rounded-xl p-6 mb-10 bg-gray-50/50">
+                    <h4 className="font-sb14 mb-2.5">AI와 함께하는 자아발견 인터뷰</h4>
+                    <p className="font-r12">
+                      내가 쓴 기록들을 기반으로 나를 더 잘 알기 위한 질문들을 생성해요.
+                      <br />
+                      총 30가지의 질문과 답변들을 모아 4-Points(성장, 건강, 취향, 관계)의
+                      <br />
+                      성향 진단과 개선점 제안 리포트를 제공합니다.
+                    </p>
+                  </div>
+                  <div className="flex flex-col space-y-8 text-gray-500 font-r14">
+                    <FormField
+                      control={form.control}
+                      name="q1"
+                      render={({ field: fieldQ1 }) => (
+                        <FormItem className="space-y-3">
+                          <FormLabel>
+                            Q1. 자아발견 인터뷰와 리포트를 어떤 용도로 활용할 예정인가요?
+                          </FormLabel>
+                          <Input {...fieldQ1} maxLength={50} />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="q2"
+                      render={({ field: fieldQ2 }) => (
+                        <FormItem className="space-y-3">
+                          <FormLabel>
+                            Q2. 가장 기대되는, 가장 얻고 싶은 정보는 무엇인가요?
+                          </FormLabel>
+                          <Input {...fieldQ2} maxLength={50} />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="q3"
+                      render={({ field: fieldQ3 }) => (
+                        <FormItem className="space-y-3">
+                          <FormLabel>
+                            Q3. 그루어리 외 다른 리포트 혹은 기록 기반의 테스트를 이용해
+                            본 경험이 있으신가요?
+                          </FormLabel>
+                          <Input defaultValue={fieldQ3.value} maxLength={50} />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="q4"
+                      render={({ field: fieldQ4 }) => (
+                        <FormItem className="space-y-3">
+                          <FormLabel>
+                            Q3-1. 다른리포트 혹은 기록 기반의 테스트에서 어떤 부분이 가장
+                            마음에 들었나요?
+                          </FormLabel>
+                          <Input defaultValue={fieldQ4.value} maxLength={50} />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="q5"
+                      render={({ field: fieldQ5 }) => (
+                        <>
+                          <FormItem className="space-y-3">
+                            <FormLabel>
+                              Q5. 다른리포트 혹은 기록 기반의 테스트에서 어떤 부분이 가장
+                              마음에 들었나요?
+                            </FormLabel>
+                            <Input {...fieldQ5} />
+                          </FormItem>
+                        </>
+                      )}
+                    />
+                  </div>
                 </div>
-                <div className="mt-[72px] flex justify-center items-center">
-                  <Button type="submit">의견 보내기</Button>
+                <div className="flex flex-col gap-y-6 justify-center items-center">
+                  <p className="text-center">
+                    위의 질문에 대한 답변을 제출하면 사전 예약 신청하기 완료!
+                    <br />
+                    AI 기능이 출시되면 50% 할인 쿠폰과 함께 가장 먼저 알림을 드려요.
+                  </p>
+                  <Button
+                    type="submit"
+                    disabled={
+                      !fieldQ1State.isDirty ||
+                      !fieldQ2State.isDirty ||
+                      !fieldQ5State.isDirty
+                    }
+                  >
+                    신청하기
+                  </Button>
                 </div>
               </form>
             </Form>
+            <Button
+              ref={btnToastRef}
+              variant="hidden"
+              onClick={() => {
+                toast({
+                  description: (
+                    <p className="text-center">
+                      5월 coming soon!
+                      <br /> 사전 신청해주셔서 감사합니다
+                    </p>
+                  ),
+                });
+              }}
+            >
+              Show Toast
+            </Button>
           </DialogContent>
         </Dialog>
       )}
@@ -128,4 +203,4 @@ const FeedbackModal = ({ children }: FeedbackModalProps) => {
   );
 };
 
-export default FeedbackModal;
+export default AdvanceReservation;

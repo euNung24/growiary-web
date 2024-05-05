@@ -7,9 +7,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import Link from 'next/link';
 import Image from 'next/image';
 import { ReactNode } from 'react';
+import ServiceTerm from '@/views/common/ServiceTerm';
+import PrivateTerm from '@/views/common/PrivateTerm';
 
 type LoginDialogProps = {
   children: ReactNode;
@@ -75,18 +76,14 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
         </div>
         <DialogFooter>
           계속 진행하면 Growiary{' '}
-          <b>
-            <Link href="" className={termsStyle}>
-              서비스 약관
-            </Link>
-          </b>
+          <ServiceTerm>
+            <b className={termsStyle}>서비스 약관</b>
+          </ServiceTerm>
           에 동의하고
           <br />
-          <b>
-            <Link href="" className={termsStyle}>
-              개인정보처리방침
-            </Link>
-          </b>
+          <PrivateTerm>
+            <b className={termsStyle}>개인정보처리방침</b>
+          </PrivateTerm>
           을 읽었음을 인정하는 것으로 간주됩니다.
         </DialogFooter>
       </DialogContent>
