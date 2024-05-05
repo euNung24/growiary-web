@@ -27,6 +27,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { menu } from '@/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { toast } from '@/components/ui/use-toast';
+import Image from 'next/image';
 
 const FormSchema = z.object({
   category: z.string().nullish(),
@@ -120,7 +121,13 @@ const FeedbackModal = ({
                             {menu.slice(2).map(v => (
                               <SelectItem key={v.name} value={v.name} className="group">
                                 <div className="flex gap-x-2.5 text-gray-400 group-hover:text-primary-900">
-                                  <Dot width={20} height={20} color="currentColor" />
+                                  <Image
+                                    src={`${v.src}.png`}
+                                    width={20}
+                                    height={20}
+                                    alt={v.name}
+                                  />
+                                  {/*<Dot width={20} height={20} color="currentColor" />*/}
                                   <span className="text-gray-800 group-hover:text-primary-900">
                                     {v.name}
                                   </span>

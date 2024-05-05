@@ -11,9 +11,12 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import useGetProfile from '@/hooks/profile/useGetProfile';
+import { ChevronRight } from 'lucide-react';
 
 const SettingModal = () => {
   const [isClient, setIsClient] = useState(false);
+  const profile = useGetProfile();
 
   useEffect(() => {
     setIsClient(true);
@@ -31,32 +34,43 @@ const SettingModal = () => {
               <DialogTitle className="text-primary-900 mt-10">설정</DialogTitle>
             </DialogHeader>
             <div className="flex items-center">
-              <div className="flex justify-center items-center w-[76px] h-[76px] rounded-full bg-gray-100 lg:hidden">
+              <div className="flex justify-center items-center w-[76px] h-[76px] rounded-full bg-gray-100 overflow-hidden lg:hidden">
                 <Image
-                  src="/assets/icons/profile.png"
+                  src={profile?.profileImage || '/assets/icons/profile.png'}
                   alt="profile"
-                  width={42}
-                  height={42}
+                  width={profile?.profileImage ? 76 : 42}
+                  height={profile?.profileImage ? 76 : 42}
                 />
               </div>
-              <span className="ml-[18px] font-r22 text-gray-900">그루미님</span>
+              <span className="ml-[18px] font-r22 text-gray-900">
+                {profile?.nickname || '그루미'}님
+              </span>
             </div>
             <section className="flex flex-col gap-y-1 mt-10 text-gray-900 font-r16">
               <div className="flex justify-between py-[13px]">
                 <span>연결된 계정</span>
-                <span>연결된 계정</span>
+                <div className="flex items-center">
+                  <Image
+                    src="/assets/icons/kakao.png"
+                    alt={profile?.social || 'social'}
+                    width={24}
+                    height={24}
+                    className="rounded-full mr-3"
+                  />
+                  <span className="text-gray-500">{profile?.email}</span>
+                </div>
               </div>
               <div className="flex justify-between py-[13px]">
-                <span>연결된 계정</span>
-                <span>연결된 계정</span>
+                <span>서비스 이용약관</span>
+                <ChevronRight className="text-gray-500" />
               </div>
               <div className="flex justify-between py-[13px]">
-                <span>연결된 계정</span>
-                <span>연결된 계정</span>
+                <span>개인정보 처리방침</span>
+                <ChevronRight className="text-gray-500" />
               </div>
               <div className="flex justify-between py-[13px]">
-                <span>연결된 계정</span>
-                <span>연결된 계정</span>
+                <span>앱버전 정보</span>
+                <span className="text-gray-500">v1.0.0.최신버전</span>
               </div>
               <div className="flex justify-between py-[13px]">
                 <Button
