@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Calendar as CalendarIcon, Hash } from 'lucide-react';
-import { format } from 'date-fns';
 import { ResPostType } from '@/types/postTypes';
 import Tag from '@/components/Tag';
 import { useEffect, useRef } from 'react';
