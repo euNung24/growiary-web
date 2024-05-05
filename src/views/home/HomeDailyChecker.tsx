@@ -11,6 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import LoginDialog from '@/components/LoginDialog';
+import useGetProfile from '@/hooks/profile/useGetProfile';
 
 const HomeDailyChecker = () => {
   const {
@@ -24,25 +25,24 @@ const HomeDailyChecker = () => {
     mutationKey: ['dailyChecker'],
     mutationFn: getDailyCheckerPost,
   });
+  const profile = useGetProfile();
 
   useEffect(() => {
-    if (!getCookie('accessToken')) return;
-
     mutation.mutateAsync().then(res => {
       setData(res.data.post);
     });
   }, []);
 
   return (
-    <section className={cn(data && 'mt-[72px]')}>
-      <div className={cn(data ? 'hidden' : 'flex py-[23px] mb-4 justify-end mx-2.5')}>
+    <section className={cn(profile && 'mt-[72px]')}>
+      <div className={cn(profile ? 'hidden' : 'flex py-[23px] mb-4 justify-end mx-2.5')}>
         <LoginDialog>
           <Button className="bg-gray-50 border-0" variant="outlineGray">
             시작하기
           </Button>
         </LoginDialog>
       </div>
-      {data ? (
+      {profile ? (
         <>
           <div className="flex justify-between">
             <h2 className="title">매일 글쓰기</h2>
