@@ -29,6 +29,4 @@ export const updatePost = (postData: UpdatePostType) =>
     ApiSuccessResponse<ResPostType>
   >;
 export const getDailyCheckerPost = () =>
-  withTokenPost(postApiUrl + '/continue-range') as Promise<
-    ApiSuccessResponse<DailyCheckerType>
-  >;
+  withTokenPost(postApiUrl + '/weekly') as Promise<ApiSuccessResponse<DailyCheckerType>>;

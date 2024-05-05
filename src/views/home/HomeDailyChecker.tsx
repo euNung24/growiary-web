@@ -6,7 +6,6 @@ import { getDailyCheckerPost } from '@/apis/post';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import Link from 'next/link';
-import { getCookie } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -29,7 +28,8 @@ const HomeDailyChecker = () => {
 
   useEffect(() => {
     mutation.mutateAsync().then(res => {
-      setData(res.data.post);
+      if (!res) return;
+      setData(res.data);
     });
   }, []);
 
@@ -68,14 +68,28 @@ const HomeDailyChecker = () => {
                 count={i !== 0 && data ? data[i - 1] : 0}
               />
             ))}
+            {day === 0 && (
+              <DailyChecker
+                variant="prev"
+                date={new Date(
+                  today.getFullYear(),
+                  today.getMonth(),
+                  today.getDate() - 1,
+                  0,
+                  0,
+                  0,
+                ).getDate()}
+                count={0}
+              />
+            )}
             <Link href="/post">
               <DailyChecker
                 variant="today"
                 date={today.getDate()}
-                count={data?.[day - 1]}
+                count={data !== undefined ? data[day] : undefined}
               />
             </Link>
-            {[...Array(8 - day)].map((v, i) => (
+            {[...Array(7 - day)].map((v, i) => (
               <DailyChecker
                 key={i}
                 variant="next"
@@ -87,7 +101,7 @@ const HomeDailyChecker = () => {
                   0,
                   0,
                 ).getDate()}
-                count={data && i + day !== data.length ? data[i + day] : 0}
+                count={data && i + day + 1 !== data.length ? data[i + day + 1] : 0}
               />
             ))}
           </div>

@@ -3,6 +3,7 @@ import { Op } from 'quill-delta';
 import { TopicCategory } from '@/types/topicTypes';
 
 type PostType = {
+  index: number;
   topicId?: number;
   category?: TopicCategory;
   title: string;
@@ -24,7 +25,4 @@ export type ReqPostType = PostType & {
 
 export type UpdatePostType = { id: string } & ReqPostType;
 
-export type DailyCheckerType = {
-  post: number[];
-  count: number;
-};
+export type DailyCheckerType = number[];
