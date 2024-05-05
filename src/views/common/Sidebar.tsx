@@ -32,7 +32,7 @@ const Menu = ({ items }: MenuProps) => {
             href={item.href}
             className={cn(
               'flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-700 font-sb12 lg:justify-center lg:gap-0 hover:bg-gray-50 hover:text-primary-900',
-              item.href === pathname && active,
+              item.href.split('/')[1] === pathname.split('/')[1] && active,
             )}
           >
             <Image
