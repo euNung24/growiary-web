@@ -137,7 +137,7 @@ const PostView = ({ post }: PostViewProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/3 flex flex-col gap-y-4 w-[960px] h-full mx-auto mt-[72px]"
+        className="w-2/3 flex flex-col gap-y-4 w-[960px] h-screen mx-auto py-[72px]"
       >
         <FormField
           control={form.control}
