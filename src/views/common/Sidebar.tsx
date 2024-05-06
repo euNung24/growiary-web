@@ -99,17 +99,31 @@ const Sidebar = () => {
         {/* 프로필 이미지 */}
         <div className="mx-auto flex justify-center items-center w-[74px] h-[74px] rounded-full bg-gray-100 overflow-hidden lg:w-9 lg:h-9">
           <Image
-            src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
+            src={
+              (profile && typeof profile !== 'string' && profile.profileImage) ||
+              '/assets/icons/profile.png'
+            }
             alt="profile"
-            width={profile && profile.profileImage ? 74 : 42}
-            height={profile && profile.profileImage ? 74 : 42}
+            width={
+              profile && typeof profile !== 'string' && profile.profileImage ? 74 : 42
+            }
+            height={
+              profile && typeof profile !== 'string' && profile.profileImage ? 74 : 42
+            }
             className="lg:hidden"
           />
           <Image
-            src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
+            src={
+              (profile && typeof profile !== 'string' && profile.profileImage) ||
+              '/assets/icons/profile.png'
+            }
             alt="profile"
-            width={profile && profile.profileImage ? 36 : 24}
-            height={profile && profile.profileImage ? 36 : 24}
+            width={
+              profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
+            }
+            height={
+              profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
+            }
             className="hidden lg:block"
           />
         </div>
@@ -118,7 +132,7 @@ const Sidebar = () => {
           회고하며 성장하는 일기장
         </span>
         {/* 닉네임 */}
-        {profile ? (
+        {profile && typeof profile !== 'string' ? (
           <span className="font-sb16 text-gray-900 lg:hidden">
             {profile.nickname || '그루미'}
           </span>

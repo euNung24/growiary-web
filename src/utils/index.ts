@@ -86,15 +86,15 @@ export const menu = [
   },
   {
     src: '/assets/icons/multi-window',
-    alt: 'recommended questions',
+    alt: 'recommended topics',
     name: '추천 주제',
     href: '/topics',
     placeholder: '간직하고 있는 좋은 질문이 있다면 공유해주세요',
   },
   {
     src: '/assets/icons/report',
-    alt: 'monthly report',
-    name: '월간 리포트',
+    alt: 'report',
+    name: '기록 데이터 보기',
     href: '/report',
     placeholder: '더 알고 싶은 기록 관련 데이터가 있다면 알려주세요',
   },
