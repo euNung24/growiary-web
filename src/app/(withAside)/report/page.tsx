@@ -1,4 +1,4 @@
-import ReportView from '@/views/ReportView';
+import ReportView from '@/views/report/ReportView';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 export default function Home() {
   return (
