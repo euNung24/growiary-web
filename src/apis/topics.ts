@@ -9,6 +9,7 @@ import {
   UpdateTopicType,
 } from '@/types/topicTypes';
 import withToken from '@/apis/withToken';
+import { ApiSuccessResponse } from '@/types';
 
 const topicApiUrl = process.env.NEXT_PUBLIC_API + '/topic';
 
