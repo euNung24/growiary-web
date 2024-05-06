@@ -8,7 +8,6 @@ import Line from '@/components/Line';
 import Chip from '@/components/Chip';
 import Link from 'next/link';
 import Image from 'next/image';
-import useGetPosts from '@/hooks/posts/useGetPosts';
 import { ResPostType } from '@/types/postTypes';
 import { getStringDateAndTime, getTwoFormatDate } from '@/utils';
 import { topicCategory } from '@/utils/topicCategory';
@@ -19,6 +18,7 @@ import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { SelectSingleEventHandler } from 'react-day-picker';
 import { useRouter } from 'next/navigation';
+import useGetMonthlyPosts from '@/hooks/posts/useGetMonthlyPosts';
 
 type HistoryPostType = {
   [key: string]: ResPostType[];
@@ -31,7 +31,7 @@ const HistoryView = () => {
   const [selectedMonth, setSelectedMonth] = useState(month);
   const [posts, setPosts] = useState<HistoryPostType>({});
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const mutation = useGetPosts();
+  const mutation = useGetMonthlyPosts();
   const today = `${year}-${getTwoFormatDate(month)}-${getTwoFormatDate(todayDate)}`;
   const router = useRouter();
 
@@ -65,8 +65,13 @@ const HistoryView = () => {
   };
 
   useEffect(() => {
-    mutation.mutateAsync().then(res => {
+    mutation.mutateAsync(selectedMonth).then(res => {
       if (!res) return;
+      if (!Array.isArray(res.data)) {
+        setPosts(res.data);
+        return;
+      }
+
       const sortDataByDate = res.data.reduce((f, v) => {
         const date = format(new Date(v.writeDate), 'yyyy-MM-dd');
         return {
@@ -76,7 +81,7 @@ const HistoryView = () => {
       }, {} as HistoryPostType);
       setPosts(sortDataByDate);
     });
-  }, []);
+  }, [selectedMonth]);
 
   return (
     <div className="w-full flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]">
@@ -164,7 +169,7 @@ const HistoryView = () => {
         </div>
         <Line className="mt-5 mb-4" />
         <section className="flex flex-col gap-y-[72px] pb-5  mx-2.5">
-          {posts && !posts[today] && (
+          {posts && !posts[today] && year === selectedYear && month === selectedMonth && (
             <div>
               <div className="mb-3">
                 <span className="mr-2">
@@ -199,7 +204,7 @@ const HistoryView = () => {
                     {today === date && <Chip variant="gray">오늘</Chip>}
                   </div>
                   <div key={date} className="space-y-3">
-                    {posts[date]?.map((post, i) => (
+                    {posts[date]?.toReversed().map((post, i) => (
                       <Link key={post.id} href={`/history/${post.id}`} className="block">
                         <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
                           <div className="flex justify-between items-center">

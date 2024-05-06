@@ -34,5 +34,10 @@ export const deletePost = (id: string) =>
   withTokenPost(postApiUrl + '/update', { body: { status: false, id } }) as Promise<
     ApiSuccessResponse<ResPostType>
   >;
+export const getMonthlyPosts = (id: number) =>
+  withTokenPost(postApiUrl + '/month', { body: { month: id.toString() } }) as Promise<
+    ApiSuccessResponse<ResPostType[]>
+  >;
+
 export const getDailyCheckerPost = () =>
   withTokenPost(postApiUrl + '/weekly') as Promise<ApiSuccessResponse<DailyCheckerType>>;
