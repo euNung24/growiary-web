@@ -21,3 +21,10 @@ export type UpdateTopicType = {
 };
 
 export type FindTopicType = Pick<TopicType, 'id'>;
+
+export type RecentTopicType = {
+  topicId: number;
+  topic: TopicType;
+  users: number;
+  count: number;
+};

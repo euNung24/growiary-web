@@ -18,6 +18,8 @@ import { useState } from 'react';
 import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
+import FooterFeedbackView from '@/views/common/FooterFeedbackView';
+import RecentTopic from '@/views/topic/RecentTopic';
 
 const TopicView = () => {
   const [currentCategory, setCurrentCategory] = useState(() => {
@@ -33,11 +35,11 @@ const TopicView = () => {
   const topics2 = topics?.[currentCategory]?.slice(0, 2);
 
   return (
-    <>
-      <section className="min-w-[940px]">
+    <div className="max-w-[940px] mx-auto my-[72px]">
+      <section className="">
         <h2 className="title">다채로운 질문들을 만나보세요</h2>
         <div className="flex gap-5 mt-6">
-          {topics2?.map((topic, i) => (
+          {topics2?.slice(0, 1).map((topic, i) => (
             <div key={i}>
               <TopicCard className="shrink-0">
                 <TopicCardHeader>
@@ -69,6 +71,7 @@ const TopicView = () => {
               </p>
             </div>
           ))}
+          <RecentTopic />
         </div>
       </section>
       <hr className="border-gray-100 mt-[46px] mb-6" />
@@ -131,7 +134,7 @@ const TopicView = () => {
               ))}
         </ul>
       </section>
-    </>
+    </div>
   );
 };
 

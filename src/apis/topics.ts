@@ -3,9 +3,11 @@
 import {
   FindTopicType,
   PostTopicType,
+  RecentTopicType,
   TopicType,
   UpdateTopicType,
 } from '@/types/topicTypes';
+import withToken from '@/apis/withToken';
 
 const topicApiUrl = process.env.NEXT_PUBLIC_API + '/topic';
 
@@ -65,3 +67,6 @@ export const findTopic = async (
 
   return response.json();
 };
+
+export const getUserRecentTopic = () =>
+  withToken(topicApiUrl + '/recent') as Promise<ApiSuccessResponse<RecentTopicType>>;
