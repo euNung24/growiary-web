@@ -180,7 +180,6 @@ const PostView = ({ post }: PostViewProps) => {
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
-                              disabled
                               variant={'ghost'}
                               className={cn(
                                 'flex-1 pl-3 py-2 font-r16 text-gray-700 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',

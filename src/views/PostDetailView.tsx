@@ -22,13 +22,30 @@ import {
   AlertDialogTitleIcon,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { toast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
+import useDeletePost from '@/hooks/posts/useDeletePosts';
 
 type PostViewProps = {
   post: ResPostType;
 };
 const PostView = ({ post }: PostViewProps) => {
+  const router = useRouter();
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isClickedFirst = useRef(false);
+  const mutation = useDeletePost(post.id);
+
+  const handleDeletePost = () => {
+    mutation.mutateAsync().then(res => {
+      if (!res) return;
+      toast({
+        description: '일기가 삭제되었습니다',
+        onEndToast: () => {
+          router.push('/history');
+        },
+      });
+    });
+  };
 
   useEffect(() => {
     if (!isClickedFirst.current) {
@@ -124,7 +141,7 @@ const PostView = ({ post }: PostViewProps) => {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>확인</AlertDialogCancel>
+              <AlertDialogCancel onClick={handleDeletePost}>확인</AlertDialogCancel>
               <AlertDialogAction>취소</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

@@ -23,6 +23,10 @@ export type ReqPostType = PostType & {
   writeDate: Date;
 };
 
+export type DeletePostType = PostType & {
+  status: boolean;
+};
+
 export type UpdatePostType = { id: string } & ReqPostType;
 
 export type DailyCheckerType = number[];

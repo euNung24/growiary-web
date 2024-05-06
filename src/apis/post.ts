@@ -1,5 +1,6 @@
 import {
   DailyCheckerType,
+  DeletePostType,
   ReqPostType,
   ResPostType,
   UpdatePostType,
@@ -26,6 +27,11 @@ export const createPost = (postData: ReqPostType) =>
 
 export const updatePost = (postData: UpdatePostType) =>
   withTokenPost(postApiUrl + '/update', { body: postData }) as Promise<
+    ApiSuccessResponse<ResPostType>
+  >;
+
+export const deletePost = (id: string) =>
+  withTokenPost(postApiUrl + '/update', { body: { status: false, id } }) as Promise<
     ApiSuccessResponse<ResPostType>
   >;
 export const getDailyCheckerPost = () =>
