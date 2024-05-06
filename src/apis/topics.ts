@@ -4,6 +4,7 @@ import {
   FindTopicType,
   PostTopicType,
   RecentTopicType,
+  RecommendedTopic,
   TopicType,
   UpdateTopicType,
 } from '@/types/topicTypes';
@@ -70,3 +71,20 @@ export const findTopic = async (
 
 export const getUserRecentTopic = () =>
   withToken(topicApiUrl + '/recent') as Promise<ApiSuccessResponse<RecentTopicType>>;
+
+export const getRecommendedTopic = async (): Promise<
+  ApiSuccessResponse<RecommendedTopic>
+> => {
+  const response = await fetch(topicApiUrl + '/recommendation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+
+  return response.json();
+};

@@ -20,57 +20,24 @@ import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import RecentTopic from '@/views/topic/RecentTopic';
+import RecommendedTopic from '@/views/topic/RecommendedTopic';
+import TopicList from '@/views/topic/TopicList';
 
 const TopicView = () => {
   const [currentCategory, setCurrentCategory] = useState(() => {
     return Object.keys(topicCategory)[0] as TopicCategory;
   });
 
-  const topics = useGetTopicsByCategory();
-
   const handleClickCategory = (category: TopicCategory) => {
     setCurrentCategory(category);
   };
-
-  const topics2 = topics?.[currentCategory]?.slice(0, 2);
 
   return (
     <div className="max-w-[940px] mx-auto my-[72px]">
       <section className="">
         <h2 className="title">다채로운 질문들을 만나보세요</h2>
         <div className="flex gap-5 mt-6">
-          {topics2?.slice(0, 1).map((topic, i) => (
-            <div key={i}>
-              <TopicCard className="shrink-0">
-                <TopicCardHeader>
-                  <TopicCardChip>주간 인기</TopicCardChip>
-                  <TopicCardTitle>{topic.category}</TopicCardTitle>
-                </TopicCardHeader>
-                <TopicCardContent>
-                  <ul className="list-disc ml-5">
-                    <li>{topic.title.replaceAll('/n ', '')}</li>
-                  </ul>
-                </TopicCardContent>
-                <TopicCardFooter>
-                  <Button
-                    size="full"
-                    className={cn(
-                      'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
-                    )}
-                    asChild
-                  >
-                    <Link href={`/post?topic=${topic.id}&category=${topic.category}`}>
-                      <ButtonIcon src="/assets/icons/edit.png" alt="write" />이 주제로
-                      글쓰기
-                    </Link>
-                  </Button>
-                </TopicCardFooter>
-              </TopicCard>
-              <p className="text-gray-400 font-r16 ml-3 mt-3">
-                {topic.title.replaceAll('/n ', '')}
-              </p>
-            </div>
-          ))}
+          <RecommendedTopic />
           <RecentTopic />
         </div>
       </section>
@@ -96,42 +63,7 @@ const TopicView = () => {
           ))}
         </ul>
         <ul className="flex flex-col gap-6 mt-9">
-          {topics
-            ? topics[currentCategory]?.map((topic, i) => (
-                <li
-                  key={i}
-                  className={cn(
-                    'group rounded-md hover:bg-primary-900 border border-gray-100',
-                  )}
-                >
-                  <Link
-                    href={`/post?topic=${topic.id}&category=${topic.category}`}
-                    className="px-6 py-4 inline-block text-gray-700 group-hover:text-white-0"
-                  >
-                    <Image
-                      src="/assets/icons/edit_white.png"
-                      alt="icon"
-                      width={22}
-                      height={22}
-                      className="hidden	group-hover:inline-block group-hover:mr-3"
-                    />
-                    {topic.title.replaceAll('/n ', '')}
-                    <Chip className="ml-3 group-hover:bg-gray-50 group-hover:text-gray-900">
-                      Best
-                    </Chip>
-                  </Link>
-                </li>
-              ))
-            : [...Array(4)].map((card, i) => (
-                <li
-                  key={i}
-                  className={cn(
-                    'group px-6 py-4 rounded-md hover:bg-primary-900 border border-gray-100',
-                  )}
-                >
-                  <Skeleton className="w-1/4 h-6" />
-                </li>
-              ))}
+          <TopicList currentCategory={currentCategory} />
         </ul>
       </section>
     </div>

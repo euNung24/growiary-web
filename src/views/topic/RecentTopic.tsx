@@ -35,12 +35,12 @@ const RecentTopic = () => {
         (recentTopic ? (
           <TopicCard className="shrink-0">
             <TopicCardHeader>
-              <TopicCardChip>주간 인기</TopicCardChip>
-              <TopicCardTitle>{recentTopic.topic.category}</TopicCardTitle>
+              <TopicCardChip>최근에 작성한</TopicCardChip>
+              <TopicCardTitle>{recentTopic.topic?.category}</TopicCardTitle>
             </TopicCardHeader>
             <TopicCardContent>
               <ul className="list-disc ml-5">
-                <li>{recentTopic.topic.title.replaceAll('/n ', '')}</li>
+                <li>{recentTopic.topic?.title.replaceAll('/n ', '')}</li>
               </ul>
             </TopicCardContent>
             <TopicCardFooter>
@@ -50,7 +50,7 @@ const RecentTopic = () => {
                 asChild
               >
                 <Link
-                  href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic.category}`}
+                  href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
                 >
                   <ButtonIcon src="/assets/icons/edit.png" alt="write" />이 주제로 글쓰기
                 </Link>

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 export type TopicCategory = '회고' | '하루생각' | '자아탐험' | '크리에이티브';
 
 export type TopicType = {
@@ -27,4 +25,14 @@ export type RecentTopicType = {
   topic: TopicType;
   users: number;
   count: number;
+};
+
+export type RecommendedTopic = {
+  top: {
+    topicId: number;
+    topic: TopicType;
+    users: number; // 해당 topicId를 사용한 유저수
+    count: number; // 전체 유저가 해당 topicId를 사용한 수
+  };
+  category: Record<TopicCategory, TopicType>;
 };

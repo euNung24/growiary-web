@@ -10,6 +10,7 @@ const useGetAllTopics = () => {
   } = useQuery({
     queryKey: ['allTopics'],
     queryFn: getAllTopics,
+    staleTime: Infinity,
   });
 
   if (isPending) {
