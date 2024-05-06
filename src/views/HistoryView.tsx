@@ -202,8 +202,8 @@ const HistoryView = () => {
               </div>
             </div>
           )}
-          {}
           {posts &&
+            Object.keys(posts).length > 0 &&
             dates.map(date => (
               <div id={date} key={date}>
                 <div className="mb-3">
