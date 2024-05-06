@@ -56,7 +56,7 @@ const HomePosts = () => {
               <Link key={post.id} href="/history">
                 <Card className="shrink-0" size="lg">
                   <CardHeader>
-                    <CardChip>No.{post.count}</CardChip>
+                    <CardChip>No.{post.index}</CardChip>
                     <CardTitle className="overflow-hidden text-ellipsis">
                       {post.title}
                     </CardTitle>
