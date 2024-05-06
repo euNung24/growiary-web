@@ -95,49 +95,54 @@ const Sidebar = () => {
           />
         </picture>
       </Link>
-      <div className="mt-0.5 mb-8 lg:mb-5 text-center">
-        {/* 프로필 이미지 */}
-        <div className="mx-auto flex justify-center items-center w-[74px] h-[74px] rounded-full bg-gray-100 overflow-hidden lg:w-9 lg:h-9">
-          <Image
-            src={
-              (profile && typeof profile !== 'string' && profile.profileImage) ||
-              '/assets/icons/profile.png'
-            }
-            alt="profile"
-            width={
-              profile && typeof profile !== 'string' && profile.profileImage ? 74 : 42
-            }
-            height={
-              profile && typeof profile !== 'string' && profile.profileImage ? 74 : 42
-            }
-            className="lg:hidden"
-          />
-          <Image
-            src={
-              (profile && typeof profile !== 'string' && profile.profileImage) ||
-              '/assets/icons/profile.png'
-            }
-            alt="profile"
-            width={
-              profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
-            }
-            height={
-              profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
-            }
-            className="hidden lg:block"
-          />
-        </div>
-        {/* 뱃지 타이틀 */}
-        <span className="lg:hidden block mt-3 mb-2 font-r12 text-gray-900">
-          회고하며 성장하는 일기장
-        </span>
-        {/* 닉네임 */}
-        {profile && typeof profile !== 'string' ? (
-          <span className="font-sb16 text-gray-900 lg:hidden">
-            {profile.nickname || '그루미'}
+      <LoginDialog>
+        <div
+          className={cn(
+            'mt-0.5 mb-8 lg:mb-5 text-center',
+            profile ? 'pointer-events-none' : 'cursor-pointer',
+          )}
+        >
+          {/* 프로필 이미지 */}
+          <div className="mx-auto flex justify-center items-center w-[74px] h-[74px] rounded-full bg-gray-100 overflow-hidden lg:w-9 lg:h-9">
+            <Image
+              src={
+                (profile && typeof profile !== 'string' && profile.profileImage) ||
+                '/assets/icons/profile.png'
+              }
+              alt="profile"
+              width={
+                profile && typeof profile !== 'string' && profile.profileImage ? 74 : 42
+              }
+              height={
+                profile && typeof profile !== 'string' && profile.profileImage ? 74 : 42
+              }
+              className="lg:hidden"
+            />
+            <Image
+              src={
+                (profile && typeof profile !== 'string' && profile.profileImage) ||
+                '/assets/icons/profile.png'
+              }
+              alt="profile"
+              width={
+                profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
+              }
+              height={
+                profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
+              }
+              className="hidden lg:block"
+            />
+          </div>
+          {/* 뱃지 타이틀 */}
+          <span className="lg:hidden block mt-3 mb-2 font-r12 text-gray-900">
+            회고하며 성장하는 일기장
           </span>
-        ) : (
-          <LoginDialog>
+          {/* 닉네임 */}
+          {profile && typeof profile !== 'string' ? (
+            <span className="font-sb16 text-gray-900 lg:hidden">
+              {profile.nickname || '그루미'}
+            </span>
+          ) : (
             <div>
               <Button variant="outline" size="sm" className="rounded-[20px] lg:hidden">
                 그루어리 로그인
@@ -152,9 +157,10 @@ const Sidebar = () => {
                 />
               </div>
             </div>
-          </LoginDialog>
-        )}
-      </div>
+          )}
+        </div>
+      </LoginDialog>
+
       <Menu items={menu} />
       <hr className="my-6 border-gray-200" />
       <Menu items={menu2} />
