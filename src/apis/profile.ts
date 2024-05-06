@@ -3,9 +3,9 @@ import { getCookie } from '@/utils';
 
 const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';
 
-export const getProfile = async (): Promise<ProfileType | undefined> => {
+export const getProfile = async (): Promise<ProfileType | string> => {
   const accessToken = getCookie('accessToken');
-  if (!accessToken) return;
+  if (!accessToken) return '';
 
   const response = await fetch(profileApiUrl, {
     headers: {
