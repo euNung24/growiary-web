@@ -37,7 +37,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Toaster } from '@/components/ui/toaster';
 
 const FormSchema = z.object({
-  topicId: z.number().nullish(),
+  topicId: z.number(),
   title: z.string(),
   content: z.string().or(z.object({ ops: z.array(z.any()) })),
   tags: z.array(z.string()),
@@ -65,7 +65,7 @@ const PostView = ({ post }: PostViewProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      topicId: post ? post.topicId : topicId,
+      topicId: post ? post.topicId : 65,
       title: post?.title || '',
       tags: post ? [...post.tags] : [],
       content: post?.content || '',
