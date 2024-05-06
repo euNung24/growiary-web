@@ -2,6 +2,7 @@
 
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -19,17 +20,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useForm } from 'react-hook-form';
+import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ReqPostType } from '@/types/postTypes';
 import { Textarea } from '@/components/ui/textarea';
 import { menu } from '@/utils';
 import { toast } from '@/components/ui/use-toast';
 import Image from 'next/image';
+import { FeedbackType } from '@/types/feedbackType';
+import { createFeedback } from '@/apis/feedback';
 
 const FormSchema = z.object({
-  category: z.string().nullish(),
+  category: z.string(),
   content: z.string(),
 });
 
@@ -47,6 +49,7 @@ const FeedbackModal = ({
   const [isClient, setIsClient] = useState(false);
   const [placeholder, setPlaceholder] = useState('');
   const btnToastRef = useRef<HTMLButtonElement | null>(null);
+  const bntCloseModalRef = useRef<HTMLButtonElement | null>(null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -56,17 +59,24 @@ const FeedbackModal = ({
     },
   });
 
-  async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
-    console.log('data', data);
-    btnToastRef.current?.click();
-    // post
-    //   ? await updatePost({ id: post.id, ...(data as ReqPostType) })
-    //   : await createPost(data as ReqPostType);
+  async function onSubmit(data: z.infer<typeof FormSchema> | FeedbackType) {
+    await createFeedback(data)
+      .then(() => {
+        btnToastRef.current?.click();
+        bntCloseModalRef.current?.click();
+      })
+      .catch(() => {
+        alert('의견 보내기를 실패했습니다.');
+      });
   }
 
-  const handleChangeCategory = (category: string) => {
+  const handleChangeCategory = (
+    category: string,
+    field: ControllerRenderProps<z.infer<typeof FormSchema>, 'category'>,
+  ) => {
     const target = menu.find(v => v.name === category);
     setPlaceholder(target?.placeholder || '');
+    field.onChange(category);
   };
 
   useEffect(() => {
@@ -101,12 +111,10 @@ const FeedbackModal = ({
                         </FormLabel>
                         <Select
                           defaultValue={field.value || '그루어리'}
-                          onValueChange={handleChangeCategory}
+                          onValueChange={value => handleChangeCategory(value, field)}
                         >
                           <SelectTrigger className="border border-gray-200 h-[54px]">
-                            <SelectValue
-                              placeholder={field.value || '카테고리를 선택해 주세요'}
-                            />
+                            <SelectValue placeholder={'카테고리를 선택해 주세요'} />
                           </SelectTrigger>
                           <SelectContent className="">
                             <SelectItem value="그루어리" className="group">
@@ -126,7 +134,6 @@ const FeedbackModal = ({
                                     height={20}
                                     alt={v.name}
                                   />
-                                  {/*<Dot width={20} height={20} color="currentColor" />*/}
                                   <span className="text-gray-800 group-hover:text-primary-900">
                                     {v.name}
                                   </span>
@@ -163,6 +170,9 @@ const FeedbackModal = ({
                 </div>
               </form>
             </Form>
+            <DialogClose className="hidden" ref={bntCloseModalRef}>
+              확인
+            </DialogClose>
           </DialogContent>
         </Dialog>
       )}

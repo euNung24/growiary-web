@@ -1,8 +1,9 @@
 import FeedbackModal from '@/views/common/FeedbackModal';
 import { Button } from '@/components/ui/button';
+import { MenuType } from '@/types';
 
 type FooterFeedbackViewProps = {
-  category: string;
+  category: MenuType;
   description: string;
 };
 

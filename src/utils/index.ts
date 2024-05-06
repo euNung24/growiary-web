@@ -69,18 +69,26 @@ export const getStringDateAndTime = (date: Date) => {
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일. ${dayNight} ${hour}시 ${date.getMinutes()}분`;
 };
 
+export const MENU_NAMES = {
+  '기록하기': '기록하기',
+  '나의 기록들': '나의 기록들',
+  '추천 주제': '추천 주제',
+  '기록 데이터 보기': '기록 데이터 보기',
+  '도전과제': '도전과제',
+};
+
 export const menu = [
   {
     src: '/assets/icons/edit',
     alt: 'write a diary',
-    name: '기록하기',
+    name: MENU_NAMES['기록하기'],
     href: '/post',
     placeholder: '',
   },
   {
     src: '/assets/icons/calendar',
     alt: 'history',
-    name: '나의 기록들',
+    name: MENU_NAMES['나의 기록들'],
     href: '/history',
     placeholder: '',
   },
@@ -94,7 +102,7 @@ export const menu = [
   {
     src: '/assets/icons/report',
     alt: 'report',
-    name: '기록 데이터 보기',
+    name: MENU_NAMES['기록 데이터 보기'],
     href: '/report',
     placeholder: '더 알고 싶은 기록 관련 데이터가 있다면 알려주세요',
   },
@@ -107,7 +115,7 @@ export const menu = [
   {
     src: '/assets/icons/challenge',
     alt: 'challenge',
-    name: '도전과제',
+    name: MENU_NAMES['도전과제'],
     href: '/challenge',
   },
 ];
