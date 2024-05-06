@@ -2,25 +2,28 @@ import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/types/postTypes';
 
-const ReportByTag = () => {
+type ReportByTagProps = {
+  month: number;
+};
+const ReportByTag = ({ month }: ReportByTagProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
-  const { tags, newTags, month } = useReportContext();
+  const { data } = useReportContext();
   const [sortedTags, setSortedTags] = useState<[string, number][] | null>();
   const [sortedNewTags, setSortedNewTags] = useState<[string, ResPostType[]][] | null>();
 
   useEffect(() => {
-    const monthTag = tags?.[month];
+    const monthTag = data?.tags?.[month];
     if (!monthTag) return;
 
     const sortedMonthTag = Object.entries(monthTag)
       .sort((a, b) => (a[1] > b[1] ? -1 : 1))
       .slice(0, 5);
     setSortedTags(sortedMonthTag);
-  }, [tags, month]);
+  }, [data?.tags, month]);
 
   useEffect(() => {
-    const monthNewTag = newTags?.[month];
+    const monthNewTag = data?.newTags?.[month];
     if (!monthNewTag) return;
 
     let sortedNewMonthTag = Object.entries(monthNewTag).sort((a, b) =>
@@ -31,7 +34,7 @@ const ReportByTag = () => {
       [...posts].sort((a, b) => (new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1)),
     ]);
     setSortedNewTags(sortedNewMonthTag);
-  }, [newTags, month]);
+  }, [data?.newTags, month]);
 
   return (
     <section>

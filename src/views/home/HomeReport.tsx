@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import Image from 'next/image';
 import ReportProvider, { ReportContext } from '@/components/providers/ReportProvider';
-import ReportByPostWithAll from '@/views/report/ReportByPostWithAll';
-import ReportByWeekBar from '@/views/report/ReportByWeekBar';
-import ReportByTimeBar from '@/views/report/ReportByTimeBar';
+import ReportByPostWithAll from '@/views/home/ReportByPostWithAll';
+import ReportByWeekBar from '@/views/home/ReportByWeekBar';
+import ReportByTimeBar from '@/views/home/ReportByTimeBar';
 
 const HomeReport = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';

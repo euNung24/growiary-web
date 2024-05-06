@@ -21,7 +21,6 @@
     "@types/crypto-js": "^4.2.2",
     "@types/js-cookie": "^3.0.6",
     "chart.js": "^4.4.2",
-    "chartjs-plugin-annotation": "^3.0.1",
     "chartjs-plugin-datalabels": "^2.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

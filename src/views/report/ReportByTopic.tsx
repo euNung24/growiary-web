@@ -19,20 +19,25 @@ const CHART_COLOR = [
   'bg-primary-400',
   'bg-primary-200',
 ];
-const ReportByTopic = () => {
+
+type ReportByTopicProps = {
+  month: number;
+};
+const ReportByTopic = ({ month }: ReportByTopicProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
-  const { topic: topicData, month } = useReportContext();
+  const { data } = useReportContext();
   const [topic, setTopic] = useState<[string, ResPostType[]][] | null>(null);
   const totalPostRef = useRef(0);
 
   useEffect(() => {
-    const topic = topicData?.[month];
-    if (!topic) return;
+    const topic = data?.topic?.[month];
+
+    if (!topic || !data?.topic?.[month] || !Object.keys(data.topic[month])) return;
+
     const copiedTopic: ReportByTopicType = { ...topic };
     delete copiedTopic['Uncategorized'];
-
     const sortedTopicByPostLengthArr = Object.entries(copiedTopic).sort((a, b) =>
       a[1].length > b[1].length ? -1 : 1,
     );
@@ -41,9 +46,7 @@ const ReportByTopic = () => {
     sortedTopicByPostLengthArr.forEach(([, posts]) => {
       totalPostRef.current += posts.length;
     });
-
-    return () => {};
-  }, [topicData, month]);
+  }, [data?.topic, month]);
 
   return (
     <section>

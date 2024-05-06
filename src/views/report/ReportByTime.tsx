@@ -4,12 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 import useReportContext from '@/hooks/report/useReportContext';
 import { getPercentage } from '@/utils';
 
-const TIMELINE = ['새벽', '아침', '점심', '저녁'];
-const ReportByTime = () => {
+const TIME = ['아침', '점심', '낮', '저녁'];
+
+type ReportByTimeProps = {
+  month: number;
+};
+const ReportByTime = ({ month }: ReportByTimeProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
-  const { time, month } = useReportContext();
+  const { data } = useReportContext();
   const [timeRankByPercent, setTimeRankByPercent] = useState<[string, number][] | null>(
     null,
   );
@@ -17,7 +21,7 @@ const ReportByTime = () => {
   const totalTimeRef = useRef(0);
 
   useEffect(() => {
-    const monthTimeData = time?.[month];
+    const monthTimeData = data?.time?.[month];
 
     if (!monthTimeData) return;
 
@@ -25,25 +29,28 @@ const ReportByTime = () => {
       totalTimeRef.current += v;
     });
     const percentDataWithTimeline = monthTimeData.map(
-      (v, i) => [TIMELINE[i], getPercentage(v, totalTimeRef.current)] as [string, number],
+      (v, i) => [TIME[i], getPercentage(v, totalTimeRef.current)] as [string, number],
     );
     const sortedTimeByPercent = percentDataWithTimeline.sort((a, b) =>
       a[1] > b[1] ? -1 : 1,
     );
 
     setTimeRankByPercent(sortedTimeByPercent);
-  }, [time, month]);
+  }, [data?.time, month]);
 
   return (
-    <div className="flex-1">
-      <h2 className="title">시간대</h2>
-      <p className={descriptionStyle}>
-        <span className={strengthStyle}>저녁</span>에 주로 글을 작성했어요.
-      </p>
-      <div className={cn(boxStyle)}>
-        <RectAreaChart data={timeRankByPercent} />
+    timeRankByPercent && (
+      <div className="flex-1">
+        <h2 className="title">시간대</h2>
+        <p className={descriptionStyle}>
+          <span className={strengthStyle}>{timeRankByPercent[0][0]}</span>에 주로 글을
+          작성했어요.
+        </p>
+        <div className={cn(boxStyle)}>
+          <RectAreaChart data={timeRankByPercent} />
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

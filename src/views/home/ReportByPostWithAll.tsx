@@ -1,13 +1,12 @@
-import { useContext } from 'react';
-import { ReportContext } from '@/components/providers/ReportProvider';
 import Image from 'next/image';
+import useReportContext from '@/hooks/report/useReportContext';
 
 const MAX_BAR_HEIGHT = 147;
 
 const ReportByPostWithAll = () => {
   const historyDescriptionStyle = 'font-r22 text-gray-900 mt-5 mb-3';
   const historyStrengthStyle = 'font-sb22 text-primary-900';
-  const { data: report, month } = useContext(ReportContext);
+  const { data: report, month } = useReportContext();
 
   const getLowBarHeight = (all: number, user: number) => {
     const max = Math.max(all, user);
