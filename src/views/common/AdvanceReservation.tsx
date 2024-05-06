@@ -2,6 +2,7 @@
 
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -10,19 +11,22 @@ import {
 import { Button } from '@/components/ui/button';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
+import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ReqPostType } from '@/types/postTypes';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { createReserve } from '@/apis/reservation';
+import { ReservationType } from '@/types/reservationType';
 
 const FormSchema = z.object({
   q1: z.string(),
-  q2: z.string().min(1),
+  q2: z.string(),
   q3: z.string(),
+  q3_1: z.string(),
   q4: z.string(),
-  q5: z.string().min(1),
 });
 
 type AdvanceReservationProps = {
@@ -32,6 +36,8 @@ type AdvanceReservationProps = {
 const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   const [isClient, setIsClient] = useState(false);
   const btnToastRef = useRef<HTMLButtonElement | null>(null);
+  const bntCloseModalRef = useRef<HTMLButtonElement | null>(null);
+  const [isShowRelativeQ3, setIsShowRelativeQ3] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -39,8 +45,8 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
       q1: '',
       q2: '',
       q3: '',
+      q3_1: '',
       q4: '',
-      q5: '',
     },
     mode: 'onChange',
   });
@@ -48,14 +54,25 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   const { getFieldState } = form;
   const fieldQ1State = getFieldState('q1');
   const fieldQ2State = getFieldState('q2');
-  const fieldQ5State = getFieldState('q5');
+  const fieldQ4State = getFieldState('q4');
 
-  async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
-    console.log('data', data);
-    btnToastRef.current?.click();
-    // post
-    //   ? await updatePost({ id: post.id, ...(data as ReqPostType) })
-    //   : await createPost(data as ReqPostType);
+  const handleFieldQ3 = (
+    value: string,
+    field: ControllerRenderProps<z.infer<typeof FormSchema>, 'q3'>,
+  ) => {
+    field.onChange(value);
+    setIsShowRelativeQ3(value === 'Y');
+  };
+  async function onSubmit(data: z.infer<typeof FormSchema> | ReservationType) {
+    await createReserve(data)
+      .then(res => {
+        console.log(res);
+        btnToastRef.current?.click();
+        bntCloseModalRef.current?.click();
+      })
+      .catch(() => {
+        alert('사전 예약 신청에 실패했습니다.');
+      });
   }
 
   useEffect(() => {
@@ -122,39 +139,55 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
                       control={form.control}
                       name="q3"
                       render={({ field: fieldQ3 }) => (
-                        <FormItem className="space-y-3">
-                          <FormLabel>
-                            Q3. 그루어리 외 다른 리포트 혹은 기록 기반의 테스트를 이용해
-                            본 경험이 있으신가요?
-                          </FormLabel>
-                          <Input defaultValue={fieldQ3.value} maxLength={50} />
-                        </FormItem>
+                        <>
+                          <FormItem className="space-y-3">
+                            <FormLabel>
+                              Q3. 그루어리 외 다른 리포트 혹은 기록 기반의 테스트를 이용해
+                              본 경험이 있으신가요?
+                            </FormLabel>
+                            <RadioGroup
+                              className="flex gap-x-6"
+                              onValueChange={value => handleFieldQ3(value, fieldQ3)}
+                            >
+                              <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="Y" id="q3_Y" />
+                                <Label htmlFor="q3_Y">있다</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="N" id="q3_N" />
+                                <Label htmlFor="q3_N">없다</Label>
+                              </div>
+                            </RadioGroup>
+                          </FormItem>
+                          {isShowRelativeQ3 && (
+                            <FormField
+                              control={form.control}
+                              name="q3_1"
+                              render={({ field: fieldQ3_1 }) => (
+                                <FormItem className="space-y-3">
+                                  <FormLabel>
+                                    Q3-1. 다른리포트 혹은 기록 기반의 테스트에서 어떤
+                                    부분이 가장 마음에 들었나요?
+                                  </FormLabel>
+                                  <Input defaultValue={fieldQ3_1.value} maxLength={50} />
+                                </FormItem>
+                              )}
+                            />
+                          )}
+                        </>
                       )}
                     />
                     <FormField
                       control={form.control}
                       name="q4"
                       render={({ field: fieldQ4 }) => (
-                        <FormItem className="space-y-3">
-                          <FormLabel>
-                            Q3-1. 다른리포트 혹은 기록 기반의 테스트에서 어떤 부분이 가장
-                            마음에 들었나요?
-                          </FormLabel>
-                          <Input defaultValue={fieldQ4.value} maxLength={50} />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="q5"
-                      render={({ field: fieldQ5 }) => (
                         <>
                           <FormItem className="space-y-3">
                             <FormLabel>
-                              Q5. 다른리포트 혹은 기록 기반의 테스트에서 어떤 부분이 가장
+                              Q4. 다른리포트 혹은 기록 기반의 테스트에서 어떤 부분이 가장
                               마음에 들었나요?
                             </FormLabel>
-                            <Input {...fieldQ5} />
+                            <Input {...fieldQ4} />
                           </FormItem>
                         </>
                       )}
@@ -172,7 +205,7 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
                     disabled={
                       !fieldQ1State.isDirty ||
                       !fieldQ2State.isDirty ||
-                      !fieldQ5State.isDirty
+                      !fieldQ4State.isDirty
                     }
                   >
                     신청하기
@@ -180,25 +213,28 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
                 </div>
               </form>
             </Form>
-            <Button
-              ref={btnToastRef}
-              variant="hidden"
-              onClick={() => {
-                toast({
-                  description: (
-                    <p className="text-center">
-                      5월 coming soon!
-                      <br /> 사전 신청해주셔서 감사합니다
-                    </p>
-                  ),
-                });
-              }}
-            >
-              Show Toast
-            </Button>
+            <DialogClose className="hidden" ref={bntCloseModalRef}>
+              확인
+            </DialogClose>
           </DialogContent>
         </Dialog>
       )}
+      <Button
+        ref={btnToastRef}
+        variant="hidden"
+        onClick={() => {
+          toast({
+            description: (
+              <p className="text-center">
+                5월 coming soon!
+                <br /> 사전 신청해주셔서 감사합니다
+              </p>
+            ),
+          });
+        }}
+      >
+        Show Toast
+      </Button>
     </>
   );
 };
