@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import { useRecoilValue } from 'recoil';
@@ -30,6 +32,7 @@ const HistoryView = () => {
   const [selectedYear, setSelectedYear] = useState(year);
   const [selectedMonth, setSelectedMonth] = useState(month);
   const [posts, setPosts] = useState<HistoryPostType>({});
+  const [dates, setDates] = useState<string[]>([]);
   const [date, setDate] = useState<Date | undefined>(new Date());
   const mutation = useGetMonthlyPosts();
   const today = `${year}-${getTwoFormatDate(month)}-${getTwoFormatDate(todayDate)}`;
@@ -80,6 +83,11 @@ const HistoryView = () => {
         };
       }, {} as HistoryPostType);
       setPosts(sortDataByDate);
+      setDates(
+        Object.keys(sortDataByDate).toSorted((a, b) =>
+          +a.slice(-2) > +b.slice(-2) ? -1 : 1,
+        ),
+      );
     });
   }, [selectedMonth]);
 
@@ -186,90 +194,84 @@ const HistoryView = () => {
               </div>
             </div>
           )}
-
+          {}
           {posts &&
-            Object.keys(posts)
-              ?.toSorted((a, b) => (+a.split('-')[2] > +b.split('-')[2] ? -1 : 1))
-              .map(date => (
-                <div id={date} key={date}>
-                  <div className="mb-3">
-                    <span
-                      className={cn(
-                        'mr-2 text-gray-500',
-                        today === date && 'text-gray-900',
-                      )}
-                    >
-                      {+date.split('-')[1]}월 {+date.split('-')[2]}일
-                    </span>
-                    {today === date && <Chip variant="gray">오늘</Chip>}
-                  </div>
-                  <div key={date} className="space-y-3">
-                    {posts[date]
-                      ?.toSorted((a, b) =>
-                        new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1,
-                      )
-                      .map(post => (
-                        <Link
-                          key={post.id}
-                          href={`/history/${post.id}`}
-                          className="block"
-                        >
-                          <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
-                            <div className="flex justify-between items-center">
-                              <Chip className="text-gray-900" variant="gray">
-                                No.{post.index}
-                              </Chip>
-                              <Ellipsis width={24} height={24} color="#747F89" />
-                            </div>
-                            <p className="font-sb22 text-gray-900 mt-4 mb-2">
-                              {post.title || '제목 타이틀'}
-                            </p>
-                            <div
-                              className="overflow-hidden text-ellipsis min-h-[54px] font-r16 text-gray-800"
-                              style={{
-                                display: '-webkit-box',
-                                WebkitBoxOrient: 'vertical',
-                                WebkitLineClamp: 6,
-                                maxHeight: '156px',
-                              }}
-                            >
-                              {post.content?.ops?.map(op =>
-                                typeof op.insert === 'string' && op.insert !== '\n'
-                                  ? op.insert
-                                  : '',
-                              )}
-                            </div>
-                            <div className="mt-6 flex justify-between items-center">
-                              <div className="flex gap-x-3">
-                                {post.tags?.map((tag, i) => (
-                                  <Chip
-                                    key={tag + i}
-                                    className="text-gray-900"
-                                    variant="gray"
-                                  >
-                                    {tag}
-                                  </Chip>
-                                ))}
-                              </div>
-                              <span className="text-gray-500 font-r14">
-                                {getStringDateAndTime(new Date(post.writeDate))}
-                              </span>
-                            </div>
-                            {post.category && (
-                              <div className="absolute bottom-0 right-6 z-[-1]">
-                                {topicCategory[post.category]?.Icon({
-                                  width: 160,
-                                  height: 160,
-                                  color: '#EEF9E6',
-                                })}
-                              </div>
+            dates.map(date => (
+              <div id={date} key={date}>
+                <div className="mb-3">
+                  <span
+                    className={cn(
+                      'mr-2 text-gray-500',
+                      today === date && 'text-gray-900',
+                    )}
+                  >
+                    {+date.split('-')[1]}월 {+date.split('-')[2]}일
+                  </span>
+                  {today === date && <Chip variant="gray">오늘</Chip>}
+                </div>
+                <div key={date} className="space-y-3">
+                  {posts[date]
+                    ?.toSorted((a, b) =>
+                      new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1,
+                    )
+                    .map(post => (
+                      <Link key={post.id} href={`/history/${post.id}`} className="block">
+                        <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
+                          <div className="flex justify-between items-center">
+                            <Chip className="text-gray-900" variant="gray">
+                              No.{post.index}
+                            </Chip>
+                            <Ellipsis width={24} height={24} color="#747F89" />
+                          </div>
+                          <p className="font-sb22 text-gray-900 mt-4 mb-2">
+                            {post.title || '제목 타이틀'}
+                          </p>
+                          <div
+                            className="overflow-hidden text-ellipsis min-h-[54px] font-r16 text-gray-800"
+                            style={{
+                              display: '-webkit-box',
+                              WebkitBoxOrient: 'vertical',
+                              WebkitLineClamp: 6,
+                              maxHeight: '156px',
+                            }}
+                          >
+                            {post.content?.ops?.map(op =>
+                              typeof op.insert === 'string' && op.insert !== '\n'
+                                ? op.insert
+                                : '',
                             )}
                           </div>
-                        </Link>
-                      ))}
-                  </div>
+                          <div className="mt-6 flex justify-between items-center">
+                            <div className="flex gap-x-3">
+                              {post.tags?.map((tag, i) => (
+                                <Chip
+                                  key={tag + i}
+                                  className="text-gray-900"
+                                  variant="gray"
+                                >
+                                  {tag}
+                                </Chip>
+                              ))}
+                            </div>
+                            <span className="text-gray-500 font-r14">
+                              {getStringDateAndTime(new Date(post.writeDate))}
+                            </span>
+                          </div>
+                          {post.category && (
+                            <div className="absolute bottom-0 right-6 z-[-1]">
+                              {topicCategory[post.category]?.Icon({
+                                width: 160,
+                                height: 160,
+                                color: '#EEF9E6',
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      </Link>
+                    ))}
                 </div>
-              ))}
+              </div>
+            ))}
         </section>
       </div>
       <div className="sticky h-screen top-0 pt-3 border-l lg:hidden">
