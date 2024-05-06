@@ -9,6 +9,8 @@ type ReportPostProps = {
 
 const MAX_BAR_HEIGHT = 147;
 const getLowBarHeight = (all: number, user: number) => {
+  if (isNaN(all) || isNaN(user)) return 0;
+
   const max = Math.max(all, user);
   const multiple = MAX_BAR_HEIGHT / max;
 
@@ -76,15 +78,15 @@ const ReportPost = ({ month }: ReportPostProps) => {
                   </div>
                   <div
                     className="bg-gray-200 rounded max-h-[147px] w-[62px] mb-2.5"
-                    style={{
-                      height:
-                        report?.post?.all[month] > report?.post?.user[month]
-                          ? MAX_BAR_HEIGHT + 'px'
-                          : getLowBarHeight(
-                              report?.post?.all[month],
-                              report?.post?.user[month],
-                            ),
-                    }}
+                    // style={{
+                    //   height:
+                    //     report?.post?.all[month] > report?.post?.user[month]
+                    //       ? MAX_BAR_HEIGHT + 'px'
+                    //       : getLowBarHeight(
+                    //           report?.post?.all[month],
+                    //           report?.post?.user[month],
+                    //         ),
+                    // }}
                   />
                   <span className="text-gray-500 font-r16">그루어리 평균</span>
                 </div>

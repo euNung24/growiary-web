@@ -42,15 +42,19 @@ const ReportView = ({
         </div>
       </div>
       <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
-        <ReportTotal month={selectedMonth - 1} />
-        <ReportPost month={selectedMonth - 1} />
-        <section className="flex gap-x-5">
-          <ReportByDay month={selectedMonth - 1} />
-          <ReportByTime month={selectedMonth - 1} />
-        </section>
-        <ReportByChar month={selectedMonth - 1} />
-        <ReportByTopic month={selectedMonth - 1} />
-        <ReportByTag month={selectedMonth - 1} />
+        {selectedMonth && (
+          <>
+            <ReportTotal month={selectedMonth - 1} />
+            <ReportPost month={selectedMonth - 1} />
+            <section className="flex gap-x-5">
+              <ReportByDay month={selectedMonth - 1} />
+              <ReportByTime month={selectedMonth - 1} />
+            </section>
+            <ReportByChar month={selectedMonth - 1} />
+            <ReportByTopic month={selectedMonth - 1} />
+            <ReportByTag month={selectedMonth - 1} />
+          </>
+        )}
         <section>
           <h2 className="title">AI와 함께하는 자아발견 인터뷰</h2>
           <div className="font-r16 text-gray-800 mt-1 mb-6">

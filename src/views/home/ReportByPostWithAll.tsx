@@ -9,6 +9,8 @@ const ReportByPostWithAll = () => {
   const { data: report, month } = useReportContext();
 
   const getLowBarHeight = (all: number, user: number) => {
+    if (isNaN(all) || isNaN(user)) return 0;
+
     const max = Math.max(all, user);
     const multiple = MAX_BAR_HEIGHT / max;
 

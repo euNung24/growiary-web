@@ -4,16 +4,13 @@ import { ComponentType, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
-import Line from '@/components/Line';
 
 export type WithMoveMonthlyProps = {
-  selectedMonth: number;
-  selectedYear: number;
-  selectedMonthLastDate: number;
+  selectedMonth?: number;
+  selectedYear?: number;
+  selectedMonthLastDate?: number;
 };
-const withMoveMonthly = <T extends object>(
-  Component: ComponentType<T>,
-): React.FC<T & WithMoveMonthlyProps> => {
+const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.FC<T> => {
   const MoveMonthly = (props: T) => {
     const {
       date: { year, month, date },
