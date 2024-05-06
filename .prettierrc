@@ -10,7 +10,7 @@
   "endOfLine": "auto",
   "overrides": [
     {
-      "files": "topicCategory.ts",
+      "files": ["topicCategory.ts", "topicTypes.ts"],
       "options": {
         "parser": "babel",
         "singleQuote": true
