@@ -65,7 +65,7 @@ const PostView = ({ post }: PostViewProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      topicId: post ? post.topicId : 65,
+      topicId: post ? post.topicId : topicId || 65,
       title: post?.title || '',
       tags: post ? [...post.tags] : [],
       content: post?.content || '',
