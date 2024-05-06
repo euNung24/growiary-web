@@ -32,6 +32,10 @@ const HistoryView = () => {
   const [selectedYear, setSelectedYear] = useState(year);
   const [selectedMonth, setSelectedMonth] = useState(month);
   const [posts, setPosts] = useState<HistoryPostType>({});
+  const [totalPostCount, setTotalPostCount] = useState(0);
+  const [categories, setCategories] = useState<Record<TopicCategory, number>>(
+    {} as Record<TopicCategory, number>,
+  );
   const [dates, setDates] = useState<string[]>([]);
   const [date, setDate] = useState<Date | undefined>(new Date());
   const mutation = useGetMonthlyPosts();
@@ -70,24 +74,28 @@ const HistoryView = () => {
   useEffect(() => {
     mutation.mutateAsync(selectedMonth).then(res => {
       if (!res) return;
-      if (!Array.isArray(res.data)) {
-        setPosts(res.data);
+      if (!Array.isArray(res.data?.posts)) {
+        console.log(res.data);
+        setPosts({} as HistoryPostType);
         return;
       }
 
-      const sortDataByDate = res.data.reduce((f, v) => {
+      const sortDataByDate = res.data.posts.reduce((f, v) => {
         const date = format(new Date(v.writeDate), 'yyyy-MM-dd');
         return {
           ...f,
           [date]: [...(f[date] || []), v],
         };
       }, {} as HistoryPostType);
+
+      setTotalPostCount(res.data.posts.length);
       setPosts(sortDataByDate);
       setDates(
         Object.keys(sortDataByDate).toSorted((a, b) =>
           +a.slice(-2) > +b.slice(-2) ? -1 : 1,
         ),
       );
+      setCategories(res.data.category);
     });
   }, [selectedMonth]);
 
@@ -163,13 +171,13 @@ const HistoryView = () => {
                         })}
                         <span>{category}</span>
                       </div>
-                      <span>00개</span>
+                      <span>{categories[category]}개</span>
                     </div>
                   ))}
                 </div>
                 <div className="flex justify-between text-gray-500 font-r12">
                   <span>{selectedMonth}월에 작성한 글</span>
-                  <span>00개</span>
+                  <span>{totalPostCount}개</span>
                 </div>
               </div>
             </PopoverContent>
@@ -294,13 +302,13 @@ const HistoryView = () => {
                   })}
                   <span>{category}</span>
                 </div>
-                <span>00개</span>
+                <span>{categories[category]}개</span>
               </div>
             ))}
           </div>
           <div className="flex justify-between text-gray-500 font-r12">
             <span>{selectedMonth}월에 작성한 글</span>
-            <span>00개</span>
+            <span>{totalPostCount}개</span>
           </div>
         </div>
       </div>

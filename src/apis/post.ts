@@ -6,6 +6,7 @@ import {
   UpdatePostType,
 } from '@/types/postTypes';
 import withTokenPost from '@/apis/withToken';
+import { TopicCategory } from '@/types/topicTypes';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 
@@ -35,8 +36,8 @@ export const deletePost = (id: string) =>
     ApiSuccessResponse<ResPostType>
   >;
 export const getMonthlyPosts = (id: number) =>
-  withTokenPost(postApiUrl + '/month', { body: { month: id.toString() } }) as Promise<
-    ApiSuccessResponse<ResPostType[]>
+  withTokenPost(postApiUrl + '/record', { body: { month: id.toString() } }) as Promise<
+    ApiSuccessResponse<{ posts: ResPostType[]; category: Record<TopicCategory, number> }>
   >;
 
 export const getDailyCheckerPost = () =>
