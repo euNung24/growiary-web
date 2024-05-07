@@ -52,23 +52,10 @@ export const updateTopic = async (
   return response.json();
 };
 
-export const findTopic = async (
-  id: FindTopicType['id'],
-): Promise<ApiSuccessResponse<TopicType>> => {
-  const response = await fetch(topicApiUrl + '/find', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify({ id }),
-  });
-
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-
-  return response.json();
-};
+export const findTopic = async (id: FindTopicType['id']) =>
+  withToken(topicApiUrl + '/find', { body: { id } }) as Promise<
+    ApiSuccessResponse<TopicType>
+  >;
 
 export const getUserRecentTopic = () =>
   withToken(topicApiUrl + '/recent') as Promise<ApiSuccessResponse<RecentTopicType>>;

@@ -37,6 +37,8 @@ const PostView = ({ post }: PostViewProps) => {
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isClickedFirst = useRef(false);
   const mutation = useDeletePost(post.id);
+  const [template, setTemplate] = useState<TopicType>({} as TopicType);
+  const topicMutation = useFindTopic(post.topicId || NO_TOPIC_ID);
 
   const handleDeletePost = () => {
     mutation.mutateAsync().then(res => {
@@ -49,6 +51,23 @@ const PostView = ({ post }: PostViewProps) => {
       });
     });
   };
+
+  useEffect(() => {
+    const resizeFn = async () => {
+      const container = contentRef.current;
+      // const tempDivEl = document.createElement('div');
+      const editorContainer = container?.firstElementChild;
+      if (editorContainer && container) {
+        (editorContainer as HTMLDivElement).style.height =
+          container.getBoundingClientRect().height + 'px';
+      }
+    };
+    window.addEventListener('resize', resizeFn);
+
+    return () => {
+      window.removeEventListener('resize', resizeFn);
+    };
+  }, []);
 
   useEffect(() => {
     if (!isClickedFirst.current) {
@@ -72,6 +91,8 @@ const PostView = ({ post }: PostViewProps) => {
       quill.setContents(post.content.ops);
       toolbarEl && ((toolbarEl as HTMLDivElement).style.display = 'none');
       editorContainer.style.borderTop = '1px solid #ccc';
+      editorContainer.style.height =
+        contentRef.current!.getBoundingClientRect().height + 'px';
       editorContainer.style.borderLeftWidth = '0';
       editorContainer.style.borderRightWidth = '0';
     };
@@ -80,27 +101,19 @@ const PostView = ({ post }: PostViewProps) => {
     return () => {};
   }, []);
 
-  // temp
-  const [template, setTemplate] = useState<TopicType>({} as TopicType);
-  const mutationA = useFindTopic(post.topicId || NO_TOPIC_ID);
   useEffect(
     function setInitTemplate() {
-      // if (!post.topicId) {
-      //   setTemplate(v => ({ ...v, content: '일상의 소중한 경험을 기록하세요.' }));
-      //   return;
-      // }
-      console.log(post);
-      mutationA.mutateAsync().then(({ data }) => {
-        if (data) {
-          setTemplate(data);
-        }
+      if (!post) return;
+      topicMutation.mutateAsync().then(res => {
+        if (!res) return;
+        setTemplate(res.data);
       });
     },
     [post],
   );
 
   return (
-    <div className="w-2/3 mt-[72px] flex flex-col gap-y-4 w-[960px] h-full mx-auto">
+    <div className="w-2/3 mt-[72px] flex flex-col gap-y-4 w-[960px] min-h-[80vh] mx-auto">
       {post.topicId && post.topicId !== NO_TOPIC_ID && (
         <div>
           <div className="border border-gray-200 rounded py-2.5 px-4 inline-flex items-center justify-center">
@@ -152,12 +165,12 @@ const PostView = ({ post }: PostViewProps) => {
         </div>
       </div>
       <div
-        className="relative flex-1 pointer-events-nones cursor-default"
+        className="relative flex-1 pointer-events-nones cursor-default flex-1"
         ref={contentRef}
       >
-        {post.category && (
+        {template && (
           <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%]">
-            {topicCategory[post.category]?.Icon({
+            {topicCategory[template.category]?.Icon({
               width: '100%',
               height: '100%',
               color: '#EEF9E6',
