@@ -113,7 +113,7 @@ const ChallengeView = () => {
               />
             </div>
             <div
-              className="absolute bottom-[-28px]  translate-x-[50%]"
+              className="absolute top-[-20px]  translate-x-[50%]"
               style={{ right: `${userPercent}%` }}
             >
               <Image
@@ -121,8 +121,9 @@ const ChallengeView = () => {
                 alt="user"
                 width={58 * 2 + 30}
                 height={29 * 2}
+                className="rotate-180"
               />
-              <span className="absolute inset-0 flex justify-center top-[34%] font-r12 text-white-0">
+              <span className="absolute inset-0 flex justify-center top-[53%] font-r12 text-white-0">
                 {userPercent + '%'}
               </span>
             </div>
