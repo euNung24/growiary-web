@@ -294,9 +294,9 @@ const HistoryView = () => {
                                 {getStringDateAndTime(new Date(post.writeDate))}
                               </span>
                             </div>
-                            {post.category && (
+                            {post.topic && (
                               <div className="absolute bottom-0 right-6 z-[-1]">
-                                {topicCategory[post.category]?.Icon({
+                                {topicCategory[post.topic.category]?.Icon({
                                   width: 160,
                                   height: 160,
                                   color: '#EEF9E6',
