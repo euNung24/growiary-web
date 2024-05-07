@@ -5,7 +5,6 @@ import { ReportType } from '@/types/reportTypes';
 import useGetReport from '@/hooks/report/useGetReport';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
-import { REPORT } from '../../../temp';
 
 export const ReportContext = createContext<{
   data: ReportType | null;

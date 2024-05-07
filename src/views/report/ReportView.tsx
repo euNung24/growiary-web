@@ -44,7 +44,10 @@ const ReportView = ({
       <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
         {selectedMonth && (
           <>
-            {/*<ReportTotal month={selectedMonth - 1} />*/}
+            <ReportTotal
+              year={selectedYear || 0}
+              month={selectedMonth.toString().padStart(2, '0')}
+            />
             <ReportPost
               year={selectedYear || 0}
               month={selectedMonth.toString().padStart(2, '0')}

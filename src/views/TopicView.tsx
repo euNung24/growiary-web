@@ -1,24 +1,9 @@
 'use client';
 
-import {
-  TopicCard,
-  TopicCardChip,
-  TopicCardContent,
-  TopicCardFooter,
-  TopicCardHeader,
-  TopicCardTitle,
-} from '@/components/TopicCard';
-import { Button, ButtonIcon } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import Chip from '@/components/Chip';
 import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/types/topicTypes';
 import { useState } from 'react';
-import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
-import Link from 'next/link';
-import { Skeleton } from '@/components/ui/skeleton';
-import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import RecentTopic from '@/views/topic/RecentTopic';
 import RecommendedTopic from '@/views/topic/RecommendedTopic';
 import TopicList from '@/views/topic/TopicList';
