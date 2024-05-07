@@ -15,7 +15,7 @@ import Image, { ImageProps } from 'next/image';
 import { Bookmark } from 'lucide-react';
 import Chip from '@/components/Chip';
 
-const badgeCardVariants = cva(
+export const badgeCardVariants = cva(
   'flex flex-col p-0 relative overflow-hidden w-[300px] h-[321px] pt-[24px] px-[29px] pb-9 rounded-xl',
   {
     variants: {
@@ -165,8 +165,8 @@ const BadgeCardDescription = (props: React.HTMLAttributes<HTMLParagraphElement>)
 
   return (
     <CardDescription
-      {...props}
       className={cn('font-r16 mt-2', variant === 'disabled' && 'text-gray-400')}
+      {...props}
     />
   );
 };
