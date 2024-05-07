@@ -20,12 +20,14 @@ import withMoveMonthly, { WithMoveMonthlyProps } from '@/views/common/withMoveMo
 import Line from '@/components/Line';
 import ReportTotal from '@/views/report/ReportTotal';
 import ReportProvider from '@/components/providers/ReportProvider';
+import { ReactNode } from 'react';
 
 const ReportView = ({
   selectedMonth,
   selectedYear,
   selectedMonthLastDate,
-}: WithMoveMonthlyProps) => {
+  children,
+}: WithMoveMonthlyProps & { children: ReactNode }) => {
   return (
     <ReportProvider selectedYear={selectedYear} selectedMonth={selectedMonth}>
       <div>
@@ -97,6 +99,7 @@ const ReportView = ({
           </Card>
         </section>
       </article>
+      {children}
     </ReportProvider>
   );
 };

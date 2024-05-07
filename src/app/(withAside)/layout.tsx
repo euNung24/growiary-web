@@ -12,7 +12,7 @@ export default async function asLayout({ modal, children }: LayoutProps) {
     <div className="flex">
       {modal}
       <Sidebar />
-      <main className="mx-auto w-full min-w-[960px] lg:min-w-[auto] ml-[200px] lg:ml-[68px]">
+      <main className="mx-auto relative w-full min-w-[960px] lg:min-w-[auto] ml-[200px] lg:ml-[68px]">
         {children}
       </main>
       <Toaster />
