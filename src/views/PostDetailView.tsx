@@ -2,14 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Calendar as CalendarIcon, Hash } from 'lucide-react';
+import { Calendar as CalendarIcon, Hash, List } from 'lucide-react';
 import { ResPostType } from '@/types/postTypes';
 import Tag from '@/components/Tag';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '@/components/editor.css';
 import { topicCategory } from '@/utils/topicCategory';
 import Link from 'next/link';
-import { getStringDateAndTime } from '@/utils';
+import { getStringDateAndTime, NO_TOPIC_ID } from '@/utils';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +25,9 @@ import {
 import { toast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import useDeletePost from '@/hooks/posts/useDeletePosts';
+import { Label } from '@/components/ui/label';
+import { TopicType } from '@/types/topicTypes';
+import useFindTopic from '@/hooks/topics/useFindTopics';
 
 type PostViewProps = {
   post: ResPostType;
@@ -77,12 +80,54 @@ const PostView = ({ post }: PostViewProps) => {
     return () => {};
   }, []);
 
+  // temp
+  const [template, setTemplate] = useState<TopicType>({} as TopicType);
+  const mutationA = useFindTopic(post.topicId || NO_TOPIC_ID);
+  useEffect(
+    function setInitTemplate() {
+      // if (!post.topicId) {
+      //   setTemplate(v => ({ ...v, content: '일상의 소중한 경험을 기록하세요.' }));
+      //   return;
+      // }
+      console.log(post);
+      mutationA.mutateAsync().then(({ data }) => {
+        if (data) {
+          setTemplate(data);
+        }
+      });
+    },
+    [post],
+  );
+
   return (
     <div className="w-2/3 mt-[72px] flex flex-col gap-y-4 w-[960px] h-full mx-auto">
+      {post.topicId && post.topicId !== NO_TOPIC_ID && (
+        <div>
+          <div className="border border-gray-200 rounded py-2.5 px-4 inline-flex items-center justify-center">
+            <div className="flex gap-x-2.5 text-gray-400">
+              {topicCategory[template.category]?.Icon({
+                width: 20,
+                height: 20,
+                color: 'currentColor',
+              })}
+              <span className="text-gray-800">{template.category}</span>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-0 py-4 text-gray-900">
         {post.title}
       </div>
       <div className="space-y-[14px]">
+        {post.topicId && post.topicId !== NO_TOPIC_ID && (
+          <div className="flex space-y-0">
+            <Label className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
+              <List width={22} height={22} />
+              주제
+            </Label>
+            <div className="px-3 py-[14px]">{template.title?.replaceAll('/n ', '')}</div>
+          </div>
+        )}
         <div className="flex space-y-0">
           <div className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
             <CalendarIcon width={22} height={22} />
@@ -98,7 +143,7 @@ const PostView = ({ post }: PostViewProps) => {
             {getStringDateAndTime(new Date(post.writeDate))}
           </Button>
         </div>
-        <div className="flex space-y-0">
+        <div className="flex space-y-0 py-[11px]">
           <div className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
             <Hash width={22} height={22} />
             태그
@@ -146,7 +191,6 @@ const PostView = ({ post }: PostViewProps) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-
         <Button type="button" size="lg" asChild>
           <Link href={`/history/${post.id}/edit`}>수정하기</Link>
         </Button>

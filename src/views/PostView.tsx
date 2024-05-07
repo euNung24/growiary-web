@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { Calendar as CalendarIcon, Hash } from 'lucide-react';
+import { Calendar as CalendarIcon, Hash, List } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import {
@@ -35,6 +35,8 @@ import { topicCategory } from '@/utils/topicCategory';
 import StopMovePage from '@/components/StopMovePage';
 import { useToast } from '@/components/ui/use-toast';
 import { Toaster } from '@/components/ui/toaster';
+import { Label } from '@/components/ui/label';
+import { NO_TOPIC_ID } from '@/utils';
 
 const FormSchema = z.object({
   topicId: z.number(),
@@ -53,8 +55,8 @@ const PostView = ({ post }: PostViewProps) => {
   const router = useRouter();
   const topicId = searchParams.get('topic')
     ? parseInt(searchParams.get('topic')!, 10)
-    : null;
-  const mutation = useFindTopic(topicId || 0);
+    : post?.topicId || null;
+  const mutation = useFindTopic(post?.topicId || topicId || NO_TOPIC_ID);
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
   const btnStopPostRef = useRef<HTMLButtonElement | null>(null);
   const btnSaveToastRef = useRef<HTMLButtonElement | null>(null);
@@ -65,7 +67,7 @@ const PostView = ({ post }: PostViewProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      topicId: post ? post.topicId : topicId || 65,
+      topicId: post ? post.topicId : topicId || NO_TOPIC_ID,
       title: post?.title || '',
       tags: post ? [...post.tags] : [],
       content: post?.content || '',
@@ -139,6 +141,20 @@ const PostView = ({ post }: PostViewProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-2/3 flex flex-col gap-y-4 w-[960px] h-screen mx-auto py-[72px]"
       >
+        {template && template.id && (
+          <div>
+            <div className="border border-gray-200 rounded py-2.5 px-4 inline-flex items-center justify-center">
+              <div className="flex gap-x-2.5 text-gray-400">
+                {topicCategory[template.category]?.Icon({
+                  width: 20,
+                  height: 20,
+                  color: 'currentColor',
+                })}
+                <span className="text-gray-800">{template.category}</span>
+              </div>
+            </div>
+          </div>
+        )}
         <FormField
           control={form.control}
           name="title"
@@ -166,6 +182,15 @@ const PostView = ({ post }: PostViewProps) => {
                   />
                 </FormControl>
               </FormItem>
+              <div className="flex space-y-0">
+                <Label className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
+                  <List width={22} height={22} />
+                  주제
+                </Label>
+                <div className="px-3 py-[14px]">
+                  {template.title ? template.title.replaceAll('/n ', '') : '자유'}
+                </div>
+              </div>
               <div className="space-y-[14px]">
                 <FormField
                   control={form.control}
