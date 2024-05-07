@@ -5,12 +5,14 @@ type RectAreaChartProps = {
 };
 
 const RectAreaChart = ({ data }: RectAreaChartProps) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerWidth = 412 * 2;
   const containerHeight = 308 * 2;
 
   useEffect(() => {
     if (!canvasRef.current || !data?.length) return;
+    canvasRef.current.width = containerWidth;
+    canvasRef.current.height = containerHeight;
 
     const ctx = canvasRef.current.getContext('2d');
 

@@ -47,7 +47,7 @@ const ReportByChar = ({ month }: ReportByCharProps) => {
         <h2 className="title">글자수</h2>
         <p className={descriptionStyle}>
           <span className={strengthStyle}>
-            {data?.charCount?.[month].sum.toLocaleString()}
+            {(data?.charCount?.[month].sum || 0).toLocaleString()}
           </span>{' '}
           글자를 작성했어요.
         </p>
@@ -75,7 +75,7 @@ const ReportByChar = ({ month }: ReportByCharProps) => {
                   <span className="font-r16">{month + 1 - i}월</span>
                   {i === 0 && charsWithPrev.length >= 2 && (
                     <span className="font-r12 flex items-center gap-x-0.5">
-                      {(char - charsWithPrev[1]).toLocaleString()}자
+                      {(char - charsWithPrev[1] || 0).toLocaleString()}자
                       <Triangle
                         className={cn(
                           'text-primary-200',
@@ -89,7 +89,7 @@ const ReportByChar = ({ month }: ReportByCharProps) => {
                   )}
                 </div>
                 <div className="flex items-center justify-center font-m36 mt-2 mb-[38px] group-hover:text-white-0">
-                  {char.toLocaleString()}{' '}
+                  {(char || 0).toLocaleString()}{' '}
                   <span className="ml-2 text-gray-800 font-r16 group-hover:text-white-0">
                     자
                   </span>

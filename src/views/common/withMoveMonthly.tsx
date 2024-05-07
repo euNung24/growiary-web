@@ -4,6 +4,7 @@ import { ComponentType, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
+import { cn } from '@/lib/utils';
 
 export type WithMoveMonthlyProps = {
   selectedMonth?: number;
@@ -70,7 +71,12 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
           <ChevronRight
             width={24}
             height={24}
-            className="cursor-pointer"
+            className={cn(
+              'cursor-pointer',
+              +(selectedYear.toString() + selectedMonth.toString().padStart(2, '0')) >=
+                +(year.toString() + month.toString().padStart(2, '0')) &&
+                'cursor-default pointer-events-none text-gray-400',
+            )}
             onClick={handleClickNextMonth}
           />
         </div>

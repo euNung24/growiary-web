@@ -119,3 +119,5 @@ export const menu = [
     href: '/challenge',
   },
 ];
+
+export const NO_TOPIC_ID = 65;

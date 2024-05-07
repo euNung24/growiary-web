@@ -9,10 +9,11 @@ import {
   PolarAreaController,
   RadialLinearScale,
 } from 'chart.js';
+import ChartDataLabels, { Context } from 'chartjs-plugin-datalabels';
 
-type PolarChartProps<T> = {
+type PolarChartProps = {
   labels: string[];
-  data: T[];
+  data: number[];
   backgroundColor: string[];
   axisDisplay?: boolean;
 };
@@ -23,14 +24,14 @@ Chart.register(
   PointElement,
   LineElement,
   ArcElement,
+  ChartDataLabels,
 );
 
-function PolarChart<T>({ labels, data, backgroundColor }: PolarChartProps<T>) {
+function PolarChart({ labels, data, backgroundColor }: PolarChartProps) {
   const chartData = {
     labels: labels,
     datasets: [
       {
-        label: '# of Votes',
         data: data,
         borderWidth: 1,
         backgroundColor: backgroundColor,
@@ -39,17 +40,11 @@ function PolarChart<T>({ labels, data, backgroundColor }: PolarChartProps<T>) {
   };
 
   const options = {
-    responsive: false,
+    responsive: true,
     scales: {
       r: {
         pointLabels: {
-          display: true,
-          padding: 1,
-          centerPointLabels: true,
-          font: {
-            size: 16,
-            color: '#474C51',
-          },
+          // display: true,
         },
         ticks: {
           display: false,
@@ -57,11 +52,27 @@ function PolarChart<T>({ labels, data, backgroundColor }: PolarChartProps<T>) {
         grid: {
           display: false,
         },
+        max: Math.max(...data) + 0.5,
+      },
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        formatter: function (value: string, context: Context) {
+          const total = data.reduce((f, v) => f + v, 0);
+
+          return context.active
+            ? Math.floor((+value / total) * 100) + '%'
+            : labels[context.dataIndex];
+        },
       },
     },
   };
 
-  return <PolarArea data={chartData} options={options} width={252} height={252} />;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  return <PolarArea data={chartData} options={options} />;
 }
 
 export default PolarChart;

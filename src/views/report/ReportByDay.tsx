@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils';
 import PolarChart from '@/components/PolarChart';
 import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
-import { ReportType } from '@/types/reportTypes';
 
 type ReportByDayProps = {
   month: number;
@@ -31,7 +30,7 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
     }));
 
     setWeekData(mappedData.filter(v => v.data > 0));
-  }, [data?.week]);
+  }, [month]);
 
   return (
     weekData && (
@@ -41,11 +40,13 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
           <span className={strengthStyle}>목요일</span>에 주로 글을 작성했어요.
         </p>
         <div className={cn(boxStyle, 'h-[358px] flex justify-center items-center')}>
-          <PolarChart
-            labels={weekData.map(v => v.label)}
-            data={weekData.map(v => v.data)}
-            backgroundColor={COLORS.slice(0, weekData.length)}
-          />
+          <div className="w-[300px] h-[300px] ">
+            <PolarChart
+              labels={weekData.map(v => v.label)}
+              data={weekData.map(v => v.data)}
+              backgroundColor={COLORS.slice(0, weekData.length)}
+            />
+          </div>
         </div>
       </div>
     )

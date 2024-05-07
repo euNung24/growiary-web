@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import DonutChart from '@/components/DonutChart';
 import Chip from '@/components/Chip';
 import useReportContext from '@/hooks/report/useReportContext';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ResPostType } from '@/types/postTypes';
 import { topicCategory } from '@/utils/topicCategory';
 import { ReportByTopicType } from '@/types/reportTypes';
@@ -29,12 +29,13 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const { data } = useReportContext();
   const [topic, setTopic] = useState<[string, ResPostType[]][] | null>(null);
-  const totalPostRef = useRef(0);
+  const [totalPostCount, setTotalPostCount] = useState(0);
 
   useEffect(() => {
     const topic = data?.topic?.[month];
-
     if (!topic || !data?.topic?.[month] || !Object.keys(data.topic[month])) return;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let total = 0;
 
     const copiedTopic: ReportByTopicType = { ...topic };
     delete copiedTopic['Uncategorized'];
@@ -43,9 +44,11 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
     );
 
     setTopic(sortedTopicByPostLengthArr);
+
     sortedTopicByPostLengthArr.forEach(([, posts]) => {
-      totalPostRef.current += posts.length;
+      total += posts.length;
     });
+    setTotalPostCount(total);
   }, [data?.topic, month]);
 
   return (
@@ -62,7 +65,7 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
                 key={category + i}
                 className={cn('flex justify-center items-center', CHART_COLOR[i])}
                 style={{
-                  width: `${getPercentage(posts.length, totalPostRef.current)}%`,
+                  width: `${getPercentage(posts.length, totalPostCount)}%`,
                 }}
               >
                 {topicCategory[category]?.Icon({
@@ -88,7 +91,7 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
           </div>
           <div>
             <DonutChart
-              data={getPercentage(topic?.[0]?.[1]?.length || 0, totalPostRef.current)}
+              data={getPercentage(topic?.[0]?.[1]?.length || 0, totalPostCount)}
             />
           </div>
         </div>
