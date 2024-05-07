@@ -121,6 +121,12 @@
     line-height: 16px;
   }
 
+  .font-r11 {
+    @apply font-normal;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
   .font-r10-5 {
     @apply font-normal;
     font-size: 10.5px;

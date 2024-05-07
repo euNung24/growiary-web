@@ -41,4 +41,6 @@ export const getMonthlyPosts = (id: number) =>
   >;
 
 export const getDailyCheckerPost = () =>
-  withTokenPost(postApiUrl + '/weekly') as Promise<ApiSuccessResponse<DailyCheckerType>>;
+  withTokenPost(postApiUrl + '/continue-range') as Promise<
+    ApiSuccessResponse<DailyCheckerType>
+  >;
