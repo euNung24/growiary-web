@@ -4,5 +4,5 @@ import { ApiSuccessResponse } from '@/types';
 
 const reportApiUrl = process.env.NEXT_PUBLIC_API + '/report';
 
-export const getReport = () =>
-  withToken(reportApiUrl) as Promise<ApiSuccessResponse<ReportType>>;
+export const getReport = (date: string) =>
+  withToken(reportApiUrl, { body: { date } }) as Promise<ApiSuccessResponse<ReportType>>;

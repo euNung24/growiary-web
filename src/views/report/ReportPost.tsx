@@ -2,9 +2,12 @@ import { cn } from '@/lib/utils';
 import BarChart from '@/components/BarChart';
 import useReportContext from '@/hooks/report/useReportContext';
 import Image from 'next/image';
+import { format } from 'date-fns';
+import { Context } from 'chartjs-plugin-datalabels';
 
 type ReportPostProps = {
-  month: number;
+  year: number;
+  month: string;
 };
 
 const MAX_BAR_HEIGHT = 147;
@@ -17,21 +20,23 @@ const getLowBarHeight = (all: number, user: number) => {
   return Math.min(all, user) * multiple;
 };
 
-const ReportPost = ({ month }: ReportPostProps) => {
+const ReportPost = ({ year, month }: ReportPostProps) => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
 
   const { data: report } = useReportContext();
+  const userData = report?.post?.user[`${year}-${month}`];
+  const allData = report?.post?.all[`${year}-${month}`];
 
   return (
-    report && (
+    report &&
+    year && (
       <section>
         <div>
           <h2 className="title">기록한 글</h2>
           <p className={descriptionStyle}>
-            <span className={strengthStyle}>{report?.post?.user[month]}개</span>의 글을
-            작성했어요.
+            <span className={strengthStyle}>{userData}개</span>의 글을 작성했어요.
           </p>
           <div className="flex gap-x-5">
             <div className={cn(boxStyle, 'flex-1')}>
@@ -46,23 +51,73 @@ const ReportPost = ({ month }: ReportPostProps) => {
                   최대 <b className="ml-[5px] text-gray-700">00개</b>
                 </span>
               </div>
-              <BarChart
-                height=""
-                data={[12, 19, 3, 5, 2, 3, 3, 4]}
-                labels={['1', '2', '3', '4', '5', '6', '7', '8']}
-                backgroundColor={['#BFCADF', '#204C90']}
-              />
+              {userData && (
+                <BarChart
+                  height=""
+                  data={[...Object.values(report.post.user).reverse(), 0]}
+                  labels={[
+                    ...Object.keys(report.post.user)
+                      .reverse()
+                      .map(v => +v.slice(-2) + '월'),
+                    format(new Date(year, +month - 1 + 1, 1, 0, 0, 0), 'M월'),
+                  ]}
+                  backgroundColor={[
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#204C90',
+                    '#BFCADF',
+                  ]}
+                  options={{
+                    responsive: true,
+                    scales: {
+                      x: {
+                        grid: {
+                          display: false,
+                        },
+                      },
+                      y: {
+                        max:
+                          Math.max(...Object.values(report.post.user)) +
+                          (Math.max(...Object.values(report.post.user)) > 10 ? 10 : 1),
+                        ticks: {
+                          stepSize:
+                            Math.max(...Object.values(report.post.user)) > 10 ? 10 : 1,
+                        },
+                      },
+                    },
+                    plugins: {
+                      datalabels: {
+                        display: true,
+                        anchor: 'end',
+                        offset: 4,
+                        align: 'end',
+                        color: '#002861',
+                        formatter: function (value: string, context: Context) {
+                          return context.active
+                            ? Math.floor((+value / userData) * 100) + '%'
+                            : '';
+                        },
+                      },
+                    },
+                  }}
+                />
+              )}
             </div>
             <div className={boxStyle}>
-              <p className={descriptionStyle}>
-                전체 이용자보다
-                <br />
-                <span className={strengthStyle}>
-                  {report?.post?.user[month] - report?.post?.all[month] ? '+' : '-'}{' '}
-                  {Math.abs(report?.post?.user[month] - report?.post?.all[month])}개
-                </span>{' '}
-                더 기록했어요
-              </p>
+              {userData && allData && (
+                <p className={descriptionStyle}>
+                  전체 이용자보다
+                  <br />
+                  <span className={strengthStyle}>
+                    {userData - allData ? '+' : '-'} {Math.abs(userData - allData)}개
+                  </span>{' '}
+                  더 기록했어요
+                </p>
+              )}
               <div className="flex justify-around [&>*]:flex [&>*]:flex-col [&>*]:justify-end [&>*]:items-center">
                 <div>
                   <div className="relative mb-2">
@@ -73,21 +128,20 @@ const ReportPost = ({ month }: ReportPostProps) => {
                       height={29}
                     />
                     <span className="absolute top-1 inset-0 text-center font-r12">
-                      {report?.post?.all[month]}개
+                      {allData}
                     </span>
                   </div>
-                  <div
-                    className="bg-gray-200 rounded max-h-[147px] w-[62px] mb-2.5"
-                    // style={{
-                    //   height:
-                    //     report?.post?.all[month] > report?.post?.user[month]
-                    //       ? MAX_BAR_HEIGHT + 'px'
-                    //       : getLowBarHeight(
-                    //           report?.post?.all[month],
-                    //           report?.post?.user[month],
-                    //         ),
-                    // }}
-                  />
+                  {allData && userData && (
+                    <div
+                      className="bg-gray-200 rounded max-h-[147px] w-[62px] mb-2.5"
+                      style={{
+                        height:
+                          allData > userData
+                            ? MAX_BAR_HEIGHT + 'px'
+                            : getLowBarHeight(allData, userData),
+                      }}
+                    />
+                  )}
                   <span className="text-gray-500 font-r16">그루어리 평균</span>
                 </div>
                 <div>
@@ -99,21 +153,20 @@ const ReportPost = ({ month }: ReportPostProps) => {
                       height={29}
                     />
                     <span className="absolute top-1 inset-0 text-center font-r12">
-                      {report?.post?.user[month]}개
+                      {userData}개
                     </span>
                   </div>
-                  <div
-                    className="bg-primary-700 rounded max-h-[147px] w-[62px] mb-2.5"
-                    style={{
-                      height:
-                        report?.post?.all[month] < report?.post?.user[month]
-                          ? MAX_BAR_HEIGHT + 'px'
-                          : getLowBarHeight(
-                              report?.post?.all[month],
-                              report?.post?.user[month],
-                            ) + 'px',
-                    }}
-                  />
+                  {allData && userData && (
+                    <div
+                      className="bg-primary-700 rounded max-h-[147px] w-[62px] mb-2.5"
+                      style={{
+                        height:
+                          allData < userData
+                            ? MAX_BAR_HEIGHT + 'px'
+                            : getLowBarHeight(allData, userData) + 'px',
+                      }}
+                    />
+                  )}
                   <span className="text-gray-500 font-r16">그루미님</span>
                 </div>
               </div>

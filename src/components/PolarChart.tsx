@@ -52,7 +52,7 @@ function PolarChart({ labels, data, backgroundColor }: PolarChartProps) {
         grid: {
           display: false,
         },
-        max: Math.max(...data) + 0.5,
+        max: Math.max(...data) + 2,
       },
     },
     plugins: {

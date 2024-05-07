@@ -52,7 +52,7 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
                 className="flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center"
               >
                 <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5">
-                  {i}
+                  {i + 1}
                 </i>
                 <span>{tag}</span>
                 {/*<Chip variant="gray" className="self-auto">*/}

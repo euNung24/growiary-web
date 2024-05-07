@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 const useGetReport = () => {
   return useMutation({
     mutationKey: ['report'],
-    mutationFn: getReport,
+    mutationFn: (date: string) => getReport(date),
     onError: async error => {
       await getNewAccessToken(error);
       console.log(error.message);

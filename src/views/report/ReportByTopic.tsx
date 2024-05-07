@@ -32,19 +32,21 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
   const [totalPostCount, setTotalPostCount] = useState(0);
 
   useEffect(() => {
-    const topic = data?.topic?.[month];
-    if (!topic || !data?.topic?.[month] || !Object.keys(data.topic[month])) return;
+    const monthTopic = data?.topic?.[month];
+    if (!data || !data?.topic || !Object.keys(data.topic[month])) return;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let total = 0;
 
-    const copiedTopic: ReportByTopicType = { ...topic };
+    const copiedTopic: ReportByTopicType = { ...monthTopic };
     delete copiedTopic['Uncategorized'];
+    delete copiedTopic['자유'];
+
     const sortedTopicByPostLengthArr = Object.entries(copiedTopic).sort((a, b) =>
       a[1].length > b[1].length ? -1 : 1,
     );
 
     setTopic(sortedTopicByPostLengthArr);
-
+    console.log(sortedTopicByPostLengthArr);
     sortedTopicByPostLengthArr.forEach(([, posts]) => {
       total += posts.length;
     });
@@ -63,7 +65,11 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
             isCategoryInTopicCategory(category) && (
               <div
                 key={category + i}
-                className={cn('flex justify-center items-center', CHART_COLOR[i])}
+                className={cn(
+                  'flex justify-center items-center',
+                  CHART_COLOR[i],
+                  i === topic?.length - 1 && 'flex-1',
+                )}
                 style={{
                   width: `${getPercentage(posts.length, totalPostCount)}%`,
                 }}
@@ -96,7 +102,7 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
           </div>
         </div>
         <div className="flex flex-col flex-1 gap-y-4">
-          {topic?.[0]?.[1]?.map((post, i) => (
+          {topic?.[0]?.[1]?.slice(0, 3).map((post, i) => (
             <div
               key={post.id + i}
               className="flex p-3 rounded-lg border border-gray-100 items-center"

@@ -30,7 +30,7 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
     }));
 
     setWeekData(mappedData.filter(v => v.data > 0));
-  }, [month]);
+  }, [data?.week, month]);
 
   return (
     weekData && (

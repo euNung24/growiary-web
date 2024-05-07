@@ -27,7 +27,7 @@ const ReportView = ({
   selectedMonthLastDate,
 }: WithMoveMonthlyProps) => {
   return (
-    <ReportProvider>
+    <ReportProvider selectedYear={selectedYear} selectedMonth={selectedMonth}>
       <div>
         <Line className="mt-5 mb-4" />
         <div className="flex gap-x-1.5 items-center text-gray-400 font-r14">
@@ -44,13 +44,19 @@ const ReportView = ({
       <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
         {selectedMonth && (
           <>
-            <ReportTotal month={selectedMonth - 1} />
-            <ReportPost month={selectedMonth - 1} />
+            {/*<ReportTotal month={selectedMonth - 1} />*/}
+            <ReportPost
+              year={selectedYear || 0}
+              month={selectedMonth.toString().padStart(2, '0')}
+            />
             <section className="flex gap-x-5">
               <ReportByDay month={selectedMonth - 1} />
               <ReportByTime month={selectedMonth - 1} />
             </section>
-            <ReportByChar month={selectedMonth - 1} />
+            <ReportByChar
+              year={selectedYear || 0}
+              month={selectedMonth.toString().padStart(2, '0')}
+            />
             <ReportByTopic month={selectedMonth - 1} />
             <ReportByTag month={selectedMonth - 1} />
           </>
