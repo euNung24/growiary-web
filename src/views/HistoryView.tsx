@@ -21,6 +21,21 @@ import { cn } from '@/lib/utils';
 import { SelectSingleEventHandler } from 'react-day-picker';
 import { useRouter } from 'next/navigation';
 import useGetMonthlyPosts from '@/hooks/posts/useGetMonthlyPosts';
+import { Button } from '@/components/ui/button';
+import { deletePost } from '@/apis/post';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTitleIcon,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { toast } from '@/components/ui/use-toast';
 
 type HistoryPostType = {
   [key: string]: ResPostType[];
@@ -69,6 +84,20 @@ const HistoryView = () => {
     setDate(selectedDay);
 
     router.push(`/history#${format(selectedDay, 'yyyy-MM-dd')}`);
+  };
+
+  const handleDeletePost = async (id: string, date: string) => {
+    await deletePost(id).then(res => {
+      if (!res) return;
+      toast({
+        description: '일기가 삭제되었습니다',
+      });
+      const filteredPosts = {
+        ...posts,
+        [date]: [...(posts[date]?.filter(post => post.id !== id) || [])],
+      };
+      setPosts(filteredPosts);
+    });
   };
 
   useEffect(() => {
@@ -223,59 +252,99 @@ const HistoryView = () => {
                       new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1,
                     )
                     .map(post => (
-                      <Link key={post.id} href={`/history/${post.id}`} className="block">
-                        <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
-                          <div className="flex justify-between items-center">
-                            <Chip className="text-gray-900" variant="gray">
-                              No.{post.index}
-                            </Chip>
-                            <Ellipsis width={24} height={24} color="#747F89" />
-                          </div>
-                          <p className="font-sb22 text-gray-900 mt-4 mb-2">
-                            {post.title || '제목 타이틀'}
-                          </p>
-                          <div
-                            className="overflow-hidden text-ellipsis min-h-[54px] font-r16 text-gray-800"
-                            style={{
-                              display: '-webkit-box',
-                              WebkitBoxOrient: 'vertical',
-                              WebkitLineClamp: 6,
-                              maxHeight: '156px',
-                            }}
-                          >
-                            {post.content?.ops?.map(op =>
-                              typeof op.insert === 'string' && op.insert !== '\n'
-                                ? op.insert
-                                : '',
+                      <div key={post.id} className="relative">
+                        <Link href={`/history/${post.id}`} className="block">
+                          <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
+                            <div className="flex justify-between items-center">
+                              <Chip className="text-gray-900" variant="gray">
+                                No.{post.index}
+                              </Chip>
+                            </div>
+                            <p className="font-sb22 text-gray-900 mt-4 mb-2">
+                              {post.title || '제목 타이틀'}
+                            </p>
+                            <div
+                              className="overflow-hidden text-ellipsis min-h-[54px] font-r16 text-gray-800"
+                              style={{
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 6,
+                                maxHeight: '156px',
+                              }}
+                            >
+                              {post.content?.ops?.map(op =>
+                                typeof op.insert === 'string' && op.insert !== '\n'
+                                  ? op.insert
+                                  : '',
+                              )}
+                            </div>
+                            <div className="mt-6 flex justify-between items-center">
+                              <div className="flex gap-x-3">
+                                {post.tags?.map((tag, i) => (
+                                  <Chip
+                                    key={tag + i}
+                                    className="text-gray-900"
+                                    variant="gray"
+                                  >
+                                    {tag}
+                                  </Chip>
+                                ))}
+                              </div>
+                              <span className="text-gray-500 font-r14">
+                                {getStringDateAndTime(new Date(post.writeDate))}
+                              </span>
+                            </div>
+                            {post.category && (
+                              <div className="absolute bottom-0 right-6 z-[-1]">
+                                {topicCategory[post.category]?.Icon({
+                                  width: 160,
+                                  height: 160,
+                                  color: '#EEF9E6',
+                                })}
+                              </div>
                             )}
                           </div>
-                          <div className="mt-6 flex justify-between items-center">
-                            <div className="flex gap-x-3">
-                              {post.tags?.map((tag, i) => (
-                                <Chip
-                                  key={tag + i}
-                                  className="text-gray-900"
-                                  variant="gray"
-                                >
-                                  {tag}
-                                </Chip>
-                              ))}
-                            </div>
-                            <span className="text-gray-500 font-r14">
-                              {getStringDateAndTime(new Date(post.writeDate))}
-                            </span>
-                          </div>
-                          {post.category && (
-                            <div className="absolute bottom-0 right-6 z-[-1]">
-                              {topicCategory[post.category]?.Icon({
-                                width: 160,
-                                height: 160,
-                                color: '#EEF9E6',
-                              })}
-                            </div>
-                          )}
-                        </div>
-                      </Link>
+                        </Link>
+                        <Popover>
+                          <PopoverTrigger className="absolute right-6 top-6">
+                            <Ellipsis width={24} height={24} color="#747F89" />
+                          </PopoverTrigger>
+                          <PopoverContent className="flex flex-col justify-center bg-white-0 w-auto p-0 [&>*]:py-2.5 [&>*]:px-10 [&>*]:block [&>*]:font-r14">
+                            <Button asChild variant="ghostGrayHover">
+                              <Link href={`/history/${post.id}/edit`}>수정하기</Link>
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="ghostGrayHover">삭제하기</Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitleIcon
+                                    src="/assets/icons/info.png"
+                                    width={32}
+                                    height={32}
+                                    alt="info"
+                                  />
+                                  <AlertDialogTitle>
+                                    기록을 정말 삭제하시겠습니까?
+                                  </AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    삭제된 글은 복원할 수 없습니다.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel
+                                    onClick={() => handleDeletePost(post.id, date)}
+                                  >
+                                    확인
+                                  </AlertDialogCancel>
+                                  <AlertDialogAction>취소</AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </PopoverContent>
+                        </Popover>
+                      </div>
                     ))}
                 </div>
               </div>
