@@ -10,6 +10,7 @@ import {
 import { Button, ButtonIcon } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { topicCategory } from '@/utils/topicCategory';
 
 const RecommendedTopic = () => {
   const recommendedTopic = useGetRecommendedTopic();
@@ -23,7 +24,22 @@ const RecommendedTopic = () => {
           <TopicCardTitle>{topTopic?.topic.category}</TopicCardTitle>
         </TopicCardHeader>
         <TopicCardContent>
-          {topTopic?.topic.title?.replaceAll('/n ', '')}
+          <div>
+            {topTopic?.topic.title?.split('/n').map((text, i) => (
+              <p key={i}>
+                {text}
+                <br />
+              </p>
+            ))}
+          </div>
+          <div className="absolute right-[26px]">
+            {topTopic?.topic.category &&
+              topicCategory[topTopic?.topic.category].Icon({
+                width: 110,
+                height: 110,
+                color: '#EEF9E6',
+              })}
+          </div>
         </TopicCardContent>
         <TopicCardFooter>
           <Button

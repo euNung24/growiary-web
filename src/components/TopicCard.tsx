@@ -73,8 +73,16 @@ const TopicCardDescription = CardDescription;
 
 TopicCardDescription.displayName = 'TopicCardDescription';
 
-const TopicCardContent = (props: React.HTMLAttributes<HTMLDivElement>) => {
-  return <CardContent {...props} className="flex-1 flex items-center text-gray-500" />;
+const TopicCardContent = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <CardContent
+      {...props}
+      className={cn('flex-1 flex items-center text-gray-500 relative', className)}
+    />
+  );
 };
 TopicCardContent.displayName = 'TopicCardContent';
 

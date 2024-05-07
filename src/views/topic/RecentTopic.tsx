@@ -15,6 +15,7 @@ import { RecentTopicType } from '@/types/topicTypes';
 import useGetProfile from '@/hooks/profile/useGetProfile';
 import Image from 'next/image';
 import LoginDialog from '@/components/LoginDialog';
+import { topicCategory } from '@/utils/topicCategory';
 
 const RecentTopic = () => {
   const mutation = useGetUserRecentTopic();
@@ -33,30 +34,51 @@ const RecentTopic = () => {
     <>
       {profile &&
         (recentTopic ? (
-          <TopicCard className="shrink-0">
-            <TopicCardHeader>
-              <TopicCardChip>최근에 작성한</TopicCardChip>
-              <TopicCardTitle>{recentTopic.topic?.category}</TopicCardTitle>
-            </TopicCardHeader>
-            <TopicCardContent>
-              <ul className="list-disc ml-5">
-                <li>{recentTopic.topic?.title.replaceAll('/n ', '')}</li>
-              </ul>
-            </TopicCardContent>
-            <TopicCardFooter>
-              <Button
-                size="full"
-                className={cn('bg-primary-50 text-primary-900/90 group-hover:bg-white-0')}
-                asChild
-              >
-                <Link
-                  href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
+          <div>
+            <TopicCard className="shrink-0">
+              <TopicCardHeader>
+                <TopicCardChip>최근에 작성한</TopicCardChip>
+                <TopicCardTitle>{recentTopic.topic?.category}</TopicCardTitle>
+              </TopicCardHeader>
+              <TopicCardContent>
+                <div>
+                  {recentTopic?.topic.title?.split('/n').map((text, i) => (
+                    <p key={i}>
+                      {text}
+                      <br />
+                    </p>
+                  ))}
+                </div>
+                <div className="absolute right-[26px]">
+                  {recentTopic?.topic.category &&
+                    topicCategory[recentTopic?.topic.category].Icon({
+                      width: 110,
+                      height: 110,
+                      color: '#EEF9E6',
+                    })}
+                </div>
+              </TopicCardContent>
+              <TopicCardFooter>
+                <Button
+                  size="full"
+                  className={cn(
+                    'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
+                  )}
+                  asChild
                 >
-                  <ButtonIcon src="/assets/icons/edit.png" alt="write" />이 주제로 글쓰기
-                </Link>
-              </Button>
-            </TopicCardFooter>
-          </TopicCard>
+                  <Link
+                    href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
+                  >
+                    <ButtonIcon src="/assets/icons/edit.png" alt="write" />이 주제로
+                    글쓰기
+                  </Link>
+                </Button>
+              </TopicCardFooter>
+            </TopicCard>
+            <p className="text-gray-400 font-r16 ml-3 mt-3">
+              그루미님이 최근에 기록한 주제
+            </p>
+          </div>
         ) : (
           <TopicCard className="shrink-0 bg-primary-50 border-none">
             <TopicCardHeader>
