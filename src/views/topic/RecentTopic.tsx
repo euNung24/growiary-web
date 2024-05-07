@@ -33,7 +33,8 @@ const RecentTopic = () => {
   return (
     <>
       {profile &&
-        (recentTopic ? (
+        recentTopic &&
+        (Object.keys(recentTopic).length > 0 ? (
           <div>
             <TopicCard className="shrink-0">
               <TopicCardHeader>
@@ -42,7 +43,7 @@ const RecentTopic = () => {
               </TopicCardHeader>
               <TopicCardContent>
                 <div>
-                  {recentTopic?.topic.title?.split('/n').map((text, i) => (
+                  {recentTopic?.topic?.title?.split('/n').map((text, i) => (
                     <p key={i}>
                       {text}
                       <br />
@@ -50,8 +51,8 @@ const RecentTopic = () => {
                   ))}
                 </div>
                 <div className="absolute right-[26px]">
-                  {recentTopic?.topic.category &&
-                    topicCategory[recentTopic?.topic.category].Icon({
+                  {recentTopic?.topic?.category &&
+                    topicCategory[recentTopic?.topic?.category].Icon({
                       width: 110,
                       height: 110,
                       color: '#EEF9E6',
@@ -69,8 +70,8 @@ const RecentTopic = () => {
                   <Link
                     href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
                   >
-                    <ButtonIcon src="/assets/icons/edit.png" alt="write" />이 주제로
-                    글쓰기
+                    <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />이
+                    주제로 글쓰기
                   </Link>
                 </Button>
               </TopicCardFooter>
@@ -103,8 +104,8 @@ const RecentTopic = () => {
                 asChild
               >
                 <Link href={`/post`}>
-                  <ButtonIcon src="/assets/icons/edit.png" alt="write" />
-                  자유주제로 글쓰기
+                  <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
+                  자유주제로 작성하기
                 </Link>
               </Button>
             </TopicCardFooter>
@@ -129,7 +130,7 @@ const RecentTopic = () => {
                     'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
                   )}
                 >
-                  <ButtonIcon src="/assets/icons/edit.png" alt="write" />
+                  <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
                   로그인하고 글쓰기
                 </Button>
               </LoginDialog>

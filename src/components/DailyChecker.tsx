@@ -29,7 +29,7 @@ const Tooltip = ({ text }: { text: string }) => {
 const DailyChecker = ({ variant, date, count }: DailyCheckerProps) => {
   return (
     <div className="group text-center text-gray-500 font-r16">
-      {date ? format(date, 'M월 d일') : '-'}
+      {date ? (variant !== 'today' ? format(date, 'M월 d일') : '오늘') : '-'}
       <div
         className={cn(
           'mt-1.5 rounded-full w-[70px] h-[70px] font-r28 flex flex-col justify-center items-center font-r11',
@@ -50,7 +50,7 @@ const DailyChecker = ({ variant, date, count }: DailyCheckerProps) => {
               <X className="group-hover:hidden" />
               <div className="group-hover:flex hidden gap-y-0.5 flex-col items-center justify-center">
                 <Image
-                  src="/assets/icons/edit.png"
+                  src="/assets/icons/edit_white.png"
                   alt="post"
                   width={24}
                   height={24}
