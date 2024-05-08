@@ -22,7 +22,7 @@ const topicCardVariants = cva(
         secondary: 'bg-secondary-50 text-gray-900',
       },
       size: {
-        default: 'rounded-lg p-5 font-r14',
+        default: 'rounded-lg pt-6 px-8 pb-[22px] font-r14',
         lg: 'rounded-xl h-[380px] p-6 font-r16',
       },
     },
@@ -49,7 +49,7 @@ const TopicCardChip = (props: TopicCardProps) => {
     <div
       {...props}
       className={cn(
-        'inline-block font-r14 rounded px-2 py-0.5 self-start mb-2 bg-primary-400 text-white-0',
+        'inline-block font-r14 rounded px-1.5 self-start mb-2 bg-primary-400 text-white-0',
       )}
     />
   );
@@ -63,7 +63,7 @@ const TopicCardTitle = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
   return (
     <CardTitle
       {...props}
-      className={cn('font-sb22 text-primary-900 group-hover:text-white-0')}
+      className={cn('font-b32 text-primary-900 group-hover:text-white-0')}
     />
   );
 };
@@ -80,7 +80,10 @@ const TopicCardContent = ({
   return (
     <CardContent
       {...props}
-      className={cn('flex-1 flex items-center text-gray-500 relative', className)}
+      className={cn(
+        'flex-1 flex items-center text-gray-500 relative font-r18',
+        className,
+      )}
     />
   );
 };

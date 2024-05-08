@@ -12,15 +12,15 @@ import Link from 'next/link';
 import useGetUserRecentTopic from '@/hooks/topics/useGetUserRecentTopic';
 import { useEffect, useState } from 'react';
 import { RecentTopicType } from '@/types/topicTypes';
-import useGetProfile from '@/hooks/profile/useGetProfile';
 import Image from 'next/image';
 import LoginDialog from '@/components/LoginDialog';
 import { topicCategory } from '@/utils/topicCategory';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const RecentTopic = () => {
   const mutation = useGetUserRecentTopic();
   const [recentTopic, setRecentTopic] = useState<RecentTopicType | null>(null);
-  const profile = useGetProfile();
+  const { profile } = useProfileContext();
 
   useEffect(() => {
     mutation.mutateAsync().then(res => {
@@ -38,7 +38,7 @@ const RecentTopic = () => {
           <div>
             <TopicCard className="shrink-0">
               <TopicCardHeader>
-                <TopicCardChip>최근에 작성한</TopicCardChip>
+                <TopicCardChip>최근에 기록한</TopicCardChip>
                 <TopicCardTitle>{recentTopic.topic?.category}</TopicCardTitle>
               </TopicCardHeader>
               <TopicCardContent>
@@ -86,7 +86,7 @@ const RecentTopic = () => {
               <TopicCardChip>최근에 기록한</TopicCardChip>
             </TopicCardHeader>
             <TopicCardContent>
-              <div className="flex flex-col items-center justify-center mx-auto text-center gap-y-2.5 text-gray-800 group-hover:text-white-0">
+              <div className="flex flex-col items-center justify-center mx-auto text-center gap-y-2.5 font-r16 text-gray-800 group-hover:text-white-0">
                 <Image
                   src="/assets/icons/info_white.png"
                   alt="info"
@@ -116,11 +116,11 @@ const RecentTopic = () => {
           <TopicCard className="shrink-0">
             <TopicCardHeader>
               <TopicCardChip>최근에 기록한</TopicCardChip>
-              <TopicCardTitle>최근에 기록한 주제</TopicCardTitle>
+              <TopicCardTitle>무엇이든 쓸 수 있어요</TopicCardTitle>
             </TopicCardHeader>
             <TopicCardContent>
-              그루어리에서 여러 주제에 맞는 <br />
-              다양한 글을 작성해봐요!
+              마음에 드는 주제와 질문을 골라
+              <br /> 기록을 시작해보세요!
             </TopicCardContent>
             <TopicCardFooter>
               <LoginDialog>
@@ -131,7 +131,7 @@ const RecentTopic = () => {
                   )}
                 >
                   <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
-                  로그인하고 글쓰기
+                  로그인하고 기록 작성하기
                 </Button>
               </LoginDialog>
             </TopicCardFooter>
