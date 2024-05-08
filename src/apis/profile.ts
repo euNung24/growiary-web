@@ -8,6 +8,7 @@ const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';
 
 export const getProfile = async (): Promise<ProfileType> => {
   const accessToken = getCookie('accessToken');
+  if (!accessToken) return {} as ProfileType;
 
   const response = await fetch(profileApiUrl, {
     headers: {

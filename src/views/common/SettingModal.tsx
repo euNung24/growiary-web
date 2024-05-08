@@ -15,14 +15,33 @@ import useGetProfile from '@/hooks/profile/useGetProfile';
 import { ChevronRight } from 'lucide-react';
 import ServiceTerm from '@/views/common/ServiceTerm';
 import PrivateTerm from '@/views/common/PrivateTerm';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
 const SettingModal = () => {
+  const router = useRouter();
+  const [isLogout, setIsLogout] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const profile = useGetProfile();
+  const queryClient = useQueryClient();
+
+  const handleClickLogout = () => {
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
+    setIsLogout(true);
+  };
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (isLogout) {
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      router.push('/');
+    }
+  }, [isLogout, profile]);
 
   return (
     <>
@@ -35,7 +54,7 @@ const SettingModal = () => {
             <DialogHeader className="mb-14">
               <DialogTitle className="text-primary-900 mt-10">설정</DialogTitle>
             </DialogHeader>
-            {profile && (
+            {profile && Object.keys(profile) && (
               <>
                 <div className="flex items-center">
                   <div className="flex justify-center items-center w-[76px] h-[76px] rounded-full bg-gray-100 overflow-hidden lg:hidden">
@@ -85,6 +104,7 @@ const SettingModal = () => {
                       size="sm"
                       variant="ghostGray"
                       className="hover:bg-background focus:bg-background p-0"
+                      onClick={handleClickLogout}
                     >
                       로그아웃
                     </Button>
