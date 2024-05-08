@@ -45,7 +45,7 @@ const PostView = ({ post }: PostViewProps) => {
     mutation.mutateAsync().then(res => {
       if (!res) return;
       toast({
-        description: '일기가 삭제되었습니다',
+        description: '기록이 삭제되었습니다',
         onEndToast: () => {
           router.push('/history');
         },

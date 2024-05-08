@@ -339,7 +339,7 @@ const PostView = ({ post }: PostViewProps) => {
         variant="hidden"
         onClick={() => {
           toast({
-            description: '일기가 저장되었습니다',
+            description: '기록이 저장되었습니다',
             onEndToast: historyFnRef.current,
           });
         }}

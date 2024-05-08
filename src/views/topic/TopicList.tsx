@@ -22,7 +22,11 @@ const TopicList = ({ currentCategory }: TopicListProps) => {
     const filteredBestTopic = topics[currentCategory].filter(
       topic => topic.id !== bestTopic.id,
     );
-    setCurrentTopics([bestTopic, ...filteredBestTopic]);
+    setCurrentTopics(
+      Object.keys(bestTopic).length
+        ? [bestTopic, ...filteredBestTopic]
+        : filteredBestTopic,
+    );
   }, [topics, bestTopics, currentCategory]);
 
   return (
@@ -32,7 +36,7 @@ const TopicList = ({ currentCategory }: TopicListProps) => {
             <li
               key={i}
               className={cn(
-                'group rounded-md hover:bg-primary-900 border border-gray-100',
+                'group rounded-md hover:bg-primary-900 border border-gray-100 hover:shadow',
               )}
             >
               <Link

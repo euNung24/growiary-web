@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import LoginDialog from '@/components/LoginDialog';
 import { Button } from '@/components/ui/button';
-import useGetProfile from '@/hooks/profile/useGetProfile';
 import { menu } from '@/utils';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 
@@ -38,7 +37,12 @@ const Menu = ({ items }: MenuProps) => {
             )}
           >
             <Image
-              src={item.src + (item.href === pathname ? '_white.png' : '.png')}
+              src={
+                item.src +
+                (item.href.split('/')[1] === pathname.split('/')[1]
+                  ? '_white.png'
+                  : '.png')
+              }
               width={16}
               height={16}
               alt={item.alt}
