@@ -92,7 +92,7 @@ const HomePosts = () => {
                           : '',
                       )}
                     </div>
-                    <div className="flex gap-x-2.5 mt-auto">
+                    <div className="flex mt-auto">
                       {post.tags?.map((v, i) => (
                         <CardChip key={i} position="footer">
                           {v}
