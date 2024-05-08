@@ -46,7 +46,7 @@ const ReportByWeekBar = () => {
             <span className={historyStrengthStyle}>{DATE[weekData[0][0]]}요일</span>
             에 주로
             <br />
-            글을 작성했어요
+            작성했어요
           </p>
           <div className="flex justify-around items-end [&>*]:flex [&>*]:flex-col">
             <div>

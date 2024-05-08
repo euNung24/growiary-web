@@ -35,9 +35,8 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
   return (
     weekData && (
       <div className="flex-1">
-        <h2 className="title">요일</h2>
         <p className={descriptionStyle}>
-          <span className={strengthStyle}>목요일</span>에 주로 글을 작성했어요.
+          <span className={strengthStyle}>목요일</span>에 주로 작성했어요
         </p>
         <div className={cn(boxStyle, 'h-[358px] flex justify-center items-center')}>
           <div className="w-[300px] h-[300px] ">

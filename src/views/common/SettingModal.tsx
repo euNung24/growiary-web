@@ -77,14 +77,14 @@ const SettingModal = () => {
                     </PrivateTerm>
                   </div>
                   <div className="flex justify-between py-[13px]">
-                    <span>앱버전 정보</span>
+                    <span>버전 정보</span>
                     <span className="text-gray-500">v1.0.0.최신버전</span>
                   </div>
                   <div className="flex justify-between py-[13px]">
                     <Button
                       size="sm"
                       variant="ghostGray"
-                      className="hover:bg-background focus:bg-background"
+                      className="hover:bg-background focus:bg-background p-0"
                     >
                       로그아웃
                     </Button>

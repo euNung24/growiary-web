@@ -90,7 +90,7 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
               <Button className="hidden">사전 예약 신청 모달</Button>
             )}
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] max-h-[80vh] flex flex-col">
+          <DialogContent className="sm:max-w-[425px] w-[780px] max-w-none max-h-[80vh] flex flex-col px-20">
             <DialogHeader className="mb-6">
               <DialogTitle className="text-primary-900 mt-10">사전 예약 신청</DialogTitle>
             </DialogHeader>
@@ -184,8 +184,8 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
                         <>
                           <FormItem className="space-y-3">
                             <FormLabel>
-                              Q4. 다른리포트 혹은 기록 기반의 테스트에서 어떤 부분이 가장
-                              마음에 들었나요?
+                              Q4. 그 리포트 혹은 테스트의 이용하면서 마음에 들었던 점,
+                              불편했던 점을 공유해주세요.
                             </FormLabel>
                             <Input {...fieldQ4} />
                           </FormItem>

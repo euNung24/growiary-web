@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import useReportContext from '@/hooks/report/useReportContext';
 import { getPercentage } from '@/utils';
 
-const TIME = ['아침', '점심', '낮', '저녁'];
+const TIME = ['새벽', '아침', '오후', '저녁'];
 
 type ReportByTimeProps = {
   month: number;
@@ -41,10 +41,9 @@ const ReportByTime = ({ month }: ReportByTimeProps) => {
   return (
     timeRankByPercent && (
       <div className="flex-1">
-        <h2 className="title">시간대</h2>
         <p className={descriptionStyle}>
-          <span className={strengthStyle}>{timeRankByPercent[0][0]}</span>에 주로 글을
-          작성했어요.
+          <span className={strengthStyle}>{timeRankByPercent[0][0]}</span>에 주로
+          작성했어요
         </p>
         <div className={cn(boxStyle)}>
           <RectAreaChart data={timeRankByPercent} />

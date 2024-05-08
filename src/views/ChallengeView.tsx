@@ -77,7 +77,7 @@ const ChallengeView = () => {
 
   return (
     <>
-      <div className="w-[960px] mx-auto my-[72px]">
+      <div>
         <h2 className="title">뱃지</h2>
         <p className={descriptionStyle}>
           지금까지 획득한 뱃지는 총{' '}
@@ -138,7 +138,7 @@ const ChallengeView = () => {
           </div>
         )}
         <section>
-          <div className="flex gap-2.5 py-6">
+          <div className="flex flex-wrap gap-2.5 py-6">
             <div>
               <div className="flex gap-x-1 items-center mb-3">
                 <span className="font-sb18 text-primary-900 block">나의 타이틀 뱃지</span>

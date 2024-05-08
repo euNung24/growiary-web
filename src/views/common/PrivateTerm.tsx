@@ -20,7 +20,7 @@ const PrivateTerm = ({ children }: PrivateTermProps) => {
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="font-sb22">그루어리 서비스 약관</AlertDialogTitle>
+          <AlertDialogTitle className="font-sb22">개인정보 처리방침</AlertDialogTitle>
         </AlertDialogHeader>
         <div className="max-h-[60vh] border border-gray-100 rounded-xl p-6 max-w-[540px] overflow-scroll">
           그루어리 개인정보처리 방침 1. 수집하는 개인정보 항목 및 수집목적 1.1. 회사는

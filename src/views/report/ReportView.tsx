@@ -53,9 +53,12 @@ const ReportView = ({
               year={selectedYear || 0}
               month={selectedMonth.toString().padStart(2, '0')}
             />
-            <section className="flex gap-x-5">
-              <ReportByDay month={selectedMonth - 1} />
-              <ReportByTime month={selectedMonth - 1} />
+            <section>
+              <h2 className="title">기록 패턴</h2>
+              <div className="flex gap-x-5">
+                <ReportByDay month={selectedMonth - 1} />
+                <ReportByTime month={selectedMonth - 1} />
+              </div>
             </section>
             <ReportByChar
               year={selectedYear || 0}
@@ -84,7 +87,7 @@ const ReportView = ({
                 업데이트 준비 중이에요.
               </CardTitle>
               <CardDescription>
-                지금 사전 신청하면 80% 할인 혜택이 있어요!{' '}
+                지금 사전 신청하면 50% 할인 혜택이 있어요!{' '}
                 <span className="text-gray-500 line-through">11,000원</span>{' '}
                 <span className="text-gray-500">→</span>{' '}
                 <b className="text-primary-900">5,500원</b>

@@ -16,7 +16,8 @@ type BarChartProps<T, V> = CanvasHTMLAttributes<HTMLCanvasElement> & {
 Chart.register(BarElement, CategoryScale, LinearScale, ChartDataLabels);
 Chart.defaults.font.size = 16;
 Chart.defaults.font.weight = 'normal';
-
+Chart.defaults.color = '#747F89';
+Chart.defaults.borderColor = '#EFEFEF';
 function BarChart<T, V>({
   labels,
   data,

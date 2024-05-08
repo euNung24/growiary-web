@@ -56,21 +56,21 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
   return (
     userData && (
       <section>
-        <h2 className="title">글자수</h2>
+        <h2 className="title">기록 분량</h2>
         <p className={descriptionStyle}>
-          <span className={strengthStyle}>{(userData.sum || 0).toLocaleString()}</span>{' '}
-          글자를 작성했어요.
+          <span className={strengthStyle}>{(userData.sum || 0).toLocaleString()}자</span>
+          를 작성했어요
         </p>
         <div className={cn(boxStyle)}>
           <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
             <span>
-              전체 <b className="ml-[5px] text-gray-700">{userData.sum}개</b>
+              전체 <b className="ml-[5px] text-gray-700">{userData.sum}자</b>
             </span>
             <span>
-              평균 <b className="ml-[5px] text-gray-700">{Math.round(userData.avg)}개</b>
+              평균 <b className="ml-[5px] text-gray-700">{Math.round(userData.avg)}자</b>
             </span>
             <span>
-              최대 <b className="ml-[5px] text-gray-700">{maxChar || 0}개</b>
+              최대 <b className="ml-[5px] text-gray-700">{maxChar || 0}자</b>
             </span>
           </div>
           <div className="flex gap-x-3">

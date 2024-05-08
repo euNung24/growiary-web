@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 const MAX_BAR_HEIGHT = 121;
-const TIME = ['아침', '점심', '낮', '저녁'];
+const TIME = ['새벽', '아침', '오후', '저녁'];
 const IMAGE_SRC = [
   '/assets/images/morning.png',
   '/assets/images/lunch.png',
@@ -51,7 +51,7 @@ const ReportByTimeBar = () => {
             <span className={historyStrengthStyle}>{TIME[timeData[0][0]]}</span>
             에 주로
             <br />
-            글을 작성했어요
+            작성했어요
           </p>
           <div className="flex justify-around items-end [&>*]:flex [&>*]:flex-col">
             <div>

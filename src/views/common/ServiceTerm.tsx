@@ -20,7 +20,7 @@ const ServiceTerm = ({ children }: ServiceTermProps) => {
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="font-sb22">그루어리 서비스 약관</AlertDialogTitle>
+          <AlertDialogTitle className="font-sb22">서비스 이용약관</AlertDialogTitle>
         </AlertDialogHeader>
         <div className="max-h-[60vh] border border-gray-100 rounded-xl p-6 max-w-[540px] overflow-scroll">
           그루어리서비스 이용약관 **제1조 목적** 이 약관은 그루어리 서비스(이하

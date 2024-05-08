@@ -29,12 +29,12 @@ const RectAreaChart = ({ data }: RectAreaChartProps) => {
     const secondDataY = (first / (first + second)) * containerHeight;
     const forthDataY = (third / (third + fourth)) * containerHeight;
 
-    ctx!.font = '24px Arial';
+    ctx!.font = '36px Arial';
     // 직사각형 그리기
     ctx!.fillStyle = '#154284';
     ctx!.fillRect(0, 0, width, secondDataY);
     ctx!.fillStyle = '#ffffff';
-    ctx!.fillText(`${data[0][0]} ${data[0][1]}%`, width / 2 - 35, secondDataY / 2 + 7);
+    ctx!.fillText(`${data[0][0]} ${data[0][1]}%`, width / 2 - 50, secondDataY / 2 + 10);
 
     if (second !== 0) {
       ctx!.fillStyle = '#204C90';
@@ -42,8 +42,8 @@ const RectAreaChart = ({ data }: RectAreaChartProps) => {
       ctx!.fillStyle = '#ffffff';
       ctx!.fillText(
         `${data[1][0]} ${data[1][1]}%`,
-        width / 2 - 35,
-        (containerHeight - secondDataY) / 2 + secondDataY + 7,
+        width / 2 - 50,
+        (containerHeight - secondDataY) / 2 + secondDataY + 10,
       );
     }
 
@@ -53,8 +53,8 @@ const RectAreaChart = ({ data }: RectAreaChartProps) => {
       ctx!.fillStyle = '#ffffff';
       ctx!.fillText(
         `${data[2][0]} ${data[2][1]}%`,
-        (containerWidth - width) / 2 + width - 35,
-        forthDataY / 2 + 7,
+        (containerWidth - width) / 2 + width - 50,
+        forthDataY / 2 + 10,
       );
     }
 
@@ -64,8 +64,8 @@ const RectAreaChart = ({ data }: RectAreaChartProps) => {
       ctx!.fillStyle = '#ffffff';
       ctx!.fillText(
         `${data[3][0]} ${data[3][1]}%`,
-        (containerWidth - width) / 2 + width - 35,
-        (containerHeight - forthDataY) / 2 + forthDataY + 7,
+        (containerWidth - width) / 2 + width - 50,
+        (containerHeight - forthDataY) / 2 + forthDataY + 10,
       );
     }
   }, [data]);

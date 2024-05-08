@@ -90,7 +90,7 @@ const FeedbackModal = ({
           <DialogTrigger asChild>
             {children ? children : <Button className="hidden">의견 보내기 모달</Button>}
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="sm:max-w-[425px] px-20 w-[780px] max-w-none">
             <DialogHeader className="mb-14">
               <DialogTitle className="text-primary-900 mt-10">의견 보내기</DialogTitle>
               <DialogDescription className="text-gray-500 mt-12">

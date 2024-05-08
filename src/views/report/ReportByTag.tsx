@@ -40,10 +40,10 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
     <section>
       <h2 className="title">태그</h2>
       <div className="flex gap-x-[22px]">
-        <div>
+        <div className="flex-1">
           <p className={descriptionStyle}>
-            <span className={strengthStyle}>{sortedTags?.[0]?.[0]}</span>의 태그를 가장
-            많이 사용했어요.
+            <span className={strengthStyle}>{sortedTags?.[0]?.[1]}개</span>의 태그를
+            사용했어요
           </p>
           <div className="space-y-4">
             {sortedTags?.map(([tag, count], i) => (
@@ -63,11 +63,10 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
             ))}
           </div>
         </div>
-        <div>
+        <div className="flex-1">
           <p className={descriptionStyle}>
-            이번에 새롭게 등장한 태그는{' '}
-            <span className={strengthStyle}>{sortedNewTags?.length}개</span>
-            입니다.
+            <span className={strengthStyle}>{sortedNewTags?.length}개</span>의 태그가
+            새롭게 등장했어요
           </p>
           <div className="space-y-4">
             {sortedNewTags?.[0] && (

@@ -57,7 +57,7 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
     };
 
     return (
-      <div className="w-[940px] mx-auto mt-5">
+      <div className="mx-auto mt-[-83px] pt-5">
         <div className="flex gap-x-3 items-center">
           <ChevronLeft
             width={24}

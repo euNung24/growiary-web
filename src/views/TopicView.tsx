@@ -22,7 +22,7 @@ const TopicView = () => {
     <>
       <section>
         <h2 className="title">다채로운 질문들을 만나보세요</h2>
-        <div className="flex gap-5 mt-6">
+        <div className="flex flex-wrap gap-5 mt-6">
           <RecommendedTopic />
           <RecentTopic />
         </div>

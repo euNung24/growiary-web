@@ -55,9 +55,10 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
 
   return (
     <section>
-      <h2 className="title">주제</h2>
+      <h2 className="title">기록 카테고리</h2>
       <p className={descriptionStyle}>
-        <span className={strengthStyle}>{topic?.[0]?.[0]}</span>로 많은 글쓰기를 했어요.
+        <span className={strengthStyle}>{topic?.[0]?.[0]}</span> 카테고리를 가장 많이
+        작성했어요
       </p>
       <div className="flex rounded-lg overflow-hidden text-center h-9 leading-9">
         {topic?.map(
