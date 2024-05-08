@@ -25,22 +25,18 @@ const cardVariants = cva('group flex flex-col hover:shadow w-[300px]', {
   },
 });
 
-const cardChipVariants = cva(
-  'inline-block font-r12 rounded px-2 py-0.5 self-start mr-1.5',
-  {
-    variants: {
-      position: {
-        default:
-          'bg-gray-50 text-gray-900 group-hover:bg-primary-400 group-hover:text-white-0 mb-4',
-        footer:
-          'bg-secondary-50 text-gray-900 group-hover:bg-primary-100 group-hover:text-primary-900',
-      },
-    },
-    defaultVariants: {
-      position: 'default',
+const cardChipVariants = cva('inline-block font-r14 rounded px-1.5 self-start mr-1.5', {
+  variants: {
+    position: {
+      default:
+        'bg-gray-50 text-gray-900 group-hover:bg-primary-400 group-hover:text-white-0 mb-4',
+      footer: 'bg-gray-50 text-gray-900',
     },
   },
-);
+  defaultVariants: {
+    position: 'default',
+  },
+});
 
 export interface CardProps
   extends React.HTMLAttributes<HTMLDivElement>,

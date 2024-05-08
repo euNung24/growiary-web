@@ -18,9 +18,14 @@ type DailyCheckerProps = {
   count?: number;
 };
 
-const Tooltip = ({ text }: { text: string }) => {
+const Tooltip = ({ text, className }: { text: string; className?: string }) => {
   return (
-    <div className="absolute translate-y-full bottom-[-11px] hidden group-hover:block bg-gray-500 text-white-0 font-r12 py-[3px] px-3 rounded-[38px] text-nowrap">
+    <div
+      className={cn(
+        'absolute translate-y-full bottom-[-11px] hidden group-hover:block bg-gray-500 text-white-0 font-r12 py-[3px] px-3 rounded-[38px] text-nowrap',
+        className,
+      )}
+    >
       <div className="absolute top-[-13px] left-1/2 translate-x-[-50%] w-4 h-4 border border-8 border-b-gray-500 border-t-transparent border-l-transparent border-r-transparent"></div>
       {text}
     </div>
@@ -28,11 +33,16 @@ const Tooltip = ({ text }: { text: string }) => {
 };
 const DailyChecker = ({ variant, date, count }: DailyCheckerProps) => {
   return (
-    <div className="group text-center text-gray-500 font-r16">
+    <div
+      className={cn(
+        'group text-center text-gray-500 font-r16',
+        variant === 'today' && 'text-gray-800',
+      )}
+    >
       {date ? (variant !== 'today' ? format(date, 'M월 d일') : '오늘') : '-'}
       <div
         className={cn(
-          'mt-1.5 rounded-full w-[70px] h-[70px] font-r28 flex flex-col justify-center items-center font-r11',
+          'mt-2.5 rounded-full w-[70px] h-[70px] font-r28 flex flex-col justify-center items-center font-r11',
           dailyCheckerStyles[variant],
           variant === 'today' && count && 'bg-primary-900 text-white-0 border-none',
         )}
@@ -58,12 +68,12 @@ const DailyChecker = ({ variant, date, count }: DailyCheckerProps) => {
                 />
                 <span>기록하기</span>
               </div>
-              <Tooltip text="오늘은 기록이 없어요" />
+              <Tooltip text="오늘은 기록이 없어요" className="block" />
             </>
           ) : (
             <>
               <span>기록 완료</span>
-              <Tooltip text={`기록 ${count}개`} />
+              <Tooltip text={`기록 ${count}개`} className="block" />
             </>
           ))}
         {variant === 'next' && (
@@ -72,11 +82,6 @@ const DailyChecker = ({ variant, date, count }: DailyCheckerProps) => {
             <span>기록 달성</span>
           </>
         )}
-
-        {/*<span className={cn(variant === 'today' && 'group-hover:hidden')}>{count}</span>*/}
-        {/*{variant === 'today' && count === 0 && (*/}
-        {/*  <span className="absolute w-1 h-1 rounded-full bg-secondary-600 top-[27px] left-[50px]"></span>*/}
-        {/*)}*/}
       </div>
     </div>
   );

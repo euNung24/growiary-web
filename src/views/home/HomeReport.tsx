@@ -17,11 +17,11 @@ const HomeReport = () => {
       <div className="flex justify-between">
         <h2 className="title">기록 데이터</h2>
         <Button variant="ghostGray" size="sm" className="text-gray-500" asChild>
-          <Link href="/history">전체보기</Link>
+          <Link href="/report">전체보기</Link>
         </Button>
       </div>
       <p className={headerDescriptionStyle}>작성해주신 기록을 그루어리가 분석했어요</p>
-      <div className="flex gap-2.5 flex-wrap">
+      <div className="flex gap-5 flex-wrap">
         {/* 로그인 된 경우 */}
         {report?.post &&
           (report?.post?.user[month] > 3 ? (
@@ -58,18 +58,21 @@ const HomeReport = () => {
             <Image
               src="/assets/images/report-example1.png"
               alt="report-example1"
+              className="flex-1"
               width={300}
               height={386}
             />
             <Image
               src="/assets/images/report-example2.png"
               alt="report-example2"
+              className="flex-1"
               width={300}
               height={386}
             />
             <Image
               src="/assets/images/report-example3.png"
               alt="report-example3"
+              className="flex-1"
               width={300}
               height={386}
             />
