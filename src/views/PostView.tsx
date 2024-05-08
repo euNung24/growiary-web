@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import { Input } from '@/components/ui/input';
@@ -286,11 +288,11 @@ const PostView = ({ post }: PostViewProps) => {
                       >
                         저장하기
                       </Button>
-                      <StopMovePage
-                        url="/post"
-                        isPreventCondition={!!titleField.value || !!countField.value}
-                        fn={isStopPost}
-                      />
+                      {/*<StopMovePage*/}
+                      {/*  url="/post"*/}
+                      {/*  isPreventCondition={!!titleField.value || !!countField.value}*/}
+                      {/*  fn={isStopPost}*/}
+                      {/*/>*/}
                     </div>
                   </>
                 )}
