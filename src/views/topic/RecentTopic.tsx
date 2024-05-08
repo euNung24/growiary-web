@@ -71,7 +71,7 @@ const RecentTopic = () => {
                     href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
                   >
                     <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />이
-                    주제로 글쓰기
+                    주제로 기록하기
                   </Link>
                 </Button>
               </TopicCardFooter>

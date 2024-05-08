@@ -33,7 +33,7 @@ const NewCardContent = ({ count, isLogin }: NewCardProps) => {
   return (
     <Card className="shrink-0" size="lg">
       <CardHeader>
-        <CardChip>No.{count}</CardChip>
+        <CardChip size="lg">No.{count}</CardChip>
         <CardTitle>{isLogin ? '새로운 기록 작성하기' : '새로운 기록 시작하기'}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col flex-1 flex items-center justify-center">

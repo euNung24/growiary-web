@@ -51,7 +51,7 @@ const RecommendedTopic = () => {
               href={`/post?topic=${topTopic?.topic.id}&category=${topTopic?.topic.category}`}
             >
               <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />이 주제로
-              글쓰기
+              기록하기
             </Link>
           </Button>
         </TopicCardFooter>

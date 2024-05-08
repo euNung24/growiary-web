@@ -66,7 +66,7 @@ const HomePosts = () => {
               <Link key={post.id} href="/history">
                 <Card className="shrink-0" size="lg">
                   <CardHeader>
-                    <CardChip>No.{post.index}</CardChip>
+                    <CardChip size="lg">No.{post.index}</CardChip>
                     <CardTitle className="overflow-hidden text-ellipsis">
                       {post.title}
                     </CardTitle>
@@ -112,7 +112,7 @@ const HomePosts = () => {
             {posts?.length === 0 && (
               <Card className="shrink-0 bg-primary-50 border-none" size="lg">
                 <CardHeader>
-                  <CardChip>No.0</CardChip>
+                  <CardChip size="lg">No.0</CardChip>
                   <CardTitle className="overflow-hidden text-ellipsis">
                     제목 타이틀
                   </CardTitle>
@@ -161,7 +161,7 @@ const HomePosts = () => {
             {[...Array(2)].map((v, i) => (
               <Card key={i} className="shrink-0" size="lg">
                 <CardHeader>
-                  <CardChip>No.{2 - i}</CardChip>
+                  <CardChip size="lg">No.{2 - i}</CardChip>
                   <CardTitle className="overflow-hidden">제목 타이틀</CardTitle>
                 </CardHeader>
                 <CardContent

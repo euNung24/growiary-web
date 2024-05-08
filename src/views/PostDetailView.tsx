@@ -28,6 +28,7 @@ import useDeletePost from '@/hooks/posts/useDeletePosts';
 import { Label } from '@/components/ui/label';
 import { TopicType } from '@/types/topicTypes';
 import useFindTopic from '@/hooks/topics/useFindTopics';
+import Image from 'next/image';
 
 type PostViewProps = {
   post: ResPostType;
@@ -134,7 +135,7 @@ const PostView = ({ post }: PostViewProps) => {
       <div className="space-y-[14px]">
         {post.topicId && post.topicId !== NO_TOPIC_ID && (
           <div className="flex space-y-0">
-            <Label className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
+            <Label className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-500">
               <List width={22} height={22} />
               주제
             </Label>
@@ -142,8 +143,8 @@ const PostView = ({ post }: PostViewProps) => {
           </div>
         )}
         <div className="flex space-y-0">
-          <div className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
-            <CalendarIcon width={22} height={22} />
+          <div className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-500">
+            <Image src="/assets/icons/calendar.png" alt="date" width={22} height={22} />{' '}
             날짜
           </div>
           <Button
@@ -157,8 +158,8 @@ const PostView = ({ post }: PostViewProps) => {
           </Button>
         </div>
         <div className="flex space-y-0 py-[11px]">
-          <div className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
-            <Hash width={22} height={22} />
+          <div className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-500">
+            <Image src="/assets/icons/hashtag.png" alt="tag" width={22} height={22} />
             태그
           </div>
           <Tag tags={post.tags} />
@@ -204,7 +205,7 @@ const PostView = ({ post }: PostViewProps) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        <Button type="button" size="lg" asChild>
+        <Button type="button" variant="outlineGray" size="lg" asChild>
           <Link href={`/history/${post.id}/edit`}>수정하기</Link>
         </Button>
       </div>

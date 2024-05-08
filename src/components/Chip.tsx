@@ -4,8 +4,9 @@ import { HTMLAttributes } from 'react';
 
 type ChipProps = HTMLAttributes<HTMLDivElement> & {
   variant?: 'secondary' | 'gray';
+  size?: 'lg' | 'md';
 };
-const Chip = ({ className, variant, ...props }: ChipProps) => {
+const Chip = ({ className, variant, size = 'md', ...props }: ChipProps) => {
   let style = '';
 
   switch (variant) {
@@ -13,7 +14,7 @@ const Chip = ({ className, variant, ...props }: ChipProps) => {
       style = 'bg-secondary-50 text-gray-900';
       break;
     case 'gray':
-      style = 'bg-gray-50 text-primary-900';
+      style = 'bg-gray-50 text-gray-900';
       break;
     default:
       style = 'bg-primary-400 text-white-0';
@@ -24,7 +25,8 @@ const Chip = ({ className, variant, ...props }: ChipProps) => {
     <div
       {...props}
       className={cn(
-        'inline-block font-r14 rounded px-2 py-0.5 self-start',
+        'inline-block font-r14 rounded self-start',
+        size === 'md' ? 'px-1.5' : 'py-0.5 px-2',
         style,
         className,
       )}

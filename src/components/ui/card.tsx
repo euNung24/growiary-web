@@ -32,9 +32,14 @@ const cardChipVariants = cva('inline-block font-r14 rounded px-1.5 self-start mr
         'bg-gray-50 text-gray-900 group-hover:bg-primary-400 group-hover:text-white-0 mb-4',
       footer: 'bg-gray-50 text-gray-900',
     },
+    size: {
+      default: 'px-1.5',
+      lg: 'py-0.5 px-2',
+    },
   },
   defaultVariants: {
     position: 'default',
+    size: 'default',
   },
 });
 
@@ -61,12 +66,12 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 Card.displayName = 'Card';
 
 const CardChip = React.forwardRef<HTMLDivElement, CardChipProps>(
-  ({ className, position, ...props }, ref) => {
+  ({ className, size, position, ...props }, ref) => {
     return (
       <div
         ref={ref}
         {...props}
-        className={cn(cardChipVariants({ position }), className)}
+        className={cn(cardChipVariants({ position, size }), className)}
       />
     );
   },

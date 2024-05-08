@@ -256,7 +256,7 @@ const HistoryView = () => {
                         <Link href={`/history/${post.id}`} className="block">
                           <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
                             <div className="flex justify-between items-center">
-                              <Chip className="text-gray-900" variant="gray">
+                              <Chip className="bg-gray-50o" size="lg" variant="gray">
                                 No.{post.index}
                               </Chip>
                             </div>
@@ -281,11 +281,7 @@ const HistoryView = () => {
                             <div className="mt-6 flex justify-between items-center">
                               <div className="flex gap-x-3">
                                 {post.tags?.map((tag, i) => (
-                                  <Chip
-                                    key={tag + i}
-                                    className="text-gray-900"
-                                    variant="gray"
-                                  >
+                                  <Chip key={tag + i} variant="gray">
                                     {tag}
                                   </Chip>
                                 ))}

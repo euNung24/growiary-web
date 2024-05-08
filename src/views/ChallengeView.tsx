@@ -86,7 +86,7 @@ const ChallengeView = () => {
         <div className="font-r16 text-gray-900">
           <span className="font-sb16 text-primary-900">그루미님</span>은 전체 이용자중
           상위{' '}
-          <Chip variant="gray" className="font-m16">
+          <Chip variant="gray" className="text-primary-900 font-m16">
             {userPercent}%
           </Chip>{' '}
           입니다.

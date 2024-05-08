@@ -73,7 +73,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
           <li
             key={`${i}_${v}`}
             className={cn(
-              'flex items-center bg-gray-50 font-r16 text-gray-800 py-[11px] pl-2.5 pr-1.5 rounded',
+              'flex items-center font-r16 text-gray-800 py-[11px] pl-2.5 pr-1.5 rounded',
               !setTags && 'px-2.5',
             )}
           >
@@ -97,7 +97,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
               ref={inputRef}
               type="text"
               placeholder="태그입력"
-              className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-700"
+              className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-800"
               onChange={handleChangeInput}
               onKeyDown={handleKeyDown}
               onKeyUp={handleKeyUp}

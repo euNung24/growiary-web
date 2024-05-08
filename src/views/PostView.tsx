@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { Calendar as CalendarIcon, Hash, List } from 'lucide-react';
+import { List } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import {
@@ -34,18 +34,18 @@ import useFindTopic from '@/hooks/topics/useFindTopics';
 import { useEffect, useRef, useState } from 'react';
 import { TopicType } from '@/types/topicTypes';
 import { topicCategory } from '@/utils/topicCategory';
-import StopMovePage from '@/components/StopMovePage';
 import { useToast } from '@/components/ui/use-toast';
 import { Toaster } from '@/components/ui/toaster';
 import { Label } from '@/components/ui/label';
 import { NO_TOPIC_ID } from '@/utils';
+import Image from 'next/image';
 
 const FormSchema = z.object({
   topicId: z.number(),
-  title: z.string(),
+  title: z.string().min(1),
   content: z.string().or(z.object({ ops: z.array(z.any()) })),
   tags: z.array(z.string()),
-  charactersCount: z.number(),
+  charactersCount: z.number().min(10),
   writeDate: z.date(),
 });
 
@@ -141,7 +141,7 @@ const PostView = ({ post }: PostViewProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/3 flex flex-col gap-y-4 w-[960px] h-screen mx-auto py-[72px]"
+        className="w-2/3 flex flex-col gap-y-4 w-[960px] h-screen mx-auto"
       >
         {template && template.id && (
           <div>
@@ -184,12 +184,12 @@ const PostView = ({ post }: PostViewProps) => {
                   />
                 </FormControl>
               </FormItem>
-              <div className="flex space-y-0">
-                <Label className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
+              <div className="flex space-y-0 font-r16 text-gray-500">
+                <Label className="flex flex-[0_0_94px] gap-2 items-center">
                   <List width={22} height={22} />
                   주제
                 </Label>
-                <div className="px-3 py-[14px]">
+                <div className="px-3 py-[14px] text-gray-800">
                   {template.title ? template.title.replaceAll('/n ', '') : '자유'}
                 </div>
               </div>
@@ -198,9 +198,14 @@ const PostView = ({ post }: PostViewProps) => {
                   control={form.control}
                   name="writeDate"
                   render={({ field }) => (
-                    <FormItem className="flex space-y-0">
-                      <FormLabel className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
-                        <CalendarIcon width={22} height={22} />
+                    <FormItem className="flex space-y-0 font-r16 text-gray-500">
+                      <FormLabel className="flex flex-[0_0_94px] gap-2 items-center">
+                        <Image
+                          src="/assets/icons/calendar.png"
+                          alt="date"
+                          width={22}
+                          height={22}
+                        />
                         날짜
                       </FormLabel>
                       <Popover>
@@ -237,9 +242,14 @@ const PostView = ({ post }: PostViewProps) => {
                   control={form.control}
                   name="tags"
                   render={({ field }) => (
-                    <FormItem className="flex space-y-0">
-                      <FormLabel className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-700">
-                        <Hash width={22} height={22} />
+                    <FormItem className="flex space-y-0 font-r16 text-gray-500">
+                      <FormLabel className="flex flex-[0_0_94px] gap-2 items-center">
+                        <Image
+                          src="/assets/icons/hashtag.png"
+                          alt="tag"
+                          width={22}
+                          height={22}
+                        />
                         태그
                       </FormLabel>
                       <Tag setTags={field.onChange} tags={field.value} />
@@ -286,7 +296,7 @@ const PostView = ({ post }: PostViewProps) => {
                         type="submit"
                         disabled={titleField.value.length < 1 || countField.value <= 10}
                       >
-                        저장하기
+                        기록완료
                       </Button>
                       {/*<StopMovePage*/}
                       {/*  url="/post"*/}
