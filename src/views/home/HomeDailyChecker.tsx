@@ -44,11 +44,11 @@ const HomeDailyChecker = () => {
           <p className={headerDescriptionStyle}>
             오늘까지 연속으로{' '}
             <span className="font-sb16 text-primary-900">
-              {data?.today ? data?.continue.length + 1 : 0}일
+              {data && [...data.continue, data.today].reduce((f, v) => f + v, 0)}개
             </span>{' '}
             기록에 성공했어요
           </p>
-          <div className="border border-gray-200 rounded-xl flex flex-wrap justify-center gap-x-[52px] pt-6 px-8 pb-[57px] overflow-hidden">
+          <div className="border border-gray-200 rounded-xl flex flex-wrap justify-center items-end gap-x-[52px] pt-6 pb-[57px] overflow-hidden">
             {data ? (
               <>
                 {' '}

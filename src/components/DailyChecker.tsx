@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { Check, Ellipsis, X } from 'lucide-react';
 import * as React from 'react';
+import Chip from '@/components/Chip';
 
 const dailyCheckerStyles = {
   prev: 'relative bg-primary-50 text-gray-900',
@@ -22,7 +23,7 @@ const Tooltip = ({ text, className }: { text: string; className?: string }) => {
   return (
     <div
       className={cn(
-        'absolute translate-y-full bottom-[-11px] hidden group-hover:block bg-gray-500 text-white-0 font-r12 py-[3px] px-3 rounded-[38px] text-nowrap',
+        'absolute translate-y-full bottom-[-9px] hidden group-hover:block bg-gray-500 text-white-0 font-r12 py-[3px] px-3 rounded-[38px] text-nowrap',
         className,
       )}
     >
@@ -33,16 +34,16 @@ const Tooltip = ({ text, className }: { text: string; className?: string }) => {
 };
 const DailyChecker = ({ variant, date, count }: DailyCheckerProps) => {
   return (
-    <div
-      className={cn(
-        'group text-center text-gray-500 font-r16',
-        variant === 'today' && 'text-gray-800',
+    <div className={cn('group text-center text-gray-500 font-r16')}>
+      {variant === 'today' && (
+        <Chip variant="gray" className="mb-1.5 font-r12">
+          오늘
+        </Chip>
       )}
-    >
-      {date ? (variant !== 'today' ? format(date, 'M월 d일') : '오늘') : '-'}
+      <span className="block font-r12">{date ? format(date, 'M월 d일') : '-'}</span>
       <div
         className={cn(
-          'mt-2.5 rounded-full w-[70px] h-[70px] font-r28 flex flex-col justify-center items-center font-r11',
+          'mt-1.5 rounded-full w-[76px] h-[76px] font-r28 flex flex-col justify-center items-center font-r11',
           dailyCheckerStyles[variant],
           variant === 'today' && count && 'bg-primary-900 text-white-0 border-none',
         )}
