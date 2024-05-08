@@ -11,10 +11,13 @@ import { genRandomNum } from '@/utils';
 import { useEffect, useState } from 'react';
 import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
 import { Skeleton } from '@/components/ui/skeleton';
+import useProfileContext from '@/hooks/profile/useProfileContext';
+import LinkOrLogin from '@/components/LinkOrLogin';
 
 const HomeTopic = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
 
+  const { profile } = useProfileContext();
   const topics = useGetTopicsByCategory();
   const [randomTopics, setRandomTopics] = useState<Record<TopicCategory, number>>(
     {} as Record<TopicCategory, number>,
@@ -61,7 +64,7 @@ const HomeTopic = () => {
     <section>
       <div className="flex justify-between">
         <h2 className="title">오늘의 추천 주제</h2>
-        <Button variant="ghostGray" size="sm" asChild>
+        <Button variant="ghostGray" size="sm" className="text-gray-500" asChild>
           <Link href="/topics">전체보기</Link>
         </Button>
       </div>
@@ -75,7 +78,11 @@ const HomeTopic = () => {
               const Icon = topicCategory[category]?.Icon;
 
               return (
-                <Link key={i} href={`/post?topic=${topic.id}&category=${topic.category}`}>
+                <LinkOrLogin
+                  key={i}
+                  href={`/post?topic=${topic.id}&category=${topic.category}`}
+                  isLogin={!!profile}
+                >
                   <Card className="shrink-0">
                     <CardHeader className="flex gap-2 items-baseline">
                       <div className="flex gap-2 flex-1">
@@ -87,7 +94,7 @@ const HomeTopic = () => {
                       <RotateCw
                         width={20}
                         height={20}
-                        className="text-gray-500 mt-[5px] cursor-pointer"
+                        className="text-gray-500 mt-[5px] cursor-pointer group-hover:text-white-0"
                         onClick={e => changeTopicTitle(e, category, randomTitleIndex)}
                       />
                     </CardHeader>
@@ -103,7 +110,7 @@ const HomeTopic = () => {
                       ))}
                     </CardContent>
                   </Card>
-                </Link>
+                </LinkOrLogin>
               );
             })}
             {[...Array(6 - Object.keys(topicCategory).length)].map((card, i) => (

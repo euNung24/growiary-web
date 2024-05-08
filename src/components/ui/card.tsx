@@ -9,14 +9,14 @@ const cardVariants = cva('group flex flex-col hover:shadow w-[300px]', {
   variants: {
     variant: {
       default:
-        'bg-white-0 border border-gray-100 text-gray-900 hover:bg-primary-900 hover:text-white-0',
+        'bg-white-0 border border-gray-100 text-gray-900 hover:bg-primary-900 hover:text-white-0 hover:border-0',
       primary: 'bg-primary-900 text-white-0',
       secondary: 'bg-secondary-50 text-gray-900',
-      disabled: 'bg-gray-50',
+      disabled: 'bg-gray-50 hover:shadow-none',
     },
     size: {
-      default: 'rounded-lg h-[118px] p-5 font-r14',
-      lg: 'rounded-xl h-[320px] p-6 font-r16',
+      default: 'rounded-lg h-[118px] px-5 pt-4 pb-6 font-r14',
+      lg: 'rounded-xl h-[320px] px-6 py-5 pb-[14px] font-r16',
     },
   },
   defaultVariants: {
@@ -26,7 +26,7 @@ const cardVariants = cva('group flex flex-col hover:shadow w-[300px]', {
 });
 
 const cardChipVariants = cva(
-  'inline-block font-r12 rounded px-2 py-0.5 self-start mr-2',
+  'inline-block font-r12 rounded px-2 py-0.5 self-start mr-1.5',
   {
     variants: {
       position: {

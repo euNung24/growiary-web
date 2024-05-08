@@ -43,8 +43,8 @@ const HomePosts = () => {
     <section>
       <div className="flex justify-between">
         <h2 className="title">나의 기록</h2>
-        <Button variant="ghostGray" size="sm" asChild>
-          <Link href="">전체보기</Link>
+        <Button variant="ghostGray" size="sm" className="text-gray-500" asChild>
+          <Link href="/history">전체보기</Link>
         </Button>
       </div>
       <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>
@@ -145,49 +145,53 @@ const HomePosts = () => {
             )}
           </>
         )}
-        {!posts &&
-          [...Array(3)].map((v, i) => (
-            <Card key={i} className="shrink-0" size="lg">
-              <CardHeader>
-                <CardChip>No.0</CardChip>
-                <CardTitle className="overflow-hidden">제목 타이틀</CardTitle>
-              </CardHeader>
-              <CardContent
-                className="flex flex-col"
-                style={{
-                  border: 'none',
-                }}
-              >
-                <div
-                  className="overflow-hidden text-ellipsis font-r16"
+        {!posts && (
+          <>
+            <NewCard count={3} isLogin={false} />
+            {[...Array(2)].map((v, i) => (
+              <Card key={i} className="shrink-0" size="lg">
+                <CardHeader>
+                  <CardChip>No.{2 - i}</CardChip>
+                  <CardTitle className="overflow-hidden">제목 타이틀</CardTitle>
+                </CardHeader>
+                <CardContent
+                  className="flex flex-col"
                   style={{
-                    display: '-webkit-box',
-                    WebkitBoxOrient: 'vertical',
-                    WebkitLineClamp: 4,
-                    maxHeight: '104px',
+                    border: 'none',
                   }}
                 >
-                  그루어리에 오신걸 환영합니다!
-                  <br />
-                  아직 작성된 글이 없어요
-                  <br />
-                  그루어리에서 더 많은 기록을 남겨주세요
-                </div>
-                <div className="flex gap-x-2.5 mt-auto">
-                  {['태그1', '태그2'].map((v, i) => (
-                    <CardChip key={i} position="footer">
-                      {v}
-                    </CardChip>
-                  ))}
-                </div>
-              </CardContent>
-              <CardFooter className="justify-end">
-                <span className="mt-auto font-r14 text-gray-500 group-hover:text-gray-50">
-                  {getTwoFormatDate(+month)}월 {getTwoFormatDate(+date)}일
-                </span>
-              </CardFooter>
-            </Card>
-          ))}
+                  <div
+                    className="overflow-hidden text-ellipsis font-r16"
+                    style={{
+                      display: '-webkit-box',
+                      WebkitBoxOrient: 'vertical',
+                      WebkitLineClamp: 4,
+                      maxHeight: '104px',
+                    }}
+                  >
+                    그루어리에 오신걸 환영합니다!
+                    <br />
+                    아직 작성된 글이 없어요
+                    <br />
+                    그루어리에서 더 많은 기록을 남겨주세요
+                  </div>
+                  <div className="flex mt-auto">
+                    {['태그1', '태그2'].map((v, i) => (
+                      <CardChip key={i} position="footer">
+                        {v}
+                      </CardChip>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter className="justify-end">
+                  <span className="mt-auto font-r14 text-gray-500 group-hover:text-gray-50">
+                    {getTwoFormatDate(+month)}월 {getTwoFormatDate(+date)}일
+                  </span>
+                </CardFooter>
+              </Card>
+            ))}
+          </>
+        )}
       </div>
     </section>
   );
