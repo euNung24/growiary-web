@@ -11,10 +11,10 @@ const config: Config = {
     extend: {
       screens: {
         xs: { max: '360px' },
-        sm: { max: '640px' },
-        md: { max: '768px' },
-        lg: { max: '1024px' },
-        xl: '1200px',
+        sm: { max: '708px' },
+        md: { max: '1024px' },
+        lg: { max: '1160px' },
+        xl: '1440px',
       },
       colors: {
         info: {
