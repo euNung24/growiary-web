@@ -23,13 +23,14 @@ export const BADGE_INFO = {
     nonAcquireImgSrc: '/assets/images/badge/post10_white.png',
     acquireImgSrc: '/assets/images/badge/post10.png',
   },
-  // post100: {
-  //   name: '열정의 기록가',
-  //   nonAcquiredDes: '100일 연속으로 기록을 작성해요',
-  //   acquiredDes: '100일 연속으로 기록을 성공했어요',
-  //   nonAcquireImgSrc: '/assets/images/badge/post100_white.png',
-  //   acquireImgSrc: '/assets/images/badge/post100.png',
-  // },
+  post100: {
+    key: 'post100',
+    name: '열정의 기록가',
+    nonAcquiredDes: '100일 연속으로 기록을 작성해요',
+    acquiredDes: '100일 연속으로 기록을 성공했어요',
+    nonAcquireImgSrc: '/assets/images/badge/post100_white.png',
+    acquireImgSrc: '/assets/images/badge/post100.png',
+  },
   earlyBird: {
     key: 'earlyBird',
     name: '얼리버드',

@@ -53,7 +53,7 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
 
   useEffect(() => {
     if (!modalBtnRef.current) return;
-    dataLength < 3 && pathname === '/report' && modalBtnRef.current.click();
+    // dataLength < 3 && pathname === '/report' && modalBtnRef.current.click();
   }, [dataLength, modalBtnRef.current]);
 
   return (

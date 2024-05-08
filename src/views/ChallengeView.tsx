@@ -207,7 +207,14 @@ const ChallengeView = () => {
                 {/*</BadgeCardHeader>*/}
                 <BadgeCardHeader />
                 <BadgeCardContent>
-                  <BadgeIcon src={badge.nonAcquireImgSrc} alt={`badge_${badge.name}`} />
+                  <BadgeIcon
+                    src={
+                      !myBadges.includes(badge.key)
+                        ? badge.nonAcquireImgSrc
+                        : badge.acquireImgSrc
+                    }
+                    alt={`badge_${badge.name}`}
+                  />
                   <BadgeCardTitle>{badge.name}</BadgeCardTitle>
                   <BadgeCardDescription className="min-h-[26px] break-keep">
                     {!myBadges.includes(badge.key)

@@ -58,7 +58,7 @@ const PostView = ({ post }: PostViewProps) => {
   const topicId = searchParams.get('topic')
     ? parseInt(searchParams.get('topic')!, 10)
     : post?.topicId || null;
-  const mutation = useFindTopic(post?.topicId || topicId || NO_TOPIC_ID);
+  const mutation = useFindTopic((post?.topicId || topicId) ?? NO_TOPIC_ID);
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
   const btnStopPostRef = useRef<HTMLButtonElement | null>(null);
   const btnSaveToastRef = useRef<HTMLButtonElement | null>(null);
@@ -127,12 +127,12 @@ const PostView = ({ post }: PostViewProps) => {
   };
 
   useEffect(function setInitTemplate() {
-    if (!topicId) {
-      setTemplate(v => ({ ...v, content: '일상의 소중한 경험을 기록하세요.' }));
+    if (topicId === null) {
+      setTemplate(v => ({ ...v, content: '자유롭게 작성할 수 있어요.' }));
       return;
     }
     mutation.mutateAsync().then(({ data }) => {
-      !data.content && (data['content'] = '일상의 소중한 경험을 기록하세요.');
+      !data.content && (data['content'] = '자유롭게 작성할 수 있어요.');
       setTemplate(data);
     });
   }, []);
@@ -143,7 +143,7 @@ const PostView = ({ post }: PostViewProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-2/3 flex flex-col gap-y-4 w-[960px] h-screen mx-auto"
       >
-        {template && template.id && (
+        {template && template.id >= 0 && template.id !== NO_TOPIC_ID && (
           <div>
             <div className="border border-gray-200 rounded py-2.5 px-4 inline-flex items-center justify-center">
               <div className="flex gap-x-2.5 text-gray-400">
@@ -167,9 +167,7 @@ const PostView = ({ post }: PostViewProps) => {
                   <Input
                     required
                     type="text"
-                    placeholder={
-                      template.title?.replaceAll('/n ', '') || '제목을 입력하세요'
-                    }
+                    placeholder="제목을 입력하세요"
                     defaultValue={titleField.value}
                     onChange={titleField.onChange}
                     className="font-r28 px-0 py-4 border-none"

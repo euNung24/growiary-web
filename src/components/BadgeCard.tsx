@@ -21,11 +21,11 @@ export const badgeCardVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-white-0 border border-gray-100 text-gray-800 hover:border-[1.5px] hover:bg-white-0 hover:text-gray-900',
+          'bg-white-0 border border-gray-100 text-gray-800 hover:border-[1.5px] hover:bg-white-0 hover:text-gray-900 ',
         primary: 'bg-primary-900 text-white-0',
         secondary: 'bg-secondary-50 text-gray-900',
-        disabled: 'bg-gray-50 pointer-events-none text-gray-700',
-        selected: 'bg-primary-50 hover:bg-primary-50  hover:text-gray-900',
+        disabled: 'bg-gray-50 pointer-events-none text-gray-500',
+        selected: 'bg-primary-50 hover:bg-primary-50  hover:text-gray-900 border-0',
       },
       size: {
         default: '',
@@ -110,7 +110,7 @@ const BadgeIcon = ({ src, alt, className, ...props }: ImageProps) => {
       )}
       <Image
         src={src}
-        className={cn('mx-auto mb-4', className)}
+        className={cn('mx-auto mb-4 relative', className)}
         alt={alt}
         {...props}
         width={100}
@@ -144,7 +144,7 @@ const BadgeCardHeader = ({
   return (
     <CardHeader
       {...props}
-      className={cn('flex justify-between', variant === 'primary' && 'text-white-0')}
+      className={cn('flex justify-between h-6', variant === 'primary' && 'text-white-0')}
     >
       {children}
       {variant !== 'disabled' && (
@@ -165,8 +165,8 @@ const BadgeCardDescription = (props: React.HTMLAttributes<HTMLParagraphElement>)
 
   return (
     <CardDescription
-      className={cn('font-r16 mt-2', variant === 'disabled' && 'text-gray-400')}
       {...props}
+      className={cn('font-r16 mt-2', variant === 'disabled' && 'text-gray-400')}
     />
   );
 };
@@ -183,7 +183,7 @@ const BadgeCardContent = React.forwardRef<
     <div
       ref={ref}
       {...props}
-      className={cn(size !== 'wide' && 'mt-auto items-center text-center', className)}
+      className={cn(size !== 'wide' && 'mt-6 items-center text-center', className)}
     />
   );
 });
