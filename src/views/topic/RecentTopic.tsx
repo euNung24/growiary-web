@@ -77,7 +77,7 @@ const RecentTopic = () => {
               </TopicCardFooter>
             </TopicCard>
             <p className="text-gray-400 font-r16 ml-3 mt-3">
-              그루미님이 최근에 기록한 주제
+              {profile?.nickname || '그루미'}님 이 최근에 기록한 주제
             </p>
           </div>
         ) : (

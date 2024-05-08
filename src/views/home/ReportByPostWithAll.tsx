@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import useReportContext from '@/hooks/report/useReportContext';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const MAX_BAR_HEIGHT = 147;
 
@@ -7,6 +8,7 @@ const ReportByPostWithAll = () => {
   const historyDescriptionStyle = 'font-r22 text-gray-900 mt-5 mb-3';
   const historyStrengthStyle = 'font-sb22 text-primary-900';
   const { data: report, month } = useReportContext();
+  const { profile } = useProfileContext();
 
   const getLowBarHeight = (all: number, user: number) => {
     if (isNaN(all) || isNaN(user)) return 0;
@@ -86,7 +88,9 @@ const ReportByPostWithAll = () => {
                         ) + 'px',
                 }}
               />
-              <span className="text-gray-500 font-r16">그루미님</span>
+              <span className="text-gray-500 font-r16">
+                {profile?.nickname || '그루미'}님
+              </span>
             </div>
           </div>
         </>

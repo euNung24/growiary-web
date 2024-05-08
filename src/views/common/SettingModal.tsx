@@ -35,7 +35,7 @@ const SettingModal = () => {
             <DialogHeader className="mb-14">
               <DialogTitle className="text-primary-900 mt-10">설정</DialogTitle>
             </DialogHeader>
-            {typeof profile !== 'string' && (
+            {profile && (
               <>
                 <div className="flex items-center">
                   <div className="flex justify-center items-center w-[76px] h-[76px] rounded-full bg-gray-100 overflow-hidden lg:hidden">

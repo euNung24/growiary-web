@@ -4,6 +4,7 @@ import useReportContext from '@/hooks/report/useReportContext';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import { Context } from 'chartjs-plugin-datalabels';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 type ReportPostProps = {
   year: number;
@@ -25,6 +26,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
 
+  const { profile } = useProfileContext();
   const { data: report } = useReportContext();
   const userData = report?.post?.user[`${year}-${month}`];
   const allData = report?.post?.all[`${year}-${month}`];
@@ -173,7 +175,9 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                       }}
                     />
                   )}
-                  <span className="text-gray-500 font-r16">그루미님</span>
+                  <span className="text-gray-500 font-r16">
+                    {profile?.nickname || '그루미'}님
+                  </span>
                 </div>
               </div>
             </div>
