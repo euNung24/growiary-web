@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Dialog,
   DialogContent,
@@ -63,7 +65,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
             width={308}
             height={52}
             className="cursor-pointer"
-            onClick={() => kakaoLogin()}
+            onClick={kakaoLogin}
           />
           <Image
             src="/assets/icons/login_google.png"
@@ -71,7 +73,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
             width={308}
             height={52}
             className="cursor-pointer"
-            onClick={() => googleLogin()}
+            onClick={googleLogin}
           />
         </div>
         <DialogFooter>

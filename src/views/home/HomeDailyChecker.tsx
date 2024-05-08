@@ -5,12 +5,9 @@ import DailyChecker from '@/components/DailyChecker';
 import { getDailyCheckerPost } from '@/apis/post';
 import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import LoginDialog from '@/components/LoginDialog';
-import useGetProfile from '@/hooks/profile/useGetProfile';
 import { DailyCheckerType } from '@/types/postTypes';
 import { Skeleton } from '@/components/ui/skeleton';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -20,7 +17,7 @@ const HomeDailyChecker = () => {
     mutationKey: ['dailyChecker'],
     mutationFn: getDailyCheckerPost,
   });
-  const profile = useGetProfile();
+  const { profile } = useProfileContext();
 
   useEffect(() => {
     mutation.mutateAsync().then(res => {
@@ -30,15 +27,7 @@ const HomeDailyChecker = () => {
   }, []);
 
   return (
-    <section className={cn(profile && 'mt-[72px]')}>
-      <div className={cn(profile ? 'hidden' : 'flex py-[23px] mb-4 justify-end mx-2.5')}>
-        <LoginDialog>
-          <Button className="bg-gray-50 border-0" variant="outlineGray">
-            시작하기
-          </Button>
-        </LoginDialog>
-      </div>
-
+    <section>
       {!profile && (
         <>
           <div className="flex justify-between">
