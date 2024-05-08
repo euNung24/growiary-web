@@ -20,14 +20,13 @@ import withMoveMonthly, { WithMoveMonthlyProps } from '@/views/common/withMoveMo
 import Line from '@/components/Line';
 import ReportTotal from '@/views/report/ReportTotal';
 import ReportProvider from '@/components/providers/ReportProvider';
-import { ReactNode } from 'react';
+import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 
 const ReportView = ({
   selectedMonth,
   selectedYear,
   selectedMonthLastDate,
-  children,
-}: WithMoveMonthlyProps & { children: ReactNode }) => {
+}: WithMoveMonthlyProps) => {
   return (
     <ReportProvider selectedYear={selectedYear} selectedMonth={selectedMonth}>
       <div>
@@ -99,7 +98,10 @@ const ReportView = ({
           </Card>
         </section>
       </article>
-      {children}
+      <FooterFeedbackView
+        category="기록 데이터 보기"
+        description=" 더 알고 싶은 기록 관련 데이터가 있다면 편하게 알려주세요"
+      />
     </ReportProvider>
   );
 };
