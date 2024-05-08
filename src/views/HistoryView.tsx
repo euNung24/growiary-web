@@ -129,7 +129,7 @@ const HistoryView = () => {
   }, [selectedMonth]);
 
   return (
-    <div className="w-full flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]">
+    <div className="w-full mt-[-83px] flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]">
       <div className="flex-1 mt-5">
         <div className="flex justify-between">
           <div className="flex gap-x-3 items-center">
@@ -213,7 +213,7 @@ const HistoryView = () => {
           </Popover>
         </div>
         <Line className="mt-5 mb-4" />
-        <section className="flex flex-col gap-y-[72px] pb-5  mx-2.5">
+        <section className="flex flex-col gap-y-[72px] pb-5 mx-2.5">
           {posts && !posts[today] && year === selectedYear && month === selectedMonth && (
             <div>
               <div className="mb-3">
@@ -222,7 +222,7 @@ const HistoryView = () => {
                 </span>
                 <Chip variant="gray">오늘</Chip>
               </div>
-              <div className="bg-gray-50/50 flex flex-col gap-y-[13px] justify-center items-center h-[149px] rounded-2xl text-gray-900 font-r16	">
+              <div className="bg-gray-50o flex flex-col gap-y-[13px] justify-center items-center h-[149px] rounded-2xl text-gray-900 font-r16	">
                 <p>오늘 작성한 글이 없어요</p>
                 <Link href="/post" className="flex gap-x-2.5 text-gray-500 font-r14">
                   <Image
