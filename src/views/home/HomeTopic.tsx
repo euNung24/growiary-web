@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { TopicCategory } from '@/types/topicTypes';
 import { topicCategory } from '@/utils/topicCategory';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -64,8 +63,17 @@ const HomeTopic = () => {
     <section>
       <div className="flex justify-between">
         <h2 className="title">오늘의 추천 주제</h2>
-        <Button variant="ghostGray" size="sm" className="text-gray-500" asChild>
-          <Link href="/topics">전체보기</Link>
+        <Button variant="ghostGray" className="text-gray-500 font-sb12" size="sm" asChild>
+          <LinkOrLogin href="/topics" isLogin={!!profile}>
+            <Button
+              variant="ghostGray"
+              size="sm"
+              className="text-gray-500 font-sb12 p-0 cursor-pointer"
+              asChild
+            >
+              <span>전체보기</span>
+            </Button>
+          </LinkOrLogin>
         </Button>
       </div>
       <p className={headerDescriptionStyle}>추천 주제로 기록을 쉽게 시작해보세요</p>

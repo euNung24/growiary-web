@@ -29,7 +29,11 @@ const UserProvider = ({ children, showNav = false }: UserProvider) => {
           <div className={cn('fixed inset-x-0 top-0 ml-[200px] lg:ml-[68px]')}>
             <div className="w-[960px] md:w-[640px] sm:w-[320px] py-[23px] mx-auto text-end bg-white-0">
               <LoginDialog>
-                <Button className="bg-gray-50 border-0" size="sm" variant="outlineGray">
+                <Button
+                  className="bg-gray-50 border-0 mr-2.5"
+                  size="sm"
+                  variant="outlineGray"
+                >
                   시작하기
                 </Button>
               </LoginDialog>

@@ -18,6 +18,7 @@ import useGetPosts from '@/hooks/posts/useGetPosts';
 import '../../components/editor.css';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
+import LinkOrLogin from '@/components/LinkOrLogin';
 
 const HomePosts = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -43,8 +44,17 @@ const HomePosts = () => {
     <section>
       <div className="flex justify-between">
         <h2 className="title">나의 기록</h2>
-        <Button variant="ghostGray" size="sm" className="text-gray-500" asChild>
-          <Link href="/history">전체보기</Link>
+        <Button variant="ghostGray" size="sm" className="text-gray-500 font-sb12" asChild>
+          <LinkOrLogin href="/history" isLogin={!!posts}>
+            <Button
+              variant="ghostGray"
+              size="sm"
+              className="text-gray-500 font-sb12 p-0 cursor-pointer"
+              asChild
+            >
+              <span>전체보기</span>
+            </Button>
+          </LinkOrLogin>
         </Button>
       </div>
       <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>

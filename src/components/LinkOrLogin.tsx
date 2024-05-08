@@ -14,9 +14,7 @@ const LinkOrLogin = ({ href, children, className, isLogin }: LinkOrLoginProps) =
       {children}
     </Link>
   ) : (
-    <LoginDialog>
-      <div>{children}</div>
-    </LoginDialog>
+    <LoginDialog>{children}</LoginDialog>
   );
 };
 

@@ -1,12 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import Image from 'next/image';
 import ReportByPostWithAll from '@/views/home/ReportByPostWithAll';
 import ReportByWeekBar from '@/views/home/ReportByWeekBar';
 import ReportByTimeBar from '@/views/home/ReportByTimeBar';
 import useReportContext from '@/hooks/report/useReportContext';
+import LinkOrLogin from '@/components/LinkOrLogin';
 
 const HomeReport = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -16,8 +16,17 @@ const HomeReport = () => {
     <section>
       <div className="flex justify-between">
         <h2 className="title">기록 데이터</h2>
-        <Button variant="ghostGray" size="sm" className="text-gray-500" asChild>
-          <Link href="/report">전체보기</Link>
+        <Button variant="ghostGray" size="sm" className="text-gray-500 font-sb12" asChild>
+          <LinkOrLogin href="/report" isLogin={!!report}>
+            <Button
+              variant="ghostGray"
+              size="sm"
+              className="text-gray-500 font-sb12 p-0 cursor-pointer"
+              asChild
+            >
+              <span>전체보기</span>
+            </Button>
+          </LinkOrLogin>
         </Button>
       </div>
       <p className={headerDescriptionStyle}>작성해주신 기록을 그루어리가 분석했어요</p>
