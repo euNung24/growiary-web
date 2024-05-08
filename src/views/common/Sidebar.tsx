@@ -147,15 +147,6 @@ const Sidebar = () => {
               <Button variant="outline" size="sm" className="rounded-[20px] lg:hidden">
                 그루어리 로그인
               </Button>
-              <div className="w-[36px] h-[36px] mx-auto rounded-full bg-gray-100 hidden lg:flex lg:justify-center lg:items-center cursor-pointer">
-                <Image
-                  src="/assets/icons/profile.png"
-                  alt="profile"
-                  width={24}
-                  height={24}
-                  className="lg:block hidden"
-                />
-              </div>
             </div>
           )}
         </div>

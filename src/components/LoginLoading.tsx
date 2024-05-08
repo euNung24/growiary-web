@@ -4,7 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import Cookies from 'js-cookie';
 import crypto from 'crypto-js';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import useGetProfile from '@/hooks/profile/useGetProfile';
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
 function encodeUrlSafe(text: string): string {
@@ -33,6 +34,8 @@ export function decrypt(encryptedText: string) {
 const LoginLoading = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
+  const [isLogin, setIsLogin] = useState(false);
+  const profile = useGetProfile();
 
   const key = searchParams.get('key') ?? '';
   const value = decrypt(key) ?? '';
@@ -43,8 +46,12 @@ const LoginLoading = () => {
   useEffect(() => {
     Cookies.set('accessToken', accessToken);
     Cookies.set('refreshToken', refreshToken);
-    push('/');
-  }, []);
+    setIsLogin(true);
+
+    if (isLogin && profile) {
+      push('/');
+    }
+  }, [isLogin, profile]);
 
   return <>Loading</>;
 };
