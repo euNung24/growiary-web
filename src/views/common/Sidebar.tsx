@@ -8,6 +8,7 @@ import LoginDialog from '@/components/LoginDialog';
 import { Button } from '@/components/ui/button';
 import useGetProfile from '@/hooks/profile/useGetProfile';
 import { menu } from '@/utils';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 type MenuType = {
   src: string;
@@ -32,7 +33,7 @@ const Menu = ({ items }: MenuProps) => {
           <Link
             href={item.href}
             className={cn(
-              'flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-700 font-sb12 lg:justify-center lg:gap-0 hover:bg-gray-50 hover:text-primary-900',
+              'group flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-500 font-sb12 lg:justify-center lg:gap-0 hover:bg-primary-50 hover:text-primary-900 rounded-md',
               item.href.split('/')[1] === pathname.split('/')[1] && active,
             )}
           >
@@ -41,7 +42,14 @@ const Menu = ({ items }: MenuProps) => {
               width={16}
               height={16}
               alt={item.alt}
-              className="min-w-[16px]"
+              className="min-w-[16px] group-hover:hidden"
+            />
+            <Image
+              src={item.src + (item.href !== pathname ? '_primary.png' : '_white.png')}
+              width={16}
+              height={16}
+              alt={item.alt}
+              className="hidden min-w-[16px] group-hover:block"
             />
             <span className="lg:indent-[-9999px]">{item.name}</span>
           </Link>
@@ -51,7 +59,7 @@ const Menu = ({ items }: MenuProps) => {
   );
 };
 const Sidebar = () => {
-  const profile = useGetProfile();
+  const { profile } = useProfileContext();
 
   const menu2 = [
     {
@@ -105,28 +113,16 @@ const Sidebar = () => {
           {/* 프로필 이미지 */}
           <div className="mx-auto flex justify-center items-center w-[74px] h-[74px] rounded-full bg-gray-100 overflow-hidden lg:w-9 lg:h-9">
             <Image
-              src={
-                (profile && typeof profile !== 'string' && profile.profileImage) ||
-                '/assets/icons/profile.png'
-              }
+              src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
               alt="profile"
-              width={
-                profile && typeof profile !== 'string' && profile.profileImage ? 74 : 42
-              }
-              height={
-                profile && typeof profile !== 'string' && profile.profileImage ? 74 : 42
-              }
+              width={profile && profile.profileImage ? 74 : 42}
+              height={profile && profile.profileImage ? 74 : 42}
               className="lg:hidden"
             />
             <Image
-              src={
-                (profile && typeof profile !== 'string' && profile.profileImage) ||
-                '/assets/icons/profile.png'
-              }
+              src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
               alt="profile"
-              width={
-                profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
-              }
+              width={profile && profile.profileImage ? 36 : 24}
               height={
                 profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
               }
@@ -138,7 +134,7 @@ const Sidebar = () => {
             회고하며 성장하는 일기장
           </span>
           {/* 닉네임 */}
-          {profile && typeof profile !== 'string' ? (
+          {profile ? (
             <span className="font-sb16 text-gray-900 lg:hidden">
               {profile.nickname || '그루미'}
             </span>
