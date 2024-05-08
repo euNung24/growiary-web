@@ -17,7 +17,7 @@ export default async function asLayout({ modal, children }: LayoutProps) {
       </UserProvider>
       <div className="w-full ml-[200px] lg:ml-[68px]">
         <main className="mx-auto relative w-[960px] md:w-[640px] sm:w-[320px]">
-          {children}
+          <UserProvider showNav={true}>{children}</UserProvider>
         </main>
       </div>
       <Toaster />
