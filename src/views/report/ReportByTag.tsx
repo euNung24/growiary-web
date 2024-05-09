@@ -5,6 +5,29 @@ import { ResPostType } from '@/types/postTypes';
 type ReportByTagProps = {
   month: number;
 };
+
+const SAMPLE_NEW_TAG = [
+  {
+    date: '04월 29일',
+    tag: '운동',
+  },
+  {
+    date: '04월 25일',
+    tag: '계획',
+  },
+  {
+    date: '04월 29일',
+    tag: '걱정',
+  },
+  {
+    date: '04월 29일',
+    tag: '투정',
+  },
+  {
+    date: '04월 28일',
+    tag: '부상',
+  },
+];
 const ReportByTag = ({ month }: ReportByTagProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
@@ -65,8 +88,10 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
         </div>
         <div className="flex-1">
           <p className={descriptionStyle}>
-            <span className={strengthStyle}>{sortedNewTags?.length}개</span>의 태그가
-            새롭게 등장했어요
+            <span className={strengthStyle}>
+              {sortedNewTags ? sortedNewTags?.length : 8}개
+            </span>
+            의 태그가 새롭게 등장했어요
           </p>
           <div className="space-y-4">
             {sortedNewTags?.[0] && (

@@ -27,6 +27,7 @@ import {
 import useChangeUserTitleBadge from '@/hooks/challenge/useChangeUserTitleBadge';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { cn } from '@/lib/utils';
 
 const ChallengeView = () => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
@@ -63,7 +64,7 @@ const ChallengeView = () => {
   };
 
   useEffect(() => {
-    if (!userBadgeInfo) return;
+    if (!userBadgeInfo?.data) return;
 
     const sortedBadgeByAcquiredDate = Object.values(userBadgeInfo.data.myBadge).sort(
       (a, b) => (new Date(a.acquiredDate) > new Date(b.acquiredDate) ? -1 : 1),
@@ -91,7 +92,7 @@ const ChallengeView = () => {
           </span>
           은 전체 이용자중 상위{' '}
           <Chip variant="gray" className="text-primary-900 font-m16">
-            {userPercent}%
+            {userPercent || 100}%
           </Chip>{' '}
           입니다.
         </div>
@@ -108,7 +109,7 @@ const ChallengeView = () => {
               <div
                 className="absolute flex items-center shadow justify-center top-1/2 translate-y-[-50%] translate-x-[50%] w-9 h-9 rounded-full overflow-hidden bg-gray-100"
                 style={{
-                  right: `${userPercent}%`,
+                  right: `${userPercent || 100}%`,
                 }}
               >
                 <Image
@@ -119,20 +120,15 @@ const ChallengeView = () => {
                   className="rounded-full"
                 />
               </div>
+
               <div
-                className="absolute top-[-20px]  translate-x-[50%]"
-                style={{ right: `${userPercent}%` }}
+                style={{ right: `${userPercent || 100}%` }}
+                className={cn(
+                  'absolute bottom-[-22px] translate-y-full translate-x-[50%] group-hover:block bg-primary-400 text-white-0 font-r12 py-[3px] px-3 rounded-[38px] text-nowrap',
+                )}
               >
-                <Image
-                  src="/assets/icons/speech_bubble_blue.png"
-                  alt="user"
-                  width={58 * 2 + 30}
-                  height={29 * 2}
-                  className="rotate-180"
-                />
-                <span className="absolute inset-0 flex justify-center top-[53%] font-r12 text-white-0">
-                  {userPercent + '%'}
-                </span>
+                <div className="absolute top-[-13px] left-1/2 translate-x-[-50%] w-4 h-4 border border-8 border-b-primary-400 border-t-transparent border-l-transparent border-r-transparent"></div>
+                {userPercent || 100}%
               </div>
               <div className="mx-2 pt-4 flex justify-between font-r14 text-gray-500">
                 <span>하위</span>
@@ -162,41 +158,39 @@ const ChallengeView = () => {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              {userBadgeInfo && (
-                <BadgeCard variant="primary" size="wide">
-                  <BadgeWideIcon
-                    src={BADGE_INFO[titleBadge || 'first']?.acquireImgSrc}
-                    alt="badge"
-                  />
-                  <BadgeCardContent>
-                    <BadgeCardTitle>
-                      {BADGE_INFO[titleBadge || 'first']?.name}
-                    </BadgeCardTitle>
-                    <BadgeCardDescription>
-                      {BADGE_INFO[titleBadge || 'first']?.acquiredDes}
-                    </BadgeCardDescription>
-                  </BadgeCardContent>
-                </BadgeCard>
-              )}
+              <BadgeCard variant="primary" size="wide">
+                <BadgeWideIcon
+                  src={BADGE_INFO[titleBadge || 'first']?.acquireImgSrc}
+                  alt="badge"
+                />
+                <BadgeCardContent>
+                  <BadgeCardTitle>
+                    {BADGE_INFO[titleBadge || 'first']?.name}
+                  </BadgeCardTitle>
+                  <BadgeCardDescription>
+                    {BADGE_INFO[titleBadge || 'first']?.acquiredDes}
+                  </BadgeCardDescription>
+                </BadgeCardContent>
+              </BadgeCard>
             </div>
             <div>
               <span className="font-sb18 text-primary-900 block mb-3">
                 최근 획득한 뱃지
               </span>
-              {recentGotBadge && (
-                <BadgeCard size="wide">
-                  <BadgeWideIcon
-                    src={BADGE_INFO[recentGotBadge].acquireImgSrc}
-                    alt={`badge_${BADGE_INFO[recentGotBadge].name}`}
-                  />
-                  <BadgeCardContent>
-                    <BadgeCardTitle>{BADGE_INFO[recentGotBadge].name}</BadgeCardTitle>
-                    <BadgeCardDescription>
-                      {BADGE_INFO[recentGotBadge].acquiredDes}
-                    </BadgeCardDescription>
-                  </BadgeCardContent>
-                </BadgeCard>
-              )}
+              <BadgeCard size="wide">
+                <BadgeWideIcon
+                  src={BADGE_INFO[recentGotBadge || 'first'].acquireImgSrc}
+                  alt={`badge_${BADGE_INFO[recentGotBadge || 'first'].name}`}
+                />
+                <BadgeCardContent>
+                  <BadgeCardTitle>
+                    {BADGE_INFO[recentGotBadge || 'first'].name}
+                  </BadgeCardTitle>
+                  <BadgeCardDescription>
+                    {BADGE_INFO[recentGotBadge || 'first'].acquiredDes}
+                  </BadgeCardDescription>
+                </BadgeCardContent>
+              </BadgeCard>
             </div>
           </div>
           <div className="py-6 flex flex-wrap gap-5">

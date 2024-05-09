@@ -3,7 +3,7 @@ import { Op } from 'quill-delta';
 import { TopicCategory, TopicType } from '@/types/topicTypes';
 
 type PostType = {
-  index: number;
+  index?: number;
   topicId?: number;
   topic?: TopicType;
   category?: TopicCategory;

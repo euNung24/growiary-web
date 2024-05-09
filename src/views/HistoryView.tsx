@@ -36,6 +36,49 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { toast } from '@/components/ui/use-toast';
+import useProfileContext from '@/hooks/profile/useProfileContext';
+
+const SAMPLE_CATEGORY_DATA: Record<TopicCategory, number> = {
+  하루생각: 8,
+  회고: 10,
+  자아탐험: 4,
+  크리에이티브: 4,
+};
+const SAMPLE_DATA: {
+  [key: string]: (Pick<ResPostType, 'title' | 'tags' | 'id'> & {
+    content: string;
+    date: string;
+    topic: {
+      category: TopicCategory;
+    };
+    index: number;
+  })[];
+} = {
+  '04월 29일': [
+    {
+      index: 38,
+      id: '123123123',
+      topic: { category: '하루생각' },
+      title: '요즘 나의 최대 걱정거리',
+      content:
+        '요즘 내 마음이 너무 뒤숭숭하다. 가족들에게도 투정을 많이 부리고 있다. 일단 투정부터 부린 다음 뒤늦게 후회하고 사과를 드리는 일이 많아졌는데, 그래도 개선된 모습을 만들어나가고 싶어서 짜증이 날 때면 참거나 다른 생각을 하며 리프레시하는 연습을 한다.',
+      tags: ['걱정', '생각', '개선', '투정'],
+      date: '04월 29일. 오후 3시 22분',
+    },
+  ],
+  '04월 28일': [
+    {
+      index: 37,
+      id: 'zxcvzxcvzcxv',
+      topic: { category: '하루생각' },
+      title: '새벽 운동과 부상',
+      content:
+        '감기에서 적당히 회복된 것 같고 마침 기온도 조금 오른 것 같아서 새벽 운동을 나갔다. 그리고 뭔가 호흡이 평소보다 가빴는데, 그냥 감기가 덜 나은 탓이려니 하고  계속 뛰었고 그게 탈이 났다. 운동을 다녀오고',
+      tags: ['운동', '부상', '건강', '일상'],
+      date: '04월 28일. 오전 11시 44분',
+    },
+  ],
+};
 
 type HistoryPostType = {
   [key: string]: ResPostType[];
@@ -44,9 +87,10 @@ const HistoryView = () => {
   const {
     date: { year, month, date: todayDate },
   } = useRecoilValue(TodayState);
-  const [selectedYear, setSelectedYear] = useState(year);
-  const [selectedMonth, setSelectedMonth] = useState(month);
-  const [posts, setPosts] = useState<HistoryPostType>({});
+  const { profile } = useProfileContext();
+  const [selectedYear, setSelectedYear] = useState(profile ? year : 2024);
+  const [selectedMonth, setSelectedMonth] = useState(profile ? month : 4);
+  const [posts, setPosts] = useState<HistoryPostType | null>(null);
   const [totalPostCount, setTotalPostCount] = useState(0);
   const [categories, setCategories] = useState<Record<TopicCategory, number>>(
     {} as Record<TopicCategory, number>,
@@ -94,7 +138,7 @@ const HistoryView = () => {
       });
       const filteredPosts = {
         ...posts,
-        [date]: [...(posts[date]?.filter(post => post.id !== id) || [])],
+        [date]: [...(posts?.[date]?.filter(post => post.id !== id) || [])],
       };
       setPosts(filteredPosts);
     });
@@ -155,6 +199,7 @@ const HistoryView = () => {
                 >
                   <Calendar
                     mode="single"
+                    today={profile ? new Date() : new Date(2024, 3, 30, 0, 0, 0)}
                     selected={date}
                     onSelect={setDate}
                     disabled={date => date > new Date() || date < new Date('1900-01-01')}
@@ -200,13 +245,15 @@ const HistoryView = () => {
                         })}
                         <span>{category}</span>
                       </div>
-                      <span>{categories[category]}개</span>
+                      <span>
+                        {posts ? categories[category] : SAMPLE_CATEGORY_DATA[category]}개
+                      </span>
                     </div>
                   ))}
                 </div>
                 <div className="flex justify-between text-gray-500 font-r12">
                   <span>{selectedMonth}월에 작성한 글</span>
-                  <span>{totalPostCount}개</span>
+                  <span>{totalPostCount || 38}개</span>
                 </div>
               </div>
             </PopoverContent>
@@ -214,11 +261,15 @@ const HistoryView = () => {
         </div>
         <Line className="mt-5 mb-4" />
         <section className="flex flex-col gap-y-[72px] pb-5 mx-2.5">
-          {posts && !posts[today] && year === selectedYear && month === selectedMonth && (
+          {((posts &&
+            !posts[today] &&
+            year === selectedYear &&
+            month === selectedMonth) ||
+            !posts) && (
             <div>
               <div className="mb-3">
                 <span className="mr-2">
-                  {month}월 {todayDate}일
+                  {posts ? month : 4}월 {posts ? todayDate : 30}일
                 </span>
                 <Chip variant="gray">오늘</Chip>
               </div>
@@ -231,125 +282,125 @@ const HistoryView = () => {
               </div>
             </div>
           )}
-          {posts &&
-            Object.keys(posts).length > 0 &&
-            dates.map(date => (
-              <div id={date} key={date}>
-                <div className="mb-3">
-                  <span
-                    className={cn(
-                      'mr-2 text-gray-500',
-                      today === date && 'text-gray-900',
-                    )}
-                  >
-                    {+date.split('-')[1]}월 {+date.split('-')[2]}일
-                  </span>
-                  {today === date && <Chip variant="gray">오늘</Chip>}
-                </div>
-                <div key={date} className="space-y-3">
-                  {posts[date]
-                    ?.toSorted((a, b) =>
-                      new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1,
-                    )
-                    .map(post => (
-                      <div key={post.id} className="relative">
-                        <Link href={`/history/${post.id}`} className="block">
-                          <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
-                            <div className="flex justify-between items-center">
-                              <Chip className="bg-gray-50o" size="lg" variant="gray">
-                                No.{post.index}
-                              </Chip>
-                            </div>
-                            <p className="font-sb22 text-gray-900 mt-4 mb-2">
-                              {post.title || '제목 타이틀'}
-                            </p>
-                            <div
-                              className="overflow-hidden text-ellipsis min-h-[54px] font-r16 text-gray-800"
-                              style={{
-                                display: '-webkit-box',
-                                WebkitBoxOrient: 'vertical',
-                                WebkitLineClamp: 6,
-                                maxHeight: '156px',
-                              }}
-                            >
-                              {post.content?.ops?.map(op =>
+          {(posts ? dates : Object.keys(SAMPLE_DATA)).map(date => (
+            <div id={date} key={date}>
+              <div className="mb-3">
+                <span
+                  className={cn('mr-2 text-gray-500', today === date && 'text-gray-900')}
+                >
+                  {posts ? `${+date.split('-')[1]}월 ${+date.split('-')[2]}일` : date}
+                </span>
+                {today === date && <Chip variant="gray">오늘</Chip>}
+              </div>
+              <div key={date} className="space-y-3">
+                {(
+                  posts?.[date]?.toSorted((a, b) =>
+                    new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1,
+                  ) || SAMPLE_DATA[date]
+                ).map(post => (
+                  <div key={post.id} className="relative">
+                    <Link href={`/history/${post.id}`} className="block">
+                      <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
+                        <div className="flex justify-between items-center">
+                          <Chip className="bg-gray-50o" size="lg" variant="gray">
+                            No.{post.index}
+                          </Chip>
+                        </div>
+                        <p className="font-sb22 text-gray-900 mt-4 mb-2">
+                          {post.title || '제목 타이틀'}
+                        </p>
+                        <div
+                          className="overflow-hidden text-ellipsis min-h-[54px] font-r16 text-gray-800"
+                          style={{
+                            display: '-webkit-box',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 6,
+                            maxHeight: '156px',
+                          }}
+                        >
+                          {typeof post.content !== 'string'
+                            ? post.content?.ops?.map(op =>
                                 typeof op.insert === 'string' && op.insert !== '\n'
                                   ? op.insert
                                   : '',
-                              )}
-                            </div>
-                            <div className="mt-6 flex justify-between items-center">
-                              <div className="flex gap-x-3">
-                                {post.tags?.map((tag, i) => (
-                                  <Chip key={tag + i} variant="gray">
-                                    {tag}
-                                  </Chip>
-                                ))}
-                              </div>
-                              <span className="text-gray-500 font-r14">
-                                {getStringDateAndTime(new Date(post.writeDate))}
-                              </span>
-                            </div>
-                            {post.topic && (
-                              <div className="absolute bottom-0 right-6 z-[-1]">
-                                {topicCategory[post.topic.category]?.Icon({
-                                  width: 160,
-                                  height: 160,
-                                  color: '#EEF9E6',
-                                })}
-                              </div>
-                            )}
+                              )
+                            : post.content}
+                        </div>
+                        <div className="mt-6 flex justify-between items-center">
+                          <div className="flex gap-x-3">
+                            {post.tags?.map((tag, i) => (
+                              <Chip key={tag + i} variant="gray">
+                                {tag}
+                              </Chip>
+                            ))}
                           </div>
-                        </Link>
-                        <Popover>
-                          <PopoverTrigger className="absolute right-6 top-6">
-                            <Ellipsis width={24} height={24} color="#747F89" />
-                          </PopoverTrigger>
-                          <PopoverContent className="flex flex-col justify-center bg-white-0 w-auto p-0 [&>*]:py-2.5 [&>*]:px-10 [&>*]:block [&>*]:font-r14">
-                            <Button asChild variant="ghostGrayHover">
-                              <Link href={`/history/${post.id}/edit`}>수정하기</Link>
-                            </Button>
-                            <AlertDialog>
-                              <AlertDialogTrigger asChild>
-                                <Button variant="ghostGrayHover">삭제하기</Button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitleIcon
-                                    src="/assets/icons/info.png"
-                                    width={32}
-                                    height={32}
-                                    alt="info"
-                                  />
-                                  <AlertDialogTitle>
-                                    기록을 정말 삭제하시겠습니까?
-                                  </AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    삭제된 글은 복원할 수 없습니다.
-                                  </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel
-                                    onClick={() => handleDeletePost(post.id, date)}
-                                  >
-                                    확인
-                                  </AlertDialogCancel>
-                                  <AlertDialogAction>취소</AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
-                          </PopoverContent>
-                        </Popover>
+                          <span className="text-gray-500 font-r14">
+                            {'writeDate' in post
+                              ? getStringDateAndTime(new Date(post.writeDate))
+                              : post.date}
+                          </span>
+                        </div>
+                        {post.topic && (
+                          <div className="absolute bottom-0 right-6 z-[-1]">
+                            {topicCategory[post.topic.category]?.Icon({
+                              width: 160,
+                              height: 160,
+                              color: '#EEF9E6',
+                            })}
+                          </div>
+                        )}
                       </div>
-                    ))}
-                </div>
+                    </Link>
+                    <Popover>
+                      <PopoverTrigger className="absolute right-6 top-6">
+                        <Ellipsis width={24} height={24} color="#747F89" />
+                      </PopoverTrigger>
+                      <PopoverContent className="flex flex-col justify-center bg-white-0 w-auto p-0 [&>*]:py-2.5 [&>*]:px-10 [&>*]:block [&>*]:font-r14">
+                        <Button asChild variant="ghostGrayHover">
+                          <Link href={`/history/${post.id}/edit`}>수정하기</Link>
+                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button variant="ghostGrayHover">삭제하기</Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitleIcon
+                                src="/assets/icons/info.png"
+                                width={32}
+                                height={32}
+                                alt="info"
+                              />
+                              <AlertDialogTitle>
+                                기록을 정말 삭제하시겠습니까?
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                삭제된 글은 복원할 수 없습니다.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel
+                                onClick={() => handleDeletePost(post.id, date)}
+                              >
+                                확인
+                              </AlertDialogCancel>
+                              <AlertDialogAction>취소</AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+          ))}
         </section>
       </div>
       <div className="sticky h-screen top-0 pt-3 border-l lg:hidden">
         <Calendar
           mode="single"
+          today={profile ? new Date() : new Date(2024, 3, 30, 0, 0, 0)}
           selected={date}
           onSelect={handleSelectADay}
           disabled={date => date > new Date() || date < new Date('1900-01-01')}
@@ -367,13 +418,15 @@ const HistoryView = () => {
                   })}
                   <span>{category}</span>
                 </div>
-                <span>{categories[category]}개</span>
+                <span>
+                  {posts ? categories[category] : SAMPLE_CATEGORY_DATA[category]}개
+                </span>
               </div>
             ))}
           </div>
           <div className="flex justify-between text-gray-500 font-r12">
             <span>{selectedMonth}월에 작성한 글</span>
-            <span>{totalPostCount}개</span>
+            <span>{totalPostCount || 38}개</span>
           </div>
         </div>
       </div>

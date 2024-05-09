@@ -131,7 +131,7 @@ const RecentTopic = () => {
                   )}
                 >
                   <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
-                  로그인하고 기록 작성하기
+                  로그인하고 내 기록 확인하기
                 </Button>
               </LoginDialog>
             </TopicCardFooter>

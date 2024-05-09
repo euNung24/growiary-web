@@ -3,6 +3,7 @@ import RectAreaChart from '@/components/RectAreaChart';
 import { useEffect, useRef, useState } from 'react';
 import useReportContext from '@/hooks/report/useReportContext';
 import { getPercentage } from '@/utils';
+import Image from 'next/image';
 
 const TIME = ['새벽', '아침', '오후', '저녁'];
 
@@ -39,17 +40,26 @@ const ReportByTime = ({ month }: ReportByTimeProps) => {
   }, [data?.time, month]);
 
   return (
-    timeRankByPercent && (
-      <div className="flex-1">
-        <p className={descriptionStyle}>
-          <span className={strengthStyle}>{timeRankByPercent[0][0]}</span>에 주로
-          작성했어요
-        </p>
-        <div className={cn(boxStyle)}>
+    <div className="flex-1">
+      <p className={descriptionStyle}>
+        <span className={strengthStyle}>
+          {timeRankByPercent ? timeRankByPercent[0][0] : TIME[3]}
+        </span>
+        에 주로 작성했어요
+      </p>
+      <div className={cn(boxStyle)}>
+        {timeRankByPercent ? (
           <RectAreaChart data={timeRankByPercent} />
-        </div>
+        ) : (
+          <Image
+            src="/assets/images/timeReport_sample.png"
+            alt="sample"
+            width={460}
+            height={356}
+          />
+        )}
       </div>
-    )
+    </div>
   );
 };
 

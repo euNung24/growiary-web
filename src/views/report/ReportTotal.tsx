@@ -3,6 +3,7 @@ import Chip from '@/components/Chip';
 import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
 import { ReportByTopicType } from '@/types/reportTypes';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 type ReportTotal = {
   year: number;
@@ -15,6 +16,8 @@ const TIME = ['새벽', '아침', '오후', '저녁'];
 const ReportTotal = ({ year, month }: ReportTotal) => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const chipStyle = 'py-1 px-2 bg-gray-50 text-primary-900 font-m16 mr-1 leading-[100%]';
+
+  const { profile } = useProfileContext();
   const { data } = useReportContext();
   const [topTopic, setTopTopic] = useState<string | null>(null);
   const [topNewTag, setTopNewTag] = useState<string | null>(null);
@@ -50,6 +53,31 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
   return (
     <section>
       <h2 className="title">기록 데이터 요약</h2>
+      {!profile && (
+        <ul
+          className={cn(
+            boxStyle,
+            'flex flex-col gap-y-4 mt-5 list-outside list-disc font-r16 marker:text-gray-400 pl-10 [&>*]:pl-2.5',
+          )}
+        >
+          <li>
+            총 <Chip className={chipStyle}>38개</Chip>의 글을{' '}
+            <Chip className={chipStyle}>11,310자</Chip>
+            작성했어요
+          </li>
+          <li>
+            주로 <Chip className={chipStyle}>목요일</Chip>,{' '}
+            <Chip className={chipStyle}>저녁 시간</Chip>에 작성했어요
+          </li>
+          <li>
+            <Chip className={chipStyle}>하루생각</Chip>와 관련한 글을 가장 많이 작성했어요
+          </li>
+          <li>
+            지난 3월과 비교해 새로 등장한 태그는 <Chip className={chipStyle}>운동</Chip>
+            이에요.
+          </li>
+        </ul>
+      )}
       <ul
         className={cn(
           boxStyle,
@@ -65,7 +93,7 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
               <Chip className={chipStyle}>
                 {data.charCount?.[`${year}-${month}`].sum}자
               </Chip>
-              로 작성했어요
+              작성했어요
             </li>
             <li>
               주로{' '}

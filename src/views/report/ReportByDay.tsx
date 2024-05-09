@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 import PolarChart from '@/components/PolarChart';
 import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 type ReportByDayProps = {
   month: number;
@@ -33,11 +34,21 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
   }, [data?.week, month]);
 
   return (
-    weekData && (
-      <div className="flex-1">
-        <p className={descriptionStyle}>
-          <span className={strengthStyle}>목요일</span>에 주로 작성했어요
-        </p>
+    <div className="flex-1">
+      <p className={descriptionStyle}>
+        <span className={strengthStyle}>
+          {weekData
+            ? DATE[
+                weekData.findIndex(
+                  data => data.data === Math.max(...weekData.map(v => v.data)),
+                )
+              ]
+            : '목요일'}
+        </span>
+        에 주로 작성했어요
+      </p>
+
+      {weekData ? (
         <div className={cn(boxStyle, 'h-[358px] flex justify-center items-center')}>
           <div className="w-[300px] h-[300px] ">
             <PolarChart
@@ -47,8 +58,15 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
             />
           </div>
         </div>
-      </div>
-    )
+      ) : (
+        <Image
+          src="/assets/images/weekReport_sample.png"
+          alt="sample"
+          width={460}
+          height={356}
+        />
+      )}
+    </div>
   );
 };
 

@@ -16,6 +16,7 @@ import { Check } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 export const ReportContext = createContext<{
   data: ReportType | null;
@@ -42,6 +43,7 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
     date: { year, month },
   } = useRecoilValue(TodayState);
   const dateYYMM = `${selectedYear}-${(selectedMonth || month).toString().padStart(2, '0')}`;
+  const { profile } = useProfileContext();
 
   useEffect(() => {
     mutation.mutateAsync(dateYYMM).then(res => {
@@ -65,55 +67,57 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
       }}
     >
       {children}
-      <AlertDialog>
-        <AlertDialogTrigger className="hidden" ref={modalBtnRef}>
-          기록 데이터 부족 모달
-        </AlertDialogTrigger>
-        <AlertDialogContent className="bg-primary-50 px-10">
-          <div className="text-primary-900 font-r16 text-center mt-[70px] mb-8">
-            나의 기록 데이터를 확인하려면 최소 3개의 기록이 필요해요!
-            <br />
-            기록을 마저 작성해주시면 바로 데이터를 보실 수 있어요.
-          </div>
-          <div className="flex items-center justify-center gap-x-2.5">
-            {[...Array(dataLength)].map((v, i) => (
-              <span
-                key={i}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-500"
-              >
-                <Check width={16} height={16} color="#ffffff" />
-              </span>
-            ))}
-            {[...Array(3 - dataLength)].map((v, i) => (
-              <span key={i} className="block w-6 h-6 rounded-full bg-white-0"></span>
-            ))}
-          </div>
-          <AlertDialogFooter className="mt-[50px]">
-            <Button variant="outline" size="lg" asChild>
-              <Link href="/" className="flex gap-x-2 border-0">
-                <Image
-                  src="/assets/icons/edit_primary.png"
-                  alt="post"
-                  width={22}
-                  height={22}
-                />
-                홈으로 가기
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link href="/post" className="flex gap-x-2 border-0">
-                <Image
-                  src="/assets/icons/edit_primary.png"
-                  alt="post"
-                  width={22}
-                  height={22}
-                />
-                기록하러 가기
-              </Link>
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      {profile && (
+        <AlertDialog>
+          <AlertDialogTrigger className="hidden" ref={modalBtnRef}>
+            기록 데이터 부족 모달
+          </AlertDialogTrigger>
+          <AlertDialogContent className="bg-primary-50 px-10">
+            <div className="text-primary-900 font-r16 text-center mt-[70px] mb-8">
+              나의 기록 데이터를 확인하려면 최소 3개의 기록이 필요해요!
+              <br />
+              기록을 마저 작성해주시면 바로 데이터를 보실 수 있어요.
+            </div>
+            <div className="flex items-center justify-center gap-x-2.5">
+              {[...Array(dataLength)].map((v, i) => (
+                <span
+                  key={i}
+                  className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-500"
+                >
+                  <Check width={16} height={16} color="#ffffff" />
+                </span>
+              ))}
+              {[...Array(3 - dataLength)].map((v, i) => (
+                <span key={i} className="block w-6 h-6 rounded-full bg-white-0"></span>
+              ))}
+            </div>
+            <AlertDialogFooter className="mt-[50px]">
+              <Button variant="outline" size="lg" asChild>
+                <Link href="/" className="flex gap-x-2 border-0">
+                  <Image
+                    src="/assets/icons/edit_primary.png"
+                    alt="post"
+                    width={22}
+                    height={22}
+                  />
+                  홈으로 가기
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link href="/post" className="flex gap-x-2 border-0">
+                  <Image
+                    src="/assets/icons/edit_primary.png"
+                    alt="post"
+                    width={22}
+                    height={22}
+                  />
+                  기록하러 가기
+                </Link>
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     </ReportContext.Provider>
   );
 };

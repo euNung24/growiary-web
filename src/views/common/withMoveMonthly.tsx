@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import { cn } from '@/lib/utils';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 export type WithMoveMonthlyProps = {
   selectedMonth?: number;
@@ -16,8 +17,9 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
     const {
       date: { year, month, date },
     } = useRecoilValue(TodayState);
-    const [selectedYear, setSelectedYear] = useState(year);
-    const [selectedMonth, setSelectedMonth] = useState(month);
+    const { profile } = useProfileContext();
+    const [selectedYear, setSelectedYear] = useState(profile ? year : 2024);
+    const [selectedMonth, setSelectedMonth] = useState(profile ? month : 4);
     const [lastDate, setLastDate] = useState(date);
 
     const handleClickPrevMonth = () => {
