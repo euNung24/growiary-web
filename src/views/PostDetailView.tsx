@@ -79,7 +79,6 @@ const PostView = ({ post }: PostViewProps) => {
     const fn = async () => {
       const Quill = await import('quill');
       const container = contentRef.current;
-      // const tempDivEl = document.createElement('div');
       const editorContainer = container!.appendChild(
         container!.ownerDocument.createElement('div'),
       );
@@ -100,7 +99,7 @@ const PostView = ({ post }: PostViewProps) => {
     fn().then();
 
     return () => {};
-  }, []);
+  }, [post]);
 
   useEffect(
     function setInitTemplate() {

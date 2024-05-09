@@ -183,7 +183,7 @@ const HistoryView = () => {
   return (
     <div className="w-full mt-[-83px] flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]">
       <div className="flex-1">
-        <div className="flex justify-between sticky top-0 bg-white-0 border-b border-gray-100">
+        <div className="flex justify-between sticky z-10 top-0 bg-white-0 border-b border-gray-100">
           <div className="py-5 flex gap-x-3 items-center">
             <ChevronLeft
               width={24}

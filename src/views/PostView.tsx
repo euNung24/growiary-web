@@ -292,6 +292,7 @@ const PostView = ({ post }: PostViewProps) => {
                       </span>
                       <Button
                         type="submit"
+                        size="lg"
                         disabled={titleField.value.length < 1 || countField.value <= 10}
                       >
                         기록완료

@@ -20,12 +20,12 @@ const TooltipContent = React.forwardRef<
     sideOffset={sideOffset}
     className={cn(
       // "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      'relative z-50 rounded-lg bg-error-50 px-2.5 py-1.5 font-r14 text-error-900 shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      'z-10 rounded-[38px] translate-x-2.5 translate-y-[-8px] bg-primary-900 px-5 py-2.5 font-r16 text-white-0 shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
       className,
     )}
     {...props}
   >
-    <div className="absolute left-4 bottom-[-16px] w-4 h-4 border border-secondary-900 border-8 border-t-error-50 border-b-transparent border-l-transparent border-r-transparent"></div>
+    <div className="absolute left-[45%] bottom-[-12px] w-4 h-4 border border-secondary-900 border-8 border-t-primary-900 border-b-transparent border-l-transparent border-r-transparent"></div>
     {children}
   </TooltipPrimitive.Content>
 ));
