@@ -37,7 +37,7 @@ type PostViewProps = {
 const PostView = ({ post }: PostViewProps) => {
   const router = useRouter();
   const contentRef = useRef<HTMLDivElement | null>(null);
-  const isClickedFirst = useRef(false);
+  // const isClickedFirst = useRef(false);
   const mutation = useDeletePost(post.id);
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
   const topicMutation = useFindTopic(post.topicId || NO_TOPIC_ID);
