@@ -52,7 +52,7 @@ const SettingModal = () => {
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px] gap-0">
             <DialogHeader className="mb-14">
-              <DialogTitle className="text-primary-900 mt-10">설정</DialogTitle>
+              <DialogTitle className="text-primary-900 mt-10">설정하기</DialogTitle>
             </DialogHeader>
             {profile && Object.keys(profile) && (
               <>
