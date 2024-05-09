@@ -8,6 +8,7 @@ import LoginDialog from '@/components/LoginDialog';
 import { Button } from '@/components/ui/button';
 import { menu } from '@/utils';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { ProfileType } from '@/types/profileTypes';
 
 type MenuType = {
   src: string;
@@ -18,12 +19,18 @@ type MenuType = {
 
 type MenuProps = {
   items: MenuType[];
+  checkLogin?: boolean;
+  profile?: ProfileType;
 };
 
-const Menu = ({ items }: MenuProps) => {
+const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
   const active =
     'rounded bg-primary-900 text-white-0 hover:bg-primary-900 hover:text-white-0';
   const pathname = usePathname();
+
+  const handlePreventMoveLin = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
 
   return (
     <ul>
@@ -34,14 +41,18 @@ const Menu = ({ items }: MenuProps) => {
             className={cn(
               'group flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-500 font-sb12 lg:justify-center lg:gap-0 hover:bg-primary-50 hover:text-primary-900 rounded-md',
               item.href.split('/')[1] === pathname.split('/')[1] && active,
+              checkLogin && !profile && 'text-gray-200 pointer-events-none',
             )}
+            {...(checkLogin && !profile ? { onClick: handlePreventMoveLin } : {})}
           >
             <Image
               src={
-                item.src +
-                (item.href.split('/')[1] === pathname.split('/')[1]
-                  ? '_white.png'
-                  : '.png')
+                !checkLogin || profile
+                  ? item.src +
+                    (item.href.split('/')[1] === pathname.split('/')[1]
+                      ? '_white.png'
+                      : '.png')
+                  : item.src + '_disabled.png'
               }
               width={16}
               height={16}
@@ -154,7 +165,7 @@ const Sidebar = () => {
 
       <Menu items={menu} />
       <hr className="my-6 border-gray-200" />
-      <Menu items={menu2} />
+      <Menu items={menu2} checkLogin={true} profile={profile} />
     </aside>
   );
 };

@@ -26,19 +26,19 @@ const SAMPLE_POSTS: (Pick<ResPostType, 'title' | 'category' | 'tags'> & {
 })[] = [
   {
     category: '회고',
-    title: '새벽 운동과 부상',
-    content:
-      '감기에서 적당히 회복된 것 같고 마침 기온도 조금 오른 것 같아서 새벽 운동을 나갔다. 그리고 뭔가 호흡이 평소보다 가빴는데, 그냥 감기가 덜 나은 탓이려니 하고',
-    tags: ['운동', '부상', '건강', '일상'],
-    writeDate: '04월 28일',
-  },
-  {
-    category: '회고',
     title: '요즘 나의 최대 걱정거리',
     content:
       '요즘 내 마음이 너무 뒤숭숭하다. 가족들에게도 투정을 많이 부리고 있다. 일단 투정부터 부린 다음 뒤늦게 후회하고 사과를 드리는 일이 많아졌는데, 그래도 개선',
     tags: ['걱정', '생각', '개선', '투정'],
     writeDate: '04월 29일',
+  },
+  {
+    category: '회고',
+    title: '새벽 운동과 부상',
+    content:
+      '감기에서 적당히 회복된 것 같고 마침 기온도 조금 오른 것 같아서 새벽 운동을 나갔다. 그리고 뭔가 호흡이 평소보다 가빴는데, 그냥 감기가 덜 나은 탓이려니 하고',
+    tags: ['운동', '부상', '건강', '일상'],
+    writeDate: '04월 28일',
   },
 ];
 
@@ -180,7 +180,7 @@ const HomePosts = () => {
         {!posts && (
           <>
             <NewCard count={3} isLogin={false} />
-            {SAMPLE_POSTS.reverse().map((post, i) => (
+            {SAMPLE_POSTS.map((post, i) => (
               <Card key={i} className="shrink-0" size="lg">
                 <CardHeader>
                   <CardChip size="lg">No.{2 - i}</CardChip>
