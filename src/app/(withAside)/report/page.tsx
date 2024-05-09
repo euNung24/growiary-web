@@ -4,7 +4,7 @@ import Preview from '@/views/common/Preview';
 export default function Home() {
   return (
     <>
-      <ReportView />;
+      <ReportView />
       <Preview />
     </>
   );

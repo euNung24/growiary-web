@@ -83,18 +83,18 @@ const SettingModal = () => {
                       <span className="text-gray-500">{profile?.email}</span>
                     </div>
                   </div>
-                  <div className="flex justify-between py-[13px]">
-                    <span>서비스 이용약관</span>
-                    <ServiceTerm>
+                  <ServiceTerm>
+                    <div className="flex justify-between py-[13px] hover:bg-gray-50">
+                      <span>서비스 이용약관</span>
                       <ChevronRight className="text-gray-500" />
-                    </ServiceTerm>
-                  </div>
-                  <div className="flex justify-between py-[13px]">
-                    <span>개인정보 처리방침</span>
-                    <PrivateTerm>
+                    </div>
+                  </ServiceTerm>
+                  <PrivateTerm>
+                    <div className="flex justify-between py-[13px] hover:bg-gray-50">
+                      <span>개인정보 처리방침</span>
                       <ChevronRight className="text-gray-500" />
-                    </PrivateTerm>
-                  </div>
+                    </div>
+                  </PrivateTerm>
                   <div className="flex justify-between py-[13px]">
                     <span>버전 정보</span>
                     <span className="text-gray-500">v1.0.0.최신버전</span>

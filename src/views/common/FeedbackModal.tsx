@@ -32,7 +32,7 @@ import { createFeedback } from '@/apis/feedback';
 
 const FormSchema = z.object({
   category: z.string(),
-  content: z.string(),
+  content: z.string().min(1),
 });
 
 type FeedbackModalProps = {
@@ -59,6 +59,9 @@ const FeedbackModal = ({
     },
   });
 
+  const { getFieldState } = form;
+  const fieldContentState = getFieldState('content');
+
   async function onSubmit(data: z.infer<typeof FormSchema> | FeedbackType) {
     await createFeedback(data)
       .then(() => {
@@ -80,9 +83,10 @@ const FeedbackModal = ({
   };
 
   useEffect(() => {
+    const target = menu.find(v => v.name === defaultCategory);
+    setPlaceholder(target?.placeholder || '');
     setIsClient(true);
   }, []);
-
   return (
     <>
       {isClient && (
@@ -93,7 +97,7 @@ const FeedbackModal = ({
           <DialogContent className="sm:max-w-[425px] px-20 w-[780px] max-w-none">
             <DialogHeader className="mb-14">
               <DialogTitle className="text-primary-900 mt-10">의견 보내기</DialogTitle>
-              <DialogDescription className="text-gray-500 mt-12">
+              <DialogDescription className="text-gray-500 pt-4">
                 사용하시다 개선사항이나 좋은 제안이 떠오르셨나요?
                 <br /> 자유롭게 이야기해주세요. 소중한 의견 고맙습니다!
               </DialogDescription>
@@ -113,7 +117,7 @@ const FeedbackModal = ({
                           defaultValue={field.value || '그루어리'}
                           onValueChange={value => handleChangeCategory(value, field)}
                         >
-                          <SelectTrigger className="border border-gray-200 h-[54px]">
+                          <SelectTrigger className="border border-gray-200 font-r16 h-[54px]">
                             <SelectValue placeholder={'카테고리를 선택해 주세요'} />
                           </SelectTrigger>
                           <SelectContent className="">
@@ -127,12 +131,20 @@ const FeedbackModal = ({
                             </SelectItem>
                             {menu.slice(2).map(v => (
                               <SelectItem key={v.name} value={v.name} className="group">
-                                <div className="flex gap-x-2.5 text-gray-400 group-hover:text-primary-900">
+                                <div className="flex items-center gap-x-2.5 text-gray-400 group-hover:text-primary-900">
                                   <Image
                                     src={`${v.src}.png`}
                                     width={20}
                                     height={20}
                                     alt={v.name}
+                                    className="group-hover:hidden"
+                                  />
+                                  <Image
+                                    src={`${v.src}_primary.png`}
+                                    width={20}
+                                    height={20}
+                                    alt={v.name}
+                                    className="group-hover:block hidden"
                                   />
                                   <span className="text-gray-800 group-hover:text-primary-900">
                                     {v.name}
@@ -166,7 +178,9 @@ const FeedbackModal = ({
                   />
                 </div>
                 <div className="mt-[72px] flex justify-center items-center">
-                  <Button type="submit">의견 보내기</Button>
+                  <Button type="submit" disabled={!fieldContentState.isDirty}>
+                    의견 보내기
+                  </Button>
                 </div>
               </form>
             </Form>

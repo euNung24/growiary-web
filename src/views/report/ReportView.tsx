@@ -15,7 +15,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import AdvanceReservation from '@/views/common/AdvanceReservation';
-import { Button } from '@/components/ui/button';
 import withMoveMonthly, { WithMoveMonthlyProps } from '@/views/common/withMoveMonthly';
 import ReportTotal from '@/views/report/ReportTotal';
 import ReportProvider from '@/components/providers/ReportProvider';
@@ -46,27 +45,27 @@ const ReportView = ({
       <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
         {selectedMonth && (
           <>
-            <ReportTotal
-              year={selectedYear || 0}
-              month={selectedMonth.toString().padStart(2, '0')}
-            />
-            <ReportPost
-              year={selectedYear || 0}
-              month={selectedMonth.toString().padStart(2, '0')}
-            />
-            <section>
-              <h2 className="title">기록 패턴</h2>
-              <div className="flex gap-x-5">
-                <ReportByDay month={selectedMonth - 1} />
-                <ReportByTime month={selectedMonth - 1} />
-              </div>
-            </section>
-            <ReportByChar
-              year={selectedYear || 0}
-              month={selectedMonth.toString().padStart(2, '0')}
-            />
-            <ReportByTopic month={selectedMonth - 1} />
-            <ReportByTag month={selectedMonth - 1} />
+            {/*<ReportTotal*/}
+            {/*  year={selectedYear || 0}*/}
+            {/*  month={selectedMonth.toString().padStart(2, '0')}*/}
+            {/*/>*/}
+            {/*<ReportPost*/}
+            {/*  year={selectedYear || 0}*/}
+            {/*  month={selectedMonth.toString().padStart(2, '0')}*/}
+            {/*/>*/}
+            {/*<section>*/}
+            {/*  <h2 className="title">기록 패턴</h2>*/}
+            {/*  <div className="flex gap-x-5">*/}
+            {/*    <ReportByDay month={selectedMonth - 1} />*/}
+            {/*    <ReportByTime month={selectedMonth - 1} />*/}
+            {/*  </div>*/}
+            {/*</section>*/}
+            {/*<ReportByChar*/}
+            {/*  year={selectedYear || 0}*/}
+            {/*  month={selectedMonth.toString().padStart(2, '0')}*/}
+            {/*/>*/}
+            {/*<ReportByTopic month={selectedMonth - 1} />*/}
+            {/*<ReportByTag month={selectedMonth - 1} />*/}
           </>
         )}
         {profile && (
@@ -97,7 +96,9 @@ const ReportView = ({
               </CardHeader>
               <CardContent className="flex-initial">
                 <AdvanceReservation>
-                  <Button variant="outlineGray">사전 예약 신청하기</Button>
+                  <button className="text-gray-800 bg-white-0 rounded-md py-2 px-6 font-r14">
+                    사전 예약 신청하기
+                  </button>
                 </AdvanceReservation>
               </CardContent>
             </Card>

@@ -63,6 +63,8 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
 
   useEffect(() => {
     const monthIndex = +month - 1;
+    console.log(data);
+    return;
     if (!data || !data?.topic || !Object.keys(data.topic[monthIndex])) return;
     const posts = [] as ResPostType[];
 

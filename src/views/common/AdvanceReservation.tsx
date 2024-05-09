@@ -195,13 +195,14 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-y-6 justify-center items-center">
-                  <p className="text-center">
+                  <p className="text-center font-r14">
                     위의 질문에 대한 답변을 제출하면 사전 예약 신청하기 완료!
                     <br />
                     AI 기능이 출시되면 50% 할인 쿠폰과 함께 가장 먼저 알림을 드려요.
                   </p>
                   <Button
                     type="submit"
+                    className="px-[65px]"
                     disabled={
                       !fieldQ1State.isDirty ||
                       !fieldQ2State.isDirty ||

@@ -1,5 +1,4 @@
 import FeedbackModal from '@/views/common/FeedbackModal';
-import { Button } from '@/components/ui/button';
 import { MenuType } from '@/types';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 
@@ -17,9 +16,9 @@ const FooterFeedbackView = ({ description, category }: FooterFeedbackViewProps) 
         <p className="text-gray-500 font-r16">{description}</p>
         <div>
           <FeedbackModal defaultCategory={category}>
-            <Button variant="outlineGray" size="sm">
+            <button className="text-gray-800 bg-white-0 rounded-md py-2 px-6 font-r12">
               의견 보내기
-            </Button>
+            </button>
           </FeedbackModal>
         </div>
       </footer>
