@@ -89,10 +89,8 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
     <section>
       <h2 className="title">기록 카테고리</h2>
       <p className={descriptionStyle}>
-        <span className={strengthStyle}>
-          {selectedCategory ? selectedCategory : '하루생각'}
-        </span>{' '}
-        카테고리를 가장 많이 작성했어요
+        <span className={strengthStyle}>{selectedCategory || '하루생각'}</span> 카테고리를
+        가장 많이 작성했어요
       </p>
       <div className="flex rounded-lg overflow-hidden text-center h-9 leading-9">
         {RankdedTopic
