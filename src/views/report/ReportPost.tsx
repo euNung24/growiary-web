@@ -43,17 +43,32 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
           </p>
           <div className="flex gap-x-5">
             <div className={cn(boxStyle, 'flex-1')}>
-              <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
-                <span>
-                  총 누적 <b className="ml-[5px] text-gray-500 font-normal">00개</b>
-                </span>
-                <span>
-                  월 평균 <b className="ml-[5px] text-gray-500 font-normal">00개</b>
-                </span>
-                <span>
-                  월 최대 <b className="ml-[5px] text-gray-500 font-normal">00개</b>
-                </span>
-              </div>
+              {report?.post?.user && (
+                <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
+                  <span>
+                    총 누적{' '}
+                    <b className="ml-[5px] text-gray-500 font-normal">
+                      {Object.values(report.post.user).reduce((f, v) => f + v, 0)}개
+                    </b>
+                  </span>
+                  <span>
+                    월 평균{' '}
+                    <b className="ml-[5px] text-gray-500 font-normal">
+                      {report?.post?.user &&
+                        (
+                          Object.values(report.post.user).reduce((f, v) => f + v, 0) / 8
+                        ).toFixed(1)}
+                      개
+                    </b>
+                  </span>
+                  <span>
+                    월 최대{' '}
+                    <b className="ml-[5px] text-gray-500 font-normal">
+                      {Math.max(...Object.values(report.post.user))}개
+                    </b>
+                  </span>
+                </div>
+              )}
               <div className="h-[266px]">
                 {userData && (
                   <BarChart
@@ -95,6 +110,9 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                             stepSize:
                               Math.max(...Object.values(report.post.user)) > 10 ? 10 : 1,
                             color: '#BEBFBF',
+                            font: {
+                              size: 12,
+                            },
                           },
                         },
                       },
@@ -141,7 +159,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                   </div>
                   {allData && userData && (
                     <div
-                      className="bg-gray-200 rounded max-h-[147px] w-[62px] mb-2.5"
+                      className="bg-primary-100 rounded max-h-[147px] w-[62px] mb-2.5"
                       style={{
                         height:
                           allData > userData

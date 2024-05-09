@@ -42,10 +42,6 @@ const UserProvider = ({ children }: UserProvider) => {
     setTitleBadge(userBadgeInfo.data.titleBadge || 'first');
   }, []);
 
-  useEffect(() => {
-    console.log('provider', userBadgeInfo);
-  }, [userBadgeInfo]);
-
   return (
     <UserContext.Provider
       value={{

@@ -42,7 +42,7 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
                 weekData.findIndex(
                   data => data.data === Math.max(...weekData.map(v => v.data)),
                 )
-              ]
+              ] + '요일'
             : '목요일'}
         </span>
         에 주로 작성했어요

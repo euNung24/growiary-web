@@ -1,6 +1,6 @@
 'use client';
 
-import { ComponentType, useState } from 'react';
+import { ComponentType, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
@@ -14,15 +14,25 @@ export type WithMoveMonthlyProps = {
   selectedYear?: number;
   selectedMonthLastDate?: number;
 };
-const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.FC<T> => {
+const withMoveMonthly = <T extends object>(
+  Component: ComponentType<T>,
+  AnotherComponet: ComponentType<T>,
+): React.FC<T> => {
   const MoveMonthly = (props: T) => {
     const {
       date: { year, month, date },
     } = useRecoilValue(TodayState);
     const { profile } = useProfileContext();
-    const [selectedYear, setSelectedYear] = useState(profile ? year : 2024);
-    const [selectedMonth, setSelectedMonth] = useState(profile ? month : 4);
+    const [selectedYear, setSelectedYear] = useState(year);
+    const [selectedMonth, setSelectedMonth] = useState(month);
     const [lastDate, setLastDate] = useState(date);
+
+    useEffect(() => {
+      if (profile) {
+        setSelectedYear(year);
+        setSelectedMonth(month);
+      }
+    }, [profile]);
 
     const handleClickPrevMonth = () => {
       const prevMonth = selectedMonth - 1 > 0 ? selectedMonth - 1 : 12;
@@ -62,6 +72,12 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
 
     return (
       <div className="mx-auto mt-[-83px]">
+        <AnotherComponet
+          {...props}
+          selectedYear={selectedYear}
+          selectedMonth={selectedMonth}
+          selectedMonthLastDate={lastDate}
+        />
         <div className="py-5 flex justify-between sticky top-0 bg-white-0 border-b border-gray-100">
           <div className="flex gap-x-3 items-center">
             <ChevronLeft

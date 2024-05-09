@@ -14,9 +14,7 @@ export type ReportByCharCountType = {
   top3: ResPostType[];
 };
 
-export type ReportByTopicType = Partial<
-  Record<TopicCategory | 'Uncategorized' | '자유', ResPostType[]>
->;
+export type ReportByTopicType = Partial<Record<TopicCategory, ResPostType[]>>;
 
 type ReportByTagType = { [key: string]: number };
 
@@ -27,7 +25,7 @@ export type ReportType = {
   week: [number, number, number, number, number, number, number][];
   time: [number, number, number, number][];
   charCount: { [key: string]: ReportByCharCountType };
-  topic: ReportByTopicType[];
+  topic: ReportByTopicType;
   tags: ReportByTagType[];
   newTags: ReportByNewTagType[];
 };

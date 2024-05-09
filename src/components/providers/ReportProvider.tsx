@@ -39,27 +39,38 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
   const modalBtnRef = useRef<HTMLButtonElement | null>(null);
   const mutation = useGetReport();
   const [data, setData] = useState<ReportType>({} as ReportType);
+  const [isClient, setIsClient] = useState(false);
   const [dataLength, setDataLength] = useState(0);
   const {
     date: { year, month },
   } = useRecoilValue(TodayState);
-  const dateYYMM = `${selectedYear || year}-${(selectedMonth || month).toString().padStart(2, '0')}`;
   const { profile } = useProfileContext();
 
   useEffect(() => {
-    setData(REPORT);
-    return;
-    mutation.mutateAsync(dateYYMM).then(res => {
-      if (!res) return;
-      setData(res.data);
-      setDataLength(data.post?.user?.[dateYYMM] || 0);
-    });
-  }, [selectedMonth]);
+    if (!isClient) {
+      setIsClient(true);
+      return;
+    }
+    if (!profile) return;
 
-  useEffect(() => {
-    if (!modalBtnRef.current) return;
-    dataLength < 3 && pathname === '/report' && modalBtnRef.current.click();
-  }, [dataLength, modalBtnRef.current]);
+    const dateYYMM = profile
+      ? `${selectedYear}-${(selectedMonth || month).toString().padStart(2, '0')}`
+      : '2024-04';
+    // setData(REPORT);
+    mutation
+      .mutateAsync(dateYYMM)
+      .then(res => {
+        if (!res) return;
+        const dataCount = res.data.post?.user?.[dateYYMM] || 0;
+
+        setData(res.data);
+        setDataLength(dataCount);
+        dataCount < 3 && modalBtnRef.current?.click();
+      })
+      .catch(() => {
+        modalBtnRef.current?.click();
+      });
+  }, [selectedMonth, profile, isClient]);
 
   return (
     <ReportContext.Provider
@@ -70,7 +81,7 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
       }}
     >
       {children}
-      {profile && (
+      {isClient && profile && dataLength < 3 && pathname === '/report' && (
         <AlertDialog>
           <AlertDialogTrigger className="hidden" ref={modalBtnRef}>
             기록 데이터 부족 모달
@@ -82,14 +93,16 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
               기록을 마저 작성해주시면 바로 데이터를 보실 수 있어요.
             </div>
             <div className="flex items-center justify-center gap-x-2.5">
-              {[...Array(dataLength)].map((v, i) => (
-                <span
-                  key={i}
-                  className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-500"
-                >
-                  <Check width={16} height={16} color="#ffffff" />
-                </span>
-              ))}
+              {dataLength < 3 &&
+                dataLength >= 0 &&
+                [...Array(dataLength)].map((v, i) => (
+                  <span
+                    key={i}
+                    className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-500"
+                  >
+                    <Check width={16} height={16} color="#ffffff" />
+                  </span>
+                ))}
               {[...Array(3 - dataLength)].map((v, i) => (
                 <span key={i} className="block w-6 h-6 rounded-full bg-white-0"></span>
               ))}

@@ -52,47 +52,32 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
-  const [maxChar, setMaxChar] = useState(0);
-  const [posts, setPosts] = useState<ResPostType[] | null>(null);
+
+  const [slicedDataLength, setSlicedDataLength] = useState(0);
   const [slicedData, setSlicedData] = useState<[string, ReportByCharCountType][] | null>(
     null,
   );
-
   const { data } = useReportContext();
   const userData = data?.charCount?.[`${year}-${month}`];
 
   useEffect(() => {
-    const monthIndex = +month - 1;
-    console.log(data);
-    return;
-    if (!data || !data?.topic || !Object.keys(data.topic[monthIndex])) return;
-    const posts = [] as ResPostType[];
+    if (!data) return;
+    const fourDataArr = Object.values(data.charCount).map(v => v.sum);
 
-    Object.values(data.topic?.[monthIndex]).forEach(monthPosts =>
-      posts.push(...monthPosts),
-    );
-    const filteredByMonth = posts.filter(
-      post => new Date(post.writeDate).getMonth() === monthIndex,
-    );
-
-    filteredByMonth.sort((a, b) =>
-      new Date(a.charactersCount) > new Date(b.charactersCount) ? -1 : 1,
-    );
-
-    let prevCharDataLength = Object.keys(data.charCount).length;
-    for (const charData of Object.values(data.charCount)) {
-      if (charData.sum !== 0) {
+    let prevCharDataLength = fourDataArr.length;
+    for (const charData of fourDataArr) {
+      if (charData !== 0) {
         break;
       }
       prevCharDataLength--;
     }
 
-    const slicedData = Object.entries(data.charCount)
+    setSlicedDataLength(prevCharDataLength);
+    const neededData = Object.keys(data.charCount)
       .reverse()
-      .slice(0, prevCharDataLength);
-    setSlicedData(slicedData);
-    setPosts(filteredByMonth.slice(0, 3));
-    setMaxChar(filteredByMonth[0]?.charactersCount);
+      .slice(0, prevCharDataLength)
+      .map(date => [date, data.charCount[date]]) as [string, ReportByCharCountType][];
+    setSlicedData(neededData);
   }, [data?.topic]);
 
   return (
@@ -121,7 +106,11 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
           <span>
             최대{' '}
             <b className="ml-[5px] text-gray-500 font-normal">
-              {(userData ? maxChar : 11310).toLocaleString()}자
+              {(userData
+                ? Math.max(...userData.top3.map(v => v.charactersCount))
+                : 11310
+              ).toLocaleString()}
+              자
             </b>
           </span>
         </div>
@@ -163,7 +152,7 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
                 </div>
               ),
           )}
-          {slicedData && slicedData.length === 1 && (
+          {slicedDataLength === 1 && (
             <div className="group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-700 hover:text-white-0">
               <div className="flex justify-between text-gray-500 group-hover:text-white-0">
                 <span className="font-r16">
@@ -181,7 +170,7 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
         </div>
       </div>
       <div className="mt-6 space-y-3">
-        {(posts || SAMPLE_POST_DATA).map((post, i) => (
+        {(userData?.top3 || SAMPLE_POST_DATA).map((post, i) => (
           <div
             className={cn('flex items-center text-gray-800 font-r14', boxStyle)}
             key={i}

@@ -62,62 +62,65 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const { data } = useReportContext();
-  const [topic, setTopic] = useState<[string, ResPostType[]][] | null>(null);
+  const [RankdedTopic, setRankedTopic] = useState<
+    [TopicCategory, ResPostType[]][] | null
+  >(null);
   const [totalPostCount, setTotalPostCount] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState<TopicCategory | null>(null);
+
+  const handleClickCategoryBar = (category: TopicCategory) => {
+    setSelectedCategory(category);
+  };
 
   useEffect(() => {
-    const monthTopic = data?.topic?.[month];
-    if (!data || !data?.topic || !Object.keys(data.topic[month])) return;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    if (!data) return;
     let total = 0;
 
-    const copiedTopic: ReportByTopicType = { ...monthTopic };
-    delete copiedTopic['Uncategorized'];
-    delete copiedTopic['자유'];
-
-    const sortedTopicByPostLengthArr = Object.entries(copiedTopic).sort((a, b) =>
+    const sortedTopicByPostLengthArr = Object.entries(data.topic).sort((a, b) =>
       a[1].length > b[1].length ? -1 : 1,
-    );
+    ) as [TopicCategory, ResPostType[]][];
 
-    setTopic(sortedTopicByPostLengthArr);
+    setRankedTopic(sortedTopicByPostLengthArr);
 
     sortedTopicByPostLengthArr.forEach(([, posts]) => {
       total += posts.length;
     });
+
     setTotalPostCount(total);
+    setSelectedCategory(sortedTopicByPostLengthArr[0][0]);
   }, [data?.topic, month]);
 
   return (
     <section>
       <h2 className="title">기록 카테고리</h2>
       <p className={descriptionStyle}>
-        <span className={strengthStyle}>{topic ? topic?.[0]?.[0] : '하루생각'}</span>{' '}
+        <span className={strengthStyle}>
+          {selectedCategory ? selectedCategory : '하루생각'}
+        </span>{' '}
         카테고리를 가장 많이 작성했어요
       </p>
       <div className="flex rounded-lg overflow-hidden text-center h-9 leading-9">
-        {topic
-          ? topic.map(
-              ([category, posts], i) =>
-                isCategoryInTopicCategory(category) && (
-                  <div
-                    key={category + i}
-                    className={cn(
-                      'flex justify-center items-center',
-                      CHART_COLOR[i],
-                      i === topic?.length - 1 && 'flex-1',
-                    )}
-                    style={{
-                      width: `${getPercentage(posts.length, totalPostCount)}%`,
-                    }}
-                  >
-                    {topicCategory[category]?.Icon({
-                      width: 16,
-                      height: 16,
-                      color: '#ffffff',
-                    })}
-                  </div>
-                ),
-            )
+        {RankdedTopic
+          ? RankdedTopic.map(([category, posts], i) => (
+              <div
+                key={category + i}
+                className={cn(
+                  'flex justify-center items-center cursor-pointer',
+                  CHART_COLOR[i],
+                  i === RankdedTopic?.length - 1 && 'flex-1',
+                )}
+                style={{
+                  width: `${getPercentage(posts.length, totalPostCount)}%`,
+                }}
+                onClick={() => handleClickCategoryBar(category)}
+              >
+                {topicCategory[category]?.Icon({
+                  width: 16,
+                  height: 16,
+                  color: '#ffffff',
+                })}
+              </div>
+            ))
           : SAMPLE_POST_DATA.map((data, i) => (
               <div
                 key={data.category || '0' + i}
@@ -139,23 +142,19 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
         <div className={cn(boxStyle, 'flex gap-x-12')}>
           <div className="flex flex-col justify-between">
             <div className="flex items-center gap-x-2">
-              {topicCategory[
-                topic && isCategoryInTopicCategory(topic[0]?.[0])
-                  ? topic[0]?.[0]
-                  : '하루생각'
-              ].Icon({
+              {topicCategory[selectedCategory || '하루생각'].Icon({
                 width: 24,
                 height: 24,
                 color: '#002861',
               })}
               <span className="font-sb22 text-primary-900">
-                {topic ? topic[0]?.[0] : '하루생각'}
+                {selectedCategory || '하루생각'}
               </span>
             </div>
             <span className="font-r16 text-gray-800 flex items-center">
               작성한 글{' '}
               <b className="font-m36 text-primary-900 mx-2">
-                {topic ? topic?.[0]?.[1]?.length : 12}
+                {selectedCategory ? data?.topic[selectedCategory]?.length : 12}
               </b>{' '}
               개
             </span>
@@ -163,28 +162,35 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
           <div>
             <DonutChart
               data={
-                topic ? getPercentage(topic?.[0]?.[1]?.length || 0, totalPostCount) : 32
+                RankdedTopic
+                  ? getPercentage(
+                      selectedCategory ? (data?.topic[selectedCategory] || []).length : 0,
+                      totalPostCount,
+                    )
+                  : 32
               }
             />
           </div>
         </div>
         <div className="flex flex-col flex-1 gap-y-4">
-          {(topic?.[0]?.[1] || SAMPLE_POST_DATA).slice(0, 3).map((post, i) => (
-            <div
-              key={i}
-              className="flex p-3 rounded-lg border border-gray-100 items-center"
-            >
-              <div className="font-r14 text-gray-500">
-                {'writeDate' in post
-                  ? `${new Date(post.writeDate).getMonth() + 1}월 ${new Date(post.writeDate).getDate()}일`
-                  : post.date}
+          {(selectedCategory ? data?.topic[selectedCategory] || [] : SAMPLE_POST_DATA)
+            .slice(0, 3)
+            .map((post, i) => (
+              <div
+                key={i}
+                className="flex p-3 rounded-lg border border-gray-100 items-center"
+              >
+                <div className="font-r14 text-gray-500">
+                  {'writeDate' in post
+                    ? `${new Date(post.writeDate).getMonth() + 1}월 ${new Date(post.writeDate).getDate()}일`
+                    : post.date}
+                </div>
+                <div className="ml-[25px] mr-3 flex-1 font-r16 text-gray-900">
+                  {post.title}
+                </div>
+                {!!post.tags.length && <Chip variant="gray">{post.tags[0]}</Chip>}
               </div>
-              <div className="ml-[25px] mr-3 flex-1 font-r16 text-gray-900">
-                {post.title}
-              </div>
-              {post.tags.length && <Chip variant="gray">{post.tags[0]}</Chip>}
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </section>
