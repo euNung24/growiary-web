@@ -95,47 +95,45 @@ const ChallengeView = () => {
           </Chip>{' '}
           입니다.
         </div>
-        {userBadgeInfo && (
-          <div className="mt-6 mb-[72px]">
-            <h3 className="font-sb16 text-primary-400">뱃지 획득 현황</h3>
+        <div className="mt-6 mb-[72px]">
+          <h3 className="font-sb16 text-primary-400">뱃지 획득 현황</h3>
+          <div
+            className="h-3 w-full rounded-[26px] relative mt-3"
+            style={{
+              background:
+                'linear-gradient(90deg, #18355E 0%, #0B3E84 31%, #0145A3 49%, #478881 83.5%, #8ECB5E 100%)',
+            }}
+          >
             <div
-              className="h-3 w-full rounded-[26px] relative mt-3"
+              className="absolute flex items-center shadow justify-center top-1/2 translate-y-[-50%] translate-x-[50%] w-9 h-9 rounded-full overflow-hidden bg-gray-100"
               style={{
-                background:
-                  'linear-gradient(90deg, #18355E 0%, #0B3E84 31%, #0145A3 49%, #478881 83.5%, #8ECB5E 100%)',
+                right: `${userPercent || 100}%`,
               }}
             >
-              <div
-                className="absolute flex items-center shadow justify-center top-1/2 translate-y-[-50%] translate-x-[50%] w-9 h-9 rounded-full overflow-hidden bg-gray-100"
-                style={{
-                  right: `${userPercent || 100}%`,
-                }}
-              >
-                <Image
-                  src="/assets/images/lunch.png"
-                  alt="user"
-                  width={34}
-                  height={34}
-                  className="rounded-full"
-                />
-              </div>
+              <Image
+                src="/assets/images/lunch.png"
+                alt="user"
+                width={34}
+                height={34}
+                className="rounded-full"
+              />
+            </div>
 
-              <div
-                style={{ right: `${userPercent || 100}%` }}
-                className={cn(
-                  'absolute bottom-[-22px] translate-y-full translate-x-[50%] group-hover:block bg-primary-400 text-white-0 font-r12 py-[3px] px-3 rounded-[38px] text-nowrap',
-                )}
-              >
-                <div className="absolute top-[-13px] left-1/2 translate-x-[-50%] w-4 h-4 border border-8 border-b-primary-400 border-t-transparent border-l-transparent border-r-transparent"></div>
-                {userPercent || 100}%
-              </div>
-              <div className="mx-2 pt-4 flex justify-between font-r14 text-gray-500">
-                <span>하위</span>
-                <span>상위</span>
-              </div>
+            <div
+              style={{ right: `${userPercent || 100}%` }}
+              className={cn(
+                'absolute bottom-[-22px] translate-y-full translate-x-[50%] group-hover:block bg-primary-400 text-white-0 font-r12 py-[3px] px-3 rounded-[38px] text-nowrap',
+              )}
+            >
+              <div className="absolute top-[-13px] left-1/2 translate-x-[-50%] w-4 h-4 border border-8 border-b-primary-400 border-t-transparent border-l-transparent border-r-transparent"></div>
+              {userPercent || 100}%
+            </div>
+            <div className="mx-2 pt-4 flex justify-between font-r14 text-gray-500">
+              <span>하위</span>
+              <span>상위</span>
             </div>
           </div>
-        )}
+        </div>
         <section>
           <div className="flex flex-wrap gap-2.5 py-6">
             <div>
