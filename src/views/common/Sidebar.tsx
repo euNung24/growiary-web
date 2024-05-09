@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { menu } from '@/utils';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { ProfileType } from '@/types/profileTypes';
+import { BADGE_INFO } from '@/utils/challenge';
+import { useEffect } from 'react';
 
 type MenuType = {
   src: string;
@@ -74,7 +76,7 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
   );
 };
 const Sidebar = () => {
-  const { profile } = useProfileContext();
+  const { profile, titleBadge } = useProfileContext();
 
   const menu2 = [
     {
@@ -138,15 +140,15 @@ const Sidebar = () => {
               src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
               alt="profile"
               width={profile && profile.profileImage ? 36 : 24}
-              height={
-                profile && typeof profile !== 'string' && profile.profileImage ? 36 : 24
-              }
+              height={profile && profile.profileImage ? 36 : 24}
               className="hidden lg:block"
             />
           </div>
           {/* 뱃지 타이틀 */}
           <span className="lg:hidden block mt-3 mb-2 font-r12 text-gray-900">
-            회고하며 성장하는 일기장
+            {profile
+              ? BADGE_INFO[titleBadge || 'first'].name
+              : '회고하며 성장하는 일기장'}
           </span>
           {/* 닉네임 */}
           {profile ? (

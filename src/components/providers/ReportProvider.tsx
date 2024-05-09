@@ -42,7 +42,7 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
   const {
     date: { year, month },
   } = useRecoilValue(TodayState);
-  const dateYYMM = `${selectedYear}-${(selectedMonth || month).toString().padStart(2, '0')}`;
+  const dateYYMM = `${selectedYear || year}-${(selectedMonth || month).toString().padStart(2, '0')}`;
   const { profile } = useProfileContext();
 
   useEffect(() => {

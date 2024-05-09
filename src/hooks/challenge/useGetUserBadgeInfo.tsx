@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getUserBadge } from '@/apis/challenge';
 import { useEffect } from 'react';
+import { getCookie } from '@/utils';
 
 const useGetUserBadgeInfo = () => {
   const {
@@ -12,6 +13,7 @@ const useGetUserBadgeInfo = () => {
   } = useQuery({
     queryKey: ['badge'],
     queryFn: getUserBadge,
+    enabled: 'document' in global && !!getCookie('accessToken'),
   });
 
   useEffect(() => {

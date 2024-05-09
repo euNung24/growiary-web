@@ -33,11 +33,10 @@ const ChallengeView = () => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const strengthStyle = 'font-b28 text-primary-900';
 
-  const { profile } = useProfileContext();
+  const { profile, setTitleBadge, titleBadge } = useProfileContext();
   const mutation = useChangeUserTitleBadge();
   const userBadgeInfo = useGetUserBadgeInfo();
   const [myBadges, setMyBadges] = useState<string[]>([]);
-  const [titleBadge, setTitleBadge] = useState<BadgeKeyType>('first');
   const [userPercent, setUserPercent] = useState(0);
   const [recentGotBadge, setRecentGotBadge] = useState<Partial<
     keyof typeof BADGE_INFO
