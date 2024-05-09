@@ -344,7 +344,6 @@ const PostView = ({ post }: PostViewProps) => {
       >
         Show Toast
       </Button>
-      <Toaster />
     </Form>
   );
 };
