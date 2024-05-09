@@ -90,7 +90,7 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
               <Button className="hidden">사전 예약 신청 모달</Button>
             )}
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] w-[780px] max-w-none max-h-[80vh] flex flex-col px-20">
+          <DialogContent className="sm:max-w-[425px] w-[780px] h-[758px] max-h-[758px] max-w-none flex flex-col px-20">
             <DialogHeader className="mb-6">
               <DialogTitle className="text-primary-900 mt-10">사전 예약 신청</DialogTitle>
             </DialogHeader>
@@ -99,14 +99,12 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="flex flex-col flex-1 overflow-hidden gap-y-6 text-gray-500"
               >
-                <div className="flex flex-col relative h-[50%] overflow-y-scroll">
+                <div className="flex flex-1 flex-col relative h-[50%] overflow-y-scroll">
                   <div className="rounded-xl p-6 mb-10 bg-gray-50/50">
                     <h4 className="font-sb14 mb-2.5">AI와 함께하는 자아발견 인터뷰</h4>
                     <p className="font-r12">
-                      내가 쓴 기록들을 기반으로 나를 더 잘 알기 위한 질문들을 생성해요.
-                      <br />
-                      총 30가지의 질문과 답변들을 모아 4-Points(성장, 건강, 취향, 관계)의
-                      <br />
+                      내가 쓴 기록들을 기반으로 나를 더 잘 알기 위한 질문들을 생성해요. 총
+                      30가지의 질문과 답변들을 모아 4-Points(성장, 건강, 취향, 관계)의
                       성향 진단과 개선점 제안 리포트를 제공합니다.
                     </p>
                   </div>

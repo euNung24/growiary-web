@@ -44,7 +44,8 @@ const HomeDailyChecker = () => {
           <p className={headerDescriptionStyle}>
             오늘까지 연속으로{' '}
             <span className="font-sb16 text-primary-900">
-              {data && [...data.continue, data.today].reduce((f, v) => f + v, 0)}개
+              {data && (data.today > 0 ? data.continue.length + 1 : data.continue.length)}
+              일째
             </span>{' '}
             기록에 성공했어요
           </p>

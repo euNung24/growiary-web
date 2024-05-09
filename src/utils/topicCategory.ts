@@ -3,6 +3,7 @@ import RemembranceIcon from '@/components/icons/RemembranceIcon';
 import ThinkIcon from '@/components/icons/ThinkIcon';
 import SelfExplorationIcon from '@/components/icons/SelfExplorationIcon';
 import { TopicCategory } from '@/types/topicTypes';
+import UnCategoriedIcon from '@/components/icons/UnCategoriedIcon';
 
 export type IconProps = {
   color?: string,
@@ -27,4 +28,7 @@ export const topicCategory: Record<TopicCategory, CategoryInfo> = {
   '크리에이티브': {
     Icon: CreativeIcon,
   },
+  '자유': {
+    Icon: UnCategoriedIcon
+  }
 };

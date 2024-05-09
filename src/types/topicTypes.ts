@@ -1,4 +1,4 @@
-export type TopicCategory = '회고' | '하루생각' | '자아탐험' | '크리에이티브';
+export type TopicCategory = '회고' | '하루생각' | '자아탐험' | '크리에이티브' | '자유';
 
 export type TopicType = {
   id: number;

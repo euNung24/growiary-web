@@ -38,8 +38,9 @@ const NewCardContent = ({ count, isLogin }: NewCardProps) => {
       </CardHeader>
       <CardContent className="flex flex-col flex-1 flex items-center justify-center">
         <Plus
-          width={88}
-          height={88}
+          width={58.5}
+          height={58.5}
+          strokeWidth={1}
           className="text-gray-100 group-hover:text-primary-400 flex-1"
         />
       </CardContent>

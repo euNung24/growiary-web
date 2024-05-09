@@ -73,7 +73,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
           <li
             key={`${i}_${v}`}
             className={cn(
-              'flex items-center font-r16 text-gray-800 py-[11px] pl-2.5 pr-1.5 rounded',
+              'flex items-center font-r16 text-gray-900 py-[11px] pl-2.5 pr-1.5 rounded',
               !setTags && 'px-2.5',
             )}
           >
@@ -82,7 +82,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
               width={22}
               height={22}
               className={cn(
-                'ml-1 inline-block text-gray-700 cursor-pointer',
+                'ml-1 inline-block text-gray-400 cursor-pointer',
                 !setTags && 'hidden',
               )}
               onClick={() => handleRemoveTag(i)}
@@ -97,7 +97,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
               ref={inputRef}
               type="text"
               placeholder="태그입력"
-              className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-800"
+              className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-900"
               onChange={handleChangeInput}
               onKeyDown={handleKeyDown}
               onKeyUp={handleKeyUp}
@@ -107,12 +107,14 @@ const Tag = ({ tags, setTags }: TagProps) => {
             <span ref={spanRef} className="absolute pl-3 opacity-0 z-[-1]">
               {input || '태그입력'}
             </span>
-            <X
-              width={22}
-              height={22}
-              className="ml-1 inline-block text-gray-400 hover:text-gray-700 cursor-pointer"
-              onClick={handleDeleteInput}
-            />
+            <div className="group">
+              <X
+                width={22}
+                height={22}
+                className="ml-1 inline-block text-gray-200 group-hover:text-gray-400 cursor-pointer"
+                onClick={handleDeleteInput}
+              />
+            </div>
           </>
         )}
       </div>

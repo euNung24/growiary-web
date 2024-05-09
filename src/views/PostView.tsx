@@ -152,7 +152,7 @@ const PostView = ({ post }: PostViewProps) => {
                   height: 20,
                   color: 'currentColor',
                 })}
-                <span className="text-gray-800">{template.category}</span>
+                <span className="text-gray-900">{template.category}</span>
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@ const PostView = ({ post }: PostViewProps) => {
                   <List width={22} height={22} />
                   주제
                 </Label>
-                <div className="px-3 py-[14px] text-gray-800">
+                <div className="px-3 py-[14px] text-gray-900">
                   {template.title ? template.title.replaceAll('/n ', '') : '자유'}
                 </div>
               </div>
@@ -212,7 +212,7 @@ const PostView = ({ post }: PostViewProps) => {
                             <Button
                               variant={'ghost'}
                               className={cn(
-                                'flex-1 pl-3 py-2 font-r16 text-gray-700 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
+                                'flex-1 pl-3 py-2 font-r16 text-gray-900 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
                                 !field.value && 'text-muted-foreground',
                               )}
                             >

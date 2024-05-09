@@ -17,6 +17,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { REPORT } from '../../../temp';
 
 export const ReportContext = createContext<{
   data: ReportType | null;
@@ -46,6 +47,8 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
   const { profile } = useProfileContext();
 
   useEffect(() => {
+    setData(REPORT);
+    return;
     mutation.mutateAsync(dateYYMM).then(res => {
       if (!res) return;
       setData(res.data);

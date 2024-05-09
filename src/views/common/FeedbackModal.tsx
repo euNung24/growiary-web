@@ -94,8 +94,8 @@ const FeedbackModal = ({
           <DialogTrigger asChild>
             {children ? children : <Button className="hidden">의견 보내기 모달</Button>}
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] px-20 w-[780px] max-w-none">
-            <DialogHeader className="mb-14">
+          <DialogContent className="sm:max-w-[425px] max-h-[758px] px-20 w-[780px] max-w-none">
+            <DialogHeader className="mb-[38px]">
               <DialogTitle className="text-primary-900 mt-10">의견 보내기</DialogTitle>
               <DialogDescription className="text-gray-500 pt-4">
                 사용하시다 개선사항이나 좋은 제안이 떠오르셨나요?
@@ -104,7 +104,7 @@ const FeedbackModal = ({
             </DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
-                <div className="flex flex-col space-y-[51px]">
+                <div className="flex flex-col space-y-[46px]">
                   <FormField
                     control={form.control}
                     name="category"
@@ -122,7 +122,7 @@ const FeedbackModal = ({
                           </SelectTrigger>
                           <SelectContent className="">
                             <SelectItem value="그루어리" className="group">
-                              <div className="flex gap-x-2.5 text-gray-400 group-hover:text-primary-900">
+                              <div className="flex gap-x-2.5 items-center text-gray-400 group-hover:text-primary-900">
                                 <Dot width={20} height={20} color="currentColor" />
                                 <span className="text-gray-800 group-hover:text-primary-900">
                                   그루어리 이용
@@ -172,6 +172,7 @@ const FeedbackModal = ({
                             '궁금하거나 떠오르는 아이디어, 의견이 있다면 자유롭게 남겨주세요'
                           }
                           maxLength={300}
+                          className="h-[200px]"
                         />
                       </FormItem>
                     )}

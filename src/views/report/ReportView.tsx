@@ -45,31 +45,31 @@ const ReportView = ({
       <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
         {selectedMonth && (
           <>
-            {/*<ReportTotal*/}
-            {/*  year={selectedYear || 0}*/}
-            {/*  month={selectedMonth.toString().padStart(2, '0')}*/}
-            {/*/>*/}
-            {/*<ReportPost*/}
-            {/*  year={selectedYear || 0}*/}
-            {/*  month={selectedMonth.toString().padStart(2, '0')}*/}
-            {/*/>*/}
-            {/*<section>*/}
-            {/*  <h2 className="title">기록 패턴</h2>*/}
-            {/*  <div className="flex gap-x-5">*/}
-            {/*    <ReportByDay month={selectedMonth - 1} />*/}
-            {/*    <ReportByTime month={selectedMonth - 1} />*/}
-            {/*  </div>*/}
-            {/*</section>*/}
-            {/*<ReportByChar*/}
-            {/*  year={selectedYear || 0}*/}
-            {/*  month={selectedMonth.toString().padStart(2, '0')}*/}
-            {/*/>*/}
-            {/*<ReportByTopic month={selectedMonth - 1} />*/}
-            {/*<ReportByTag month={selectedMonth - 1} />*/}
+            <ReportTotal
+              year={selectedYear || 0}
+              month={selectedMonth.toString().padStart(2, '0')}
+            />
+            <ReportPost
+              year={selectedYear || 0}
+              month={selectedMonth.toString().padStart(2, '0')}
+            />
+            <section>
+              <h2 className="title">기록 패턴</h2>
+              <div className="flex gap-x-5">
+                <ReportByDay month={selectedMonth - 1} />
+                <ReportByTime month={selectedMonth - 1} />
+              </div>
+            </section>
+            <ReportByChar
+              year={selectedYear || 0}
+              month={selectedMonth.toString().padStart(2, '0')}
+            />
+            <ReportByTopic month={selectedMonth - 1} />
+            <ReportByTag month={selectedMonth - 1} />
           </>
         )}
         {profile && (
-          <section>
+          <section className="mb-[116px]">
             <h2 className="title">AI와 함께하는 자아발견 인터뷰</h2>
             <div className="font-r16 text-gray-800 mt-1 mb-6">
               <p>내가 쓴 기록들을 기반으로 나를 더 잘 알기 위한 질문들을 생성해요. 😊</p>
