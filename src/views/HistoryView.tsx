@@ -37,6 +37,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { toast } from '@/components/ui/use-toast';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import LoginDialog from '@/components/LoginDialog';
 
 const SAMPLE_CATEGORY_DATA: Record<TopicCategory, number> = {
   하루생각: 8,
@@ -145,6 +146,13 @@ const HistoryView = () => {
   };
 
   useEffect(() => {
+    if (profile) {
+      setSelectedMonth(month);
+      setSelectedYear(year);
+    }
+  }, [profile]);
+
+  useEffect(() => {
     mutation.mutateAsync(selectedMonth).then(res => {
       if (!res) return;
       if (!Array.isArray(res.data?.posts)) {
@@ -174,9 +182,9 @@ const HistoryView = () => {
 
   return (
     <div className="w-full mt-[-83px] flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]">
-      <div className="flex-1 mt-5">
-        <div className="flex justify-between">
-          <div className="flex gap-x-3 items-center">
+      <div className="flex-1">
+        <div className="flex justify-between sticky top-0 bg-white-0 border-b border-gray-100">
+          <div className="py-5 flex gap-x-3 items-center">
             <ChevronLeft
               width={24}
               height={24}
@@ -219,48 +227,61 @@ const HistoryView = () => {
               onClick={handleClickNextMonth}
             />
           </div>
-          <Popover>
-            <PopoverTrigger asChild>
-              <h4 className="font-r12 py-3 mx-4 text-gray-500 hidden lg:block">
-                카테고리
-              </h4>
-            </PopoverTrigger>
-            <PopoverContent
-              className="px-3 pt-2.5 pb-6 w-[274px] h-[278px] flex flex-col justify-center bg-white-0 mr-5"
-              align="start"
-            >
-              <div className="mx-4 space-y-2">
-                <h4 className="text-gray-900 font-r12 py-3">카테고리</h4>
-                <div>
-                  {(Object.keys(topicCategory) as TopicCategory[]).map(category => (
-                    <div
-                      key={category}
-                      className="flex items-center justify-between font-r14"
-                    >
-                      <div className="flex items-center gap-x-1 py-2.5">
-                        {topicCategory[category].Icon({
-                          color: '#002861',
-                          width: 16,
-                          height: 16,
-                        })}
-                        <span>{category}</span>
+          <div className="flex gap-x-[18px] items-center">
+            <Popover>
+              <PopoverTrigger asChild>
+                <h4 className="font-r12 py-3 mx-4 text-gray-500 hidden lg:block">
+                  카테고리
+                </h4>
+              </PopoverTrigger>
+              <PopoverContent
+                className="px-3 pt-2.5 pb-6 w-[274px] h-[278px] flex flex-col justify-center bg-white-0 mr-5"
+                align="start"
+              >
+                <div className="mx-4 space-y-2">
+                  <h4 className="text-gray-900 font-r12 py-3">카테고리</h4>
+                  <div>
+                    {(Object.keys(topicCategory) as TopicCategory[]).map(category => (
+                      <div
+                        key={category}
+                        className="flex items-center justify-between font-r14"
+                      >
+                        <div className="flex items-center gap-x-1 py-2.5">
+                          {topicCategory[category].Icon({
+                            color: '#002861',
+                            width: 16,
+                            height: 16,
+                          })}
+                          <span>{category}</span>
+                        </div>
+                        <span>
+                          {posts ? categories[category] : SAMPLE_CATEGORY_DATA[category]}
+                          개
+                        </span>
                       </div>
-                      <span>
-                        {posts ? categories[category] : SAMPLE_CATEGORY_DATA[category]}개
-                      </span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                  <div className="flex justify-between text-gray-500 font-r12">
+                    <span>{selectedMonth}월에 작성한 글</span>
+                    <span>{totalPostCount || 38}개</span>
+                  </div>
                 </div>
-                <div className="flex justify-between text-gray-500 font-r12">
-                  <span>{selectedMonth}월에 작성한 글</span>
-                  <span>{totalPostCount || 38}개</span>
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
+              </PopoverContent>
+            </Popover>
+            {!profile && (
+              <LoginDialog>
+                <Button
+                  className="bg-gray-50 border-0 mr-4"
+                  size="sm"
+                  variant="outlineGray"
+                >
+                  시작하기
+                </Button>
+              </LoginDialog>
+            )}
+          </div>
         </div>
-        <Line className="mt-5 mb-4" />
-        <section className="flex flex-col gap-y-[72px] pb-5 mx-2.5">
+        <section className="flex flex-col gap-y-[72px] pb-5 mx-2.5 my-4">
           {((posts &&
             !posts[today] &&
             year === selectedYear &&

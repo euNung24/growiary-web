@@ -17,7 +17,6 @@ import {
 import AdvanceReservation from '@/views/common/AdvanceReservation';
 import { Button } from '@/components/ui/button';
 import withMoveMonthly, { WithMoveMonthlyProps } from '@/views/common/withMoveMonthly';
-import Line from '@/components/Line';
 import ReportTotal from '@/views/report/ReportTotal';
 import ReportProvider from '@/components/providers/ReportProvider';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
@@ -32,8 +31,7 @@ const ReportView = ({
 
   return (
     <ReportProvider selectedYear={selectedYear} selectedMonth={selectedMonth}>
-      <div>
-        <Line className="mt-5 mb-4" />
+      <div className="pt-4">
         <div className="flex gap-x-1.5 items-center text-gray-400 font-r14">
           <Image src="/assets/icons/calendar.png" alt="calendar" width={16} height={16} />
           <span>

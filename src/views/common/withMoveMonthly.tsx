@@ -6,6 +6,8 @@ import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import { cn } from '@/lib/utils';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import LoginDialog from '@/components/LoginDialog';
+import { Button } from '@/components/ui/button';
 
 export type WithMoveMonthlyProps = {
   selectedMonth?: number;
@@ -59,28 +61,41 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
     };
 
     return (
-      <div className="mx-auto mt-[-83px] pt-5">
-        <div className="flex gap-x-3 items-center">
-          <ChevronLeft
-            width={24}
-            height={24}
-            className="cursor-pointer"
-            onClick={handleClickPrevMonth}
-          />
-          <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50">
-            {selectedYear}년 {selectedMonth}월
-          </span>
-          <ChevronRight
-            width={24}
-            height={24}
-            className={cn(
-              'cursor-pointer',
-              +(selectedYear.toString() + selectedMonth.toString().padStart(2, '0')) >=
-                +(year.toString() + month.toString().padStart(2, '0')) &&
-                'cursor-default pointer-events-none text-gray-400',
-            )}
-            onClick={handleClickNextMonth}
-          />
+      <div className="mx-auto mt-[-83px]">
+        <div className="py-5 flex justify-between sticky top-0 bg-white-0 border-b border-gray-100">
+          <div className="flex gap-x-3 items-center">
+            <ChevronLeft
+              width={24}
+              height={24}
+              className="cursor-pointer"
+              onClick={handleClickPrevMonth}
+            />
+            <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50">
+              {selectedYear}년 {selectedMonth}월
+            </span>
+            <ChevronRight
+              width={24}
+              height={24}
+              className={cn(
+                'cursor-pointer',
+                +(selectedYear.toString() + selectedMonth.toString().padStart(2, '0')) >=
+                  +(year.toString() + month.toString().padStart(2, '0')) &&
+                  'cursor-default pointer-events-none text-gray-400',
+              )}
+              onClick={handleClickNextMonth}
+            />
+          </div>
+          {!profile && (
+            <LoginDialog>
+              <Button
+                className="bg-gray-50 border-0 mr-4"
+                size="sm"
+                variant="outlineGray"
+              >
+                시작하기
+              </Button>
+            </LoginDialog>
+          )}
         </div>
         <Component
           {...props}
