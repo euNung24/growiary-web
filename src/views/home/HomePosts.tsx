@@ -19,6 +19,7 @@ import '../../components/editor.css';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import LinkOrLogin from '@/components/LinkOrLogin';
+import { topicCategory } from '@/utils/topicCategory';
 
 const SAMPLE_POSTS: (Pick<ResPostType, 'title' | 'category' | 'tags'> & {
   content: string;
@@ -83,12 +84,19 @@ const HomePosts = () => {
       <div className="flex gap-5 flex-wrap">
         {posts && (
           <>
-            <NewCard count={(posts?.[0]?.count || 0) + 1} />
+            <NewCard />
             {posts?.map(post => (
               <Link key={post.id} href="/history">
                 <Card className="shrink-0" size="lg">
                   <CardHeader>
-                    <CardChip size="lg">No.{post.index}</CardChip>
+                    <CardChip size="lg">
+                      {topicCategory[post.category || '자유'].Icon({
+                        width: 12,
+                        height: 12,
+                        color: 'currentColor',
+                      })}
+                      {post.category || '자유'}
+                    </CardChip>
                     <CardTitle className="overflow-hidden text-ellipsis">
                       {post.title}
                     </CardTitle>
@@ -134,7 +142,14 @@ const HomePosts = () => {
             {posts?.length === 0 && (
               <Card className="shrink-0 bg-primary-50 border-none" size="lg">
                 <CardHeader>
-                  <CardChip size="lg">No.0</CardChip>
+                  <CardChip size="lg">
+                    {topicCategory['자유'].Icon({
+                      width: 12,
+                      height: 12,
+                      color: 'currentColor',
+                    })}
+                    자유
+                  </CardChip>
                   <CardTitle className="overflow-hidden text-ellipsis">
                     제목 타이틀
                   </CardTitle>
@@ -179,11 +194,18 @@ const HomePosts = () => {
         )}
         {!posts && (
           <>
-            <NewCard count={3} isLogin={false} />
+            <NewCard isLogin={false} />
             {SAMPLE_POSTS.map((post, i) => (
               <Card key={i} className="shrink-0" size="lg">
                 <CardHeader>
-                  <CardChip size="lg">No.{2 - i}</CardChip>
+                  <CardChip size="lg">
+                    {topicCategory[post.category || '자유'].Icon({
+                      width: 12,
+                      height: 12,
+                      color: 'currentColor',
+                    })}
+                    {post.category || '자유'}
+                  </CardChip>
                   <CardTitle className="overflow-hidden">{post.title}</CardTitle>
                 </CardHeader>
                 <CardContent

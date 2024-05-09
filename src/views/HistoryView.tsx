@@ -38,12 +38,14 @@ import {
 import { toast } from '@/components/ui/use-toast';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import LoginDialog from '@/components/LoginDialog';
+import { CardChip } from '@/components/ui/card';
 
 const SAMPLE_CATEGORY_DATA: Record<TopicCategory, number> = {
   하루생각: 8,
   회고: 10,
   자아탐험: 4,
   크리에이티브: 4,
+  자유: 12,
 };
 const SAMPLE_DATA: {
   [key: string]: (Pick<ResPostType, 'title' | 'tags' | 'id'> & {
@@ -323,9 +325,14 @@ const HistoryView = () => {
                     <Link href={`/history/${post.id}`} className="block">
                       <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
                         <div className="flex justify-between items-center">
-                          <Chip className="bg-gray-50o" size="lg" variant="gray">
-                            No.{post.index}
-                          </Chip>
+                          <CardChip size="lg">
+                            {topicCategory[post.topic?.category || '자유'].Icon({
+                              width: 12,
+                              height: 12,
+                              color: 'currentColor',
+                            })}
+                            {post.topic?.category || '자유'}
+                          </CardChip>
                         </div>
                         <p className="font-sb22 text-gray-900 mt-4 mb-2">
                           {post.title || '제목 타이틀'}

@@ -57,7 +57,7 @@ const PostView = ({ post }: PostViewProps) => {
   const router = useRouter();
   const topicId = searchParams.get('topic')
     ? parseInt(searchParams.get('topic')!, 10)
-    : post?.topicId || null;
+    : post?.topicId || NO_TOPIC_ID;
   const mutation = useFindTopic((post?.topicId || topicId) ?? NO_TOPIC_ID);
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
   const btnStopPostRef = useRef<HTMLButtonElement | null>(null);
@@ -69,7 +69,7 @@ const PostView = ({ post }: PostViewProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      topicId: post ? post.topicId : topicId || NO_TOPIC_ID,
+      topicId: post ? post.topicId : topicId,
       title: post?.title || '',
       tags: post ? [...post.tags] : [],
       content: post?.content || '',
@@ -127,8 +127,12 @@ const PostView = ({ post }: PostViewProps) => {
   };
 
   useEffect(function setInitTemplate() {
-    if (topicId === null) {
-      setTemplate(v => ({ ...v, content: '자유롭게 작성할 수 있어요.' }));
+    if (topicId === NO_TOPIC_ID) {
+      setTemplate(v => ({
+        ...v,
+        content: '자유롭게 작성할 수 있어요.',
+        category: '자유',
+      }));
       return;
     }
     mutation.mutateAsync().then(({ data }) => {
@@ -143,7 +147,7 @@ const PostView = ({ post }: PostViewProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-2/3 flex flex-col gap-y-4 w-[960px] h-screen mx-auto"
       >
-        {template && template.id >= 0 && template.id !== NO_TOPIC_ID && (
+        {template && (
           <div>
             <div className="border border-gray-200 rounded py-2.5 px-4 inline-flex items-center justify-center">
               <div className="flex gap-x-2.5 text-gray-400">
@@ -188,7 +192,7 @@ const PostView = ({ post }: PostViewProps) => {
                   주제
                 </Label>
                 <div className="px-3 py-[14px] text-gray-900">
-                  {template.title ? template.title.replaceAll('/n ', '') : '자유'}
+                  {template.title && template.title.replaceAll('/n ', '')}
                 </div>
               </div>
               <div className="space-y-[14px]">

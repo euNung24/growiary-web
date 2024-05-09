@@ -9,31 +9,34 @@ import {
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import LoginDialog from '@/components/LoginDialog';
+import { topicCategory } from '@/utils/topicCategory';
 
 type NewCardProps = {
-  count: number;
   isLogin?: boolean;
 };
 
-const NewCard = ({ count, isLogin = true }: NewCardProps) => {
+const NewCard = ({ isLogin = true }: NewCardProps) => {
   return isLogin ? (
     <Link href="/post">
-      <NewCardContent count={count} isLogin={isLogin} />
+      <NewCardContent isLogin={isLogin} />
     </Link>
   ) : (
     <LoginDialog>
       <div>
-        <NewCardContent count={count} isLogin={isLogin} />
+        <NewCardContent isLogin={isLogin} />
       </div>
     </LoginDialog>
   );
 };
 
-const NewCardContent = ({ count, isLogin }: NewCardProps) => {
+const NewCardContent = ({ isLogin }: NewCardProps) => {
   return (
     <Card className="shrink-0" size="lg">
       <CardHeader>
-        <CardChip size="lg">No.{count}</CardChip>
+        <CardChip size="lg">
+          {topicCategory['자유'].Icon({ width: 12, height: 12, color: 'currentColor' })}
+          자유
+        </CardChip>
         <CardTitle>{isLogin ? '새로운 기록 작성하기' : '새로운 기록 시작하기'}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col flex-1 flex items-center justify-center">
