@@ -10,7 +10,6 @@ import { menu } from '@/utils';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { ProfileType } from '@/types/profileTypes';
 import { BADGE_INFO } from '@/utils/challenge';
-import { useEffect } from 'react';
 
 type MenuType = {
   src: string;
@@ -62,7 +61,12 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
               className="min-w-[16px] group-hover:hidden"
             />
             <Image
-              src={item.src + (item.href !== pathname ? '_primary.png' : '_white.png')}
+              src={
+                item.src +
+                (item.href.split('/')[1] !== pathname.split('/')[1]
+                  ? '_primary.png'
+                  : '_white.png')
+              }
               width={16}
               height={16}
               alt={item.alt}
