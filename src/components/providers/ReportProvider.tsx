@@ -17,7 +17,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import { REPORT } from '../../../temp';
 
 export const ReportContext = createContext<{
   data: ReportType | null;

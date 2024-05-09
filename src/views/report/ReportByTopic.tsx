@@ -5,13 +5,8 @@ import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/types/postTypes';
 import { topicCategory } from '@/utils/topicCategory';
-import { ReportByTopicType } from '@/types/reportTypes';
 import { TopicCategory } from '@/types/topicTypes';
 import { getPercentage } from '@/utils';
-
-function isCategoryInTopicCategory(category: string): category is TopicCategory {
-  return category in topicCategory;
-}
 
 const CHART_COLOR = [
   'bg-primary-900',

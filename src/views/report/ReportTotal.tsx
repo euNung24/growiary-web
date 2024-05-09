@@ -24,10 +24,9 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
   const monthIndex = +month - 1;
 
   useEffect(() => {
-    const topic = data?.topic?.[monthIndex];
+    const topic = data?.topic;
     if (!topic || !Object.keys(topic).length) return;
     const copiedTopic: ReportByTopicType = { ...topic };
-    delete copiedTopic['Uncategorized'];
 
     const sortedTopicByPostLengthArr = Object.entries(copiedTopic).sort((a, b) =>
       a[1].length > b[1].length ? -1 : 1,

@@ -11,6 +11,7 @@ const ReportAcc = ({
   return (
     <section>
       <div>
+        {selectedYear} {selectedMonth} {selectedMonthLastDate}
         <h2 className="title">전체 기록</h2>
         <p className="font-r16 text-gray-800">현재까지 누적된 모든 기록 데이터</p>
         <div className={cn('flex gap-x-2.5', boxStyle)}></div>
