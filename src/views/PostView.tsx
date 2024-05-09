@@ -145,7 +145,7 @@ const PostView = ({ post }: PostViewProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/3 flex flex-col gap-y-4 w-[960px] h-screen mx-auto"
+        className="flex flex-col h-[90vh] pb-4 gap-y-4 mx-auto"
       >
         {template && (
           <div>
@@ -187,7 +187,7 @@ const PostView = ({ post }: PostViewProps) => {
                 </FormControl>
               </FormItem>
               <div className="flex space-y-0 font-r16 text-gray-500">
-                <Label className="flex flex-[0_0_94px] gap-2 items-center">
+                <Label className="flex flex-[0_0_94px] gap-2 items-center min-h-10">
                   <List width={22} height={22} />
                   주제
                 </Label>
@@ -268,7 +268,7 @@ const PostView = ({ post }: PostViewProps) => {
                       control={form.control}
                       name="content"
                       render={({ field: contentField }) => (
-                        <div className="relative flex-1">
+                        <div className="relative flex-1 mb-4">
                           <Editor
                             placeholder={template.content}
                             className="flex flex-col h-full"

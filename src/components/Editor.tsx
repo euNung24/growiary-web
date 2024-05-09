@@ -6,11 +6,12 @@ import { ControllerRenderProps } from 'react-hook-form';
 type QuillComponentProps = {
   defaultValue?: string | { ops: Op[] };
   placeholder?: string;
-  events: {
+  events?: {
     handleContentChange: ControllerRenderProps['onChange'];
     handleCountChange: ControllerRenderProps['onChange'];
   };
   className: string;
+  readonly?: boolean;
 };
 
 const Editor = dynamic(
@@ -20,6 +21,7 @@ const Editor = dynamic(
       defaultValue,
       placeholder,
       events,
+      readonly = false,
       ...props
     }: QuillComponentProps) => {
       return (
@@ -27,6 +29,7 @@ const Editor = dynamic(
           {...props}
           placeholder={placeholder}
           events={events}
+          readonly={readonly}
           defaultValue={
             typeof defaultValue === 'string' || typeof defaultValue == 'undefined'
               ? defaultValue

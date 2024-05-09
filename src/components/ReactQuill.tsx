@@ -3,18 +3,20 @@ import Quill from 'quill';
 import './editor.css';
 import Delta from 'quill-delta';
 import { ControllerRenderProps } from 'react-hook-form';
+import { cn } from '@/lib/utils';
 
 type ReactQuillProps = {
   defaultValue?: Delta | string;
   placeholder?: string;
-  events: {
+  events?: {
     handleContentChange: ControllerRenderProps['onChange'];
     handleCountChange: ControllerRenderProps['onChange'];
   };
+  readonly: boolean;
 };
 
 const ReactQuill = forwardRef<Quill, ReactQuillProps>(
-  ({ defaultValue, placeholder, events, ...props }, ref) => {
+  ({ defaultValue, placeholder, readonly, events, ...props }, ref) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const placeholderContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -54,7 +56,11 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
           toolbar: toolbarOptions,
         },
         theme: 'snow',
+        readOnly: readonly,
       });
+      quill.scroll;
+
+      quill.scrollSelectionIntoView();
 
       // placeholder 세팅
       if (placeholder) {
@@ -79,8 +85,8 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
           quill.deleteText(1999, quill.getLength());
         }
 
-        events.handleContentChange(quill.getContents());
-        events.handleCountChange(quill.getLength());
+        events && events.handleContentChange(quill.getContents());
+        events && events.handleCountChange(quill.getLength());
       });
 
       ref && (ref.current = quill);
@@ -101,7 +107,15 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
 
     return (
       <>
-        <div ref={containerRef} {...props}></div>
+        <div
+          ref={containerRef}
+          {...props}
+          className={cn(
+            readonly &&
+              '[&>.ql-toolbar]:hidden border-t border-gray-[#ccc] border-l-0 border-r-0 ',
+            'h-[40vh] border',
+          )}
+        ></div>
         <div
           className="ql-container ql-snow"
           style={{

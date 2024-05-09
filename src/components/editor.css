@@ -23,3 +23,17 @@
 .ql-editor .ql-size-huge {
     font-size: 32px;
 }
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border: 0
+}
+
+.ql-toolbar.ql-snow {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.ql-container {
+    height: calc(100% - 43px);
+    overflow: auto;
+}

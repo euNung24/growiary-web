@@ -29,6 +29,7 @@ import { Label } from '@/components/ui/label';
 import { TopicType } from '@/types/topicTypes';
 import useFindTopic from '@/hooks/topics/useFindTopics';
 import Image from 'next/image';
+import Editor from '@/components/Editor';
 
 type PostViewProps = {
   post: ResPostType;
@@ -70,37 +71,6 @@ const PostView = ({ post }: PostViewProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (!isClickedFirst.current) {
-      isClickedFirst.current = true;
-      return;
-    }
-    if (!contentRef.current) return;
-    const fn = async () => {
-      const Quill = await import('quill');
-      const container = contentRef.current;
-      const editorContainer = container!.appendChild(
-        container!.ownerDocument.createElement('div'),
-      );
-      const quill = new Quill.default(editorContainer, {
-        theme: 'snow',
-        readOnly: true,
-      });
-      const toolbarEl = container!.querySelector('.ql-toolbar');
-
-      quill.setContents(post.content.ops);
-      toolbarEl && ((toolbarEl as HTMLDivElement).style.display = 'none');
-      editorContainer.style.borderTop = '1px solid #ccc';
-      editorContainer.style.height =
-        contentRef.current!.getBoundingClientRect().height + 'px';
-      editorContainer.style.borderLeftWidth = '0';
-      editorContainer.style.borderRightWidth = '0';
-    };
-    fn().then();
-
-    return () => {};
-  }, [post]);
-
   useEffect(
     function setInitTemplate() {
       if (!post) return;
@@ -114,7 +84,7 @@ const PostView = ({ post }: PostViewProps) => {
 
   return (
     <div className="w-2/3 mt-[72px] flex flex-col gap-y-4 w-[960px] min-h-[80vh] mx-auto">
-      {post.topicId && post.topicId !== NO_TOPIC_ID && (
+      {post.topicId && (
         <div>
           <div className="border border-gray-200 rounded py-2.5 px-4 inline-flex items-center justify-center">
             <div className="flex gap-x-2.5 text-gray-400">
@@ -132,7 +102,7 @@ const PostView = ({ post }: PostViewProps) => {
         {post.title}
       </div>
       <div className="space-y-[14px]">
-        {post.topicId && post.topicId !== NO_TOPIC_ID && (
+        {post.topicId && (
           <div className="flex space-y-0">
             <Label className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-500">
               <List width={22} height={22} />
@@ -164,10 +134,9 @@ const PostView = ({ post }: PostViewProps) => {
           <Tag tags={post.tags} />
         </div>
       </div>
-      <div
-        className="relative flex-1 pointer-events-nones cursor-default flex-1"
-        ref={contentRef}
-      >
+      <div className="relative flex-1 pointer-events-nones cursor-default flex-1">
+        <Editor defaultValue={post.content} readonly className="" />
+
         {template && (
           <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%]">
             {topicCategory[template.category]?.Icon({
