@@ -74,8 +74,16 @@ const SettingModal = () => {
                     <span>연결된 계정</span>
                     <div className="flex items-center">
                       <Image
-                        src="/assets/icons/kakao.png"
-                        alt={profile?.social || 'social'}
+                        src={
+                          profile.social === 'kakao'
+                            ? '/assets/icons/kakao.png'
+                            : '/assets/icons/google.png'
+                        }
+                        alt={
+                          profile.social === 'kakao'
+                            ? '/assets/icons/kakao.png'
+                            : '/assets/icons/google.png'
+                        }
                         width={24}
                         height={24}
                         className="rounded-full mr-3"
