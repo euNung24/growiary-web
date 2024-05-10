@@ -33,7 +33,7 @@ const HomeDailyChecker = () => {
           <div className="flex justify-between">
             <h2 className="title">그루어리는 어떤 서비스인가요?</h2>
           </div>
-          <div className="mt-6 border border-gray-200 rounded-xl flex justify-center gap-x-[52px] py-10 overflow-hidden"></div>
+          <div className="mt-6 border border-gray-100 rounded-xl flex justify-center gap-x-[52px] py-10 overflow-hidden"></div>
         </>
       )}
       {profile && (
@@ -49,7 +49,7 @@ const HomeDailyChecker = () => {
             </span>{' '}
             기록에 성공했어요
           </p>
-          <div className="border border-gray-200 rounded-xl flex flex-wrap justify-center items-end gap-x-[52px] pt-6 pb-[57px] overflow-hidden">
+          <div className="border border-gray-100 rounded-xl flex flex-wrap justify-center items-end gap-x-[52px] pt-6 pb-[57px] overflow-hidden">
             {data ? (
               <>
                 {' '}
