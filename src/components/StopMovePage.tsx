@@ -7,13 +7,13 @@ import { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-
 type StopMovePageProps = {
   url: string;
   isPreventCondition: boolean;
-  fn: (
-    url?: () => void,
-    push?: () => (href: string, options?: NavigateOptions | undefined) => void,
-  ) => void | boolean;
+  // fn: (
+  //   url?: () => void,
+  //   push?: () => (href: string, options?: NavigateOptions | undefined) => void,
+  // ) => void | boolean;
 };
 
-const StopMovePage = ({ url, isPreventCondition, fn }: StopMovePageProps) => {
+const StopMovePage = ({ url, isPreventCondition }: StopMovePageProps) => {
   const router = useRouter();
   const isClickedFirst = useRef(false);
 
@@ -30,9 +30,10 @@ const StopMovePage = ({ url, isPreventCondition, fn }: StopMovePageProps) => {
 
   const handlePopState = useCallback(() => {
     // 페이지를 벗어나지 않아야 하는 경우
-    if (isPreventCondition) {
+    if (isPreventCondition && !confirm('글쓰기를 중단하시겠습니까?')) {
       // 함수
-      fn(() => true);
+      // 변경사항이 저장되지 않을 수 있습니다.
+      // fn(() => true);
       history.pushState(null, '', '');
       return;
     }
@@ -68,9 +69,13 @@ const StopMovePage = ({ url, isPreventCondition, fn }: StopMovePageProps) => {
     const originalPush = router.push;
     const newPush = async (href: string, options?: NavigateOptions | undefined) => {
       // 페이지를 벗어나지 않아야 하는 경우
-      if (href !== `${url}` && isPreventCondition) {
+      if (
+        href !== `${url}` &&
+        isPreventCondition &&
+        !confirm('글쓰기를 중단하시겠습니까?')
+      ) {
         // 함수
-        fn(() => originalPush(href, options));
+        // fn(() => originalPush(href, options));
         return;
       }
 

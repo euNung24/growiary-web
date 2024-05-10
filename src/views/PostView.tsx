@@ -38,6 +38,7 @@ import { NO_TOPIC_ID } from '@/utils';
 import Image from 'next/image';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import LoginDialog from '@/components/LoginDialog';
+import StopMovePage from '@/components/StopMovePage';
 
 const FormSchema = z.object({
   topicId: z.number(),
@@ -315,11 +316,11 @@ const PostView = ({ post }: PostViewProps) => {
                           로그인
                         </Button>
                       </LoginDialog>
-                      {/*<StopMovePage*/}
-                      {/*  url="/post"*/}
-                      {/*  isPreventCondition={!!titleField.value || !!countField.value}*/}
-                      {/*  fn={isStopPost}*/}
-                      {/*/>*/}
+                      <StopMovePage
+                        url={post ? `/history/${post.id}` : '/post'}
+                        isPreventCondition={!!titleField.value || !!countField.value}
+                        // fn={isStopPost}
+                      />
                     </div>
                   </>
                 )}
