@@ -26,7 +26,7 @@ const cardVariants = cva('group flex flex-col hover:shadow w-[300px]', {
 });
 
 const cardChipVariants = cva(
-  'inline-flex items-center gap-x-1.5 font-r12 rounded px-1.5 self-start mr-1.5',
+  'inline-flex items-center gap-x-1.5 font-r14 rounded px-1.5 self-start mr-1.5',
   {
     variants: {
       position: {
@@ -147,7 +147,7 @@ CardContent.displayName = 'CardContent';
 
 const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} {...props} className={cn('flex items-center mt-3', className)} />
+    <div ref={ref} {...props} className={cn('flex items-center mt-6', className)} />
   ),
 );
 CardFooter.displayName = 'CardFooter';

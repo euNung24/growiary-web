@@ -132,7 +132,7 @@ const HomePosts = () => {
                           : '',
                       )}
                     </div>
-                    <div className="flex mt-auto">
+                    <div className="flex mt-auto flex-wrap max-w-full h-[22px] overflow-hidden">
                       {post.tags?.map((v, i) => (
                         <CardChip key={i} position="footer">
                           {v}

@@ -366,14 +366,14 @@ const HistoryView = () => {
                             : post.content}
                         </div>
                         <div className="mt-6 flex justify-between items-center">
-                          <div className="flex gap-x-3">
+                          <div className="flex flex-wrap gap-x-3 max-w-[472px] lg:max-w-[402px] h-[22px] overflow-hidden">
                             {post.tags?.map((tag, i) => (
                               <Chip key={tag + i} variant="gray">
                                 {tag}
                               </Chip>
                             ))}
                           </div>
-                          <span className="text-gray-500 font-r14">
+                          <span className="text-gray-500 font-r14 tracking-tight shrink-0">
                             {'writeDate' in post
                               ? getStringDateAndTime(new Date(post.writeDate))
                               : post.date}
