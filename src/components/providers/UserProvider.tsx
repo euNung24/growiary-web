@@ -45,7 +45,10 @@ const UserProvider = ({ children }: UserProvider) => {
   return (
     <UserContext.Provider
       value={{
-        profile: !profile || !Object.keys(profile).length ? undefined : profile,
+        profile:
+          !profile || !Object.keys(profile).length
+            ? undefined
+            : { ...profile, nickname: profile.nickname || profile.email.split('@')[0] },
         titleBadge: titleBadge || 'first',
         setTitleBadge,
       }}
