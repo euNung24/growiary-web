@@ -7,10 +7,12 @@ import ReportByWeekBar from '@/views/home/ReportByWeekBar';
 import ReportByTimeBar from '@/views/home/ReportByTimeBar';
 import useReportContext from '@/hooks/report/useReportContext';
 import LinkOrLogin from '@/components/LinkOrLogin';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const HomeReport = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
-  const { data: report, month } = useReportContext();
+  const { data: report, year, month } = useReportContext();
+  const { profile } = useProfileContext();
 
   return (
     <section>
@@ -32,10 +34,13 @@ const HomeReport = () => {
       <p className={headerDescriptionStyle}>작성해주신 기록을 그루어리가 분석했어요</p>
       <div className="flex gap-5 flex-wrap">
         {/* 로그인 된 경우 */}
-        {report?.post &&
-          (report?.post?.user[month] > 3 ? (
+        {profile &&
+          (report?.post &&
+          report?.post?.user[`${year}-${(month + 1).toString().padStart(2, '0')}`] > 3 ? (
             <>
-              <ReportByPostWithAll />
+              <ReportByPostWithAll
+                date={`${year}-${(month + 1).toString().padStart(2, '0')}`}
+              />
               <ReportByWeekBar />
               <ReportByTimeBar />
             </>
@@ -62,26 +67,23 @@ const HomeReport = () => {
             </>
           ))}
         {/* 로그인 안된 경우 */}
-        {!report?.post && (
+        {!profile && (
           <>
             <Image
               src="/assets/images/report-example1.png"
               alt="report-example1"
-              className="flex-1"
               width={300}
               height={386}
             />
             <Image
               src="/assets/images/report-example2.png"
               alt="report-example2"
-              className="flex-1"
               width={300}
               height={386}
             />
             <Image
               src="/assets/images/report-example3.png"
               alt="report-example3"
-              className="flex-1"
               width={300}
               height={386}
             />

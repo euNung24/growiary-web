@@ -52,7 +52,7 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
     if (!profile) return;
 
     const dateYYMM = profile
-      ? `${selectedYear}-${(selectedMonth || month).toString().padStart(2, '0')}`
+      ? `${selectedYear || year}-${(selectedMonth || month).toString().padStart(2, '0')}`
       : '2024-04';
     // setData(REPORT);
     mutation
