@@ -106,7 +106,7 @@ const HistoryView = () => {
 
   const handleClickPrevMonth = () => {
     const prevMonth = selectedMonth - 1 > 0 ? selectedMonth - 1 : 12;
-    let prevYear = year;
+    let prevYear = selectedYear;
 
     if (prevMonth >= 12) {
       prevYear -= 1;
@@ -117,7 +117,7 @@ const HistoryView = () => {
 
   const handleClickNextMonth = () => {
     const nextMonth = selectedMonth + 1 < 13 ? selectedMonth + 1 : 1;
-    let nextYear = year;
+    let nextYear = selectedYear;
 
     if (nextMonth <= 1) {
       nextYear += 1;
@@ -157,12 +157,11 @@ const HistoryView = () => {
   useEffect(() => {
     mutation.mutateAsync(selectedMonth).then(res => {
       if (!res) return;
-      if (!Array.isArray(res.data?.posts)) {
-        console.log(res.data);
-        setPosts({} as HistoryPostType);
+      if (!('posts' in res.data)) {
+        setPosts({});
+        setDates([]);
         return;
       }
-
       const sortDataByDate = res.data.posts.reduce((f, v) => {
         const date = format(new Date(v.writeDate), 'yyyy-MM-dd');
         return {
@@ -183,7 +182,7 @@ const HistoryView = () => {
   }, [selectedMonth]);
 
   return (
-    <div className="w-full mt-[-83px] flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]">
+    <div className="w-full mt-[-83px] flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto] !mx-auto">
       <div className="flex-1">
         <div className="flex justify-between sticky z-10 top-0 bg-white-0 border-b border-gray-100">
           <div className="py-5 flex gap-x-3 items-center">
@@ -289,7 +288,7 @@ const HistoryView = () => {
             )}
           </div>
         </div>
-        <section className="flex flex-col gap-y-[72px] pb-5 mx-2.5 my-4">
+        <section className="flex flex-col gap-y-[72px] pb-5 mx-2.5 my-4 pt-3">
           {((posts &&
             !posts[today] &&
             year === selectedYear &&
@@ -392,7 +391,12 @@ const HistoryView = () => {
                       </div>
                     </Link>
                     <Popover>
-                      <PopoverTrigger className="absolute right-6 top-6">
+                      <PopoverTrigger
+                        className={cn(
+                          'absolute right-6 top-6',
+                          'cursor-default pointer-events-none',
+                        )}
+                      >
                         <Ellipsis width={24} height={24} color="#747F89" />
                       </PopoverTrigger>
                       <PopoverContent className="flex flex-col justify-center bg-white-0 w-auto p-0 [&>*]:py-2.5 [&>*]:px-10 [&>*]:block [&>*]:font-r14">
@@ -440,7 +444,7 @@ const HistoryView = () => {
       <div className="sticky h-screen w-[240px] top-0 pt-3 border-l lg:hidden">
         <Calendar
           mode="single"
-          today={profile ? new Date() : new Date(2024, 3, 30, 0, 0, 0)}
+          // today={profile ? new Date() : new Date(2024, 3, 30, 0, 0, 0)}
           selected={date}
           onSelect={handleSelectADay}
           disabled={date => date > new Date() || date < new Date('1900-01-01')}
