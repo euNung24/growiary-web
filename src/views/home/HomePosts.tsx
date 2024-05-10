@@ -21,6 +21,7 @@ import { TodayState } from '@/store/todayStore';
 import LinkOrLogin from '@/components/LinkOrLogin';
 import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/types/topicTypes';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const SAMPLE_POSTS: (Pick<ResPostType, 'title' | 'tags'> & {
   topic: {
@@ -56,6 +57,7 @@ const HomePosts = () => {
   const {
     date: { month, date },
   } = useRecoilValue(TodayState);
+  const { profile } = useProfileContext();
   const [posts, setPosts] = useState<(ResPostType & { count: number })[] | null>(null);
   const mutation = useGetPosts();
 
@@ -90,10 +92,10 @@ const HomePosts = () => {
       </div>
       <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>
       <div className="flex gap-5 flex-wrap">
-        {posts && (
+        {profile && posts && (
           <>
             <NewCard />
-            {posts?.map(post => (
+            {posts.map(post => (
               <Link key={post.id} href="/history">
                 <Card className="shrink-0" size="lg">
                   <CardHeader>
@@ -147,7 +149,7 @@ const HomePosts = () => {
                 </Card>
               </Link>
             ))}
-            {posts?.length === 0 && (
+            {posts.length === 0 && (
               <Card className="shrink-0 bg-primary-50 border-none" size="lg">
                 <CardHeader>
                   <CardChip size="lg">
@@ -200,7 +202,7 @@ const HomePosts = () => {
             )}
           </>
         )}
-        {!posts && (
+        {!profile && (
           <>
             <NewCard isLogin={false} />
             {SAMPLE_POSTS.map((post, i) => (
