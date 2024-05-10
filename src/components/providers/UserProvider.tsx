@@ -77,7 +77,13 @@ const UserProvider = ({ children }: UserProvider) => {
               </div>
             </div>
           )}
-        <div className={cn(!profile ? 'mt-[86px] mb-[72px]' : 'mt-[72px]')}>
+        <div
+          className={cn(
+            !profile || !Object.keys(profile).length
+              ? 'mt-[86px] mb-[72px]'
+              : 'mt-[72px]',
+          )}
+        >
           {children}
         </div>
       </>
