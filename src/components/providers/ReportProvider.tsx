@@ -14,7 +14,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 
@@ -85,13 +84,8 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
           <AlertDialogTrigger className="hidden" ref={modalBtnRef}>
             기록 데이터 부족 모달
           </AlertDialogTrigger>
-          <AlertDialogContent className="bg-primary-50 px-10">
-            <div className="text-primary-900 font-r16 text-center mt-[70px] mb-8">
-              나의 기록 데이터를 확인하려면 최소 3개의 기록이 필요해요!
-              <br />
-              기록을 마저 작성해주시면 바로 데이터를 보실 수 있어요.
-            </div>
-            <div className="flex items-center justify-center gap-x-2.5">
+          <AlertDialogContent className="bg-primary-50 px-10 gap-0 w-[540px] md:w-[300px] box-content">
+            <div className="flex items-center justify-center gap-x-2.5 mt-8">
               {dataLength < 3 &&
                 dataLength >= 0 &&
                 [...Array(dataLength)].map((v, i) => (
@@ -106,26 +100,24 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
                 <span key={i} className="block w-6 h-6 rounded-full bg-white-0"></span>
               ))}
             </div>
-            <AlertDialogFooter className="mt-[50px]">
-              <Button variant="outline" size="lg" asChild>
-                <Link href="/" className="flex gap-x-2 border-0">
-                  <Image
-                    src="/assets/icons/edit_primary.png"
-                    alt="post"
-                    width={22}
-                    height={22}
-                  />
-                  홈으로 가기
+            <div className="text-primary-900 font-r14 text-center mt-[70px] mt-8">
+              <p>
+                나의 기록 데이터를 확인하려면 <br className="hidden md:block " />
+                최소 3개의 기록이 필요해요!
+              </p>
+              <p className="font-r12 text-gray-500 mt-1 md:mt-2.5">
+                기록을 마저 작성해주시면 바로 데이터를 보실 수 있어요.
+              </p>
+            </div>
+
+            <AlertDialogFooter className="mt-12 pb-2">
+              <Button variant="outline" size="sm" className="px-[41px]" asChild>
+                <Link href="/report/preview" className="flex gap-x-2 border-0">
+                  기록 미리보기
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
+              <Button size="sm" className="bg-primary-900 px-[41px]" asChild>
                 <Link href="/post" className="flex gap-x-2 border-0">
-                  <Image
-                    src="/assets/icons/edit_primary.png"
-                    alt="post"
-                    width={22}
-                    height={22}
-                  />
                   기록하러 가기
                 </Link>
               </Button>
