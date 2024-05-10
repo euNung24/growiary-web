@@ -41,7 +41,7 @@ const TopicList = ({ currentCategory }: TopicListProps) => {
             >
               <Link
                 href={`/post?topic=${topic.id}&category=${topic.category}`}
-                className="px-6 py-4 inline-block text-gray-700 group-hover:text-white-0"
+                className="px-6 py-4 font-r16 inline-block text-gray-700 group-hover:text-white-0"
               >
                 <Image
                   src="/assets/icons/edit_white.png"

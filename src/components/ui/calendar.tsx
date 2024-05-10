@@ -29,7 +29,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn('p-3', className)}
+      className={cn('w-full m-3', className)}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
@@ -45,11 +45,11 @@ function Calendar({
         table: 'w-full border-collapse space-y-1',
         head_row: 'flex',
         head_cell: 'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
-        row: 'flex w-full mt-2',
-        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+        row: 'flex w-full mt-2 gap-2.5',
+        cell: 'h-6 w-6 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
         day: cn(
           buttonVariants({ variant: 'ghost' }),
-          'font-r14 text-gray-800 rounded-full h-8 w-8 p-0 font-normal aria-selected:opacity-100',
+          'font-r14 text-gray-800 rounded-full h-6 w-6 p-0 font-normal aria-selected:opacity-100',
         ),
         day_range_end: 'day-range-end',
         day_selected:
@@ -72,12 +72,12 @@ function Calendar({
           </div>
         ),
         HeadRow: () => (
-          <tr className="flex">
+          <tr className="flex gap-2.5">
             {weeks.map((week, i) => (
               <th
                 key={weeksEng[i]}
                 scope="col"
-                className="font-r12 text-gray-500 rounded-md w-9 font-normal"
+                className="font-r12 text-gray-500 rounded-md w-6 font-normal"
                 aria-label={weeks[i]}
               >
                 {week}

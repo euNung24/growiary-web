@@ -431,7 +431,7 @@ const HistoryView = () => {
           ))}
         </section>
       </div>
-      <div className="sticky h-screen top-0 pt-3 border-l lg:hidden">
+      <div className="sticky h-screen w-[240px] top-0 pt-3 border-l lg:hidden">
         <Calendar
           mode="single"
           today={profile ? new Date() : new Date(2024, 3, 30, 0, 0, 0)}
