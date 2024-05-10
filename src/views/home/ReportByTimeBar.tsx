@@ -55,12 +55,7 @@ const ReportByTimeBar = () => {
           </p>
           <div className="flex justify-around items-end [&>*]:flex [&>*]:flex-col">
             <div>
-              <div
-                className={cn(
-                  'text-gray-800 font-r14 flex flex-col items-center',
-                  timeData[0][0] === 0 && 'mb-6',
-                )}
-              >
+              <div className={cn('text-gray-800 font-r14 flex flex-col items-center')}>
                 <Image
                   src={IMAGE_SRC[timeData[1][0]]}
                   width={46}

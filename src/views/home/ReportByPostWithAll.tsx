@@ -35,10 +35,10 @@ const ReportByPostWithAll = ({ date }: ReportByPostWithAllProps) => {
             다른 이용자보다
             <br />
             <span className={historyStrengthStyle}>
-              {report?.post.user[date] - report?.post.all[date] ? '+' : '-'}{' '}
+              {report?.post.user[date] - report?.post.all[date] > 0 ? '+' : '-'}{' '}
               {Math.abs(report?.post.user[date] - report?.post.all[date])}개
             </span>{' '}
-            더 기록했어요
+            기록했어요
           </p>
           <div className="flex justify-around [&>*]:flex [&>*]:flex-col [&>*]:justify-end [&>*]:items-center">
             <div>
