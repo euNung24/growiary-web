@@ -98,7 +98,7 @@ const ChallengeView = () => {
         <div className="mt-6 mb-[117px]">
           <h3 className="font-sb16 text-primary-400">뱃지 획득 현황</h3>
           <div
-            className="h-3 w-full rounded-[26px] relative mt-3"
+            className="h-3 w-full rounded-[26px] relative mt-3 z-[-1]"
             style={{
               background:
                 'linear-gradient(90deg, #18355E 0%, #0B3E84 31%, #0145A3 49%, #478881 83.5%, #8ECB5E 100%)',
