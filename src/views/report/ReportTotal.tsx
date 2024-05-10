@@ -129,7 +129,6 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
               이에요.
             </li>
           )}
-          )
         </ul>
       )}
     </section>

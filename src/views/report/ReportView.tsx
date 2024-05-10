@@ -20,7 +20,6 @@ import ReportTotal from '@/views/report/ReportTotal';
 import ReportProvider from '@/components/providers/ReportProvider';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import ReportAcc from '@/views/report/ReportAcc';
 
 const ReportView = ({
   selectedMonth,
@@ -114,4 +113,4 @@ const ReportView = ({
   );
 };
 
-export default withMoveMonthly(ReportView, ReportAcc);
+export default withMoveMonthly(ReportView);

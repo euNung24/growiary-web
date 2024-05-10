@@ -14,10 +14,7 @@ export type WithMoveMonthlyProps = {
   selectedYear?: number;
   selectedMonthLastDate?: number;
 };
-const withMoveMonthly = <T extends object>(
-  Component: ComponentType<T>,
-  AnotherComponet: ComponentType<T>,
-): React.FC<T> => {
+const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.FC<T> => {
   const MoveMonthly = (props: T) => {
     const {
       date: { year, month, date },
@@ -71,13 +68,7 @@ const withMoveMonthly = <T extends object>(
     };
 
     return (
-      <div className="mx-auto mt-[-83px]">
-        <AnotherComponet
-          {...props}
-          selectedYear={selectedYear}
-          selectedMonth={selectedMonth}
-          selectedMonthLastDate={lastDate}
-        />
+      <div className="mx-auto">
         <div className="py-5 flex justify-between sticky top-0 bg-white-0 border-b border-gray-100">
           <div className="flex gap-x-3 items-center">
             <ChevronLeft
