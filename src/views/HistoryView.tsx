@@ -394,12 +394,12 @@ const HistoryView = () => {
                       <PopoverTrigger
                         className={cn(
                           'absolute right-6 top-6',
-                          'cursor-default pointer-events-none',
+                          !profile && 'cursor-default pointer-events-none',
                         )}
                       >
                         <Ellipsis width={24} height={24} color="#747F89" />
                       </PopoverTrigger>
-                      <PopoverContent className="flex flex-col justify-center bg-white-0 w-auto p-0 [&>*]:py-2.5 [&>*]:px-10 [&>*]:block [&>*]:font-r14">
+                      <PopoverContent className="flex flex-col justify-center overflow-hidden bg-white-0 w-auto p-0 [&>*]:py-2.5 [&>*]:px-10 [&>*]:block [&>*]:font-r14">
                         <Button asChild variant="ghostGrayHover">
                           <Link href={`/history/${post.id}/edit`}>수정하기</Link>
                         </Button>
