@@ -74,7 +74,9 @@ const UserProvider = ({ children }: UserProvider) => {
               </div>
             </div>
           )}
-        <div className={cn('mt-[72px]', !profile && 'mb-[72px]')}>{children}</div>
+        <div className={cn(!profile ? 'mt-[83px] mb-[72px]' : 'mt-[72px]')}>
+          {children}
+        </div>
       </>
     </UserContext.Provider>
   );

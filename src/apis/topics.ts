@@ -10,6 +10,8 @@ import {
 } from '@/types/topicTypes';
 import withToken from '@/apis/withToken';
 import { ApiSuccessResponse } from '@/types';
+import { getCookie } from '@/utils';
+import { setError } from '@/utils/api';
 
 const topicApiUrl = process.env.NEXT_PUBLIC_API + '/topic';
 
@@ -52,11 +54,25 @@ export const updateTopic = async (
   return response.json();
 };
 
-export const findTopic = async (id: FindTopicType['id']) =>
-  withToken(topicApiUrl + '/find', { body: { id } }) as Promise<
-    ApiSuccessResponse<TopicType>
-  >;
+export const findTopic = async (
+  id: FindTopicType['id'],
+): Promise<ApiSuccessResponse<TopicType>> => {
+  const response = await fetch(topicApiUrl + '/find', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify({
+      id,
+    }),
+  });
 
+  if (!response.ok) {
+    throw await setError(response);
+  }
+
+  return response.json();
+};
 export const getUserRecentTopic = () =>
   withToken(topicApiUrl + '/recent') as Promise<ApiSuccessResponse<RecentTopicType>>;
 

@@ -106,13 +106,13 @@ const Sidebar = () => {
             srcSet="/assets/icons/logo/square.png"
             width={30}
             height={28.29}
-            media="(max-width: 1024px)"
+            media="(max-width: 1160px)"
           />
           <source
             srcSet="/assets/icons/logo/wide.png"
             width={114}
             height={27.26}
-            media="(min-width: 1024px)"
+            media="(min-width: 1160px)"
           />
           <Image
             src="/assets/icons/logo/square.png"
