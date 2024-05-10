@@ -199,49 +199,51 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
         </div>
       </div>
       <div className="mt-6 space-y-3">
-        {(userData?.top3 || SAMPLE_POST_DATA).map((post, i) => (
-          <div
-            className={cn('flex items-center text-gray-800 font-r14', boxStyle)}
-            key={i}
-          >
-            <span className="bg-primary-50 w-6 h-6 rounded-full flex items-center justify-center shrink-0">
-              {i + 1}
-            </span>
-            <div className="ml-6 mr-8">
-              <div className="flex items-center gap-3">
-                <span className="font-sb16">{post.title}</span>
-                <span className="text-gray-500 font-r12 ">
-                  {'writeDate' in post
-                    ? format(new Date(post.writeDate), 'MM월 dd일')
-                    : post?.date}
+        {(slicedData ? slicedData[clicedIndex][1].top3 : SAMPLE_POST_DATA).map(
+          (post, i) => (
+            <div
+              className={cn('flex items-center text-gray-800 font-r14', boxStyle)}
+              key={i}
+            >
+              <span className="bg-primary-50 w-6 h-6 rounded-full flex items-center justify-center shrink-0">
+                {i + 1}
+              </span>
+              <div className="ml-6 mr-8">
+                <div className="flex items-center gap-3">
+                  <span className="font-sb16">{post.title}</span>
+                  <span className="text-gray-500 font-r12 ">
+                    {'writeDate' in post
+                      ? format(new Date(post.writeDate), 'MM월 dd일')
+                      : post?.date}
+                  </span>
+                </div>
+                <div
+                  className="overflow-hidden text-ellipsis font-r14 mt-[3px]"
+                  style={{
+                    display: '-webkit-box',
+                    WebkitBoxOrient: 'vertical',
+                    WebkitLineClamp: 2,
+                    maxHeight: '44px',
+                  }}
+                >
+                  {typeof post.content === 'string'
+                    ? post.content
+                    : post.content.ops.map(op =>
+                        typeof op.insert === 'string' && op.insert !== '\n'
+                          ? op.insert
+                          : '',
+                      )}
+                </div>
+              </div>
+              <div className="flex items-center gap-x-1 ml-auto shrink-0">
+                <span className="font-r14 text-gray-400">작성한 글자</span>
+                <span className="font-r16 text-primary-500">
+                  {post.charactersCount.toLocaleString()}자
                 </span>
               </div>
-              <div
-                className="overflow-hidden text-ellipsis font-r14 mt-[3px]"
-                style={{
-                  display: '-webkit-box',
-                  WebkitBoxOrient: 'vertical',
-                  WebkitLineClamp: 2,
-                  maxHeight: '44px',
-                }}
-              >
-                {typeof post.content === 'string'
-                  ? post.content
-                  : post.content.ops.map(op =>
-                      typeof op.insert === 'string' && op.insert !== '\n'
-                        ? op.insert
-                        : '',
-                    )}
-              </div>
             </div>
-            <div className="flex items-center gap-x-1 ml-auto shrink-0">
-              <span className="font-r14 text-gray-400">작성한 글자</span>
-              <span className="font-r16 text-primary-500">
-                {post.charactersCount.toLocaleString()}자
-              </span>
-            </div>
-          </div>
-        ))}
+          ),
+        )}
       </div>
     </section>
   );

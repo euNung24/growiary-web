@@ -145,7 +145,7 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
             ))}
       </div>
       <div className="flex gap-x-5 mt-5">
-        <div className={cn(boxStyle, 'flex gap-x-12 h-[188px]')}>
+        <div className={cn(boxStyle, 'flex gap-x-12 h-[188px] grow-0 w-[378px]')}>
           <div className="flex flex-col justify-between">
             <div className="flex items-center gap-x-2">
               {topicCategory[selectedCategory || '하루생각'].Icon({
@@ -165,7 +165,7 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
               개
             </span>
           </div>
-          <div>
+          <div className="ml-auto">
             <DonutChart
               data={
                 rankedTopic
