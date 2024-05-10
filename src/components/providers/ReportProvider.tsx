@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import { ReportType } from '@/types/reportTypes';
 import useGetReport from '@/hooks/report/useGetReport';
 import { useRecoilValue } from 'recoil';
@@ -34,11 +34,11 @@ type ReportProvider = {
 };
 const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvider) => {
   const pathname = usePathname();
-  const modalBtnRef = useRef<HTMLButtonElement | null>(null);
   const mutation = useGetReport();
   const [data, setData] = useState<ReportType>({} as ReportType);
   const [isClient, setIsClient] = useState(false);
   const [dataLength, setDataLength] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const {
     date: { year, month },
   } = useRecoilValue(TodayState);
@@ -63,10 +63,12 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
 
         setData(res.data);
         setDataLength(dataCount);
-        dataCount < 3 && modalBtnRef.current?.click();
+        if (dataCount < 3) {
+          setIsOpen(true);
+        }
       })
       .catch(() => {
-        modalBtnRef.current?.click();
+        setIsOpen(true);
       });
   }, [selectedMonth, profile, isClient]);
 
@@ -80,8 +82,8 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
     >
       {children}
       {isClient && profile && dataLength < 3 && pathname === '/report' && (
-        <AlertDialog>
-          <AlertDialogTrigger className="hidden" ref={modalBtnRef}>
+        <AlertDialog open={isOpen}>
+          <AlertDialogTrigger className="hidden">
             기록 데이터 부족 모달
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-primary-50 px-10 gap-0 w-[540px] md:w-[300px] box-content">
