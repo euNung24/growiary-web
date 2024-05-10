@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import useReportContext from '@/hooks/report/useReportContext';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import { WithMoveMonthlyProps } from '@/views/common/withMoveMonthly';
 
 const MAX_BAR_HEIGHT = 147;
 type ReportByPostWithAllProps = {

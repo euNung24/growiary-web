@@ -190,7 +190,10 @@ const HistoryView = () => {
             <ChevronLeft
               width={24}
               height={24}
-              className="cursor-pointer"
+              className={cn(
+                'cursor-pointer',
+                !profile && 'cursor-default pointer-events-none text-gray-400',
+              )}
               onClick={handleClickPrevMonth}
             />
             <div className="relative">
@@ -225,6 +228,7 @@ const HistoryView = () => {
                 +(selectedYear.toString() + selectedMonth.toString().padStart(2, '0')) >=
                   +(year.toString() + month.toString().padStart(2, '0')) &&
                   'cursor-default pointer-events-none text-gray-400',
+                !profile && 'cursor-default pointer-events-none text-gray-400',
               )}
               onClick={handleClickNextMonth}
             />

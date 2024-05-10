@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import { Input } from '@/components/ui/input';
@@ -35,7 +33,6 @@ import { useEffect, useRef, useState } from 'react';
 import { TopicType } from '@/types/topicTypes';
 import { topicCategory } from '@/utils/topicCategory';
 import { useToast } from '@/components/ui/use-toast';
-import { Toaster } from '@/components/ui/toaster';
 import { Label } from '@/components/ui/label';
 import { NO_TOPIC_ID } from '@/utils';
 import Image from 'next/image';
@@ -114,15 +111,15 @@ const PostView = ({ post }: PostViewProps) => {
           });
   }
 
-  const isStopPost = (fn?: () => void) => {
-    if (isSavedRef.current) {
-      fn && (historyFnRef.current = fn);
-      return;
-    }
-
-    btnStopPostRef.current?.click();
-    fn && (historyFnRef.current = fn);
-  };
+  // const isStopPost = (fn?: () => void) => {
+  //   if (isSavedRef.current) {
+  //     fn && (historyFnRef.current = fn);
+  //     return;
+  //   }
+  //
+  //   btnStopPostRef.current?.click();
+  //   fn && (historyFnRef.current = fn);
+  // };
 
   const movePage = () => {
     form.reset();
@@ -148,7 +145,10 @@ const PostView = ({ post }: PostViewProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col h-[90vh] pb-4 gap-y-4 mx-auto"
+        className={cn(
+          'flex flex-col pb-4 gap-y-4 mx-auto',
+          profile ? ' h-[90vh]' : 'h-[80vh]',
+        )}
       >
         {template && (
           <div>
