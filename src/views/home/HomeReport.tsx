@@ -19,7 +19,7 @@ const HomeReport = () => {
       <div className="flex justify-between">
         <h2 className="title">기록 데이터</h2>
         <Button variant="ghostGray" size="sm" className="text-gray-500 font-sb12" asChild>
-          <LinkOrLogin href="/report" isLogin={!!report}>
+          <LinkOrLogin href="/report" isLogin={!!profile}>
             <Button
               variant="ghostGray"
               size="sm"

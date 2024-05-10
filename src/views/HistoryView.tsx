@@ -261,7 +261,9 @@ const HistoryView = () => {
                           <span>{category}</span>
                         </div>
                         <span>
-                          {posts ? categories[category] : SAMPLE_CATEGORY_DATA[category]}
+                          {posts
+                            ? categories[category] || 0
+                            : SAMPLE_CATEGORY_DATA[category]}
                           개
                         </span>
                       </div>
@@ -269,7 +271,7 @@ const HistoryView = () => {
                   </div>
                   <div className="flex justify-between text-gray-500 font-r12">
                     <span>{selectedMonth}월에 작성한 글</span>
-                    <span>{totalPostCount || 38}개</span>
+                    <span>{posts ? totalPostCount || 0 : 38}개</span>
                   </div>
                 </div>
               </PopoverContent>
@@ -457,14 +459,14 @@ const HistoryView = () => {
                   <span>{category}</span>
                 </div>
                 <span>
-                  {posts ? categories[category] : SAMPLE_CATEGORY_DATA[category]}개
+                  {posts ? categories[category] || 0 : SAMPLE_CATEGORY_DATA[category]}개
                 </span>
               </div>
             ))}
           </div>
           <div className="flex justify-between text-gray-500 font-r12">
             <span>{selectedMonth}월에 작성한 글</span>
-            <span>{totalPostCount || 38}개</span>
+            <span>{posts ? totalPostCount || 0 : 38}개</span>
           </div>
         </div>
       </div>

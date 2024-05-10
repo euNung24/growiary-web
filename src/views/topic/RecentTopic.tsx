@@ -105,7 +105,7 @@ const RecentTopic = () => {
               >
                 <Link href={`/post`}>
                   <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
-                  자유주제로 작성하기
+                  자유주제로 기록하기
                 </Link>
               </Button>
             </TopicCardFooter>
