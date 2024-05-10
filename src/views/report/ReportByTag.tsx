@@ -57,6 +57,7 @@ const SAMPLE_NEW_TAG = [
 const ReportByTag = ({ month }: ReportByTagProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
+
   const { data } = useReportContext();
   const [sortedTags, setSortedTags] = useState<[string, number][] | null>();
   const [sortedNewTags, setSortedNewTags] = useState<[string, ResPostType[]][] | null>();
@@ -78,7 +79,6 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
     let sortedNewMonthTag = Object.entries(monthNewTag).sort((a, b) =>
       a[1].length > b[1].length ? -1 : 1,
     );
-    console.log(monthNewTag, sortedNewMonthTag);
     sortedNewMonthTag = sortedNewMonthTag.map(([tag, posts]) => [
       tag,
       [...posts].sort((a, b) => (new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1)),
@@ -89,6 +89,14 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
   return (
     <section>
       <h2 className="title">기록 태그</h2>
+      {data?.tags && !Object.keys(data.tags[month]).length && (
+        <div className="[&+*]:hidden bg-primary-50 rounded-2xl flex flex-col items-center justify-center font-r16 text-gray-800 mt-4 py-16">
+          <p>아직 충분한 양의 태그를 수집하지 못했어요.</p>
+          <p>
+            기록과 태그를 풍부하게 작성할수록 더욱 명확한 데이터 결과를 보여드릴 수 있어요
+          </p>
+        </div>
+      )}
       <div className="flex gap-x-[22px]">
         <div className="flex-1">
           <p className={descriptionStyle}>
@@ -120,7 +128,7 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
                   >
                     {tag}
                   </span>
-                  {Object.keys(data?.newTags[month] || []).includes(tag) && (
+                  {SAMPLE_NEW_TAG.map(v => v.tag).includes(tag) && (
                     <Chip variant="gray" className="self-auto">
                       New
                     </Chip>
