@@ -37,7 +37,7 @@ const DonutChart = ({ data: value, color = '#154284' }: DonutChartProps) => {
 
   return (
     <div
-      className={cn('relative h-[123px] w-[123px] rounded-full', before)}
+      className={cn('relative h-[123px] w-[123px] rounded-full z-[-1]', before)}
       style={{ background: gradient }}
     >
       <div className="absolute h-[103px] w-[103px] bg-primary-700 border border-[10px] border-white-0 rounded-full left-[10px] top-[10px] flex justify-center items-center text-white-0 font-sb20">

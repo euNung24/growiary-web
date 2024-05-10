@@ -2,6 +2,7 @@ import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/types/postTypes';
 import Chip from '@/components/Chip';
+import { cn } from '@/lib/utils';
 
 type ReportByTagProps = {
   month: number;
@@ -96,23 +97,41 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
             </span>{' '}
             태그가 가장 많아요
           </p>
-          <div className="space-y-4">
+          <div className="space-y-4 group/parent">
             {!sortedTags &&
               SAMPLE_TAG.map(({ tag, count }, i) => (
                 <div
                   key={tag + count}
-                  className="group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center hover:bg-primary-900 hover:text-white-0"
+                  className={cn(
+                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center',
+                    i === 0
+                      ? 'bg-primary-900 text-white-0 group-hover/parent:bg-white-0 hover:!bg-primary-900 hover:!text-white-0'
+                      : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
+                  )}
                 >
-                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5 group-hover:text-gray-900">
+                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5 text-gray-900">
                     {i + 1}
                   </i>
-                  <span>{tag}</span>
+                  <span
+                    className={cn(
+                      i === 0 &&
+                        'text-white-0 group-hover/parent:text-gray-900 group-hover:!text-white-0',
+                    )}
+                  >
+                    {tag}
+                  </span>
                   {Object.keys(data?.newTags[month] || []).includes(tag) && (
                     <Chip variant="gray" className="self-auto">
                       New
                     </Chip>
                   )}
-                  <span className="ml-auto font-r18 text-gray-500 group-hover:text-white-0">
+                  <span
+                    className={cn(
+                      'ml-auto font-r18 text-gray-500 group-hover:text-white-0',
+                      i === 0 &&
+                        'text-white-0 group-hover/parent:text-gray-500 group-hover:!text-white-0',
+                    )}
+                  >
                     {count}개
                   </span>
                 </div>
@@ -121,18 +140,36 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
               sortedTags?.map(([tag, count], i) => (
                 <div
                   key={tag + count}
-                  className="group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center hover:bg-primary-900 hover:text-white-0"
+                  className={cn(
+                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center',
+                    i === 0
+                      ? 'bg-primary-900 text-white-0 group-hover/parent:bg-white-0 hover:!bg-primary-900 hover:!text-white-0'
+                      : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
+                  )}
                 >
-                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5 group-hover:text-gray-900">
+                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5 text-gray-900">
                     {i + 1}
                   </i>
-                  <span>{tag}</span>
+                  <span
+                    className={cn(
+                      i === 0 &&
+                        'text-white-0 group-hover/parent:text-gray-900 group-hover:!text-white-0',
+                    )}
+                  >
+                    {tag}
+                  </span>
                   {Object.keys(data?.newTags[month] || []).includes(tag) && (
                     <Chip variant="gray" className="self-auto">
                       New
                     </Chip>
                   )}
-                  <span className="ml-auto font-r18 text-gray-500 group-hover:text-white-0">
+                  <span
+                    className={cn(
+                      'ml-auto font-r18 text-gray-500 group-hover:text-white-0',
+                      i === 0 &&
+                        'text-white-0 group-hover/parent:text-gray-500 group-hover:!text-white-0',
+                    )}
+                  >
                     {count}개
                   </span>
                 </div>
@@ -146,15 +183,33 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
             </span>
             의 태그가 새롭게 등장했어요
           </p>
-          <div className="space-y-4">
+          <div className="space-y-4 group/parent">
             {sortedNewTags &&
               sortedNewTags?.slice(0, 5).map(([tag, posts], i) => (
                 <div
                   key={tag + i}
-                  className="group flex gap-x-3 pl-10 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center hover:bg-primary-900 hover:text-white-0"
+                  className={cn(
+                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center',
+                    i === 0
+                      ? 'bg-primary-900 text-white-0 group-hover/parent:bg-white-0 hover:!bg-primary-900 hover:!text-white-0'
+                      : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
+                  )}
                 >
-                  <span>{tag}</span>
-                  <span className="ml-auto font-r18 text-gray-500 group-hover:text-white-0">
+                  <span
+                    className={cn(
+                      i === 0 &&
+                        'text-white-0 group-hover/parent:text-gray-900 group-hover:!text-white-0',
+                    )}
+                  >
+                    {tag}
+                  </span>
+                  <span
+                    className={cn(
+                      'ml-auto font-r18 text-gray-500 group-hover:text-white-0',
+                      i === 0 &&
+                        'text-white-0 group-hover/parent:text-gray-500 group-hover:!text-white-0',
+                    )}
+                  >
                     {new Date(posts[0].writeDate).getMonth() + 1}월{' '}
                     {new Date(posts[0].writeDate).getDate()}일
                   </span>
@@ -164,10 +219,28 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
               SAMPLE_NEW_TAG.map(({ date, tag }, i) => (
                 <div
                   key={tag + i}
-                  className="group flex gap-x-3 pl-10 pr-4 py-5 border border-gray-100 rounded-xl font-r22 text-gray-900 items-center hover:bg-primary-900 hover:text-white-0"
+                  className={cn(
+                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center',
+                    i === 0
+                      ? 'bg-primary-900 text-white-0 group-hover/parent:bg-white-0 hover:!bg-primary-900 hover:!text-white-0'
+                      : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
+                  )}
                 >
-                  <span>{tag}</span>
-                  <span className="ml-auto font-r18 text-gray-500 group-hover:text-white-0">
+                  <span
+                    className={cn(
+                      i === 0 &&
+                        'text-white-0 group-hover/parent:text-gray-900 group-hover:!text-white-0',
+                    )}
+                  >
+                    {tag}
+                  </span>
+                  <span
+                    className={cn(
+                      'ml-auto font-r18 text-gray-500 group-hover:text-white-0',
+                      i === 0 &&
+                        'text-white-0 group-hover/parent:text-gray-500 group-hover:!text-white-0',
+                    )}
+                  >
                     {date}
                   </span>
                 </div>

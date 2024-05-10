@@ -57,8 +57,13 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
   const [slicedData, setSlicedData] = useState<[string, ReportByCharCountType][] | null>(
     null,
   );
+  const [clicedIndex, setClicedIndex] = useState(0);
   const { data } = useReportContext();
   const userData = data?.charCount?.[`${year}-${month}`];
+
+  const handleChangeClickedIndex = (idx: number) => {
+    setClicedIndex(idx);
+  };
 
   useEffect(() => {
     if (!data) return;
@@ -120,9 +125,21 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
               data.sum > 0 && (
                 <div
                   key={i}
-                  className="group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-700 hover:text-white-0"
+                  className={cn(
+                    'group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-900 hover:text-white-0',
+                    // i === clicedIndex &&
+                    //   'bg-primary-900 text-primary-900 hover:bg-primary-50 hover:text-primary-900',
+                    i === clicedIndex && 'bg-primary-900 text-primary-900',
+                  )}
+                  onClick={() => handleChangeClickedIndex(i)}
                 >
-                  <div className="flex justify-between text-gray-500 group-hover:text-white-0">
+                  <div
+                    className={cn(
+                      'flex justify-between text-gray-500 group-hover:text-white-0',
+                      // i === clicedIndex && 'text-white-0 group-hover:text-gray-500',
+                      i === clicedIndex && 'text-white-0',
+                    )}
+                  >
                     <span className="font-r16">{+date.slice(-2)}월</span>
                     {i === 0 && (slicedData || SAMPLE_CHAR_DATA).length >= 2 && (
                       <span className="font-r12 flex items-center gap-x-0.5">
@@ -143,9 +160,21 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center justify-center font-m36 mt-2 mb-[38px] group-hover:text-white-0">
+                  <div
+                    className={cn(
+                      'flex items-center justify-center font-m36 mt-2 mb-[38px] group-hover:text-white-0',
+                      // i === clicedIndex && 'text-white-0  group-hover:text-primary-900',
+                      i === clicedIndex && 'text-white-0',
+                    )}
+                  >
                     {(data.sum || 0).toLocaleString()}{' '}
-                    <span className="ml-2 text-gray-800 font-r16 group-hover:text-white-0">
+                    <span
+                      className={cn(
+                        'ml-2 text-gray-800 font-r16 group-hover:text-white-0',
+                        // i === clicedIndex && 'text-white-0 group-hover:text-gray-800',
+                        i === clicedIndex && 'text-white-0',
+                      )}
+                    >
                       자
                     </span>
                   </div>
@@ -153,7 +182,7 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
               ),
           )}
           {slicedDataLength === 1 && (
-            <div className="group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-700 hover:text-white-0">
+            <div className="group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-900 hover:text-white-0">
               <div className="flex justify-between text-gray-500 group-hover:text-white-0">
                 <span className="font-r16">
                   {data && +Object.keys(data?.charCount).reverse()[1].slice(-2)}월

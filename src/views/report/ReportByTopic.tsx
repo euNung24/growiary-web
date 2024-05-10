@@ -8,12 +8,7 @@ import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/types/topicTypes';
 import { getPercentage } from '@/utils';
 
-const CHART_COLOR = [
-  'bg-primary-900',
-  'bg-primary-700',
-  'bg-primary-400',
-  'bg-primary-200',
-];
+const CHART_COLOR = ['bg-gray-600', 'bg-gray-400', 'bg-gray-200', 'bg-gray-100'];
 
 const SAMPLE_POST_DATA: (Pick<ResPostType, 'title' | 'tags'> & {
   date: string;
@@ -72,10 +67,12 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
     null,
   );
   const [totalPostCount, setTotalPostCount] = useState(0);
+  const [clickedCategory, setClickedCategory] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<TopicCategory | null>(null);
 
-  const handleClickCategoryBar = (category: TopicCategory) => {
+  const handleClickCategoryBar = (category: TopicCategory, idx: number) => {
     setSelectedCategory(category);
+    setClickedCategory(idx);
   };
 
   useEffect(() => {
@@ -110,13 +107,15 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
                 key={category + i}
                 className={cn(
                   'flex justify-center items-center cursor-pointer',
-                  CHART_COLOR[i],
                   i === rankedTopic?.length - 1 && 'flex-1',
+                  i < clickedCategory && CHART_COLOR[i],
+                  i > clickedCategory && CHART_COLOR[i - 1],
+                  i === clickedCategory && 'bg-primary-900',
                 )}
                 style={{
                   width: `${getPercentage(posts.length, totalPostCount)}%`,
                 }}
-                onClick={() => handleClickCategoryBar(category)}
+                onClick={() => handleClickCategoryBar(category, i)}
               >
                 {topicCategory[category]?.Icon({
                   width: 16,
@@ -128,7 +127,10 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
           : SAMPLE_POST_DATA.map((data, i) => (
               <div
                 key={data.topic?.category || '0' + i}
-                className={cn('flex justify-center items-center', CHART_COLOR[i])}
+                className={cn(
+                  'flex justify-center items-center',
+                  i === 0 ? 'bg-primary-900' : CHART_COLOR[i - 1],
+                )}
                 style={{
                   width: `${data.percent}%`,
                 }}

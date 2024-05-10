@@ -161,7 +161,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
 
               <div className="flex mt-7 justify-around [&>*]:flex [&>*]:flex-col [&>*]:justify-end [&>*]:items-center">
                 <div>
-                  <div className="relative mb-2">
+                  <div className="relative mb-2 z-[-1]">
                     <Image
                       src="/assets/images/speech_bubble.png"
                       alt="all"
@@ -186,7 +186,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                   <span className="text-gray-500 font-r16">그루어리 평균</span>
                 </div>
                 <div>
-                  <div className="relative mb-2">
+                  <div className="relative mb-2 z-[-1]">
                     <Image
                       src="/assets/images/speech_bubble.png"
                       alt="all"
