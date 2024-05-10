@@ -83,7 +83,10 @@ const withMoveMonthly = <T extends object>(
             <ChevronLeft
               width={24}
               height={24}
-              className="cursor-pointer"
+              className={cn(
+                'cursor-pointer',
+                !profile && 'cursor-default pointer-events-none text-gray-400',
+              )}
               onClick={handleClickPrevMonth}
             />
             <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50">

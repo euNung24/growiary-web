@@ -32,118 +32,133 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
   const allData = report?.post?.all[`${year}-${month}`];
 
   return (
-    report &&
     year && (
       <section>
         <div>
           <h2 className="title">기록 추이</h2>
           <p className={descriptionStyle}>
-            <span className={strengthStyle}>이번 달에 {userData}개</span>의 기록을
-            작성하고 있어요
+            <span className={strengthStyle}>{profile ? userData : 38}개</span>의 기록을
+            작성했어요
           </p>
           <div className="flex gap-x-5">
             <div className={cn(boxStyle, 'flex-1')}>
-              {report?.post?.user && (
-                <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
-                  <span>
-                    총 누적{' '}
-                    <b className="ml-[5px] text-gray-500 font-normal">
-                      {Object.values(report.post.user).reduce((f, v) => f + v, 0)}개
-                    </b>
-                  </span>
-                  <span>
-                    월 평균{' '}
-                    <b className="ml-[5px] text-gray-500 font-normal">
-                      {report?.post?.user &&
+              <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
+                <span>
+                  총 누적{' '}
+                  <b className="ml-[5px] text-gray-500 font-normal">
+                    {profile && report
+                      ? Object.values(report.post.user).reduce((f, v) => f + v, 0)
+                      : 218}
+                    개
+                  </b>
+                </span>
+                <span>
+                  월 평균{' '}
+                  <b className="ml-[5px] text-gray-500 font-normal">
+                    {profile
+                      ? report?.post?.user &&
                         (
                           Object.values(report.post.user).reduce((f, v) => f + v, 0) / 8
-                        ).toFixed(1)}
-                      개
-                    </b>
-                  </span>
-                  <span>
-                    월 최대{' '}
-                    <b className="ml-[5px] text-gray-500 font-normal">
-                      {Math.max(...Object.values(report.post.user))}개
-                    </b>
-                  </span>
-                </div>
-              )}
+                        ).toFixed(1)
+                      : 31}
+                    개
+                  </b>
+                </span>
+                <span>
+                  월 최대{' '}
+                  <b className="ml-[5px] text-gray-500 font-normal">
+                    {profile && report
+                      ? Math.max(...Object.values(report.post.user))
+                      : 47}
+                    개
+                  </b>
+                </span>
+              </div>
               <div className="h-[266px]">
-                {userData && (
-                  <BarChart
-                    height=""
-                    data={[...Object.values(report.post.user).reverse(), 0]}
-                    labels={[
-                      ...Object.keys(report.post.user)
-                        .reverse()
-                        .map(v => +v.slice(-2) + '월'),
-                      format(new Date(year, +month - 1 + 1, 1, 0, 0, 0), 'M월'),
-                    ]}
-                    backgroundColor={[
-                      '#BFCADF',
-                      '#BFCADF',
-                      '#BFCADF',
-                      '#BFCADF',
-                      '#BFCADF',
-                      '#BFCADF',
-                      '#204C90',
-                      '#BFCADF',
-                    ]}
-                    options={{
-                      responsive: true,
-                      scales: {
-                        x: {
-                          grid: {
-                            display: false,
-                          },
-                          border: {
-                            color: '#BEBFBF',
-                            width: 0,
-                          },
+                <BarChart
+                  height=""
+                  data={
+                    profile && report
+                      ? [...Object.values(report.post.user).reverse(), 0]
+                      : [18, 33, 28, 47, 28, 30, 37, 0]
+                  }
+                  labels={
+                    report
+                      ? [
+                          ...Object.keys(report.post.user)
+                            .reverse()
+                            .map(v => +v.slice(-2) + '월'),
+                          format(new Date(year, +month - 1 + 1, 1, 0, 0, 0), 'M월'),
+                        ]
+                      : ['10월', '11월', '12월', '1월', '2월', '3월', '4월', '5월']
+                  }
+                  backgroundColor={[
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#BFCADF',
+                    '#204C90',
+                    '#BFCADF',
+                  ]}
+                  options={{
+                    responsive: true,
+                    scales: {
+                      x: {
+                        grid: {
+                          display: false,
                         },
-                        y: {
-                          max:
-                            Math.max(...Object.values(report.post.user)) +
-                            (Math.max(...Object.values(report.post.user)) > 10 ? 10 : 1),
-                          ticks: {
-                            stepSize:
-                              Math.max(...Object.values(report.post.user)) > 10 ? 10 : 1,
-                            color: '#BEBFBF',
-                            font: {
-                              size: 12,
-                            },
+                        border: {
+                          color: '#BEBFBF',
+                          width: 0,
+                        },
+                      },
+                      y: {
+                        max: report
+                          ? Math.max(...Object.values(report.post.user)) +
+                            (Math.max(...Object.values(report.post.user)) > 10 ? 10 : 1)
+                          : 60,
+                        ticks: {
+                          stepSize: report
+                            ? Math.max(...Object.values(report.post.user)) > 10
+                              ? 10
+                              : 1
+                            : 10,
+                          color: '#BEBFBF',
+                          font: {
+                            size: 12,
                           },
                         },
                       },
-                      plugins: {
-                        datalabels: {
-                          display: true,
-                          anchor: 'end',
-                          offset: 4,
-                          align: 'end',
-                          color: '#002861',
-                          formatter: function (value: string, context: Context) {
-                            return context.active ? value : '';
-                          },
+                    },
+                    plugins: {
+                      datalabels: {
+                        display: true,
+                        anchor: 'end',
+                        offset: 4,
+                        align: 'end',
+                        color: '#002861',
+                        formatter: function (value: string, context: Context) {
+                          return context.active ? value : '';
                         },
                       },
-                    }}
-                  />
-                )}
+                    },
+                  }}
+                />
               </div>
             </div>
             <div className={cn(boxStyle, 'w-[300px] px-8')}>
-              {userData && allData && (
-                <p className="font-r22">
-                  이번 달에 전체 이용자보다
-                  <br />
-                  <span className="font-sb22 text-primary-900">
-                    {userData - allData > 0 ? '+' : '-'} {Math.abs(userData - allData)}개
-                  </span>{' '}
-                  기록했어요
-                </p>
-              )}
+              <p className="font-r22">
+                이번 달에 전체 이용자보다
+                <br />
+                <span className="font-sb22 text-primary-900">
+                  {userData && allData ? (userData - allData > 0 ? '+' : '-') : '+'}{' '}
+                  {userData && allData ? Math.abs(userData - allData) : 12}개
+                </span>{' '}
+                기록했어요
+              </p>
+
               <div className="flex mt-7 justify-around [&>*]:flex [&>*]:flex-col [&>*]:justify-end [&>*]:items-center">
                 <div>
                   <div className="relative mb-2">
@@ -154,20 +169,20 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                       height={29}
                     />
                     <span className="absolute top-1 inset-0 text-center font-r12">
-                      {allData}개
+                      {profile ? allData : 26}개
                     </span>
                   </div>
-                  {allData && userData && (
-                    <div
-                      className="bg-primary-100 rounded max-h-[147px] w-[62px] mb-2.5"
-                      style={{
-                        height:
-                          allData > userData
+                  <div
+                    className="bg-primary-100 rounded max-h-[147px] w-[62px] mb-2.5"
+                    style={{
+                      height:
+                        allData && userData
+                          ? allData > userData
                             ? MAX_BAR_HEIGHT + 'px'
-                            : getLowBarHeight(allData, userData),
-                      }}
-                    />
-                  )}
+                            : getLowBarHeight(allData, userData) + 'px'
+                          : getLowBarHeight(26, 38) + 'px',
+                    }}
+                  />
                   <span className="text-gray-500 font-r16">그루어리 평균</span>
                 </div>
                 <div>
@@ -179,20 +194,20 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                       height={29}
                     />
                     <span className="absolute top-1 inset-0 text-center font-r12">
-                      {userData}개
+                      {profile ? userData : 38}개
                     </span>
                   </div>
-                  {allData && userData && (
-                    <div
-                      className="bg-primary-700 rounded max-h-[147px] w-[62px] mb-2.5"
-                      style={{
-                        height:
-                          allData < userData
+                  <div
+                    className="bg-primary-700 rounded max-h-[147px] w-[62px] mb-2.5"
+                    style={{
+                      height:
+                        allData && userData
+                          ? allData < userData
                             ? MAX_BAR_HEIGHT + 'px'
-                            : getLowBarHeight(allData, userData) + 'px',
-                      }}
-                    />
-                  )}
+                            : getLowBarHeight(allData, userData) + 'px'
+                          : MAX_BAR_HEIGHT + 'px',
+                    }}
+                  />
                   <span className="text-gray-500 font-r16">
                     {profile?.nickname || '그루미'}님
                   </span>

@@ -68,9 +68,9 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const { data } = useReportContext();
-  const [RankdedTopic, setRankedTopic] = useState<
-    [TopicCategory, ResPostType[]][] | null
-  >(null);
+  const [rankedTopic, setRankedTopic] = useState<[TopicCategory, ResPostType[]][] | null>(
+    null,
+  );
   const [totalPostCount, setTotalPostCount] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<TopicCategory | null>(null);
 
@@ -100,18 +100,18 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
     <section>
       <h2 className="title">기록 카테고리</h2>
       <p className={descriptionStyle}>
-        <span className={strengthStyle}>{selectedCategory || '하루생각'}</span> 카테고리를
-        가장 많이 작성했어요
+        <span className={strengthStyle}>{rankedTopic?.[0][0] || '하루생각'}</span>{' '}
+        카테고리를 가장 많이 작성했어요
       </p>
       <div className="flex rounded-lg overflow-hidden text-center h-9 leading-9">
-        {RankdedTopic
-          ? RankdedTopic.map(([category, posts], i) => (
+        {rankedTopic
+          ? rankedTopic.map(([category, posts], i) => (
               <div
                 key={category + i}
                 className={cn(
                   'flex justify-center items-center cursor-pointer',
                   CHART_COLOR[i],
-                  i === RankdedTopic?.length - 1 && 'flex-1',
+                  i === rankedTopic?.length - 1 && 'flex-1',
                 )}
                 style={{
                   width: `${getPercentage(posts.length, totalPostCount)}%`,
@@ -143,7 +143,7 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
             ))}
       </div>
       <div className="flex gap-x-5 mt-5">
-        <div className={cn(boxStyle, 'flex gap-x-12')}>
+        <div className={cn(boxStyle, 'flex gap-x-12 h-[188px]')}>
           <div className="flex flex-col justify-between">
             <div className="flex items-center gap-x-2">
               {topicCategory[selectedCategory || '하루생각'].Icon({
@@ -166,7 +166,7 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
           <div>
             <DonutChart
               data={
-                RankdedTopic
+                rankedTopic
                   ? getPercentage(
                       selectedCategory ? (data?.topic[selectedCategory] || []).length : 0,
                       totalPostCount,

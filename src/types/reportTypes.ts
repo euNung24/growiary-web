@@ -21,6 +21,10 @@ type ReportByTagType = { [key: string]: number };
 type ReportByNewTagType = { [key: string]: ResPostType[] };
 
 export type ReportType = {
+  all: {
+    charactersCount: { sum: number; avg: number };
+    post: { sum: number; avg: number; max: number };
+  };
   post: ReportByPostType;
   week: [number, number, number, number, number, number, number][];
   time: [number, number, number, number][];

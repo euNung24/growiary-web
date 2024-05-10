@@ -77,62 +77,61 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
           </li>
         </ul>
       )}
-      <ul
-        className={cn(
-          boxStyle,
-          'flex flex-col gap-y-4 mt-5 list-outside list-disc font-r16 marker:text-gray-400 pl-10 [&>*]:pl-2.5',
-        )}
-      >
-        {data && (
-          <>
-            <li>
-              총{' '}
-              <Chip className={chipStyle}>{data.post?.user[`${year}-${month}`]}개</Chip>의
-              글을{' '}
-              <Chip className={chipStyle}>
-                {data.charCount?.[`${year}-${month}`].sum}자
-              </Chip>
-              작성했어요
-            </li>
-            <li>
-              주로{' '}
-              <Chip className={chipStyle}>
-                {data.week?.[monthIndex] &&
-                  DATE[
-                    data.week[monthIndex].findIndex(
-                      v => v === Math.max(...data.week[monthIndex]),
-                    )
-                  ]}
-                요일
-              </Chip>
-              ,{' '}
-              <Chip className={chipStyle}>
-                {data.time?.[monthIndex] &&
-                  TIME[
-                    data.time[monthIndex].findIndex(
-                      v => v === Math.max(...data.time[monthIndex]),
-                    )
-                  ]}
-                시간
-              </Chip>
-              에 작성했어요
-            </li>
-          </>
-        )}
-        {data && topTopic && (
+
+      {data && (
+        <ul
+          className={cn(
+            boxStyle,
+            'flex flex-col gap-y-4 mt-5 list-outside list-disc font-r16 marker:text-gray-400 pl-10 [&>*]:pl-2.5',
+          )}
+        >
           <li>
-            <Chip className={chipStyle}>{topTopic}</Chip>와 관련한 글을 가장 많이
+            총 <Chip className={chipStyle}>{data.post?.user[`${year}-${month}`]}개</Chip>
+            의 글을{' '}
+            <Chip className={chipStyle}>
+              {data.charCount?.[`${year}-${month}`].sum}자
+            </Chip>
             작성했어요
           </li>
-        )}
-        {data && topNewTag && (
           <li>
-            지난 {monthIndex !== 0 ? monthIndex : 12}월과 비교해 새로 등장한 태그는{' '}
-            <Chip className={chipStyle}>{topNewTag}</Chip>
-            이에요.
+            주로{' '}
+            <Chip className={chipStyle}>
+              {data.week?.[monthIndex] &&
+                DATE[
+                  data.week[monthIndex].findIndex(
+                    v => v === Math.max(...data.week[monthIndex]),
+                  )
+                ]}
+              요일
+            </Chip>
+            ,{' '}
+            <Chip className={chipStyle}>
+              {data.time?.[monthIndex] &&
+                TIME[
+                  data.time[monthIndex].findIndex(
+                    v => v === Math.max(...data.time[monthIndex]),
+                  )
+                ]}
+              시간
+            </Chip>
+            에 작성했어요
           </li>
-        )}
-      </ul>
+          {topTopic && (
+            <li>
+              <Chip className={chipStyle}>{topTopic}</Chip>와 관련한 글을 가장 많이
+              작성했어요
+            </li>
+          )}
+          {topNewTag && (
+            <li>
+              지난 {monthIndex !== 0 ? monthIndex : 12}월과 비교해 새로 등장한 태그는{' '}
+              <Chip className={chipStyle}>{topNewTag}</Chip>
+              이에요.
+            </li>
+          )}
+          )
+        </ul>
+      )}
     </section>
   );
 };
