@@ -6,7 +6,6 @@ type PostType = {
   index?: number;
   topicId?: number;
   topic?: TopicType;
-  category?: TopicCategory;
   title: string;
   content: { ops: Op[] };
   tags: string[];

@@ -15,37 +15,48 @@ const CHART_COLOR = [
   'bg-primary-200',
 ];
 
-const SAMPLE_POST_DATA: (Pick<ResPostType, 'title' | 'tags' | 'category'> & {
+const SAMPLE_POST_DATA: (Pick<ResPostType, 'title' | 'tags'> & {
   date: string;
   percent: number;
+  topic: {
+    category: TopicCategory;
+  };
 })[] = [
   {
     title: '요즘 나의 최대 걱정거리',
     date: '04월 25일',
     tags: ['걱정'],
     percent: 35,
-    category: '하루생각',
+    topic: {
+      category: '하루생각',
+    },
   },
   {
     title: '새벽 운동과 부상',
     date: '04월 24일',
     tags: ['성장'],
     percent: 25,
-    category: '회고',
+    topic: {
+      category: '회고',
+    },
   },
   {
     title: '쉬어야 해 진짜',
     date: '04월 22일',
     tags: ['감사'],
     percent: 20,
-    category: '크리에이티브',
+    topic: {
+      category: '크리에이티브',
+    },
   },
   {
     title: '쉬어야 해 진짜',
     date: '04월 22일',
     tags: ['감사'],
     percent: 20,
-    category: '자아탐험',
+    topic: {
+      category: '자아탐험',
+    },
   },
 ];
 
@@ -116,14 +127,14 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
             ))
           : SAMPLE_POST_DATA.map((data, i) => (
               <div
-                key={data.category || '0' + i}
+                key={data.topic?.category || '0' + i}
                 className={cn('flex justify-center items-center', CHART_COLOR[i])}
                 style={{
                   width: `${data.percent}%`,
                 }}
               >
-                {data.category &&
-                  topicCategory[data.category]?.Icon({
+                {data.topic?.category &&
+                  topicCategory[data.topic?.category]?.Icon({
                     width: 16,
                     height: 16,
                     color: '#ffffff',
