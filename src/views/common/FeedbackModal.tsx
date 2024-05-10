@@ -29,6 +29,7 @@ import { toast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import { FeedbackType } from '@/types/feedbackType';
 import { createFeedback } from '@/apis/feedback';
+import { usePathname } from 'next/navigation';
 
 const FormSchema = z.object({
   category: z.string(),
@@ -50,6 +51,7 @@ const FeedbackModal = ({
   const [placeholder, setPlaceholder] = useState('');
   const btnToastRef = useRef<HTMLButtonElement | null>(null);
   const bntCloseModalRef = useRef<HTMLButtonElement | null>(null);
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -82,6 +84,12 @@ const FeedbackModal = ({
     field.onChange(category);
   };
 
+  const handleClose = (open: boolean) => {
+    if (pathname === '/feedback' && !open) {
+      history.back();
+    }
+  };
+
   useEffect(() => {
     const target = menu.find(v => v.name === defaultCategory);
     setPlaceholder(target?.placeholder || '');
@@ -90,7 +98,7 @@ const FeedbackModal = ({
   return (
     <>
       {isClient && (
-        <Dialog defaultOpen={defaultOpen}>
+        <Dialog defaultOpen={defaultOpen} onOpenChange={open => handleClose(open)}>
           <DialogTrigger asChild>
             {children ? children : <Button className="hidden">의견 보내기 모달</Button>}
           </DialogTrigger>

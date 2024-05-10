@@ -32,6 +32,10 @@ const SettingModal = () => {
     setIsLogout(true);
   };
 
+  const handleClose = (open: boolean) => {
+    !open && history.back();
+  };
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -46,7 +50,7 @@ const SettingModal = () => {
   return (
     <>
       {isClient && (
-        <Dialog defaultOpen>
+        <Dialog defaultOpen onOpenChange={open => handleClose(open)}>
           <DialogTrigger asChild>
             <Button className="hidden">설정 모달</Button>
           </DialogTrigger>
