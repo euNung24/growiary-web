@@ -22,7 +22,7 @@ const PrivateTerm = ({ children }: PrivateTermProps) => {
         <AlertDialogHeader>
           <AlertDialogTitle className="font-sb22">개인정보 처리방침</AlertDialogTitle>
         </AlertDialogHeader>
-        <div className="max-h-[60vh] border border-gray-100 rounded-xl p-6 max-w-[540px] overflow-scroll">
+        <div className="max-h-[60vh] font-r14 border border-gray-100 rounded-xl p-6 max-w-[540px] overflow-scroll">
           그루어리 개인정보처리 방침 1. 수집하는 개인정보 항목 및 수집목적 1.1. 회사는
           다음과 같은 목적으로 개인정보를 수집하고 있습니다. - (1) 서비스 이용을 위한
           회원가입: 이용자 식별, 서비스 제공을 위한 회원관리 - (2) 결제 정보 수집: 유료

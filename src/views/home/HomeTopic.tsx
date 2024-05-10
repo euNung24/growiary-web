@@ -99,12 +99,14 @@ const HomeTopic = () => {
                         </div>
                         <CardTitle className="break-keep">{topic.category}</CardTitle>
                       </div>
-                      <RotateCw
-                        width={20}
-                        height={20}
-                        className="text-gray-500 mt-[5px] cursor-pointer group-hover:text-white-0"
-                        onClick={e => changeTopicTitle(e, category, randomTitleIndex)}
-                      />
+                      {category !== '자유' && (
+                        <RotateCw
+                          width={20}
+                          height={20}
+                          className="text-gray-500 mt-[5px] cursor-pointer group-hover:text-white-0"
+                          onClick={e => changeTopicTitle(e, category, randomTitleIndex)}
+                        />
+                      )}
                     </CardHeader>
                     <CardContent className="overflow-hidden">
                       {topic.title.split('/n').map((text, i) => (

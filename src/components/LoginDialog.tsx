@@ -54,7 +54,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
             className="mb-6 ml-auto mr-auto pt-4"
           />
           <DialogTitle>그루어리에 오신 것을 환영합니다</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="font-r12">
             그루어리의 다양한 기능을 이용하기 위해 로그인해 주세요.
           </DialogDescription>
         </DialogHeader>

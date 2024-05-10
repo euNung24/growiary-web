@@ -108,7 +108,9 @@ const PostView = ({ post }: PostViewProps) => {
               <List width={22} height={22} />
               주제
             </Label>
-            <div className="px-3 py-[14px]">{template.title?.replaceAll('/n ', '')}</div>
+            <div className="px-3 py-[14px] text-gray-900">
+              {template.title?.replaceAll('/n ', '')}
+            </div>
           </div>
         )}
         <div className="flex space-y-0">
@@ -120,7 +122,7 @@ const PostView = ({ post }: PostViewProps) => {
             variant={'ghost'}
             disabled
             className={cn(
-              'flex-1 pl-3 py-2 font-r16 text-gray-700 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
+              'flex-1 pl-3 py-2 font-r16 text-gray-900 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
             )}
           >
             {getStringDateAndTime(new Date(post.writeDate))}

@@ -63,7 +63,7 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
 
   return (
     <section>
-      <h2 className="title">태그</h2>
+      <h2 className="title">기록 태그</h2>
       <div className="flex gap-x-[22px]">
         <div className="flex-1">
           <p className={descriptionStyle}>

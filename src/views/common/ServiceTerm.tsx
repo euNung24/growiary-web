@@ -22,7 +22,7 @@ const ServiceTerm = ({ children }: ServiceTermProps) => {
         <AlertDialogHeader>
           <AlertDialogTitle className="font-sb22">서비스 이용약관</AlertDialogTitle>
         </AlertDialogHeader>
-        <div className="max-h-[60vh] border border-gray-100 rounded-xl p-6 max-w-[540px] overflow-scroll">
+        <div className="max-h-[60vh] border font-r14 border-gray-100 rounded-xl p-6 max-w-[540px] overflow-scroll">
           그루어리서비스 이용약관 **제1조 목적** 이 약관은 그루어리 서비스(이하
           &quot;서비스&quot;)를 제공하는 회사와 이 서비스를 이용하는 이용자 간의 권리,
           의무 및 책임사항을 정함을 목적으로 합니다. **제2조 약관의 효력과 변경** 1. 본

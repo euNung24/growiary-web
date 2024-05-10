@@ -80,7 +80,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <ButtonContext.Provider value={{ size }}>
         <Comp
-          className={cn(buttonVariants({ variant, size, className }), disableClass)}
+          className={cn(buttonVariants({ variant, size }), disableClass, className)}
           ref={ref}
           {...props}
         />
