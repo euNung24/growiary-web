@@ -5,17 +5,24 @@ type RectAreaChartProps = {
 };
 
 const RectAreaChart = ({ data }: RectAreaChartProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const containerWidth = 412 * 2;
-  const containerHeight = 308 * 2;
+  const containerWidth = 412;
+  const containerHeight = 308;
+
+  const firstRectRef = useRef<HTMLDivElement | null>(null);
+  const secondRectRef = useRef<HTMLDivElement | null>(null);
+  const thirdRectRef = useRef<HTMLDivElement | null>(null);
+  const fourthRectRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!canvasRef.current || !data?.length) return;
-    canvasRef.current.width = containerWidth;
-    canvasRef.current.height = containerHeight;
-
-    const ctx = canvasRef.current.getContext('2d');
-
+    if (
+      !firstRectRef.current ||
+      !secondRectRef.current ||
+      !thirdRectRef.current ||
+      !fourthRectRef.current ||
+      !data?.length
+    )
+      return;
+    console.log(data);
     // 가장 큰 데이터와 두 번째로 큰 데이터, 가장 작은 데이터와 두 번째로 작은 데이터의 비율 계산
     const [first, second, third, fourth] = [
       data[0][1],
@@ -24,63 +31,56 @@ const RectAreaChart = ({ data }: RectAreaChartProps) => {
       data[3][1],
     ];
 
-    const width = (first / (first + third)) * containerWidth;
+    const firstWidth = (first / (first + third)) * containerWidth;
 
-    const secondDataY = (first / (first + second)) * containerHeight;
-    const forthDataY = (third / (third + fourth)) * containerHeight;
+    const firstHeight = (first / (first + second)) * containerHeight;
+    const thirdHeight = (third / (third + fourth)) * containerHeight;
 
-    ctx!.font = '36px Arial';
     // 직사각형 그리기
-    ctx!.fillStyle = '#154284';
-    ctx!.fillRect(0, 0, width, secondDataY);
-    ctx!.fillStyle = '#ffffff';
-    ctx!.fillText(`${data[0][0]} ${data[0][1]}%`, width / 2 - 50, secondDataY / 2 + 10);
-
-    if (second !== 0) {
-      ctx!.fillStyle = '#204C90';
-      ctx!.fillRect(0, secondDataY + 8, width, containerHeight);
-      ctx!.fillStyle = '#ffffff';
-      ctx!.fillText(
-        `${data[1][0]} ${data[1][1]}%`,
-        width / 2 - 50,
-        (containerHeight - secondDataY) / 2 + secondDataY + 10,
-      );
+    if (firstRectRef.current) {
+      firstRectRef.current.style.width =
+        (firstWidth !== containerWidth ? firstWidth - 1 : containerWidth) + 'px';
+      firstRectRef.current.style.height =
+        (firstHeight !== containerHeight ? firstHeight - 1 : containerHeight) + 'px';
+      firstRectRef.current.textContent = `${data[0][0]} ${data[0][1]}%`;
     }
 
-    if (third !== 0) {
-      ctx!.fillStyle = '#6E86B4';
-      ctx!.fillRect(width + 8, 0, containerWidth, forthDataY);
-      ctx!.fillStyle = '#ffffff';
-      ctx!.fillText(
-        `${data[2][0]} ${data[2][1]}%`,
-        (containerWidth - width) / 2 + width - 50,
-        forthDataY / 2 + 10,
-      );
+    if (secondRectRef.current) {
+      secondRectRef.current.style.width =
+        (firstWidth !== containerWidth ? firstWidth - 1 : containerWidth) + 'px';
+      secondRectRef.current.style.height = containerHeight - firstHeight - 1 + 'px';
+      secondRectRef.current.textContent = `${data[1][0]} ${data[1][1]}%`;
     }
 
-    if (fourth !== 0) {
-      ctx!.fillStyle = '#96A8CA';
-      ctx!.fillRect(width + 8, forthDataY + 8, containerWidth, containerHeight);
-      ctx!.fillStyle = '#ffffff';
-      ctx!.fillText(
-        `${data[3][0]} ${data[3][1]}%`,
-        (containerWidth - width) / 2 + width - 50,
-        (containerHeight - forthDataY) / 2 + forthDataY + 10,
-      );
+    if (thirdRectRef.current) {
+      thirdRectRef.current.style.width = containerWidth - firstWidth - 1 + 'px';
+      thirdRectRef.current.style.height =
+        (thirdHeight !== containerHeight ? thirdHeight - 1 : containerHeight) + 'px';
+      thirdRectRef.current.textContent = `${data[2][0]} ${data[2][1]}%`;
     }
+    if (fourthRectRef.current) {
+      fourthRectRef.current.style.width = containerWidth - firstWidth - 1 + 'px';
+      fourthRectRef.current.style.height = containerHeight - thirdHeight - 1 + 'px';
+      fourthRectRef.current.textContent = `${data[3][0]} ${data[3][1]}%`;
+    }
+    secondRectRef.current.style.display =
+      firstHeight === containerHeight ? 'none' : 'flex';
+    thirdRectRef.current.style.display = firstWidth === containerWidth ? 'none' : 'flex';
+    fourthRectRef.current.style.display =
+      thirdHeight === containerHeight ? 'none' : 'flex';
   }, [data]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={containerWidth}
-      height={containerHeight}
-      className="rounded-3xl"
-      style={{
-        width: containerWidth / 2,
-        height: containerHeight / 2,
-      }}
-    />
+    <div className="rounded-3xl overflow-hidden text-white-0 flex justify-between *:flex *:flex-col *:justify-between w-[412px] h-[308px]">
+      <div className="*:flex *:items-center *:justify-center *:transition-colors">
+        <div className="bg-primary-700 hover:bg-primary-900" ref={firstRectRef}></div>
+        <div className="bg-primary-600 hover:bg-primary-800" ref={secondRectRef}></div>
+      </div>
+      <div className="*:flex *:items-center *:justify-center *:transition-colors">
+        <div className="bg-primary-300 hover:bg-primary-500" ref={thirdRectRef}></div>
+        <div className="bg-primary-200 hover:bg-primary-400" ref={fourthRectRef}></div>
+      </div>
+    </div>
   );
 };
 

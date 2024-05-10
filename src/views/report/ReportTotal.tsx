@@ -89,7 +89,7 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
             총 <Chip className={chipStyle}>{data.post?.user[`${year}-${month}`]}개</Chip>
             의 글을{' '}
             <Chip className={chipStyle}>
-              {data.charCount?.[`${year}-${month}`].sum}자
+              {data.charCount?.[`${year}-${month}`]?.sum}자
             </Chip>
             작성했어요
           </li>

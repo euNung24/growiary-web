@@ -116,14 +116,14 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                       },
                       y: {
                         max: report
-                          ? Math.max(...Object.values(report.post.user)) +
-                            (Math.max(...Object.values(report.post.user)) > 10 ? 10 : 1)
+                          ? Math.max(...Object.values(report.post.user)) < 10
+                            ? 10
+                            : Math.max(...Object.values(report.post.user)) +
+                              Math.ceil(Math.max(...Object.values(report.post.user)) / 10)
                           : 60,
                         ticks: {
                           stepSize: report
-                            ? Math.max(...Object.values(report.post.user)) > 10
-                              ? 10
-                              : 1
+                            ? Math.ceil(Math.max(...Object.values(report.post.user)) / 10)
                             : 10,
                           color: '#BEBFBF',
                           font: {
