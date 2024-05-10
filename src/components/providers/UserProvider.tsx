@@ -66,7 +66,7 @@ const UserProvider = ({ children }: UserProvider) => {
                 <div className="w-[960px] md:w-[640px] sm:w-[320px] py-[23px] mx-auto text-end bg-white-0 pl-2.5">
                   <LoginDialog>
                     <Button
-                      className="bg-gray-50 border-0"
+                      className="bg-gray-50 border-0 focus:border-transparent focus:border-0"
                       size="sm"
                       variant="outlineGray"
                     >
