@@ -3,7 +3,7 @@ import { findTopic } from '@/apis/topics';
 import { FindTopicType } from '@/types/topicTypes';
 const useFindTopic = (id: FindTopicType['id']) => {
   const mutation = useMutation({
-    mutationKey: ['allTopics', id],
+    mutationKey: ['topic', id],
     mutationFn: () => findTopic(id),
     onSuccess: ({ data }) => {
       console.log(data);

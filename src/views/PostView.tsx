@@ -39,6 +39,7 @@ import Image from 'next/image';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import LoginDialog from '@/components/LoginDialog';
 import StopMovePage from '@/components/StopMovePage';
+import useFindPost from '@/hooks/posts/useFindPost';
 
 const FormSchema = z.object({
   topicId: z.number(),
@@ -50,22 +51,25 @@ const FormSchema = z.object({
 });
 
 type PostViewProps = {
-  post?: ResPostType;
+  postId?: string;
 };
-const PostView = ({ post }: PostViewProps) => {
+const PostView = ({ postId }: PostViewProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const topicId = searchParams.get('topic')
     ? parseInt(searchParams.get('topic')!, 10)
-    : post?.topicId || NO_TOPIC_ID;
-  const mutation = useFindTopic((post?.topicId || topicId) ?? NO_TOPIC_ID);
+    : NO_TOPIC_ID;
+  const [post, setPost] = useState<ResPostType | null>(null);
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
   const btnStopPostRef = useRef<HTMLButtonElement | null>(null);
   const btnSaveToastRef = useRef<HTMLButtonElement | null>(null);
   const historyFnRef = useRef<() => void | false>(() => {});
   const isSavedRef = useRef(false);
+
   const { toast } = useToast();
   const { profile } = useProfileContext();
+  const topicMutation = useFindTopic(post?.topic?.id || topicId);
+  const postMutation = useFindPost(postId);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -79,13 +83,6 @@ const PostView = ({ post }: PostViewProps) => {
     },
   });
 
-  // const validateTextLength = (e: FormEvent) => {
-  //   const target = e.currentTarget as HTMLInputElement;
-  //   if (target.type === 'text' && target.value.length >= 10) return;
-  //   if (target.type === 'number' && +target.value >= 10) return;
-  //   target.setCustomValidity('10자 이상 작성해주세요');
-  // };
-
   const movePageAfterSubmit = (post: ResPostType) => {
     form.reset();
     router.push(`/history/${post.id}`);
@@ -94,7 +91,6 @@ const PostView = ({ post }: PostViewProps) => {
 
   async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
     isSavedRef.current = true;
-
     post
       ? await updatePost({ id: post.id, ...(data as ReqPostType) })
           .then(res => {
@@ -127,7 +123,30 @@ const PostView = ({ post }: PostViewProps) => {
     historyFnRef.current && historyFnRef.current() && history.back();
   };
 
+  useEffect(function getPost() {
+    postMutation &&
+      postMutation.mutateAsync().then(res => {
+        if (!res) return;
+        setPost(res.data);
+        res.data.topic &&
+          setTemplate({
+            ...res.data.topic,
+            content: res.data.topic.content || '자유롭게 작성할 수 있어요.',
+          });
+        console.log(res.data);
+        form.reset({
+          topicId: res.data.topicId,
+          title: res.data.title,
+          tags: [...res.data.tags],
+          content: { ...res.data.content },
+          writeDate: new Date(res.data.writeDate),
+          charactersCount: res.data.charactersCount,
+        });
+      });
+  }, []);
+
   useEffect(function setInitTemplate() {
+    if (postId) return;
     if (topicId === NO_TOPIC_ID) {
       setTemplate(v => ({
         ...v,
@@ -136,7 +155,7 @@ const PostView = ({ post }: PostViewProps) => {
       }));
       return;
     }
-    mutation.mutateAsync().then(({ data }) => {
+    topicMutation.mutateAsync().then(({ data }) => {
       !data.content && (data['content'] = '자유롭게 작성할 수 있어요.');
       setTemplate(data);
     });
@@ -283,7 +302,7 @@ const PostView = ({ post }: PostViewProps) => {
                             }}
                           />
                           {template?.category && (
-                            <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%]">
+                            <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%] z-[-1]">
                               {topicCategory[template.category]?.Icon({
                                 width: '100%',
                                 height: '100%',
@@ -318,7 +337,10 @@ const PostView = ({ post }: PostViewProps) => {
                       </LoginDialog>
                       <StopMovePage
                         url={post ? `/history/${post.id}` : '/post'}
-                        isPreventCondition={!!titleField.value || !!countField.value}
+                        isPreventCondition={
+                          (!!titleField.value || !!countField.value) &&
+                          !isSavedRef.current
+                        }
                         // fn={isStopPost}
                       />
                     </div>

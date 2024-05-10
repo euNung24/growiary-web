@@ -10,14 +10,11 @@ import { ApiSuccessResponse } from '@/types';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 
-type TokenType = {
-  token?: string;
-};
 export const getAllPosts = () =>
   withTokenPost(postApiUrl + '/all') as Promise<ApiSuccessResponse<ResPostType[]>>;
 
-export const findPost = (id: number, { token }: TokenType) =>
-  withTokenPost(postApiUrl + '/find', { body: { id }, token }) as Promise<
+export const findPost = (id: string) =>
+  withTokenPost(postApiUrl + '/find', { body: { id } }) as Promise<
     ApiSuccessResponse<ResPostType>
   >;
 
