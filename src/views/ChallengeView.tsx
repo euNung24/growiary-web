@@ -95,7 +95,7 @@ const ChallengeView = () => {
           </Chip>{' '}
           입니다.
         </div>
-        <div className="mt-6 mb-[72px]">
+        <div className="mt-6 mb-[117px]">
           <h3 className="font-sb16 text-primary-400">뱃지 획득 현황</h3>
           <div
             className="h-3 w-full rounded-[26px] relative mt-3"
@@ -104,6 +104,18 @@ const ChallengeView = () => {
                 'linear-gradient(90deg, #18355E 0%, #0B3E84 31%, #0145A3 49%, #478881 83.5%, #8ECB5E 100%)',
             }}
           >
+            {[...Array(9)].map((v, i) => (
+              <div
+                key={i}
+                className={cn(
+                  'absolute h-3 border-r border-dashed',
+                  i === 4 && 'border-solid',
+                )}
+                style={{
+                  left: (i + 1) * 10 + '%',
+                }}
+              ></div>
+            ))}
             <div
               className="absolute flex items-center shadow justify-center top-1/2 translate-y-[-50%] translate-x-[50%] w-9 h-9 rounded-full overflow-hidden bg-gray-100"
               style={{
@@ -111,10 +123,10 @@ const ChallengeView = () => {
               }}
             >
               <Image
-                src="/assets/images/lunch.png"
-                alt="user"
-                width={34}
-                height={34}
+                src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
+                alt="profile"
+                width={profile && profile.profileImage ? 34 : 24}
+                height={profile && profile.profileImage ? 34 : 24}
                 className="rounded-full"
               />
             </div>
@@ -141,7 +153,7 @@ const ChallengeView = () => {
                 <span className="font-sb18 text-primary-900 block">나의 타이틀 뱃지</span>
                 <TooltipProvider>
                   <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger className="cursor-help">
                       <Image
                         src="/assets/icons/question.png"
                         alt="tooltip"

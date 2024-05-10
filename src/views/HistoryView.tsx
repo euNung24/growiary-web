@@ -322,7 +322,13 @@ const HistoryView = () => {
                   ) || SAMPLE_DATA[date]
                 ).map(post => (
                   <div key={post.id} className="relative">
-                    <Link href={`/history/${post.id}`} className="block">
+                    <Link
+                      href={profile ? `/history/${post.id}` : ''}
+                      className={cn(
+                        'block',
+                        !profile && 'cursor-default pointer-events-none',
+                      )}
+                    >
                       <div className="p-6 flex flex-col rounded-2xl border border-gray-200 relative">
                         <div className="flex justify-between items-center">
                           <CardChip size="lg">

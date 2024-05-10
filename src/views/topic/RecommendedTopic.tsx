@@ -32,7 +32,7 @@ const RecommendedTopic = () => {
               </p>
             ))}
           </div>
-          <div className="absolute right-[26px]">
+          <div className="absolute right-0">
             {topTopic?.topic.category &&
               topicCategory[topTopic?.topic.category].Icon({
                 width: 110,

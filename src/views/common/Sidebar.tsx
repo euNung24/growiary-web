@@ -127,8 +127,8 @@ const Sidebar = () => {
       <LoginDialog>
         <div
           className={cn(
-            'mt-0.5 mb-8 lg:mb-5 text-center',
-            profile ? 'pointer-events-none' : 'cursor-pointer',
+            'mt-0.5 lg:mb-5 text-center',
+            profile ? 'pointer-events-none mb-6' : 'cursor-pointer mb-8',
           )}
         >
           {/* 프로필 이미지 */}
@@ -149,7 +149,7 @@ const Sidebar = () => {
             />
           </div>
           {/* 뱃지 타이틀 */}
-          <span className="lg:hidden block mt-3 mb-2 font-r12 text-gray-900">
+          <span className="lg:hidden block mt-3 font-r12 text-gray-500">
             {profile
               ? BADGE_INFO[titleBadge || 'first'].name
               : '회고하며 성장하는 일기장'}
@@ -161,7 +161,11 @@ const Sidebar = () => {
             </span>
           ) : (
             <div>
-              <Button variant="outline" size="sm" className="rounded-[20px] lg:hidden">
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-[20px] lg:hidden mt-3"
+              >
                 그루어리 로그인
               </Button>
             </div>

@@ -50,7 +50,7 @@ const RecentTopic = () => {
                     </p>
                   ))}
                 </div>
-                <div className="absolute right-[26px]">
+                <div className="absolute right-0">
                   {recentTopic?.topic?.category &&
                     topicCategory[recentTopic?.topic?.category].Icon({
                       width: 110,

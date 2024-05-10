@@ -39,6 +39,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { Label } from '@/components/ui/label';
 import { NO_TOPIC_ID } from '@/utils';
 import Image from 'next/image';
+import useProfileContext from '@/hooks/profile/useProfileContext';
+import LoginDialog from '@/components/LoginDialog';
 
 const FormSchema = z.object({
   topicId: z.number(),
@@ -65,6 +67,7 @@ const PostView = ({ post }: PostViewProps) => {
   const historyFnRef = useRef<() => void | false>(() => {});
   const isSavedRef = useRef(false);
   const { toast } = useToast();
+  const { profile } = useProfileContext();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -297,10 +300,21 @@ const PostView = ({ post }: PostViewProps) => {
                       <Button
                         type="submit"
                         size="lg"
+                        className={cn(!profile && 'hidden')}
                         disabled={titleField.value.length < 1 || countField.value <= 10}
                       >
                         기록완료
                       </Button>
+                      <LoginDialog>
+                        <Button
+                          type="button"
+                          size="lg"
+                          className={cn(profile && 'hidden')}
+                          // disabled={titleField.value.length < 1 || countField.value <= 10}
+                        >
+                          로그인
+                        </Button>
+                      </LoginDialog>
                       {/*<StopMovePage*/}
                       {/*  url="/post"*/}
                       {/*  isPreventCondition={!!titleField.value || !!countField.value}*/}

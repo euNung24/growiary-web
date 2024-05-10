@@ -52,7 +52,7 @@ const TopicList = ({ currentCategory }: TopicListProps) => {
                 />
                 {topic?.title?.replaceAll('/n ', '')}
                 {i === 0 && (
-                  <Chip className="ml-3 group-hover:bg-gray-50 group-hover:text-gray-900">
+                  <Chip className="ml-3 font-r12 group-hover:bg-gray-50 group-hover:text-gray-900">
                     Best
                   </Chip>
                 )}
