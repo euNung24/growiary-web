@@ -9,7 +9,7 @@ const cardVariants = cva('group flex flex-col hover:shadow w-[300px]', {
   variants: {
     variant: {
       default:
-        'bg-white-0 border border-gray-100 text-gray-900 hover:bg-primary-900 hover:text-white-0 hover:border-0',
+        'bg-white-0 border border-gray-100 text-gray-900 hover:bg-primary-900 hover:text-white-0 hover:border-transparent',
       primary: 'bg-primary-900 text-white-0',
       secondary: 'bg-secondary-50 text-gray-900',
       disabled: 'bg-gray-50 hover:shadow-none',
