@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getProfile } from '@/apis/profile';
 import { useEffect } from 'react';
-import { getCookie } from '@/utils';
 
 const useGetProfile = () => {
   const {
@@ -12,7 +11,6 @@ const useGetProfile = () => {
     queryKey: ['profile'],
     queryFn: getProfile,
     staleTime: Infinity,
-    enabled: 'document' in global && !!getCookie('accessToken'),
   });
 
   useEffect(() => {

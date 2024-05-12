@@ -84,7 +84,7 @@ const UserProvider = ({ children }: UserProvider) => {
               : 'mt-[72px]',
           )}
         >
-          {children}
+          {profile && children}
         </div>
       </>
     </UserContext.Provider>
