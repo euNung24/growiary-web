@@ -6,6 +6,7 @@ import crypto from 'crypto-js';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import useGetProfile from '@/hooks/profile/useGetProfile';
+import { useQueryClient } from '@tanstack/react-query';
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
 function encodeUrlSafe(text: string): string {
@@ -36,6 +37,7 @@ const LoginLoading = () => {
   const searchParams = useSearchParams();
   const [isLogin, setIsLogin] = useState(false);
   const profile = useGetProfile();
+  const queryClient = useQueryClient();
 
   const key = searchParams.get('key') ?? '';
   const value = decrypt(key) ?? '';
@@ -48,7 +50,8 @@ const LoginLoading = () => {
     Cookies.set('refreshToken', refreshToken);
     setIsLogin(true);
 
-    if (isLogin && profile) {
+    if (isLogin && profile && !Object.keys(profile).length) {
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
       push('/');
     }
   }, [isLogin, profile]);
