@@ -61,7 +61,10 @@ const PostView = ({ postId }: PostViewProps) => {
     : NO_TOPIC_ID;
   const [post, setPost] = useState<ResPostType | null>(null);
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
-  const btnStopPostRef = useRef<HTMLButtonElement | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [moveResolveFn, setMoveResolveFn] = useState<((choice: boolean) => void) | null>(
+    null,
+  );
   const btnSaveToastRef = useRef<HTMLButtonElement | null>(null);
   const historyFnRef = useRef<() => void | false>(() => {});
   const isSavedRef = useRef(false);
@@ -118,9 +121,29 @@ const PostView = ({ postId }: PostViewProps) => {
   //   fn && (historyFnRef.current = fn);
   // };
 
-  const movePage = () => {
+  const openModalAndWaiteForChoice = () => {
+    return new Promise<boolean>(resolve => {
+      setModalOpen(true);
+      setMoveResolveFn(() => resolve);
+    });
+  };
+  const handleOpenStopModal = async () => {
+    return await openModalAndWaiteForChoice();
+  };
+
+  const handleMoveModal = () => {
     form.reset();
-    historyFnRef.current && historyFnRef.current() && history.back();
+    if (moveResolveFn) {
+      setModalOpen(false);
+      moveResolveFn(true);
+    }
+  };
+
+  const handleNotMoveModal = () => {
+    if (moveResolveFn) {
+      setModalOpen(false);
+      moveResolveFn(false);
+    }
   };
 
   useEffect(function getPost() {
@@ -341,7 +364,7 @@ const PostView = ({ postId }: PostViewProps) => {
                           (!!titleField.value || !!countField.value) &&
                           !isSavedRef.current
                         }
-                        // fn={isStopPost}
+                        isPageMove={handleOpenStopModal}
                       />
                     </div>
                   </>
@@ -351,10 +374,8 @@ const PostView = ({ postId }: PostViewProps) => {
           )}
         />
       </form>
-      <AlertDialog>
-        <AlertDialogTrigger className="hidden" ref={btnStopPostRef}>
-          글쓰기 중단 팝업
-        </AlertDialogTrigger>
+      <AlertDialog open={modalOpen}>
+        <AlertDialogTrigger className="hidden">글쓰기 중단 팝업</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitleIcon
@@ -369,8 +390,8 @@ const PostView = ({ postId }: PostViewProps) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>취소</AlertDialogCancel>
-            <AlertDialogAction onClick={movePage}>확인</AlertDialogAction>
+            <AlertDialogCancel onClick={handleNotMoveModal}>취소</AlertDialogCancel>
+            <AlertDialogAction onClick={handleMoveModal}>확인</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
