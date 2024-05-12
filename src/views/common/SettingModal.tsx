@@ -70,7 +70,9 @@ const SettingModal = () => {
                     />
                   </div>
                   <span className="ml-[18px] font-r22 text-gray-900">
-                    {profile ? profile.nickname || profile.email.split('@')[0] : '그루미'}
+                    {profile
+                      ? profile.nickname || profile.email?.split('@')[0]
+                      : '그루미'}
                     님
                   </span>
                 </div>
