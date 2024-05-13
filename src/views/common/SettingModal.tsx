@@ -23,7 +23,7 @@ const SettingModal = () => {
   const router = useRouter();
   const [isLogout, setIsLogout] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const profile = useGetProfile();
+  const { profile } = useGetProfile();
   const queryClient = useQueryClient();
 
   const handleClickLogout = () => {
