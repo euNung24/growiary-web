@@ -180,7 +180,7 @@ const FeedbackModal = ({
                             '궁금하거나 떠오르는 아이디어, 의견이 있다면 자유롭게 남겨주세요'
                           }
                           maxLength={300}
-                          className="h-[200px]"
+                          className="h-[200px] resize-none"
                         />
                       </FormItem>
                     )}
