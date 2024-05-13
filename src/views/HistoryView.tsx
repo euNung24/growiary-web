@@ -309,7 +309,7 @@ const HistoryView = () => {
             {!profile && (
               <LoginDialog>
                 <Button
-                  className="bg-gray-50 border-0 mr-4"
+                  className="bg-gray-50 border-0 mr-4 focus:border-transparent focus:border-0 lg:mr-0"
                   size="sm"
                   variant="outlineGray"
                 >

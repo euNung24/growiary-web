@@ -98,7 +98,7 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
           {!profile && (
             <LoginDialog>
               <Button
-                className="bg-gray-50 border-0 mr-4"
+                className="bg-gray-50 border-0 focus:border-transparent focus:border-0"
                 size="sm"
                 variant="outlineGray"
               >
