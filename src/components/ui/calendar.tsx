@@ -12,7 +12,6 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 function Calendar({
   className,
   classNames,
-  defaultMonth,
   showOutsideDays = false,
   ...props
 }: CalendarProps) {
@@ -68,7 +67,6 @@ function Calendar({
         CaptionLabel: ({ displayMonth }) => (
           <div className="font-r16 text-primary-900">
             {displayMonth.getFullYear()}년 {displayMonth.getMonth() + 1}월{' '}
-            {(defaultMonth || displayMonth).getDate()}일
           </div>
         ),
         HeadRow: () => (

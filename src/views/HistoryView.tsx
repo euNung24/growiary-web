@@ -4,7 +4,7 @@
 
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Ellipsis } from 'lucide-react';
 import Line from '@/components/Line';
 import Chip from '@/components/Chip';
@@ -102,7 +102,12 @@ const HistoryView = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const mutation = useGetMonthlyPosts();
   const today = `${year}-${getTwoFormatDate(month)}-${getTwoFormatDate(todayDate)}`;
-  const router = useRouter();
+  const postsRef = useRef<{ [id: string]: HTMLDivElement }>({});
+  const topStickyElRef = useRef<HTMLDivElement | null>(null);
+
+  const assignRef = (index: string) => (element: HTMLDivElement) => {
+    postsRef.current[index] = element;
+  };
 
   const handleClickPrevMonth = () => {
     const prevMonth = selectedMonth - 1 > 0 ? selectedMonth - 1 : 12;
@@ -113,6 +118,7 @@ const HistoryView = () => {
       setSelectedYear(prevYear);
     }
     setSelectedMonth(prevMonth);
+    setDate(new Date(prevYear, prevMonth - 1, date?.getDate() || todayDate, 0, 0, 0));
   };
 
   const handleClickNextMonth = () => {
@@ -125,12 +131,23 @@ const HistoryView = () => {
     }
 
     setSelectedMonth(nextMonth < 13 ? nextMonth : 1);
+    setDate(new Date(nextYear, nextMonth - 1, date?.getDate() || todayDate, 0, 0, 0));
   };
 
   const handleSelectADay: SelectSingleEventHandler = (day, selectedDay) => {
     setDate(selectedDay);
+    const date = format(selectedDay, 'yyyy-MM-dd');
+    const stickyHeight = postsRef.current[date]?.offsetTop;
 
-    router.push(`/history#${format(selectedDay, 'yyyy-MM-dd')}`);
+    if (!stickyHeight || !topStickyElRef.current) return;
+
+    const offsetTop = topStickyElRef.current?.offsetHeight + 20;
+    const targetPosition = stickyHeight - offsetTop;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth',
+    });
   };
 
   const handleDeletePost = async (id: string, date: string) => {
@@ -143,6 +160,10 @@ const HistoryView = () => {
         ...posts,
         [date]: [...(posts?.[date]?.filter(post => post.id !== id) || [])],
       };
+      if (filteredPosts[date] && !filteredPosts[date].length) {
+        delete filteredPosts[date];
+        setDates(Object.keys(filteredPosts).reverse());
+      }
       setPosts(filteredPosts);
     });
   };
@@ -151,6 +172,8 @@ const HistoryView = () => {
     if (profile) {
       setSelectedMonth(month);
       setSelectedYear(year);
+    } else {
+      setDate(new Date(2024, 3, 30, 0, 0, 0));
     }
   }, [profile]);
 
@@ -184,7 +207,10 @@ const HistoryView = () => {
   return (
     <div className="w-full mt-[-83px] flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto] !mx-auto">
       <div className="flex-1">
-        <div className="flex justify-between sticky z-10 top-0 bg-white-0 border-b border-gray-100">
+        <div
+          className="flex justify-between sticky z-10 top-0 bg-white-0 border-b border-gray-100"
+          ref={topStickyElRef}
+        >
           <div className="py-5 flex gap-x-3 items-center">
             <ChevronLeft
               width={24}
@@ -211,9 +237,10 @@ const HistoryView = () => {
                 >
                   <Calendar
                     mode="single"
-                    today={profile ? new Date() : new Date(2024, 3, 30, 0, 0, 0)}
+                    month={date}
+                    onMonthChange={setDate}
                     selected={date}
-                    onSelect={setDate}
+                    onSelect={handleSelectADay}
                     disabled={date => date > new Date() || date < new Date('1900-01-01')}
                   />
                 </PopoverContent>
@@ -261,7 +288,9 @@ const HistoryView = () => {
                         </div>
                         <span>
                           {posts
-                            ? categories[category] || 0
+                            ? Object.keys(posts).length
+                              ? categories[category]
+                              : 0
                             : SAMPLE_CATEGORY_DATA[category]}
                           개
                         </span>
@@ -270,7 +299,9 @@ const HistoryView = () => {
                   </div>
                   <div className="flex justify-between text-gray-500 font-r12">
                     <span>{selectedMonth}월에 작성한 글</span>
-                    <span>{posts ? totalPostCount || 0 : 38}개</span>
+                    <span>
+                      {posts ? (Object.keys(posts).length ? totalPostCount : 0) : 38}개
+                    </span>
                   </div>
                 </div>
               </PopoverContent>
@@ -311,7 +342,15 @@ const HistoryView = () => {
             </div>
           )}
           {(posts ? dates : Object.keys(SAMPLE_DATA)).map(date => (
-            <div id={date} key={date}>
+            <div
+              ref={assignRef(
+                posts
+                  ? date
+                  : selectedYear + '-' + date.slice(0, 2) + '-' + date.slice(-3, -1),
+              )}
+              id={date}
+              key={date}
+            >
               <div className="mb-3">
                 <span
                   className={cn('mr-2 text-gray-500', today === date && 'text-gray-900')}
@@ -439,12 +478,14 @@ const HistoryView = () => {
               </div>
             </div>
           ))}
+          <div className="h-[300px]"></div>
         </section>
       </div>
       <div className="sticky h-screen w-[240px] top-0 pt-3 border-l lg:hidden">
         <Calendar
           mode="single"
-          // today={profile ? new Date() : new Date(2024, 3, 30, 0, 0, 0)}
+          month={date}
+          onMonthChange={setDate}
           selected={date}
           onSelect={handleSelectADay}
           disabled={date => date > new Date() || date < new Date('1900-01-01')}
@@ -463,14 +504,19 @@ const HistoryView = () => {
                   <span>{category}</span>
                 </div>
                 <span>
-                  {posts ? categories[category] || 0 : SAMPLE_CATEGORY_DATA[category]}개
+                  {posts
+                    ? Object.keys(posts).length
+                      ? categories[category]
+                      : 0
+                    : SAMPLE_CATEGORY_DATA[category]}
+                  개
                 </span>
               </div>
             ))}
           </div>
           <div className="flex justify-between text-gray-500 font-r12">
             <span>{selectedMonth}월에 작성한 글</span>
-            <span>{posts ? totalPostCount || 0 : 38}개</span>
+            <span>{posts ? (Object.keys(posts).length ? totalPostCount : 0) : 38}개</span>
           </div>
         </div>
       </div>
