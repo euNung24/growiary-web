@@ -48,6 +48,7 @@ const ReportByPostWithAll = ({ date }: ReportByPostWithAllProps) => {
                   alt="all"
                   width={49}
                   height={29}
+                  className="w-auto h-auto"
                 />
                 <span className="absolute top-1 inset-0 text-center font-r12">
                   {report?.post.all[date]}개
@@ -71,6 +72,7 @@ const ReportByPostWithAll = ({ date }: ReportByPostWithAllProps) => {
                   alt="all"
                   width={49}
                   height={29}
+                  className="w-auto h-auto"
                 />
                 <span className="absolute top-1 inset-0 text-center font-r12">
                   {report?.post.user[date]}개

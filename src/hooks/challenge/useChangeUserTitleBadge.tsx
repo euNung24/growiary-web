@@ -7,9 +7,6 @@ const useChangeUserTitleBadge = () => {
   return useMutation({
     mutationKey: ['titleBadge'],
     mutationFn: (badgeKey: BadgeKeyType) => updateUserTitleBadge(badgeKey),
-    onSuccess: ({ data }) => {
-      console.log(data);
-    },
     onError: async error => {
       await getNewAccessToken(error);
       console.log(error.message);

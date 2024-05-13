@@ -164,6 +164,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                       alt="all"
                       width={49}
                       height={29}
+                      className="w-auto h-auto"
                     />
                     <span className="absolute top-1 inset-0 text-center font-r12">
                       {report ? allData : 26}개
@@ -189,6 +190,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                       alt="all"
                       width={49}
                       height={29}
+                      className="w-auto h-auto"
                     />
                     <span className="absolute top-1 inset-0 text-center font-r12">
                       {report ? userData : 38}개

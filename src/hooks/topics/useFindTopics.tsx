@@ -5,9 +5,6 @@ const useFindTopic = (id: FindTopicType['id']) => {
   const mutation = useMutation({
     mutationKey: ['topic', id],
     mutationFn: () => findTopic(id),
-    onSuccess: ({ data }) => {
-      console.log(data);
-    },
     onError: error => {
       console.log(error.message);
     },

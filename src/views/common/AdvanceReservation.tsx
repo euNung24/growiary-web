@@ -65,8 +65,7 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   };
   async function onSubmit(data: z.infer<typeof FormSchema> | ReservationType) {
     await createReserve(data)
-      .then(res => {
-        console.log(res);
+      .then(() => {
         btnToastRef.current?.click();
         bntCloseModalRef.current?.click();
       })

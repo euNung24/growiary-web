@@ -22,7 +22,7 @@ const RectAreaChart = ({ data }: RectAreaChartProps) => {
       !data?.length
     )
       return;
-    console.log(data);
+
     // 가장 큰 데이터와 두 번째로 큰 데이터, 가장 작은 데이터와 두 번째로 작은 데이터의 비율 계산
     const [first, second, third, fourth] = [
       data[0][1],

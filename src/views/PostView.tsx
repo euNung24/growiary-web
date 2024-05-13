@@ -156,7 +156,7 @@ const PostView = ({ postId }: PostViewProps) => {
             ...res.data.topic,
             content: res.data.topic.content || '자유롭게 작성할 수 있어요.',
           });
-        console.log(res.data);
+
         form.reset({
           topicId: res.data.topicId,
           title: res.data.title,
