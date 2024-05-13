@@ -170,14 +170,6 @@ const PostView = ({ postId }: PostViewProps) => {
 
   useEffect(function setInitTemplate() {
     if (postId) return;
-    if (topicId === NO_TOPIC_ID) {
-      setTemplate(v => ({
-        ...v,
-        content: '자유롭게 작성할 수 있어요.',
-        category: '자유',
-      }));
-      return;
-    }
     topicMutation.mutateAsync().then(({ data }) => {
       !data.content && (data['content'] = '자유롭게 작성할 수 있어요.');
       setTemplate(data);
@@ -280,6 +272,7 @@ const PostView = ({ postId }: PostViewProps) => {
                             }
                             defaultMonth={field.value}
                             initialFocus
+                            className="m-0 p-3"
                           />
                         </PopoverContent>
                       </Popover>
