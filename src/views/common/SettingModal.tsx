@@ -61,7 +61,7 @@ const SettingModal = () => {
             {profile && Object.keys(profile) && (
               <>
                 <div className="flex items-center">
-                  <div className="flex justify-center items-center w-[76px] h-[76px] rounded-full bg-gray-100 overflow-hidden lg:hidden">
+                  <div className="flex justify-center items-center w-[76px] h-[76px] rounded-full bg-gray-100 overflow-hidden">
                     <Image
                       src={profile?.profileImage || '/assets/icons/profile.png'}
                       alt="profile"
