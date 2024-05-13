@@ -45,7 +45,8 @@ const DailyChecker = ({ variant, date, count }: DailyCheckerProps) => {
         className={cn(
           'mt-1.5 rounded-full w-[76px] h-[76px] font-r28 flex flex-col justify-center items-center font-r11',
           dailyCheckerStyles[variant],
-          variant === 'today' && count && 'bg-primary-900 text-white-0 border-none',
+          variant === 'today' &&
+            (count ? 'bg-primary-900 text-white-0 border-none' : 'group-hover:shadow'),
         )}
       >
         {variant === 'prev' && (
