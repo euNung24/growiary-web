@@ -172,6 +172,7 @@ const HistoryView = () => {
     if (profile) {
       setSelectedMonth(month);
       setSelectedYear(year);
+      setDate(new Date());
     } else {
       setDate(new Date(2024, 3, 30, 0, 0, 0));
     }
@@ -325,7 +326,13 @@ const HistoryView = () => {
             year === selectedYear &&
             month === selectedMonth) ||
             !posts) && (
-            <div>
+            <div
+              ref={assignRef(
+                profile
+                  ? `${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${todayDate.toString().padStart(2, '0')}`
+                  : '2024-04-30',
+              )}
+            >
               <div className="mb-3">
                 <span className="mr-2">
                   {posts ? month : 4}월 {posts ? todayDate : 30}일
