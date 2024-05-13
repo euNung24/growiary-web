@@ -63,7 +63,14 @@ const ChallengeView = () => {
   };
 
   useEffect(() => {
-    if (!userBadgeInfo?.data) return;
+    if (!userBadgeInfo) return;
+
+    if (!('data' in userBadgeInfo)) {
+      setMyBadges([]);
+      setUserPercent(0);
+      setRecentGotBadge(null);
+      return;
+    }
 
     const sortedBadgeByAcquiredDate = Object.values(userBadgeInfo.data.myBadge).sort(
       (a, b) => (new Date(a.acquiredDate) > new Date(b.acquiredDate) ? -1 : 1),
@@ -75,7 +82,7 @@ const ChallengeView = () => {
     setUserPercent(
       +((userBadgeInfo.data.myRank / userBadgeInfo.data.totalUser) * 100).toFixed(1),
     );
-  }, [userBadgeInfo]);
+  }, [profile, userBadgeInfo]);
 
   return (
     <>

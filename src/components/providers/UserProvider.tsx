@@ -39,8 +39,8 @@ const UserProvider = ({ children }: UserProvider) => {
 
   useEffect(() => {
     if (!userBadgeInfo) return;
-    setTitleBadge(userBadgeInfo.data.titleBadge || 'first');
-  }, []);
+    setTitleBadge(userBadgeInfo.data?.titleBadge || 'first');
+  }, [userBadgeInfo]);
 
   return (
     <UserContext.Provider
