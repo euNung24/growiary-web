@@ -52,7 +52,7 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
   return (
     <section>
       <h2 className="title">기록 데이터 요약</h2>
-      {!profile && (
+      {(!profile || !data) && (
         <ul
           className={cn(
             boxStyle,

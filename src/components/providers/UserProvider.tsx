@@ -64,7 +64,7 @@ const UserProvider = ({ children }: UserProvider) => {
     >
       <>
         {(!profile || !Object.keys(profile).length) &&
-          !['/history', '/report'].includes(pathname) && (
+          !['/history'].includes(pathname) && (
             <div
               className={cn(
                 'fixed inset-x-0 top-0 ml-[200px] lg:ml-[68px] bg-white-0 z-10',

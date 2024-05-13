@@ -1,33 +1,39 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import useReportContext from '@/hooks/report/useReportContext';
+import { ReportType } from '@/types/reportTypes';
+import { useRecoilValue } from 'recoil';
+import { ReportState } from '@/store/reportStore';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const SAMPLE_DATA = [1028, 36, 732060, 24511];
-
-const ReportAcc = () => {
+type ReportAccProps = {
+  isPreview: boolean;
+};
+const ReportAcc = ({ isPreview = false }: ReportAccProps) => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
-  const { data } = useReportContext();
+  const reportData = useRecoilValue(ReportState);
+  const { profile } = useProfileContext();
 
   const report = [
     {
       name: '총 작성된 기록',
-      num: data?.all.post.sum || 0,
+      num: (data: ReportType['all']) => data?.post?.sum || 0,
       ext: '개',
     },
     {
       name: '월 평균 작성된 기록',
-      num: data?.all.post.avg || 0,
+      num: (data: ReportType['all']) => data?.post?.avg || 0,
       ext: '개',
     },
     {
       name: '총 작성된 글자수',
-      num: data?.all.charactersCount.sum || 0,
+      num: (data: ReportType['all']) => data?.charactersCount?.sum || 0,
       ext: '자',
     },
     {
       name: '월 평균 작성된 글자수',
-      num: data?.all.charactersCount.avg || 0,
+      num: (data: ReportType['all']) => data?.charactersCount?.avg || 0,
       ext: '자',
     },
   ];
@@ -54,7 +60,10 @@ const ReportAcc = () => {
                 i % 2 !== 0 && 'text-primary-900',
               )}
             >
-              {(data ? data.all.post.sum : SAMPLE_DATA[i]).toLocaleString()}{' '}
+              {(profile && !isPreview
+                ? report[i].num(reportData)
+                : SAMPLE_DATA[i]
+              ).toLocaleString()}{' '}
               <span className={cn('ml-2 font-r16', i % 2 !== 0 && 'text-gray-800')}>
                 {report[i].ext}
               </span>

@@ -98,7 +98,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px]">
+    <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px] z-10">
       {/* 로고 */}
       <Link href="/" className="block py-[22px]">
         <picture>

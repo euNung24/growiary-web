@@ -9,6 +9,7 @@ import { ReportByCharCountType } from '@/types/reportTypes';
 type ReportByCharProps = {
   year: number;
   month: string;
+  isPreview: boolean;
 };
 
 const SAMPLE_CHAR_DATA: [string, Pick<ReportByCharCountType, 'sum'>][] = [
@@ -48,7 +49,7 @@ const SAMPLE_POST_DATA: (Pick<ResPostType, 'title' | 'charactersCount'> & {
     charactersCount: 79,
   },
 ];
-const ReportByChar = ({ year, month }: ReportByCharProps) => {
+const ReportByChar = ({ year, month, isPreview }: ReportByCharProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
@@ -57,12 +58,13 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
   const [slicedData, setSlicedData] = useState<[string, ReportByCharCountType][] | null>(
     null,
   );
-  const [clicedIndex, setClicedIndex] = useState(0);
+  const [clickedIndex, setClikcedIndex] = useState(0);
   const { data } = useReportContext();
   const userData = data?.charCount?.[`${year}-${month}`];
 
-  const handleChangeClickedIndex = (idx: number) => {
-    setClicedIndex(idx);
+  const handleChangeClickedIndex = (e: React.MouseEvent, idx: number) => {
+    if (isPreview || !userData) return;
+    setClikcedIndex(idx);
   };
 
   useEffect(() => {
@@ -127,17 +129,17 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
                   key={i}
                   className={cn(
                     'group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-900 hover:text-white-0',
-                    // i === clicedIndex &&
+                    // i === clickedIndex &&
                     //   'bg-primary-900 text-primary-900 hover:bg-primary-50 hover:text-primary-900',
-                    i === clicedIndex && 'bg-primary-900 text-primary-900',
+                    i === clickedIndex && 'bg-primary-900 text-primary-900',
                   )}
-                  onClick={() => handleChangeClickedIndex(i)}
+                  onClick={e => handleChangeClickedIndex(e, i)}
                 >
                   <div
                     className={cn(
                       'flex justify-between text-gray-500 group-hover:text-white-0',
-                      // i === clicedIndex && 'text-white-0 group-hover:text-gray-500',
-                      i === clicedIndex && 'text-white-0',
+                      // i === clickedIndex && 'text-white-0 group-hover:text-gray-500',
+                      i === clickedIndex && 'text-white-0',
                     )}
                   >
                     <span className="font-r16">{+date.slice(-2)}월</span>
@@ -163,16 +165,16 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
                   <div
                     className={cn(
                       'flex items-center justify-center font-m36 mt-2 mb-[38px] group-hover:text-white-0',
-                      // i === clicedIndex && 'text-white-0  group-hover:text-primary-900',
-                      i === clicedIndex && 'text-white-0',
+                      // i === clickedIndex && 'text-white-0  group-hover:text-primary-900',
+                      i === clickedIndex && 'text-white-0',
                     )}
                   >
                     {(data.sum || 0).toLocaleString()}{' '}
                     <span
                       className={cn(
                         'ml-2 text-gray-800 font-r16 group-hover:text-white-0',
-                        // i === clicedIndex && 'text-white-0 group-hover:text-gray-800',
-                        i === clicedIndex && 'text-white-0',
+                        // i === clickedIndex && 'text-white-0 group-hover:text-gray-800',
+                        i === clickedIndex && 'text-white-0',
                       )}
                     >
                       자
@@ -199,7 +201,7 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
         </div>
       </div>
       <div className="mt-6 space-y-3">
-        {(slicedData ? slicedData[clicedIndex][1].top3 : SAMPLE_POST_DATA).map(
+        {(slicedData ? slicedData[clickedIndex][1].top3 : SAMPLE_POST_DATA).map(
           (post, i) => (
             <div
               className={cn('flex items-center text-gray-800 font-r14', boxStyle)}

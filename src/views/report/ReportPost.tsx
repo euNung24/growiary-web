@@ -37,16 +37,16 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
         <div>
           <h2 className="title">기록 추이</h2>
           <p className={descriptionStyle}>
-            <span className={strengthStyle}>{profile ? userData : 38}개</span>의 기록을
+            <span className={strengthStyle}>{report ? userData : 38}개</span>의 기록을
             작성했어요
           </p>
-          <div className="flex gap-x-5">
+          <div className="flex gap-x-5 flex-wrap">
             <div className={cn(boxStyle, 'flex-1')}>
               <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
                 <span>
                   총 누적{' '}
                   <b className="ml-[5px] text-gray-500 font-normal">
-                    {profile && report
+                    {report
                       ? Object.values(report.post.user).reduce((f, v) => f + v, 0)
                       : 218}
                     개
@@ -55,7 +55,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                 <span>
                   월 평균{' '}
                   <b className="ml-[5px] text-gray-500 font-normal">
-                    {profile
+                    {report
                       ? report?.post?.user &&
                         (
                           Object.values(report.post.user).reduce((f, v) => f + v, 0) / 8
@@ -67,10 +67,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                 <span>
                   월 최대{' '}
                   <b className="ml-[5px] text-gray-500 font-normal">
-                    {profile && report
-                      ? Math.max(...Object.values(report.post.user))
-                      : 47}
-                    개
+                    {report ? Math.max(...Object.values(report.post.user)) : 47}개
                   </b>
                 </span>
               </div>
@@ -169,7 +166,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                       height={29}
                     />
                     <span className="absolute top-1 inset-0 text-center font-r12">
-                      {profile ? allData : 26}개
+                      {report ? allData : 26}개
                     </span>
                   </div>
                   <div
@@ -194,7 +191,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                       height={29}
                     />
                     <span className="absolute top-1 inset-0 text-center font-r12">
-                      {profile ? userData : 38}개
+                      {report ? userData : 38}개
                     </span>
                   </div>
                   <div
@@ -209,7 +206,7 @@ const ReportPost = ({ year, month }: ReportPostProps) => {
                     }}
                   />
                   <span className="text-gray-500 font-r16">
-                    {profile?.nickname || '그루미'}님
+                    {report ? profile?.nickname : '그루미'}님
                   </span>
                 </div>
               </div>

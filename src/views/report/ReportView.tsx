@@ -21,11 +21,15 @@ import ReportProvider from '@/components/providers/ReportProvider';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 
+type ReportViewProps = {
+  isPreview?: boolean;
+};
 const ReportView = ({
   selectedMonth,
   selectedYear,
   selectedMonthLastDate,
-}: WithMoveMonthlyProps) => {
+  isPreview = false,
+}: WithMoveMonthlyProps & ReportViewProps) => {
   const { profile } = useProfileContext();
 
   return (
@@ -55,12 +59,13 @@ const ReportView = ({
             />
             <section>
               <h2 className="title">기록 패턴</h2>
-              <div className="flex gap-x-5">
+              <div className="flex gap-x-5 flex-wrap">
                 <ReportByDay month={selectedMonth - 1} />
                 <ReportByTime month={selectedMonth - 1} />
               </div>
             </section>
             <ReportByChar
+              isPreview={isPreview}
               year={selectedYear || 0}
               month={selectedMonth.toString().padStart(2, '0')}
             />
@@ -68,7 +73,7 @@ const ReportView = ({
             <ReportByTag month={selectedMonth - 1} />
           </>
         )}
-        {profile && (
+        {profile && !isPreview && (
           <section className="mb-[116px]">
             <h2 className="title">AI와 함께하는 자아발견 인터뷰</h2>
             <div className="font-r16 text-gray-800 mt-1 mb-6">

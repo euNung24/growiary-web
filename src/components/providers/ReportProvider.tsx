@@ -3,7 +3,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import { ReportType } from '@/types/reportTypes';
 import useGetReport from '@/hooks/report/useGetReport';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import {
   AlertDialog,
@@ -16,6 +16,7 @@ import { Check } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { ReportState } from '@/store/reportStore';
 
 export const ReportContext = createContext<{
   data: ReportType | null;
@@ -31,14 +32,21 @@ type ReportProvider = {
   children: ReactNode;
   selectedYear?: number;
   selectedMonth?: number;
+  isPreview?: boolean;
 };
-const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvider) => {
+const ReportProvider = ({
+  children,
+  selectedYear,
+  selectedMonth,
+  isPreview = false,
+}: ReportProvider) => {
   const pathname = usePathname();
   const mutation = useGetReport();
   const [data, setData] = useState<ReportType>({} as ReportType);
   const [isClient, setIsClient] = useState(false);
   const [dataLength, setDataLength] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const setReportAcc = useSetRecoilState(ReportState);
   const {
     date: { year, month },
   } = useRecoilValue(TodayState);
@@ -49,18 +57,15 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
       setIsClient(true);
       return;
     }
-    if (!profile) return;
+    if (!profile || isPreview) return;
+    const dateYYMM = `${selectedYear || year}-${(selectedMonth || month).toString().padStart(2, '0')}`;
 
-    const dateYYMM = profile
-      ? `${selectedYear || year}-${(selectedMonth || month).toString().padStart(2, '0')}`
-      : '2024-04';
-    // setData(REPORT);
     mutation
       .mutateAsync(dateYYMM)
       .then(res => {
         if (!res) return;
         const dataCount = res.data.post?.user?.[dateYYMM] || 0;
-
+        res.data.all && setReportAcc(res.data.all);
         setData(res.data);
         setDataLength(dataCount);
         if (dataCount < 3) {
@@ -69,8 +74,9 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
       })
       .catch(() => {
         setIsOpen(true);
+        setDataLength(0);
       });
-  }, [selectedMonth, profile, isClient]);
+  }, [selectedMonth, isClient, profile]);
 
   return (
     <ReportContext.Provider

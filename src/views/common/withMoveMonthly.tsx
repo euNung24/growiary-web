@@ -6,8 +6,9 @@ import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import { cn } from '@/lib/utils';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import LoginDialog from '@/components/LoginDialog';
-import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+// import LoginDialog from '@/components/LoginDialog';
+// import { Button } from '@/components/ui/button';
 
 export type WithMoveMonthlyProps = {
   selectedMonth?: number;
@@ -15,7 +16,7 @@ export type WithMoveMonthlyProps = {
   selectedMonthLastDate?: number;
 };
 const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.FC<T> => {
-  const MoveMonthly = (props: T) => {
+  const MoveMonthly = ({ isPreview }: { isPreview?: boolean }, props: T) => {
     const {
       date: { year, month, date },
     } = useRecoilValue(TodayState);
@@ -25,9 +26,10 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
     const [lastDate, setLastDate] = useState(date);
 
     useEffect(() => {
-      if (profile) {
+      if (profile && !isPreview) {
         setSelectedYear(year);
         setSelectedMonth(month);
+        setLastDate(date);
       }
     }, [profile]);
 
@@ -66,22 +68,22 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
       }
       setSelectedMonth(nextMonth < 13 ? nextMonth : 1);
     };
-
     return (
-      <div className="mx-auto">
-        <div className="py-5 flex justify-between sticky top-0 bg-white-0 border-b border-gray-100">
+      <div className="mx-auto mt-9">
+        <div className="py-5 flex justify-between sticky top-0 bg-white-0">
           <div className="flex gap-x-3 items-center">
             <ChevronLeft
               width={24}
               height={24}
               className={cn(
                 'cursor-pointer',
-                !profile && 'cursor-default pointer-events-none text-gray-400',
+                (!profile || isPreview) &&
+                  'cursor-default pointer-events-none text-gray-400',
               )}
               onClick={handleClickPrevMonth}
             />
             <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50">
-              {selectedYear}년 {selectedMonth}월
+              {profile && !isPreview ? selectedMonth : 4}월 리포트
             </span>
             <ChevronRight
               width={24}
@@ -91,27 +93,48 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
                 +(selectedYear.toString() + selectedMonth.toString().padStart(2, '0')) >=
                   +(year.toString() + month.toString().padStart(2, '0')) &&
                   'cursor-default pointer-events-none text-gray-400',
+                (!profile || isPreview) &&
+                  'cursor-default pointer-events-none text-gray-400',
               )}
               onClick={handleClickNextMonth}
             />
           </div>
-          {!profile && (
-            <LoginDialog>
-              <Button
-                className="bg-gray-50 border-0 focus:border-transparent focus:border-0"
-                size="sm"
-                variant="outlineGray"
-              >
-                시작하기
-              </Button>
-            </LoginDialog>
-          )}
+          <div className="flex gap-x-1.5 items-center text-gray-400 font-r14">
+            <Image
+              src="/assets/icons/calendar.png"
+              alt="calendar"
+              width={16}
+              height={16}
+            />
+            <span>
+              {profile && !isPreview ? selectedYear : 2024}년{' '}
+              {profile && !isPreview ? selectedMonth : 4}월 1일
+            </span>{' '}
+            ~{' '}
+            <span>
+              {profile && !isPreview ? selectedYear : 2024}년{' '}
+              {profile && !isPreview ? selectedMonth : 4}월{' '}
+              {profile && !isPreview ? lastDate : 30}일
+            </span>
+          </div>
+          {/*{!profile && (*/}
+          {/*  <LoginDialog>*/}
+          {/*    <Button*/}
+          {/*      className="bg-gray-50 border-0 focus:border-transparent focus:border-0"*/}
+          {/*      size="sm"*/}
+          {/*      variant="outlineGray"*/}
+          {/*    >*/}
+          {/*      시작하기*/}
+          {/*    </Button>*/}
+          {/*  </LoginDialog>*/}
+          {/*)}*/}
         </div>
         <Component
           {...props}
-          selectedYear={selectedYear}
-          selectedMonth={selectedMonth}
-          selectedMonthLastDate={lastDate}
+          selectedYear={profile && !isPreview ? selectedYear : 2024}
+          selectedMonth={profile && !isPreview ? selectedMonth : 4}
+          selectedMonthLastDate={profile && !isPreview ? lastDate : 30}
+          isPreview={isPreview}
         />
       </div>
     );
