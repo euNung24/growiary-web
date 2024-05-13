@@ -3,6 +3,7 @@
 import { ApiSuccessResponse } from '@/types';
 import { getCookie } from '@/utils';
 import { ChallengeType } from '@/types/challengeTypes';
+import { setError } from '@/utils/api';
 
 const challengeApiUrl = process.env.NEXT_PUBLIC_API + '/challenge';
 
@@ -19,7 +20,7 @@ export const getUserBadge = async (): Promise<ApiSuccessResponse<ChallengeType>>
   });
 
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw await setError(response);
   }
   return response.json();
 };

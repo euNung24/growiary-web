@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getUserBadge } from '@/apis/challenge';
 import { useEffect } from 'react';
+import { getNewAccessToken } from '@/utils/api';
 
 const useGetUserBadgeInfo = () => {
   const {
@@ -16,8 +17,14 @@ const useGetUserBadgeInfo = () => {
   });
 
   useEffect(() => {
+    const fn = async (error: Error) => {
+      await getNewAccessToken(error);
+      // console.log(error.message);
+    };
+
     if (isError) {
-      alert(error.message);
+      fn(error).then(res => console.log(res));
+      // alert(error.message);
       return;
     }
   }, [data]);

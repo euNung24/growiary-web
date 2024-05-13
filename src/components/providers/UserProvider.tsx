@@ -33,7 +33,7 @@ type UserProvider = {
 };
 const UserProvider = ({ children }: UserProvider) => {
   const pathname = usePathname();
-  const profile = useGetProfile();
+  const { profile, isError } = useGetProfile();
   const userBadgeInfo = useGetUserBadgeInfo();
   const [titleBadge, setTitleBadge] = useState<Partial<keyof typeof BADGE_INFO>>('first');
 
@@ -42,13 +42,17 @@ const UserProvider = ({ children }: UserProvider) => {
     setTitleBadge(userBadgeInfo.data?.titleBadge || 'first');
   }, [userBadgeInfo]);
 
+  useEffect(() => {
+    isError && alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
+  }, [isError]);
+
   return (
     <UserContext.Provider
       value={{
         profile:
           !profile || !Object.keys(profile).length
             ? undefined
-            : { ...profile, nickname: profile.nickname || profile.email.split('@')[0] },
+            : { ...profile, nickname: profile.nickname || profile.email?.split('@')[0] },
         titleBadge: titleBadge || 'first',
         setTitleBadge,
       }}
@@ -84,7 +88,7 @@ const UserProvider = ({ children }: UserProvider) => {
               : 'mt-[72px]',
           )}
         >
-          {profile && children}
+          {children}
         </div>
       </>
     </UserContext.Provider>

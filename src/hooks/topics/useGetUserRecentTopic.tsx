@@ -2,6 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { getUserRecentTopic } from '@/apis/topics';
+import { getNewAccessToken } from '@/utils/api';
 
 const useGetUserRecentTopic = () => {
   return useMutation({
@@ -10,7 +11,8 @@ const useGetUserRecentTopic = () => {
     onSuccess: data => {
       data && console.log(data);
     },
-    onError: error => {
+    onError: async error => {
+      await getNewAccessToken(error);
       console.log(error.message);
     },
   });

@@ -3,6 +3,7 @@ import { getCookie } from '@/utils';
 import withToken from '@/apis/withToken';
 import { BadgeKeyType } from '@/types/challengeTypes';
 import { ApiSuccessResponse } from '@/types';
+import { setError } from '@/utils/api';
 
 const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';
 
@@ -16,9 +17,8 @@ export const getProfile = async (): Promise<ProfileType> => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw await setError(response);
   }
 
   return response.json();

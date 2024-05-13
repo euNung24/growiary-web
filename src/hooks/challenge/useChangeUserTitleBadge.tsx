@@ -1,6 +1,7 @@
 import { updateUserTitleBadge } from '@/apis/profile';
 import { useMutation } from '@tanstack/react-query';
 import { BadgeKeyType } from '@/types/challengeTypes';
+import { getNewAccessToken } from '@/utils/api';
 
 const useChangeUserTitleBadge = () => {
   return useMutation({
@@ -9,7 +10,8 @@ const useChangeUserTitleBadge = () => {
     onSuccess: ({ data }) => {
       console.log(data);
     },
-    onError: error => {
+    onError: async error => {
+      await getNewAccessToken(error);
       console.log(error.message);
     },
   });

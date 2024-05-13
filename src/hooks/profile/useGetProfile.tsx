@@ -1,6 +1,9 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { getProfile } from '@/apis/profile';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { getNewAccessToken } from '@/utils/api';
 
 const useGetProfile = () => {
   const {
@@ -14,13 +17,17 @@ const useGetProfile = () => {
   });
 
   useEffect(() => {
+    const fn = async (error: Error) => {
+      await getNewAccessToken(error);
+    };
+
     if (isError) {
-      alert(error.message);
+      fn(error).then();
       return;
     }
-  }, [data]);
+  }, [data, isError, error]);
 
-  return data;
+  return { profile: data, isError };
 };
 
 export default useGetProfile;

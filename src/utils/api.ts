@@ -6,6 +6,8 @@ export const setError = async (response: Response) => {
   const { message } = await response.json();
   if (response.status === 400 && message === '만료된 토큰입니다.') {
     return new Error('Expired token');
+  } else if (response.status === 400 && message === '유효하지 않은 토큰입니다.') {
+    return new Error('Expired token');
   }
   return new Error('Network response was not ok');
 };
@@ -24,7 +26,7 @@ export const getNewAccessToken = async (error: Error) => {
       const accessToken = decrypt(data.key.accessToken) ?? '';
       Cookies.set('accessToken', accessToken);
     } catch {
-      alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+      // alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
       return;
     }
   }

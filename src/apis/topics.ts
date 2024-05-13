@@ -87,7 +87,7 @@ export const getRecommendedTopic = async (): Promise<
   });
 
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw await setError(response);
   }
 
   return response.json();
