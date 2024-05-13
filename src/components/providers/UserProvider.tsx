@@ -17,6 +17,8 @@ import useGetProfile from '@/hooks/profile/useGetProfile';
 import useGetUserBadgeInfo from '@/hooks/challenge/useGetUserBadgeInfo';
 import { BADGE_INFO } from '@/utils/challenge';
 import { usePathname } from 'next/navigation';
+import { deleteCookie } from 'undici-types';
+import Cookies from 'js-cookie';
 
 export const UserContext = createContext<{
   profile?: ProfileType;
@@ -43,7 +45,11 @@ const UserProvider = ({ children }: UserProvider) => {
   }, [userBadgeInfo]);
 
   useEffect(() => {
-    isError && alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
+    if (isError) {
+      alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
+      Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
+    }
   }, [isError]);
 
   return (
