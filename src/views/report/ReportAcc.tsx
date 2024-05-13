@@ -8,7 +8,7 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const SAMPLE_DATA = [1028, 36, 732060, 24511];
 type ReportAccProps = {
-  isPreview: boolean;
+  isPreview?: boolean;
 };
 const ReportAcc = ({ isPreview = false }: ReportAccProps) => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
