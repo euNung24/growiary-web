@@ -96,7 +96,7 @@ const HomePosts = () => {
           <>
             <NewCard />
             {posts.map(post => (
-              <Link key={post.id} href="/history">
+              <Link key={post.id} href={`/history/${post.id}`}>
                 <Card className="shrink-0" size="lg">
                   <CardHeader>
                     <CardChip size="lg">
