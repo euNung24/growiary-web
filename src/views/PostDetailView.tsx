@@ -132,7 +132,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
             <Tag tags={post.tags} />
           </div>
         </div>
-        <div className="relative flex-1 pointer-events-nones cursor-default flex-1">
+        <div className="relative flex-1 pointer-events-nones cursor-default flex-1 border-t border-b border-[#ccc] max-h-[40vh]">
           <Editor defaultValue={post.content} readonly className="" />
 
           {post.topic && (

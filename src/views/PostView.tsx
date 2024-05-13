@@ -307,7 +307,7 @@ const PostView = ({ postId }: PostViewProps) => {
                       control={form.control}
                       name="content"
                       render={({ field: contentField }) => (
-                        <div className="relative flex-1 mb-4">
+                        <div className="relative flex-1 mb-4 border border-[#ccc] rounded-xl max-h-[40vh]">
                           <Editor
                             placeholder={template.content}
                             className="flex flex-col h-full"
