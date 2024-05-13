@@ -75,7 +75,12 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
   return (
     <ReportContext.Provider
       value={{
-        data: !data || !Object.keys(data).length ? null : data,
+        data:
+          pathname !== '/report/preview'
+            ? !data || !Object.keys(data).length
+              ? null
+              : data
+            : null,
         year: selectedYear || year,
         month: selectedMonth ? selectedMonth - 1 : month - 1,
       }}

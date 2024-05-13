@@ -65,14 +65,13 @@ const UserProvider = ({ children }: UserProvider) => {
       <>
         {(!profile || !Object.keys(profile).length) &&
           !['/history', '/report'].includes(pathname) && (
-            <div className="max-w-[960px] space-y-[96px] mb-[72px] mx-auto mb-[72px]">
-              {/* profile = 'hidden' */}
-              <div
-                className={cn(
-                  'fixed inset-x-0 top-0 ml-[200px] lg:ml-[68px]  bg-white-0 z-10',
-                )}
-              >
-                <div className="w-[960px] md:w-[640px] sm:w-[320px] py-[23px] mx-auto text-end bg-white-0 pl-2.5">
+            <div
+              className={cn(
+                'fixed inset-x-0 top-0 ml-[200px] lg:ml-[68px] bg-white-0 z-10',
+              )}
+            >
+              <div className="flex justify-end py-[23px] mx-auto bg-white-0">
+                <div className="flex-[0_0_960px] md:flex-[0_0_640px] sm:flex-[0_0_320px] mx-auto px-2.5 text-end">
                   <LoginDialog>
                     <Button
                       className="bg-gray-50 border-0 focus:border-transparent focus:border-0"
