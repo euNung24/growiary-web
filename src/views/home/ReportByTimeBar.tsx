@@ -55,7 +55,12 @@ const ReportByTimeBar = () => {
           </p>
           <div className="flex justify-around items-end [&>*]:flex [&>*]:flex-col">
             <div>
-              <div className={cn('text-gray-800 font-r14 flex flex-col items-center')}>
+              <div
+                className={cn(
+                  'text-gray-800 font-r14 flex flex-col items-center',
+                  timeData[1][1] === 0 && 'mb-6',
+                )}
+              >
                 <Image
                   src={IMAGE_SRC[timeData[1][0]]}
                   width={46}
@@ -82,7 +87,7 @@ const ReportByTimeBar = () => {
               <div
                 className={cn(
                   'text-gray-800 font-r14 flex flex-col items-center',
-                  timeData[1][0] === 0 && 'mb-6',
+                  timeData[0][1] === 0 && 'mb-6',
                 )}
               >
                 <Image
@@ -111,7 +116,7 @@ const ReportByTimeBar = () => {
               <div
                 className={cn(
                   'text-gray-800 font-r14 flex flex-col items-center',
-                  timeData[2][0] === 0 && 'mb-6',
+                  timeData[2][1] === 0 && 'mb-6',
                 )}
               >
                 <Image
