@@ -76,7 +76,6 @@ const ChallengeView = () => {
       (a, b) => (new Date(a.acquiredDate) > new Date(b.acquiredDate) ? -1 : 1),
     );
 
-    setTitleBadge(userBadgeInfo.data.titleBadge || 'first');
     setMyBadges(Object.keys(userBadgeInfo.data.myBadge));
     setRecentGotBadge(sortedBadgeByAcquiredDate[0].key as BadgeKeyType);
     setUserPercent(
