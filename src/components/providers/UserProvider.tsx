@@ -17,7 +17,6 @@ import useGetProfile from '@/hooks/profile/useGetProfile';
 import useGetUserBadgeInfo from '@/hooks/challenge/useGetUserBadgeInfo';
 import { BADGE_INFO } from '@/utils/challenge';
 import { usePathname } from 'next/navigation';
-import { deleteCookie } from 'undici-types';
 import Cookies from 'js-cookie';
 
 export const UserContext = createContext<{
