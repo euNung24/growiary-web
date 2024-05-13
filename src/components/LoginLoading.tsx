@@ -36,7 +36,7 @@ const LoginLoading = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const [isLogin, setIsLogin] = useState(false);
-  const profile = useGetProfile();
+  const { profile } = useGetProfile();
   const queryClient = useQueryClient();
 
   const key = searchParams.get('key') ?? '';
