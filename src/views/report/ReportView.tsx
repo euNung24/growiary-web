@@ -20,9 +20,14 @@ import ReportTotal from '@/views/report/ReportTotal';
 import ReportProvider from '@/components/providers/ReportProvider';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { useRecoilValue } from 'recoil';
+import { TodayState } from '@/store/todayStore';
 
 const ReportView = ({ selectedMonth, selectedYear }: WithMoveMonthlyProps) => {
   const { profile } = useProfileContext();
+  const {
+    date: { year, month },
+  } = useRecoilValue(TodayState);
 
   return (
     <ReportProvider selectedYear={selectedYear} selectedMonth={selectedMonth}>
@@ -52,7 +57,7 @@ const ReportView = ({ selectedMonth, selectedYear }: WithMoveMonthlyProps) => {
             <ReportByTag month={selectedMonth - 1} />
           </>
         )}
-        {profile && (
+        {profile && year === selectedYear && month === selectedMonth && (
           <section className="mb-[116px]">
             <h2 className="title">AI와 함께하는 자아발견 인터뷰</h2>
             <div className="font-r16 text-gray-800 mt-1 mb-6">
