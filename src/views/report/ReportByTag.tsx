@@ -60,7 +60,7 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
 
   const { data } = useReportContext();
   const [sortedTags, setSortedTags] = useState<[string, number][] | null>();
-  const [sortedNewTags, setSortedNewTags] = useState<[string, ResPostType[]][] | null>();
+  const [sortedNewTags, setSortedNewTags] = useState<[string, ResPostType][] | null>();
 
   useEffect(() => {
     const monthTag = data?.tags?.[month];
@@ -76,13 +76,15 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
     const monthNewTag = data?.newTags?.[month];
     if (!monthNewTag) return;
 
-    let sortedNewMonthTag = Object.entries(monthNewTag).sort((a, b) =>
-      a[1].length > b[1].length ? -1 : 1,
-    );
-    sortedNewMonthTag = sortedNewMonthTag.map(([tag, posts]) => [
-      tag,
-      [...posts].sort((a, b) => (new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1)),
-    ]);
+    const sortedNewMonthTag = Object.entries(monthNewTag)
+      .map(([tag, posts]) => {
+        const sortedPostByWriteDate = posts.toSorted((a, b) =>
+          new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1,
+        );
+        return [tag, sortedPostByWriteDate[0]] as [string, ResPostType];
+      })
+      .toSorted((a, b) => (a[1].writeDate > b[1].writeDate ? -1 : 1));
+
     setSortedNewTags(sortedNewMonthTag);
   }, [data?.newTags, month]);
 
@@ -193,7 +195,7 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
           </p>
           <div className="space-y-4 group/parent">
             {sortedNewTags &&
-              sortedNewTags?.slice(0, 5).map(([tag, posts], i) => (
+              sortedNewTags?.slice(0, 5).map(([tag, post], i) => (
                 <div
                   key={tag + i}
                   className={cn(
@@ -218,8 +220,8 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
                         'text-white-0 group-hover/parent:text-gray-500 group-hover:!text-white-0',
                     )}
                   >
-                    {new Date(posts[0].writeDate).getMonth() + 1}월{' '}
-                    {new Date(posts[0].writeDate).getDate()}일
+                    {new Date(post.writeDate).getMonth() + 1}월{' '}
+                    {new Date(post.writeDate).getDate()}일
                   </span>
                 </div>
               ))}

@@ -107,7 +107,7 @@ const HomePosts = () => {
                       })}
                       {post.topic?.category || '자유'}
                     </CardChip>
-                    <CardTitle className="overflow-hidden text-ellipsis">
+                    <CardTitle className="overflow-hidden text-ellipsis whitespace-nowrap	">
                       {post.title}
                     </CardTitle>
                   </CardHeader>

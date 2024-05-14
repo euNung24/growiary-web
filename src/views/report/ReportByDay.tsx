@@ -30,7 +30,7 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
       data: v,
     }));
 
-    setWeekData(mappedData.filter(v => v.data > 0));
+    setWeekData(mappedData);
   }, [data?.week, month]);
 
   return (
@@ -52,8 +52,8 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
         <div className={cn(boxStyle, 'h-[358px] flex justify-center items-center')}>
           <div className="w-[300px] h-[300px] ">
             <PolarChart
-              labels={weekData.map(v => v.label)}
-              data={weekData.map(v => v.data)}
+              labels={weekData.filter(v => v.data > 0).map(v => v.label)}
+              data={weekData.filter(v => v.data > 0).map(v => v.data)}
               backgroundColor={COLORS.slice(0, weekData.length)}
             />
           </div>

@@ -85,6 +85,7 @@ const FeedbackModal = ({
   };
 
   const handleClose = (open: boolean) => {
+    form.reset();
     if (pathname === '/feedback' && !open) {
       history.back();
     }

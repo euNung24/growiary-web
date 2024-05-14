@@ -77,7 +77,13 @@ const RecentTopic = () => {
               </TopicCardFooter>
             </TopicCard>
             <p className="text-gray-400 font-r16 ml-3 mt-3">
-              {profile?.nickname || '그루미'}님이 {recentTopic.day}일 전에 기록한 주제
+              {profile?.nickname || '그루미'}님이{' '}
+              {recentTopic.day === 0
+                ? '오늘'
+                : recentTopic.day === 1
+                  ? '하루 전에'
+                  : recentTopic.day + '일 전에'}{' '}
+              기록한 주제
             </p>
           </div>
         ) : (

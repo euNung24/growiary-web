@@ -20,7 +20,9 @@ const ServiceTerm = ({ children }: ServiceTermProps) => {
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="font-sb22">서비스 이용약관</AlertDialogTitle>
+          <AlertDialogTitle className="font-sb22 pt-4 pb-2">
+            서비스 이용약관
+          </AlertDialogTitle>
         </AlertDialogHeader>
         <div className="max-h-[60vh] border font-r14 border-gray-100 rounded-xl p-6 max-w-[540px] overflow-scroll  [&>h1]:font-bolder [&>h2]:font-bold [&>h2]:mt-4 [&>ul]:indent-2">
           {/*<h1>그루어리 서비스 이용약관</h1>*/}

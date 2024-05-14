@@ -56,6 +56,12 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   const fieldQ2State = getFieldState('q2');
   const fieldQ4State = getFieldState('q4');
 
+  const handleClose = (open: boolean) => {
+    if (!open) {
+      form.reset();
+    }
+  };
+
   const handleFieldQ3 = (
     value: string,
     field: ControllerRenderProps<z.infer<typeof FormSchema>, 'q3'>,
@@ -81,7 +87,7 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   return (
     <>
       {isClient && (
-        <Dialog>
+        <Dialog onOpenChange={open => handleClose(open)}>
           <DialogTrigger asChild>
             {children ? (
               children

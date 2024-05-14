@@ -20,7 +20,9 @@ const PrivateTerm = ({ children }: PrivateTermProps) => {
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="font-sb22">개인정보 처리방침</AlertDialogTitle>
+          <AlertDialogTitle className="font-sb22 pt-4 pb-2">
+            개인정보 처리방침
+          </AlertDialogTitle>
         </AlertDialogHeader>
         <div className="max-h-[60vh] font-r14 border border-gray-100 rounded-xl p-6 max-w-[540px] overflow-scroll [&>h1]:font-bolder [&>h2]:font-bold [&>h2]:mt-4 [&>ul]:indent-2">
           {/*<h1>그루어리 개인정보처리 방침</h1>*/}

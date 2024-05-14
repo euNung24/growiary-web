@@ -27,26 +27,13 @@ type ReportViewProps = {
 const ReportView = ({
   selectedMonth,
   selectedYear,
-  selectedMonthLastDate,
   isPreview = false,
 }: WithMoveMonthlyProps & ReportViewProps) => {
   const { profile } = useProfileContext();
 
   return (
     <ReportProvider selectedYear={selectedYear} selectedMonth={selectedMonth}>
-      <div className="pt-4">
-        <div className="flex gap-x-1.5 items-center text-gray-400 font-r14">
-          <Image src="/assets/icons/calendar.png" alt="calendar" width={16} height={16} />
-          <span>
-            {selectedYear}년 {selectedMonth}월 1일
-          </span>{' '}
-          ~{' '}
-          <span>
-            {selectedYear}년 {selectedMonth}월 {profile ? selectedMonthLastDate : 30}일
-          </span>
-        </div>
-      </div>
-      <article className="flex flex-col w-full gap-y-[102px] mt-[60px]">
+      <article className="flex flex-col w-full gap-y-[102px] mt-6">
         {selectedMonth && (
           <>
             <ReportTotal

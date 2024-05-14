@@ -113,7 +113,7 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
           className={cn(
             'max-h-[39vh]',
             readonly &&
-              '[&>.ql-toolbar]:hidden border-t border-gray-[#ccc] border-l-0 border-r-0 overflow-scroll',
+              '[&>.ql-toolbar]:hidden border-t border-gray-[#ccc] border-l-0 border-r-0 overflow-auto',
             'h-full border-0',
           )}
         ></div>
