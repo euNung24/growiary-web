@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { DailyCheckerType } from '@/types/postTypes';
 import { Skeleton } from '@/components/ui/skeleton';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import Image from 'next/image';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -33,7 +34,20 @@ const HomeDailyChecker = () => {
           <div className="flex justify-between">
             <h2 className="title">그루어리는 어떤 서비스인가요?</h2>
           </div>
-          <div className="mt-6 border border-gray-100 rounded-xl flex justify-center gap-x-[52px] py-10 overflow-hidden"></div>
+          <div
+            className="relative mt-6 rounded-xl h-[198px] py-10 overflow-hidden pl-[85px]"
+            style={{
+              background: "no-repeat center/960px 198px url('/assets/images/banner.png')",
+            }}
+          >
+            <p className="text-white-0 font-sb24 mb-6">
+              <span className="mb-3 block">기록하며 성장하는</span>
+              <span>어른들을 위한 노트, 그루어리</span>
+            </p>
+            <p className="text-gray-100 font-r14">
+              나만의 생각과 경험, 일상을 기록하고 데이터로 확인하세요
+            </p>
+          </div>
         </>
       )}
       {profile && (
