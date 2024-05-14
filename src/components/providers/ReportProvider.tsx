@@ -57,6 +57,7 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
       .catch(() => {
         setData({} as ReportType);
         setDataLength(0);
+        setReportAcc({} as ReportType['all']);
       });
   }, [selectedMonth, isClient, profile]);
 
