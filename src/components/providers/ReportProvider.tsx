@@ -23,14 +23,8 @@ type ReportProvider = {
   children: ReactNode;
   selectedYear?: number;
   selectedMonth?: number;
-  isPreview?: boolean;
 };
-const ReportProvider = ({
-  children,
-  selectedYear,
-  selectedMonth,
-  isPreview = false,
-}: ReportProvider) => {
+const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvider) => {
   const mutation = useGetReport();
   const [data, setData] = useState<ReportType>({} as ReportType);
   const [isClient, setIsClient] = useState(false);
@@ -46,7 +40,7 @@ const ReportProvider = ({
       setIsClient(true);
       return;
     }
-    if (!profile || isPreview) return;
+    if (!profile) return;
     const dateYYMM = `${selectedYear || year}-${(selectedMonth || month).toString().padStart(2, '0')}`;
 
     mutation

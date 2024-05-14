@@ -7,10 +7,8 @@ import { ReportState } from '@/store/reportStore';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const SAMPLE_DATA = [1028, 36, 732060, 24511];
-type ReportAccProps = {
-  isPreview?: boolean;
-};
-const ReportAcc = ({ isPreview = false }: ReportAccProps) => {
+
+const ReportAcc = () => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const reportData = useRecoilValue(ReportState);
   const { profile } = useProfileContext();
@@ -60,10 +58,7 @@ const ReportAcc = ({ isPreview = false }: ReportAccProps) => {
                 i % 2 !== 0 && 'text-primary-900',
               )}
             >
-              {(profile && !isPreview
-                ? report[i].num(reportData)
-                : SAMPLE_DATA[i]
-              ).toLocaleString()}{' '}
+              {(profile ? report[i].num(reportData) : SAMPLE_DATA[i]).toLocaleString()}{' '}
               <span className={cn('ml-2 font-r16', i % 2 !== 0 && 'text-gray-800')}>
                 {report[i].ext}
               </span>

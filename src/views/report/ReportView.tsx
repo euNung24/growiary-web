@@ -21,14 +21,7 @@ import ReportProvider from '@/components/providers/ReportProvider';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 
-type ReportViewProps = {
-  isPreview?: boolean;
-};
-const ReportView = ({
-  selectedMonth,
-  selectedYear,
-  isPreview = false,
-}: WithMoveMonthlyProps & ReportViewProps) => {
+const ReportView = ({ selectedMonth, selectedYear }: WithMoveMonthlyProps) => {
   const { profile } = useProfileContext();
 
   return (
@@ -52,7 +45,6 @@ const ReportView = ({
               </div>
             </section>
             <ReportByChar
-              isPreview={isPreview}
               year={selectedYear || 0}
               month={selectedMonth.toString().padStart(2, '0')}
             />
@@ -60,7 +52,7 @@ const ReportView = ({
             <ReportByTag month={selectedMonth - 1} />
           </>
         )}
-        {profile && !isPreview && (
+        {profile && (
           <section className="mb-[116px]">
             <h2 className="title">AI와 함께하는 자아발견 인터뷰</h2>
             <div className="font-r16 text-gray-800 mt-1 mb-6">

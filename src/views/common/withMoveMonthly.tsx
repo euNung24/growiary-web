@@ -7,8 +7,6 @@ import { TodayState } from '@/store/todayStore';
 import { cn } from '@/lib/utils';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import Image from 'next/image';
-// import LoginDialog from '@/components/LoginDialog';
-// import { Button } from '@/components/ui/button';
 
 export type WithMoveMonthlyProps = {
   selectedMonth?: number;
@@ -16,7 +14,7 @@ export type WithMoveMonthlyProps = {
   selectedMonthLastDate?: number;
 };
 const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.FC<T> => {
-  const MoveMonthly = ({ isPreview }: { isPreview?: boolean }, props: T) => {
+  const MoveMonthly = (props: T) => {
     const {
       date: { year, month, date },
     } = useRecoilValue(TodayState);
@@ -26,7 +24,7 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
     const [lastDate, setLastDate] = useState(date);
 
     useEffect(() => {
-      if (profile && !isPreview) {
+      if (profile) {
         setSelectedYear(year);
         setSelectedMonth(month);
         setLastDate(date);
@@ -77,13 +75,12 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
               height={24}
               className={cn(
                 'cursor-pointer',
-                (!profile || isPreview) &&
-                  'cursor-default pointer-events-none text-gray-400',
+                !profile && 'cursor-default pointer-events-none text-gray-400',
               )}
               onClick={handleClickPrevMonth}
             />
             <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50">
-              {profile && !isPreview ? selectedMonth : 4}월 리포트
+              {profile ? selectedMonth : 4}월 리포트
             </span>
             <ChevronRight
               width={24}
@@ -93,8 +90,7 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
                 +(selectedYear.toString() + selectedMonth.toString().padStart(2, '0')) >=
                   +(year.toString() + month.toString().padStart(2, '0')) &&
                   'cursor-default pointer-events-none text-gray-400',
-                (!profile || isPreview) &&
-                  'cursor-default pointer-events-none text-gray-400',
+                !profile && 'cursor-default pointer-events-none text-gray-400',
               )}
               onClick={handleClickNextMonth}
             />
@@ -107,14 +103,12 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
               height={16}
             />
             <span>
-              {profile && !isPreview ? selectedYear : 2024}년{' '}
-              {profile && !isPreview ? selectedMonth : 4}월 1일
+              {profile ? selectedYear : 2024}년 {profile ? selectedMonth : 4}월 1일
             </span>{' '}
             ~{' '}
             <span>
-              {profile && !isPreview ? selectedYear : 2024}년{' '}
-              {profile && !isPreview ? selectedMonth : 4}월{' '}
-              {profile && !isPreview ? lastDate : 30}일
+              {profile ? selectedYear : 2024}년 {profile ? selectedMonth : 4}월{' '}
+              {profile ? lastDate : 30}일
             </span>
           </div>
           {/*{!profile && (*/}
@@ -131,10 +125,9 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
         </div>
         <Component
           {...props}
-          selectedYear={profile && !isPreview ? selectedYear : 2024}
-          selectedMonth={profile && !isPreview ? selectedMonth : 4}
-          selectedMonthLastDate={profile && !isPreview ? lastDate : 30}
-          isPreview={isPreview}
+          selectedYear={profile ? selectedYear : 2024}
+          selectedMonth={profile ? selectedMonth : 4}
+          selectedMonthLastDate={profile ? lastDate : 30}
         />
       </div>
     );

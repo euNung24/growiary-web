@@ -9,7 +9,6 @@ import { ReportByCharCountType } from '@/types/reportTypes';
 type ReportByCharProps = {
   year: number;
   month: string;
-  isPreview: boolean;
 };
 
 const SAMPLE_CHAR_DATA: [string, Pick<ReportByCharCountType, 'sum'>][] = [
@@ -49,7 +48,7 @@ const SAMPLE_POST_DATA: (Pick<ResPostType, 'title' | 'charactersCount'> & {
     charactersCount: 79,
   },
 ];
-const ReportByChar = ({ year, month, isPreview }: ReportByCharProps) => {
+const ReportByChar = ({ year, month }: ReportByCharProps) => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
@@ -63,7 +62,7 @@ const ReportByChar = ({ year, month, isPreview }: ReportByCharProps) => {
   const userData = data?.charCount?.[`${year}-${month}`];
 
   const handleChangeClickedIndex = (e: React.MouseEvent, idx: number) => {
-    if (isPreview || !userData) return;
+    if (!userData) return;
     setClikcedIndex(idx);
   };
 
