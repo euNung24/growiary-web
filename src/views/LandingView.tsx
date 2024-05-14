@@ -1,8 +1,21 @@
+'use client';
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
+import { UserState } from '@/store/userStore';
+import { useEffect } from 'react';
 
 const LandingView = () => {
+  const [userState, setUserState] = useRecoilState(UserState);
+
+  useEffect(() => {
+    if (userState.isNotLoginAndFirst) {
+      setUserState(v => ({ ...v, isNotLoginAndFirst: false }));
+    }
+  }, [userState]);
+
   return (
     <div className="relative bg-primary-900 w-screen h-screen flex justify-center overflow-hidden">
       <div

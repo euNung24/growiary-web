@@ -18,11 +18,14 @@ import PrivateTerm from '@/views/common/PrivateTerm';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
+import { useSetRecoilState } from 'recoil';
+import { UserState } from '@/store/userStore';
 
 const SettingModal = () => {
   const router = useRouter();
   const [isLogout, setIsLogout] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const setUserState = useSetRecoilState(UserState);
   const { profile } = useGetProfile();
   const queryClient = useQueryClient();
 
@@ -43,6 +46,7 @@ const SettingModal = () => {
   useEffect(() => {
     if (isLogout) {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
+      setUserState(v => ({ ...v, isNotLoginAndFirst: true }));
       router.push('/');
     }
   }, [isLogout, profile]);
