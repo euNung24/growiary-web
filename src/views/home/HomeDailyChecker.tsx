@@ -29,12 +29,9 @@ const HomeDailyChecker = () => {
   return (
     <section>
       {!profile && (
-        <>
-          <div className="flex justify-between">
-            <h2 className="title">그루어리는 어떤 서비스인가요?</h2>
-          </div>
+        <div className="pt-[72px]">
           <div
-            className="relative mt-6 rounded-xl h-[198px] py-10 overflow-hidden pl-[85px]"
+            className="relative rounded-xl h-[198px] py-10 overflow-hidden pl-[85px]"
             style={{
               background: "no-repeat center/960px 198px url('/assets/images/banner.png')",
             }}
@@ -47,7 +44,7 @@ const HomeDailyChecker = () => {
               나만의 생각과 경험, 일상을 기록하고 데이터로 확인하세요
             </p>
           </div>
-        </>
+        </div>
       )}
       {profile && (
         <>
