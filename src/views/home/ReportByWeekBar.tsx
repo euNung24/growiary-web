@@ -30,7 +30,7 @@ const ReportByWeekBar = () => {
     });
     const sortedData = mappingWithDate.sort((a, b) => (a[1] > b[1] ? -1 : 1));
 
-    setWeekData(sortedData.slice(0, 3));
+    setWeekData(sortedData.filter(([, data]) => data > 0).slice(0, 3));
 
     return () => {};
   }, [report]);
@@ -48,85 +48,79 @@ const ReportByWeekBar = () => {
             <br />
             작성했어요
           </p>
-          <div className="flex justify-around items-end [&>*]:flex [&>*]:flex-col">
-            <div>
-              <div
-                className={cn(
-                  'text-gray-800 font-r14 flex flex-col items-center',
-                  weekData[1][1] === 0 && 'mb-6',
-                )}
-              >
-                <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
-                  {DATE_ENG[weekData[1][0]]}
+          <div className="flex justify-around items-end gap-x-2.5 [&>*]:flex [&>*]:flex-col [&>*]:flex-1">
+            {/* 2등 */}
+            {weekData[1] && (
+              <div>
+                <div className={cn('text-gray-800 font-r14 flex flex-col items-center')}>
+                  <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
+                    {DATE_ENG[weekData[1][0]]}
+                  </div>
+                  <span>{DATE[weekData[1][0]]}요일</span>
+                  <span className="font-r12 text-gray-500">
+                    {Math.round((weekData[1][1] / totalWeekRef.current) * 100)}%
+                  </span>
                 </div>
-                <span>{DATE[weekData[1][0]]}요일</span>
-                <span className="font-r12 text-gray-500">
-                  {Math.round((weekData[1][1] / totalWeekRef.current) * 100)}%
-                </span>
-              </div>
-              <div
-                className="relative bg-gray-50 rounded w-[62px] mt-2"
-                style={{
-                  height: getLowBarHeight(weekData[0][1], weekData[1][1]),
-                }}
-              >
-                <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
-                  2
-                </span>
-              </div>
-            </div>
-            <div>
-              <div
-                className={cn(
-                  'text-gray-800 font-r14 flex flex-col items-center',
-                  weekData[0][1] === 0 && 'mb-6',
-                )}
-              >
-                <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
-                  {DATE_ENG[weekData[0][0]]}
+                <div
+                  className="relative bg-gray-50 rounded mt-2"
+                  style={{
+                    height: getLowBarHeight(weekData[0][1], weekData[1][1]),
+                  }}
+                >
+                  <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
+                    2
+                  </span>
                 </div>
-                <span>{DATE[weekData[0][0]]}요일</span>
-                <span className="font-r12 text-gray-500">
-                  {Math.round((weekData[0][1] / totalWeekRef.current) * 100)}%
-                </span>
               </div>
-              <div
-                className="relative bg-gray-50 rounded w-[62px] mt-2"
-                style={{
-                  height: MAX_BAR_HEIGHT + 'px',
-                }}
-              >
-                <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
-                  1
-                </span>
-              </div>
-            </div>
-            <div>
-              <div
-                className={cn(
-                  'text-gray-800 font-r14 flex flex-col items-center',
-                  weekData[2][1] === 0 && 'mb-6',
-                )}
-              >
-                <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
-                  {DATE_ENG[weekData[2][0]]}
+            )}
+            {/* 1등 */}
+            {weekData[0] && (
+              <div>
+                <div className={cn('text-gray-800 font-r14 flex flex-col items-center')}>
+                  <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
+                    {DATE_ENG[weekData[0][0]]}
+                  </div>
+                  <span>{DATE[weekData[0][0]]}요일</span>
+                  <span className="font-r12 text-gray-500">
+                    {Math.round((weekData[0][1] / totalWeekRef.current) * 100)}%
+                  </span>
                 </div>
-                <span>{DATE[weekData[2][0]]}요일</span>
-                <span className="font-r12 text-gray-500">
-                  {Math.round((weekData[2][1] / totalWeekRef.current) * 100)}%
-                </span>
+                <div
+                  className="relative bg-gray-50 rounded mt-2"
+                  style={{
+                    height: MAX_BAR_HEIGHT + 'px',
+                  }}
+                >
+                  <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
+                    1
+                  </span>
+                </div>
               </div>
-              <div
-                className="relative bg-gray-50 rounded w-[62px] mt-2"
-                style={{
-                  height: getLowBarHeight(weekData[0][1], weekData[2][1]),
-                }}
-              >
-                <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
-                  3
-                </span>
+            )}
+            {/* 3등 */}
+            {weekData[2] && (
+              <div>
+                <div className={cn('text-gray-800 font-r14 flex flex-col items-center')}>
+                  <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
+                    {DATE_ENG[weekData[2][0]]}
+                  </div>
+                  <span>{DATE[weekData[2][0]]}요일</span>
+                  <span className="font-r12 text-gray-500">
+                    {Math.round((weekData[2][1] / totalWeekRef.current) * 100)}%
+                  </span>
+                </div>
+                <div
+                  className="relative bg-gray-50 rounded mt-2"
+                  style={{
+                    height: getLowBarHeight(weekData[0][1], weekData[2][1]),
+                  }}
+                >
+                  <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
+                    3
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </>
       )}

@@ -37,7 +37,7 @@ const HomeReport = () => {
         {profile &&
           (report?.post &&
           report?.post?.user[`${year}-${(month + 1).toString().padStart(2, '0')}`] >=
-            3 ? (
+            1 ? (
             <>
               <ReportByPostWithAll
                 date={`${year}-${(month + 1).toString().padStart(2, '0')}`}

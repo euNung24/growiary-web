@@ -8,6 +8,7 @@ import { TodayState } from '@/store/todayStore';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { ReportState } from '@/store/reportStore';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export const ReportContext = createContext<{
   data: ReportType | null;
@@ -25,6 +26,7 @@ type ReportProvider = {
   selectedMonth?: number;
 };
 const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvider) => {
+  const pathname = usePathname();
   const mutation = useGetReport();
   const [data, setData] = useState<ReportType>({} as ReportType);
   const [isClient, setIsClient] = useState(false);
@@ -68,9 +70,7 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
     >
       {isClient &&
         (profile ? (
-          dataLength > 0 ? (
-            children
-          ) : (
+          dataLength === 0 && pathname === '/report' ? (
             <div className="flex flex-col gap-y-[50px] items-center mt-[50px] mb-[140px]">
               <p className="text-primary-900 text-center font-sb18">
                 해당 월에는 아직 기록이 없습니다.
@@ -83,6 +83,8 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
                 height={180}
               />
             </div>
+          ) : (
+            children
           )
         ) : (
           children

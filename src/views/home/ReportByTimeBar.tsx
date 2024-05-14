@@ -35,7 +35,7 @@ const ReportByTimeBar = () => {
     });
     const sortedData = mappingWithDate.sort((a, b) => (a[1] > b[1] ? -1 : 1));
 
-    setTimeData(sortedData.slice(0, 3));
+    setTimeData(sortedData.filter(([, data]) => data > 0).slice(0, 3));
 
     return () => {};
   }, [report]);
@@ -53,94 +53,88 @@ const ReportByTimeBar = () => {
             <br />
             작성했어요
           </p>
-          <div className="flex justify-around items-end [&>*]:flex [&>*]:flex-col">
-            <div>
-              <div
-                className={cn(
-                  'text-gray-800 font-r14 flex flex-col items-center',
-                  timeData[1][1] === 0 && 'mb-6',
-                )}
-              >
-                <Image
-                  src={IMAGE_SRC[timeData[1][0]]}
-                  width={46}
-                  height={46}
-                  alt={IMAGE_SRC[timeData[1][0]]}
-                />
-                <span>{TIME[timeData[1][0]]}</span>
-                <span className="font-r12 text-gray-500">
-                  {Math.round((timeData[1][1] / totalTimeRef.current) * 100)}%
-                </span>
+          <div className="flex justify-around items-end  gap-x-2.5 [&>*]:flex [&>*]:flex-col [&>*]:flex-1">
+            {/* 2등 */}
+            {timeData[1] && (
+              <div>
+                <div className={cn('text-gray-800 font-r14 flex flex-col items-center')}>
+                  <Image
+                    src={IMAGE_SRC[timeData[1][0]]}
+                    width={46}
+                    height={46}
+                    alt={IMAGE_SRC[timeData[1][0]]}
+                  />
+                  <span>{TIME[timeData[1][0]]}</span>
+                  <span className="font-r12 text-gray-500">
+                    {Math.round((timeData[1][1] / totalTimeRef.current) * 100)}%
+                  </span>
+                </div>
+                <div
+                  className="relative bg-gray-50 rounded mt-2"
+                  style={{
+                    height: getLowBarHeight(timeData[0][1], timeData[1][1]),
+                  }}
+                >
+                  <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
+                    2
+                  </span>
+                </div>
               </div>
-              <div
-                className="relative bg-gray-50 rounded w-[62px] mt-2"
-                style={{
-                  height: getLowBarHeight(timeData[0][1], timeData[1][1]),
-                }}
-              >
-                <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
-                  2
-                </span>
+            )}
+            {/* 1등 */}
+            {timeData[0] && (
+              <div>
+                <div className={cn('text-gray-800 font-r14 flex flex-col items-center')}>
+                  <Image
+                    src={IMAGE_SRC[timeData[0][0]]}
+                    width={46}
+                    height={46}
+                    alt={IMAGE_SRC[timeData[0][0]]}
+                  />
+                  <span>{TIME[timeData[0][0]]}</span>
+                  <span className="font-r12 text-gray-500">
+                    {Math.round((timeData[0][1] / totalTimeRef.current) * 100)}%
+                  </span>
+                </div>
+                <div
+                  className="relative bg-gray-50 rounded mt-2"
+                  style={{
+                    height: MAX_BAR_HEIGHT + 'px',
+                  }}
+                >
+                  <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
+                    1
+                  </span>
+                </div>
               </div>
-            </div>
-            <div>
-              <div
-                className={cn(
-                  'text-gray-800 font-r14 flex flex-col items-center',
-                  timeData[0][1] === 0 && 'mb-6',
-                )}
-              >
-                <Image
-                  src={IMAGE_SRC[timeData[0][0]]}
-                  width={46}
-                  height={46}
-                  alt={IMAGE_SRC[timeData[0][0]]}
-                />
-                <span>{TIME[timeData[0][0]]}</span>
-                <span className="font-r12 text-gray-500">
-                  {Math.round((timeData[0][1] / totalTimeRef.current) * 100)}%
-                </span>
+            )}
+            {/* 3등 */}
+            {timeData[2] && (
+              <div>
+                <div className={cn('text-gray-800 font-r14 flex flex-col items-center')}>
+                  <Image
+                    src={IMAGE_SRC[timeData[2][0]]}
+                    width={46}
+                    height={46}
+                    alt={IMAGE_SRC[timeData[2][0]]}
+                  />
+                  <span>{TIME[timeData[2][0]]}</span>
+                  <span className="font-r12 text-gray-500">
+                    {Math.round((timeData[2][1] / totalTimeRef.current) * 100)}%
+                  </span>
+                </div>
+                <div
+                  className="relative bg-gray-50 rounded mt-2"
+                  style={{
+                    height: getLowBarHeight(timeData[0][1], timeData[2][1]),
+                  }}
+                >
+                  <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
+                    3
+                  </span>
+                </div>
               </div>
-              <div
-                className="relative bg-gray-50 rounded w-[62px] mt-2"
-                style={{
-                  height: MAX_BAR_HEIGHT + 'px',
-                }}
-              >
-                <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
-                  1
-                </span>
-              </div>
-            </div>
-            <div>
-              <div
-                className={cn(
-                  'text-gray-800 font-r14 flex flex-col items-center',
-                  timeData[2][1] === 0 && 'mb-6',
-                )}
-              >
-                <Image
-                  src={IMAGE_SRC[timeData[2][0]]}
-                  width={46}
-                  height={46}
-                  alt={IMAGE_SRC[timeData[2][0]]}
-                />
-                <span>{TIME[timeData[2][0]]}</span>
-                <span className="font-r12 text-gray-500">
-                  {Math.round((timeData[2][1] / totalTimeRef.current) * 100)}%
-                </span>
-              </div>
-              <div
-                className="relative bg-gray-50 rounded w-[62px] mt-2"
-                style={{
-                  height: getLowBarHeight(timeData[0][1], timeData[2][1]),
-                }}
-              >
-                <span className="absolute inset-x-0 bottom-1 text-center text-gray-500">
-                  3
-                </span>
-              </div>
-            </div>
+            )}
           </div>
         </>
       )}
