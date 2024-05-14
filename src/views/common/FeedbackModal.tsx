@@ -30,6 +30,7 @@ import Image from 'next/image';
 import { FeedbackType } from '@/types/feedbackType';
 import { createFeedback } from '@/apis/feedback';
 import { usePathname } from 'next/navigation';
+import { tracking } from '@/utils/mixPanel';
 
 const FormSchema = z.object({
   category: z.string(),
@@ -65,6 +66,7 @@ const FeedbackModal = ({
   const fieldContentState = getFieldState('content');
 
   async function onSubmit(data: z.infer<typeof FormSchema> | FeedbackType) {
+    tracking(`의견 보내기 작성 완료`);
     await createFeedback(data)
       .then(() => {
         btnToastRef.current?.click();

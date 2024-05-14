@@ -40,6 +40,7 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 import LoginDialog from '@/components/LoginDialog';
 import StopMovePage from '@/components/StopMovePage';
 import useFindPost from '@/hooks/posts/useFindPost';
+import { tracking } from '@/utils/mixPanel';
 
 const FormSchema = z.object({
   topicId: z.number(),
@@ -97,6 +98,7 @@ const PostView = ({ postId }: PostViewProps) => {
     post
       ? await updatePost({ id: post.id, ...(data as ReqPostType) })
           .then(res => {
+            tracking('기록 수정 버튼 클릭');
             movePageAfterSubmit(res.data);
           })
           .catch(() => {
@@ -104,22 +106,13 @@ const PostView = ({ postId }: PostViewProps) => {
           })
       : await createPost(data as ReqPostType)
           .then(res => {
+            tracking('기록하기 버튼 클릭');
             movePageAfterSubmit(res.data[0]);
           })
           .catch(() => {
             isSavedRef.current = false;
           });
   }
-
-  // const isStopPost = (fn?: () => void) => {
-  //   if (isSavedRef.current) {
-  //     fn && (historyFnRef.current = fn);
-  //     return;
-  //   }
-  //
-  //   btnStopPostRef.current?.click();
-  //   fn && (historyFnRef.current = fn);
-  // };
 
   const openModalAndWaiteForChoice = () => {
     return new Promise<boolean>(resolve => {

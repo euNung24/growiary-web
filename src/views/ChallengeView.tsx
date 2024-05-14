@@ -28,6 +28,7 @@ import useChangeUserTitleBadge from '@/hooks/challenge/useChangeUserTitleBadge';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { cn } from '@/lib/utils';
+import { tracking } from '@/utils/mixPanel';
 
 const ChallengeView = () => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
@@ -52,6 +53,7 @@ const ChallengeView = () => {
   };
 
   const handleChangeTitleBadge = (badgeKey: BadgeKeyType) => {
+    tracking(`도전 과제 뱃지 변경`);
     mutation
       .mutateAsync(badgeKey)
       .then(res => {

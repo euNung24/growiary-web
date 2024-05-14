@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
-import { getTwoFormatDate } from '@/utils';
+import { getTwoFormatDate, MENU_NAMES } from '@/utils';
 import NewCard from '@/components/NewCard';
 import { ResPostType } from '@/types/postTypes';
 import useGetPosts from '@/hooks/posts/useGetPosts';
@@ -22,6 +22,7 @@ import LinkOrLogin from '@/components/LinkOrLogin';
 import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/types/topicTypes';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { tracking } from '@/utils/mixPanel';
 
 const SAMPLE_POSTS: (Pick<ResPostType, 'title' | 'tags'> & {
   topic: {
@@ -84,6 +85,9 @@ const HomePosts = () => {
               size="sm"
               className="text-gray-500 font-sb12 p-0 cursor-pointer"
               asChild
+              onClick={() => {
+                profile && tracking(MENU_NAMES['나의 기록들'] + ' 페이지');
+              }}
             >
               <span>전체보기</span>
             </Button>

@@ -20,6 +20,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { createReserve } from '@/apis/reservation';
 import { ReservationType } from '@/types/reservationType';
+import { tracking } from '@/utils/mixPanel';
 
 const FormSchema = z.object({
   q1: z.string(),
@@ -70,6 +71,7 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
     setIsShowRelativeQ3(value === 'Y');
   };
   async function onSubmit(data: z.infer<typeof FormSchema> | ReservationType) {
+    tracking('사전 예약 작성 완료');
     await createReserve(data)
       .then(() => {
         btnToastRef.current?.click();

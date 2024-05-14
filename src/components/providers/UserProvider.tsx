@@ -20,6 +20,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { useRecoilState } from 'recoil';
 import { UserState } from '@/store/userStore';
+import { tracking } from '@/utils/mixPanel';
+import { MENU_NAMES } from '@/utils';
 
 export const UserContext = createContext<{
   profile?: ProfileType;
@@ -57,11 +59,6 @@ const UserProvider = ({ children }: UserProvider) => {
   }, [isError]);
 
   useEffect(() => {
-    console.log(
-      isClient,
-      !profile || !Object.keys(profile).length,
-      userState.isNotLoginAndFirst,
-    );
     if (
       isClient &&
       (!profile || !Object.keys(profile).length) &&
@@ -110,6 +107,9 @@ const UserProvider = ({ children }: UserProvider) => {
                         className="bg-gray-50 border-0 focus:border-transparent focus:border-0"
                         size="sm"
                         variant="outlineGray"
+                        onClick={() => {
+                          tracking('시작하기');
+                        }}
                       >
                         시작하기
                       </Button>

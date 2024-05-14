@@ -6,12 +6,13 @@ import { topicCategory } from '@/utils/topicCategory';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RotateCw } from 'lucide-react';
 import Image from 'next/image';
-import { genRandomNum } from '@/utils';
+import { genRandomNum, MENU_NAMES } from '@/utils';
 import { useEffect, useState } from 'react';
 import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
 import { Skeleton } from '@/components/ui/skeleton';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import LinkOrLogin from '@/components/LinkOrLogin';
+import { tracking } from '@/utils/mixPanel';
 
 const HomeTopic = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -66,6 +67,9 @@ const HomeTopic = () => {
         <Button variant="ghostGray" className="text-gray-500 font-sb12" size="sm" asChild>
           <LinkOrLogin href="/topics" isLogin={!!profile}>
             <Button
+              onClick={() => {
+                profile && tracking(MENU_NAMES['추천 주제'] + ' 페이지');
+              }}
               variant="ghostGray"
               size="sm"
               className="text-gray-500 font-sb12 p-0 cursor-pointer"

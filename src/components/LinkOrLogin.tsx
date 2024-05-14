@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import LoginDialog from '@/components/LoginDialog';
+import { tracking } from '@/utils/mixPanel';
+import { menu } from '@/utils';
 
 type LinkOrLoginProps = {
   href: string;

@@ -20,6 +20,7 @@ import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSetRecoilState } from 'recoil';
 import { UserState } from '@/store/userStore';
+import { tracking } from '@/utils/mixPanel';
 
 const SettingModal = () => {
   const router = useRouter();
@@ -103,13 +104,23 @@ const SettingModal = () => {
                     </div>
                   </div>
                   <ServiceTerm>
-                    <div className="flex justify-between py-[13px] hover:bg-gray-50">
+                    <div
+                      className="flex justify-between py-[13px] hover:bg-gray-50"
+                      onClick={() => {
+                        tracking(`서비스 이용약관`);
+                      }}
+                    >
                       <span>서비스 이용약관</span>
                       <ChevronRight className="text-gray-500" />
                     </div>
                   </ServiceTerm>
                   <PrivateTerm>
-                    <div className="flex justify-between py-[13px] hover:bg-gray-50">
+                    <div
+                      className="flex justify-between py-[13px] hover:bg-gray-50"
+                      onClick={() => {
+                        tracking(`개인정보 처리방침`);
+                      }}
+                    >
                       <span>개인정보 처리방침</span>
                       <ChevronRight className="text-gray-500" />
                     </div>

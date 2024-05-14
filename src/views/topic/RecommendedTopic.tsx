@@ -11,6 +11,7 @@ import { Button, ButtonIcon } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { topicCategory } from '@/utils/topicCategory';
+import { tracking } from '@/utils/mixPanel';
 
 const RecommendedTopic = () => {
   const recommendedTopic = useGetRecommendedTopic();
@@ -49,6 +50,9 @@ const RecommendedTopic = () => {
           >
             <Link
               href={`/post?topic=${topTopic?.topic.id}&category=${topTopic?.topic.category}`}
+              onClick={() => {
+                tracking('주간 인기로 기록하기');
+              }}
             >
               <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />이 주제로
               기록하기

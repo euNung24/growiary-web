@@ -13,6 +13,7 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 import ServiceTerm from '@/views/common/ServiceTerm';
 import PrivateTerm from '@/views/common/PrivateTerm';
+import { tracking } from '@/utils/mixPanel';
 
 type LoginDialogProps = {
   children: ReactNode;
@@ -79,12 +80,26 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
         <DialogFooter>
           계속 진행하면 Growiary{' '}
           <ServiceTerm>
-            <b className={termsStyle}>서비스 약관</b>
+            <b
+              className={termsStyle}
+              onClick={() => {
+                tracking(`서비스 이용약관`);
+              }}
+            >
+              서비스 약관
+            </b>
           </ServiceTerm>
           에 동의하고
           <br />
           <PrivateTerm>
-            <b className={termsStyle}>개인정보처리방침</b>
+            <b
+              className={termsStyle}
+              onClick={() => {
+                tracking(`개인정보처리방침`);
+              }}
+            >
+              개인정보처리방침
+            </b>
           </PrivateTerm>
           을 읽었음을 인정하는 것으로 간주됩니다.
         </DialogFooter>

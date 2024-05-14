@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import useGetProfile from '@/hooks/profile/useGetProfile';
 import { useQueryClient } from '@tanstack/react-query';
+import { tracking } from '@/utils/mixPanel';
+import { MENU_NAMES } from '@/utils';
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
 function encodeUrlSafe(text: string): string {
@@ -52,6 +54,7 @@ const LoginLoading = () => {
 
     if (isLogin && profile && !Object.keys(profile).length) {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
+      tracking(`SNS 로그인 ${profile.social}`);
       push('/');
     }
   }, [isLogin, profile]);

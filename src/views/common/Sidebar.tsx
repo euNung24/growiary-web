@@ -10,6 +10,7 @@ import { menu } from '@/utils';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { ProfileType } from '@/types/profileTypes';
 import { BADGE_INFO } from '@/utils/challenge';
+import { tracking } from '@/utils/mixPanel';
 
 type MenuType = {
   src: string;
@@ -29,8 +30,12 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
     'rounded bg-primary-900 text-white-0 hover:bg-primary-900 hover:text-white-0';
   const pathname = usePathname();
 
-  const handlePreventMoveLin = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleClickMenu = (e: React.MouseEvent, name: string, isLogin: boolean) => {
+    tracking(name + ' 페이지');
+
+    if (isLogin) {
+      e.preventDefault();
+    }
   };
 
   return (
@@ -44,7 +49,7 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
               item.href.split('/')[1] === pathname.split('/')[1] && active,
               checkLogin && !profile && 'text-gray-200 pointer-events-none',
             )}
-            {...(checkLogin && !profile ? { onClick: handlePreventMoveLin } : {})}
+            onClick={e => handleClickMenu(e, item.name, checkLogin && !profile)}
           >
             <Image
               src={
@@ -100,7 +105,13 @@ const Sidebar = () => {
   return (
     <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px] z-10">
       {/* 로고 */}
-      <Link href="/" className="block py-[22px]">
+      <Link
+        href="/"
+        className="block py-[22px]"
+        onClick={() => {
+          tracking('메인 페이지');
+        }}
+      >
         <picture>
           <source
             srcSet="/assets/icons/logo/square.png"
