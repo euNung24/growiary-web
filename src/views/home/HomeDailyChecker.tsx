@@ -8,7 +8,6 @@ import { useMutation } from '@tanstack/react-query';
 import { DailyCheckerType } from '@/types/postTypes';
 import { Skeleton } from '@/components/ui/skeleton';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import Image from 'next/image';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
