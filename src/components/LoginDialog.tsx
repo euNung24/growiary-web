@@ -14,6 +14,7 @@ import { ReactNode } from 'react';
 import ServiceTerm from '@/views/common/ServiceTerm';
 import PrivateTerm from '@/views/common/PrivateTerm';
 import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 type LoginDialogProps = {
   children: ReactNode;
@@ -84,6 +85,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
               className={termsStyle}
               onClick={() => {
                 tracking(`서비스 이용약관`);
+                sendGAEvent({ event: '기록 수정 버튼 클릭' });
               }}
             >
               서비스 약관
@@ -96,6 +98,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
               className={termsStyle}
               onClick={() => {
                 tracking(`개인정보처리방침`);
+                sendGAEvent({ event: '개인정보처리방침' });
               }}
             >
               개인정보처리방침

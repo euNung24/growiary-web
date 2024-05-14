@@ -17,6 +17,7 @@ import LoginDialog from '@/components/LoginDialog';
 import { topicCategory } from '@/utils/topicCategory';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const RecentTopic = () => {
   const mutation = useGetUserRecentTopic();
@@ -67,7 +68,10 @@ const RecentTopic = () => {
                     'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
                   )}
                   asChild
-                  onClick={() => tracking('최근에 기록한 주제로 기록하기')}
+                  onClick={() => {
+                    tracking('최근에 기록한 주제로 기록하기');
+                    sendGAEvent({ event: '최근에 기록한 주제로 기록하기' });
+                  }}
                 >
                   <Link
                     href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}

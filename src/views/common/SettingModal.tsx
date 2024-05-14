@@ -21,6 +21,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useSetRecoilState } from 'recoil';
 import { UserState } from '@/store/userStore';
 import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const SettingModal = () => {
   const router = useRouter();
@@ -108,6 +109,7 @@ const SettingModal = () => {
                       className="flex justify-between py-[13px] hover:bg-gray-50"
                       onClick={() => {
                         tracking(`서비스 이용약관`);
+                        sendGAEvent({ event: `서비스 이용약관` });
                       }}
                     >
                       <span>서비스 이용약관</span>
@@ -119,6 +121,7 @@ const SettingModal = () => {
                       className="flex justify-between py-[13px] hover:bg-gray-50"
                       onClick={() => {
                         tracking(`개인정보 처리방침`);
+                        sendGAEvent({ event: `개인정보 처리방침` });
                       }}
                     >
                       <span>개인정보 처리방침</span>

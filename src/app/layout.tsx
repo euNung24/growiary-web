@@ -4,6 +4,7 @@ import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
 import RecoilProvider from '@/components/providers/RecoilProvider';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const font = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -29,6 +30,7 @@ export default function RootLayout({
         <RecoilProvider>
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </RecoilProvider>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''} />
       </body>
     </html>
   );

@@ -21,7 +21,7 @@ import Cookies from 'js-cookie';
 import { useRecoilState } from 'recoil';
 import { UserState } from '@/store/userStore';
 import { tracking } from '@/utils/mixPanel';
-import { MENU_NAMES } from '@/utils';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export const UserContext = createContext<{
   profile?: ProfileType;
@@ -109,6 +109,7 @@ const UserProvider = ({ children }: UserProvider) => {
                         variant="outlineGray"
                         onClick={() => {
                           tracking('시작하기');
+                          sendGAEvent({ event: `시작하기` });
                         }}
                       >
                         시작하기

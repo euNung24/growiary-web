@@ -13,6 +13,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import LinkOrLogin from '@/components/LinkOrLogin';
 import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const HomeTopic = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -68,7 +69,10 @@ const HomeTopic = () => {
           <LinkOrLogin href="/topics" isLogin={!!profile}>
             <Button
               onClick={() => {
-                profile && tracking(MENU_NAMES['추천 주제'] + ' 페이지');
+                if (profile) {
+                  tracking(MENU_NAMES['추천 주제'] + ' 페이지');
+                  sendGAEvent({ event: MENU_NAMES['추천 주제'] + ' 페이지' });
+                }
               }}
               variant="ghostGray"
               size="sm"

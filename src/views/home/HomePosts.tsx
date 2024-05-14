@@ -23,6 +23,7 @@ import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/types/topicTypes';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const SAMPLE_POSTS: (Pick<ResPostType, 'title' | 'tags'> & {
   topic: {
@@ -86,7 +87,10 @@ const HomePosts = () => {
               className="text-gray-500 font-sb12 p-0 cursor-pointer"
               asChild
               onClick={() => {
-                profile && tracking(MENU_NAMES['나의 기록들'] + ' 페이지');
+                if (profile) {
+                  tracking(MENU_NAMES['나의 기록들'] + ' 페이지');
+                  sendGAEvent({ event: MENU_NAMES['나의 기록들'] + ' 페이지' });
+                }
               }}
             >
               <span>전체보기</span>

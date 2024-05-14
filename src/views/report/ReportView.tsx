@@ -23,6 +23,7 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const ReportView = ({ selectedMonth, selectedYear }: WithMoveMonthlyProps) => {
   const { profile } = useProfileContext();
@@ -88,7 +89,10 @@ const ReportView = ({ selectedMonth, selectedYear }: WithMoveMonthlyProps) => {
                 <AdvanceReservation>
                   <button
                     className="text-gray-800 bg-white-0 rounded-md py-2 px-6 font-r14"
-                    onClick={() => tracking('사전 예약 신청 모달 클릭')}
+                    onClick={() => {
+                      tracking('사전 예약 신청 모달 클릭');
+                      sendGAEvent({ event: '사전 예약 신청 모달 클릭' });
+                    }}
                   >
                     사전 예약 신청하기
                   </button>

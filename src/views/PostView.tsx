@@ -41,6 +41,7 @@ import LoginDialog from '@/components/LoginDialog';
 import StopMovePage from '@/components/StopMovePage';
 import useFindPost from '@/hooks/posts/useFindPost';
 import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const FormSchema = z.object({
   topicId: z.number(),
@@ -99,6 +100,7 @@ const PostView = ({ postId }: PostViewProps) => {
       ? await updatePost({ id: post.id, ...(data as ReqPostType) })
           .then(res => {
             tracking('기록 수정 버튼 클릭');
+            sendGAEvent({ event: '기록 수정 버튼 클릭' });
             movePageAfterSubmit(res.data);
           })
           .catch(() => {
@@ -107,6 +109,7 @@ const PostView = ({ postId }: PostViewProps) => {
       : await createPost(data as ReqPostType)
           .then(res => {
             tracking('기록하기 버튼 클릭');
+            sendGAEvent({ event: '기록하기 버튼 클릭' });
             movePageAfterSubmit(res.data[0]);
           })
           .catch(() => {

@@ -11,6 +11,7 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 import { ProfileType } from '@/types/profileTypes';
 import { BADGE_INFO } from '@/utils/challenge';
 import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 type MenuType = {
   src: string;
@@ -32,6 +33,7 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
 
   const handleClickMenu = (e: React.MouseEvent, name: string, isLogin: boolean) => {
     tracking(name + ' 페이지');
+    sendGAEvent({ event: name + ' 페이지' });
 
     if (isLogin) {
       e.preventDefault();
@@ -110,6 +112,7 @@ const Sidebar = () => {
         className="block py-[22px]"
         onClick={() => {
           tracking('메인 페이지');
+          sendGAEvent({ event: '메인 페이지' });
         }}
       >
         <picture>
