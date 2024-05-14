@@ -65,6 +65,8 @@ const UserProvider = ({ children }: UserProvider) => {
       userState.isNotLoginAndFirst
     ) {
       router.push('/landing');
+      tracking('랜딩 페이지 이동');
+      sendGAEvent({ event: '랜딩 페이지 이동' });
     } else if (profile && Object.keys(profile).length) {
       setUserState(v => ({ ...v, isNotLoginAndFirst: false }));
     }
