@@ -37,7 +37,11 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
 
   useEffect(() => {
     const monthNewTag = data?.newTags?.[monthIndex];
-    if (!monthNewTag || !Object.keys(monthNewTag).length) return;
+    if (!monthNewTag) return;
+    if (!Object.keys(monthNewTag).length) {
+      setTopNewTag(null);
+      return;
+    }
 
     let sortedNewMonthTag = Object.entries(monthNewTag).sort((a, b) =>
       a[1].length > b[1].length ? -1 : 1,
