@@ -98,7 +98,7 @@ const LandingView = () => {
               <span className="font-sb14">고객센터</span>
               <dl className="flex [&>*]:flex">
                 <div>
-                  <dt>이메일 문의 : </dt>
+                  <dt>이메일 문의 : &nbsp;</dt>
                   <dd>admin@growiary.com</dd>
                 </div>
               </dl>
