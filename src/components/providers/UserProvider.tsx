@@ -66,8 +66,8 @@ const UserProvider = ({ children }: UserProvider) => {
       userState.isNotLoginAndFirst
     ) {
       router.push('/landing');
-      tracking('랜딩 페이지 이동');
-      sendGAEvent({ event: '랜딩 페이지 이동' });
+      tracking('랜딩 페이지');
+      sendGAEvent({ event: '랜딩 페이지' });
     } else if (profile && Object.keys(profile).length) {
       setUserState(v => ({ ...v, isNotLoginAndFirst: false }));
     }
@@ -110,10 +110,6 @@ const UserProvider = ({ children }: UserProvider) => {
                         className="bg-gray-50 border-0 focus:border-transparent focus:border-0"
                         size="sm"
                         variant="outlineGray"
-                        onClick={() => {
-                          tracking('시작하기');
-                          sendGAEvent({ event: `시작하기` });
-                        }}
                       >
                         시작하기
                       </Button>

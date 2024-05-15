@@ -52,8 +52,8 @@ const RecommendedTopic = () => {
             <Link
               href={`/post?topic=${topTopic?.topic.id}&category=${topTopic?.topic.category}`}
               onClick={() => {
-                tracking('주간 인기로 기록하기');
-                sendGAEvent({ event: '주간 인기로 기록하기' });
+                tracking('주간 인기');
+                sendGAEvent({ event: '주간 인기' });
               }}
             >
               <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />이 주제로

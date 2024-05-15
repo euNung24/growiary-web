@@ -8,6 +8,9 @@ import { useMutation } from '@tanstack/react-query';
 import { DailyCheckerType } from '@/types/postTypes';
 import { Skeleton } from '@/components/ui/skeleton';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { tracking } from '@/utils/mixPanel';
+import { MENU_NAMES } from '@/utils';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -18,6 +21,11 @@ const HomeDailyChecker = () => {
     mutationFn: getDailyCheckerPost,
   });
   const { profile } = useProfileContext();
+
+  const handleClickNewPost = () => {
+    tracking(MENU_NAMES.기록하기);
+    sendGAEvent({ event: MENU_NAMES.기록하기 });
+  };
 
   useEffect(() => {
     mutation.mutateAsync().then(res => {
@@ -106,7 +114,7 @@ const HomeDailyChecker = () => {
                   ))
                   .reverse()}
                 {/* 오늘 */}
-                <Link href="/post">
+                <Link href="/post" onClick={handleClickNewPost}>
                   <DailyChecker variant="today" date={today} count={data.today} />
                 </Link>
                 {/* 빈 값 */}

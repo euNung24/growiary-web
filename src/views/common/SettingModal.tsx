@@ -49,6 +49,8 @@ const SettingModal = () => {
     if (isLogout) {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
       setUserState(v => ({ ...v, isNotLoginAndFirst: true }));
+      tracking(`로그아웃`);
+      sendGAEvent({ event: `로그아웃` });
       router.push('/');
     }
   }, [isLogout, profile]);
@@ -105,25 +107,13 @@ const SettingModal = () => {
                     </div>
                   </div>
                   <ServiceTerm>
-                    <div
-                      className="flex justify-between py-[13px] hover:bg-gray-50"
-                      onClick={() => {
-                        tracking(`서비스 이용약관`);
-                        sendGAEvent({ event: `서비스 이용약관` });
-                      }}
-                    >
+                    <div className="flex justify-between py-[13px] hover:bg-gray-50">
                       <span>서비스 이용약관</span>
                       <ChevronRight className="text-gray-500" />
                     </div>
                   </ServiceTerm>
                   <PrivateTerm>
-                    <div
-                      className="flex justify-between py-[13px] hover:bg-gray-50"
-                      onClick={() => {
-                        tracking(`개인정보 처리방침`);
-                        sendGAEvent({ event: `개인정보 처리방침` });
-                      }}
-                    >
+                    <div className="flex justify-between py-[13px] hover:bg-gray-50">
                       <span>개인정보 처리방침</span>
                       <ChevronRight className="text-gray-500" />
                     </div>

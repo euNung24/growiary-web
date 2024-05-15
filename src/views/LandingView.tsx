@@ -6,9 +6,16 @@ import Link from 'next/link';
 import { useRecoilState } from 'recoil';
 import { UserState } from '@/store/userStore';
 import { useEffect } from 'react';
+import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const LandingView = () => {
   const [userState, setUserState] = useRecoilState(UserState);
+
+  const handleClickStart = () => {
+    tracking(`메인 페이지`);
+    sendGAEvent({ event: '메인 페이지' });
+  };
 
   useEffect(() => {
     if (userState.isNotLoginAndFirst) {
@@ -47,7 +54,7 @@ const LandingView = () => {
             className="text-gray-900 bg-secondary-400"
             asChild
           >
-            <Link href="/" className="font-m12">
+            <Link href="/" className="font-m12" onClick={handleClickStart}>
               그루어리 시작하기
             </Link>
           </Button>

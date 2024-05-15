@@ -41,6 +41,13 @@ const HomeTopic = () => {
     const copiedTopics = { ...randomTopics };
     copiedTopics[category] = randomTopicIdx;
     setRandomTopics(copiedTopics);
+    tracking(`오늘의 추천 주제_새로고침(${category})`);
+    sendGAEvent({ event: `오늘의 추천 주제_새로고침(${category})` });
+  };
+
+  const onClickNewPost = () => {
+    tracking(`기록하기`);
+    sendGAEvent({ event: '기록하기' });
   };
 
   useEffect(
@@ -66,14 +73,17 @@ const HomeTopic = () => {
       <div className="flex justify-between">
         <h2 className="title">오늘의 추천 주제</h2>
         <Button variant="ghostGray" className="text-gray-500 font-sb12" size="sm" asChild>
-          <LinkOrLogin href="/topics" isLogin={!!profile}>
+          <LinkOrLogin
+            href="/topics"
+            isLogin={!!profile}
+            handleClick={() => {
+              if (profile) {
+                tracking(MENU_NAMES['추천 주제']);
+                sendGAEvent({ event: MENU_NAMES['추천 주제'] });
+              }
+            }}
+          >
             <Button
-              onClick={() => {
-                if (profile) {
-                  tracking(MENU_NAMES['추천 주제'] + ' 페이지');
-                  sendGAEvent({ event: MENU_NAMES['추천 주제'] + ' 페이지' });
-                }
-              }}
               variant="ghostGray"
               size="sm"
               className="text-gray-500 font-sb12 p-0 cursor-pointer"
@@ -98,6 +108,7 @@ const HomeTopic = () => {
                   key={i}
                   href={`/post?topic=${topic.id}&category=${topic.category}`}
                   isLogin={!!profile}
+                  handleClick={onClickNewPost}
                 >
                   <Card className="shrink-0">
                     <CardHeader className="flex gap-2 items-baseline">

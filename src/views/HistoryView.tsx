@@ -39,6 +39,8 @@ import { toast } from '@/components/ui/use-toast';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import LoginDialog from '@/components/LoginDialog';
 import { CardChip } from '@/components/ui/card';
+import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const SAMPLE_CATEGORY_DATA: Record<TopicCategory, number> = {
   하루생각: 8,
@@ -166,6 +168,11 @@ const HistoryView = () => {
       }
       setPosts(filteredPosts);
     });
+  };
+
+  const handleClickDetailLink = () => {
+    tracking('세부 기록 선택');
+    sendGAEvent({ event: '세부 기록 선택' });
   };
 
   useEffect(() => {
@@ -375,6 +382,7 @@ const HistoryView = () => {
                   <div key={post.id} className="relative">
                     <Link
                       href={profile ? `/history/${post.id}` : ''}
+                      onClick={handleClickDetailLink}
                       className={cn(
                         'block',
                         !profile && 'cursor-default pointer-events-none',

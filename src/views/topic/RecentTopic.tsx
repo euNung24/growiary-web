@@ -24,6 +24,11 @@ const RecentTopic = () => {
   const [recentTopic, setRecentTopic] = useState<RecentTopicType | null>(null);
   const { profile } = useProfileContext();
 
+  const onClickNewPost = () => {
+    tracking('최근에 기록한');
+    sendGAEvent({ event: '최근에 기록한' });
+  };
+
   useEffect(() => {
     mutation.mutateAsync().then(res => {
       if (!res) return;
@@ -68,10 +73,7 @@ const RecentTopic = () => {
                     'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
                   )}
                   asChild
-                  onClick={() => {
-                    tracking('최근에 기록한 주제로 기록하기');
-                    sendGAEvent({ event: '최근에 기록한 주제로 기록하기' });
-                  }}
+                  onClick={onClickNewPost}
                 >
                   <Link
                     href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
@@ -115,7 +117,7 @@ const RecentTopic = () => {
                 className={cn('bg-white-0 text-primary-900/90 group-hover:bg-white-0')}
                 asChild
               >
-                <Link href={`/post`}>
+                <Link href={`/post`} onClick={onClickNewPost}>
                   <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
                   자유주제로 기록하기
                 </Link>

@@ -10,13 +10,22 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { ReactNode } from 'react';
+import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 type PrivateTermProps = {
   children?: ReactNode;
 };
 const PrivateTerm = ({ children }: PrivateTermProps) => {
+  const onOpenChange = (open: boolean) => {
+    if (open) {
+      tracking(`개인정보 처리방침`);
+      sendGAEvent({ event: `개인정보 처리방침` });
+    }
+  };
+
   return (
-    <AlertDialog>
+    <AlertDialog onOpenChange={open => onOpenChange(open)}>
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -117,7 +126,7 @@ const PrivateTerm = ({ children }: PrivateTermProps) => {
             공지하며, 변경된 개인정보 처리방침은 공지된 날로부터 시행됩니다.
           </p>
 
-          <p className="mt-4">본 약관은 2024.05.08부터 적용됩니다.</p>
+          <p className="mt-4">본 약관은 2024.05.16부터 적용됩니다.</p>
         </div>
         <AlertDialogFooter>
           <AlertDialogAction asChild className="h-10">

@@ -99,8 +99,8 @@ const PostView = ({ postId }: PostViewProps) => {
     post
       ? await updatePost({ id: post.id, ...(data as ReqPostType) })
           .then(res => {
-            tracking('기록 수정 버튼 클릭');
-            sendGAEvent({ event: '기록 수정 버튼 클릭' });
+            tracking('기록 수정');
+            sendGAEvent({ event: '기록 수정' });
             movePageAfterSubmit(res.data);
           })
           .catch(() => {
@@ -108,8 +108,6 @@ const PostView = ({ postId }: PostViewProps) => {
           })
       : await createPost(data as ReqPostType)
           .then(res => {
-            tracking('기록하기 버튼 클릭');
-            sendGAEvent({ event: '기록하기 버튼 클릭' });
             movePageAfterSubmit(res.data[0]);
           })
           .catch(() => {

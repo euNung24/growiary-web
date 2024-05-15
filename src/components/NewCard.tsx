@@ -10,14 +10,22 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import LoginDialog from '@/components/LoginDialog';
 import { topicCategory } from '@/utils/topicCategory';
+import { tracking } from '@/utils/mixPanel';
+import { MENU_NAMES } from '@/utils';
+import { sendGAEvent } from '@next/third-parties/google';
 
 type NewCardProps = {
   isLogin?: boolean;
 };
 
 const NewCard = ({ isLogin = true }: NewCardProps) => {
+  const handleClickNewPost = () => {
+    tracking(MENU_NAMES.기록하기);
+    sendGAEvent({ event: MENU_NAMES.기록하기 });
+  };
+
   return isLogin ? (
-    <Link href="/post">
+    <Link href="/post" onClick={handleClickNewPost}>
       <NewCardContent isLogin={isLogin} />
     </Link>
   ) : (

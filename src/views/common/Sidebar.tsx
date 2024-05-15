@@ -32,8 +32,8 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
   const pathname = usePathname();
 
   const handleClickMenu = (e: React.MouseEvent, name: string, isLogin: boolean) => {
-    tracking(name + ' 페이지');
-    sendGAEvent({ event: name + ' 페이지' });
+    tracking(name);
+    sendGAEvent({ event: name });
 
     if (isLogin) {
       e.preventDefault();

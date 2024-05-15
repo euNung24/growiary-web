@@ -80,18 +80,19 @@ const HomePosts = () => {
       <div className="flex justify-between">
         <h2 className="title">나의 기록</h2>
         <Button variant="ghostGray" size="sm" className="text-gray-500 font-sb12" asChild>
-          <LinkOrLogin href="/history" isLogin={!!posts}>
+          <LinkOrLogin
+            href="/history"
+            isLogin={!!posts}
+            handleClick={() => {
+              tracking(MENU_NAMES['나의 기록들']);
+              sendGAEvent({ event: MENU_NAMES['나의 기록들'] });
+            }}
+          >
             <Button
               variant="ghostGray"
               size="sm"
               className="text-gray-500 font-sb12 p-0 cursor-pointer"
               asChild
-              onClick={() => {
-                if (profile) {
-                  tracking(MENU_NAMES['나의 기록들'] + ' 페이지');
-                  sendGAEvent({ event: MENU_NAMES['나의 기록들'] + ' 페이지' });
-                }
-              }}
             >
               <span>전체보기</span>
             </Button>

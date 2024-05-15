@@ -29,6 +29,8 @@ import { Label } from '@/components/ui/label';
 import Image from 'next/image';
 import Editor from '@/components/Editor';
 import useFindPost from '@/hooks/posts/useFindPost';
+import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 type PostDetailViewProps = {
   postId: string;
@@ -41,6 +43,9 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
   const deleteMutation = useDeletePost(postId);
   const [post, setPost] = useState<ResPostType | null>(null);
   const handleDeletePost = () => {
+    tracking('기록 삭제');
+    sendGAEvent({ event: '기록 삭제' });
+
     deleteMutation.mutateAsync().then(res => {
       if (!res) return;
       toast({

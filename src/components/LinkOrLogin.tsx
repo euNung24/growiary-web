@@ -7,10 +7,17 @@ type LinkOrLoginProps = {
   children: ReactNode;
   isLogin: boolean;
   className?: string;
+  handleClick?: () => void;
 };
-const LinkOrLogin = ({ href, children, className, isLogin }: LinkOrLoginProps) => {
+const LinkOrLogin = ({
+  href,
+  children,
+  className,
+  isLogin,
+  handleClick,
+}: LinkOrLoginProps) => {
   return isLogin ? (
-    <Link href={href} className={className}>
+    <Link href={href} className={className} onClick={handleClick}>
       {children}
     </Link>
   ) : (

@@ -58,9 +58,12 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   const fieldQ2State = getFieldState('q2');
   const fieldQ4State = getFieldState('q4');
 
-  const handleClose = (open: boolean) => {
+  const handleOpenChange = (open: boolean) => {
     if (!open) {
       form.reset();
+    } else {
+      tracking(`사전 예약 신청`);
+      sendGAEvent({ event: `사전 예약 신청` });
     }
   };
 
@@ -72,8 +75,6 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
     setIsShowRelativeQ3(value === 'Y');
   };
   async function onSubmit(data: z.infer<typeof FormSchema> | ReservationType) {
-    tracking('사전 예약 작성 완료');
-    sendGAEvent({ event: '사전 예약 작성 완료' });
     await createReserve(data)
       .then(() => {
         btnToastRef.current?.click();
@@ -91,7 +92,7 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   return (
     <>
       {isClient && (
-        <Dialog onOpenChange={open => handleClose(open)}>
+        <Dialog onOpenChange={open => handleOpenChange(open)}>
           <DialogTrigger asChild>
             {children ? (
               children

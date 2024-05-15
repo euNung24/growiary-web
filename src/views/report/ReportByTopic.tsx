@@ -7,6 +7,8 @@ import { ResPostType } from '@/types/postTypes';
 import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/types/topicTypes';
 import { getPercentage } from '@/utils';
+import { tracking } from '@/utils/mixPanel';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const CHART_COLOR = ['bg-gray-600', 'bg-gray-400', 'bg-gray-200', 'bg-gray-100'];
 
@@ -73,6 +75,8 @@ const ReportByTopic = ({ month }: ReportByTopicProps) => {
   const handleClickCategoryBar = (category: TopicCategory, idx: number) => {
     setSelectedCategory(category);
     setClickedCategory(idx);
+    tracking('기록 카테고리_카테고리별 선택');
+    sendGAEvent({ event: '기록 카테고리_카테고리별 선택' });
   };
 
   useEffect(() => {

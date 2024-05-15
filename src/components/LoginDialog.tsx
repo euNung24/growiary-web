@@ -43,8 +43,15 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
     window.location.assign(googleURL);
   };
 
+  const onOpenChange = (open: boolean) => {
+    if (open) {
+      tracking(`로그인 팝업`);
+      sendGAEvent({ event: '로그인 팝업' });
+    }
+  };
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={open => onOpenChange(open)}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -81,28 +88,12 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
         <DialogFooter>
           계속 진행하면 Growiary{' '}
           <ServiceTerm>
-            <b
-              className={termsStyle}
-              onClick={() => {
-                tracking(`서비스 이용약관`);
-                sendGAEvent({ event: '기록 수정 버튼 클릭' });
-              }}
-            >
-              서비스 약관
-            </b>
+            <b className={termsStyle}>서비스 약관</b>
           </ServiceTerm>
           에 동의하고
           <br />
           <PrivateTerm>
-            <b
-              className={termsStyle}
-              onClick={() => {
-                tracking(`개인정보처리방침`);
-                sendGAEvent({ event: '개인정보처리방침' });
-              }}
-            >
-              개인정보처리방침
-            </b>
+            <b className={termsStyle}>개인정보처리방침</b>
           </PrivateTerm>
           을 읽었음을 인정하는 것으로 간주됩니다.
         </DialogFooter>

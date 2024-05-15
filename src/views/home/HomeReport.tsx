@@ -22,18 +22,19 @@ const HomeReport = () => {
       <div className="flex justify-between">
         <h2 className="title">기록 데이터</h2>
         <Button variant="ghostGray" size="sm" className="text-gray-500 font-sb12" asChild>
-          <LinkOrLogin href="/report" isLogin={!!profile}>
+          <LinkOrLogin
+            href="/report"
+            isLogin={!!profile}
+            handleClick={() => {
+              tracking(MENU_NAMES['기록 데이터 보기']);
+              sendGAEvent({ event: MENU_NAMES['기록 데이터 보기'] });
+            }}
+          >
             <Button
               variant="ghostGray"
               size="sm"
               className="text-gray-500 font-sb12 p-0 cursor-pointer"
               asChild
-              onClick={() => {
-                if (profile) {
-                  tracking(MENU_NAMES['기록 데이터 보기'] + ' 페이지');
-                  sendGAEvent({ event: MENU_NAMES['기록 데이터 보기'] + ' 페이지' });
-                }
-              }}
             >
               <span>전체보기</span>
             </Button>

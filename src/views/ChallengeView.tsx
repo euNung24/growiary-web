@@ -54,8 +54,8 @@ const ChallengeView = () => {
   };
 
   const handleChangeTitleBadge = (badgeKey: BadgeKeyType) => {
-    tracking(`도전 과제 뱃지 변경`);
-    sendGAEvent({ event: '도전 과제 뱃지 변경' });
+    tracking(`뱃지 타이틀별 선택`);
+    sendGAEvent({ event: '뱃지 타이틀별 선택' });
 
     mutation
       .mutateAsync(badgeKey)

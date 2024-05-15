@@ -21,8 +21,8 @@ const FooterFeedbackView = ({ description, category }: FooterFeedbackViewProps) 
             <button
               className="text-gray-800 bg-white-0 rounded-md py-2 px-6 font-r12"
               onClick={() => {
-                tracking(`푸터 의견 보내기 클릭 / ${category}`);
-                sendGAEvent({ event: `푸터 의견 보내기 클릭 / ${category}` });
+                tracking(`의견 보내기`);
+                sendGAEvent({ event: `의견 보내기` });
               }}
             >
               의견 보내기

@@ -54,8 +54,10 @@ const LoginLoading = () => {
 
     if (isLogin && profile && !Object.keys(profile).length) {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
-      tracking(`SNS 로그인 ${profile.social}`);
-      sendGAEvent({ event: `SNS 로그인 ${profile.social}` });
+      if (profile.social) {
+        tracking(`SNS 로그인 ${profile.social}`);
+        sendGAEvent({ event: `SNS 로그인 ${profile.social}` });
+      }
       push('/');
     }
   }, [isLogin, profile]);
