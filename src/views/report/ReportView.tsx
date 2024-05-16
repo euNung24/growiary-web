@@ -1,33 +1,33 @@
 'use client';
 
-import Image from 'next/image';
+// import Image from 'next/image';
 import ReportPost from '@/views/report/ReportPost';
 import ReportByDay from '@/views/report/ReportByDay';
 import ReportByTime from '@/views/report/ReportByTime';
 import ReportByChar from '@/views/report/ReportByChar';
 import ReportByTopic from '@/views/report/ReportByTopic';
 import ReportByTag from '@/views/report/ReportByTag';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import AdvanceReservation from '@/views/common/AdvanceReservation';
+// import {
+//   Card,
+//   CardContent,
+//   CardDescription,
+//   CardHeader,
+//   CardTitle,
+// } from '@/components/ui/card';
+// import AdvanceReservation from '@/views/common/AdvanceReservation';
 import withMoveMonthly, { WithMoveMonthlyProps } from '@/views/common/withMoveMonthly';
 import ReportTotal from '@/views/report/ReportTotal';
 import ReportProvider from '@/components/providers/ReportProvider';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
-import useProfileContext from '@/hooks/profile/useProfileContext';
-import { useRecoilValue } from 'recoil';
-import { TodayState } from '@/store/todayStore';
+// import useProfileContext from '@/hooks/profile/useProfileContext';
+// import { useRecoilValue } from 'recoil';
+// import { TodayState } from '@/store/todayStore';
 
 const ReportView = ({ selectedMonth, selectedYear }: WithMoveMonthlyProps) => {
-  const { profile } = useProfileContext();
-  const {
-    date: { year, month },
-  } = useRecoilValue(TodayState);
+  // const { profile } = useProfileContext();
+  // const {
+  //   date: { year, month },
+  // } = useRecoilValue(TodayState);
 
   return (
     <ReportProvider selectedYear={selectedYear} selectedMonth={selectedMonth}>
