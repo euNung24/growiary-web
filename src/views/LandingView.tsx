@@ -75,7 +75,7 @@ const LandingView = () => {
             width={112.49}
             height={25.64}
           />
-          <div className="flex gap-x-[76px]">
+          <div className="flex gap-x-[76px] gap-y-3 flex-wrap">
             <div className="flex flex-col">
               <span className="font-sb14">베러플레이스</span>
               <dl className="flex [&>*]:flex">
@@ -90,12 +90,12 @@ const LandingView = () => {
                 </div>
               </dl>
               <dl className="flex [&>*]:flex">
-                <div>
+                <div className="shrink-0">
                   <dt>대표번호 : &nbsp;</dt>
                   <dd>0507-0178-0372</dd>
                   &nbsp;|&nbsp;
                 </div>
-                <div>
+                <div className="shrink-0">
                   <dt>주소지 : &nbsp;</dt>
                   <dd>대구광역시 북구 중앙대로 118길 19, 302호</dd>
                 </div>
