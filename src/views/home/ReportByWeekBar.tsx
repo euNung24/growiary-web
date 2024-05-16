@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ReportContext } from '@/components/providers/ReportProvider';
 import { cn } from '@/lib/utils';
+import { WEEK, WEEK_ENG } from '@/utils';
 
 const MAX_BAR_HEIGHT = 121;
-const DATE = ['일', '월', '화', '수', '목', '금', '토'];
-const DATE_ENG = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+const DATE_ENG = WEEK_ENG.map(day => day.toUpperCase().slice(0, 3));
 
 const ReportByWeekBar = () => {
   const historyDescriptionStyle = 'font-r22 text-gray-900 mt-5 mb-3';
@@ -43,7 +43,7 @@ const ReportByWeekBar = () => {
       {weekData && (
         <>
           <p className={historyDescriptionStyle}>
-            <span className={historyStrengthStyle}>{DATE[weekData[0][0]]}요일</span>
+            <span className={historyStrengthStyle}>{WEEK[weekData[0][0]]}요일</span>
             에 주로
             <br />
             작성했어요
@@ -56,7 +56,7 @@ const ReportByWeekBar = () => {
                   <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
                     {DATE_ENG[weekData[1][0]]}
                   </div>
-                  <span>{DATE[weekData[1][0]]}요일</span>
+                  <span>{WEEK[weekData[1][0]]}요일</span>
                   <span className="font-r12 text-gray-500">
                     {Math.round((weekData[1][1] / totalWeekRef.current) * 100)}%
                   </span>
@@ -80,7 +80,7 @@ const ReportByWeekBar = () => {
                   <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
                     {DATE_ENG[weekData[0][0]]}
                   </div>
-                  <span>{DATE[weekData[0][0]]}요일</span>
+                  <span>{WEEK[weekData[0][0]]}요일</span>
                   <span className="font-r12 text-gray-500">
                     {Math.round((weekData[0][1] / totalWeekRef.current) * 100)}%
                   </span>
@@ -104,7 +104,7 @@ const ReportByWeekBar = () => {
                   <div className="w-[46px] h-[46px] rounded-[10px] bg-primary-100 flex justify-center items-center mb-[3px]">
                     {DATE_ENG[weekData[2][0]]}
                   </div>
-                  <span>{DATE[weekData[2][0]]}요일</span>
+                  <span>{WEEK[weekData[2][0]]}요일</span>
                   <span className="font-r12 text-gray-500">
                     {Math.round((weekData[2][1] / totalWeekRef.current) * 100)}%
                   </span>

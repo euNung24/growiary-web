@@ -121,3 +121,16 @@ export const menu = [
 ];
 
 export const NO_TOPIC_ID = 65;
+
+export const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+export const WEEK_ENG = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+
+export const TIME = ['새벽', '아침', '오후', '저녁'];

@@ -3,12 +3,12 @@ import PolarChart from '@/components/PolarChart';
 import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { WEEK } from '@/utils';
 
 type ReportByDayProps = {
   month: number;
 };
 
-const DATE = ['일', '월', '화', '수', '목', '금', '토'];
 const COLORS = ['#154284', '#204C90', '#3B619D', '#4F72A7', '#6E86B4', '#8094B0'];
 type WeekDataType = {
   label: string;
@@ -26,7 +26,7 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
     if (!data?.week) return;
 
     const mappedData = data.week[month].map((v, i) => ({
-      label: DATE[i],
+      label: WEEK[i],
       data: v,
     }));
 
@@ -38,7 +38,7 @@ const ReportByDay = ({ month }: ReportByDayProps) => {
       <p className={descriptionStyle}>
         <span className={strengthStyle}>
           {weekData
-            ? DATE[
+            ? WEEK[
                 weekData.findIndex(
                   data => data.data === Math.max(...weekData.map(v => v.data)),
                 )

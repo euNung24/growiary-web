@@ -6,6 +6,7 @@ import { DayPicker } from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
+import { WEEK, WEEK_ENG } from '@/utils';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -15,16 +16,6 @@ function Calendar({
   showOutsideDays = false,
   ...props
 }: CalendarProps) {
-  const weeks = ['일', '월', '화', '수', '목', '금', '토'];
-  const weeksEng = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -71,12 +62,12 @@ function Calendar({
         ),
         HeadRow: () => (
           <tr className="flex gap-2.5">
-            {weeks.map((week, i) => (
+            {WEEK.map((week, i) => (
               <th
-                key={weeksEng[i]}
+                key={WEEK_ENG[i]}
                 scope="col"
                 className="font-r12 text-gray-500 rounded-md w-6 font-normal"
-                aria-label={weeks[i]}
+                aria-label={WEEK[i]}
               >
                 {week}
               </th>

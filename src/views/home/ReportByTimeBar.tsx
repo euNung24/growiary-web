@@ -2,9 +2,10 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { ReportContext } from '@/components/providers/ReportProvider';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { TIME } from '@/utils';
 
 const MAX_BAR_HEIGHT = 121;
-const TIME = ['새벽', '아침', '오후', '저녁'];
+
 const IMAGE_SRC = [
   '/assets/images/morning.png',
   '/assets/images/lunch.png',

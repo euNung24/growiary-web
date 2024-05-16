@@ -2,10 +2,8 @@ import { cn } from '@/lib/utils';
 import RectAreaChart from '@/components/RectAreaChart';
 import { useEffect, useRef, useState } from 'react';
 import useReportContext from '@/hooks/report/useReportContext';
-import { getPercentage } from '@/utils';
+import { getPercentage, TIME } from '@/utils';
 import Image from 'next/image';
-
-const TIME = ['새벽', '아침', '오후', '저녁'];
 
 type ReportByTimeProps = {
   month: number;

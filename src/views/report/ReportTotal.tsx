@@ -4,14 +4,12 @@ import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
 import { ReportByTopicType } from '@/types/reportTypes';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { TIME, WEEK } from '@/utils';
 
 type ReportTotal = {
   year: number;
   month: string;
 };
-
-const DATE = ['일', '월', '화', '수', '목', '금', '토'];
-const TIME = ['새벽', '아침', '오후', '저녁'];
 
 const ReportTotal = ({ year, month }: ReportTotal) => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
@@ -101,7 +99,7 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
             주로{' '}
             <Chip className={chipStyle}>
               {data.week?.[monthIndex] &&
-                DATE[
+                WEEK[
                   data.week[monthIndex].findIndex(
                     v => v === Math.max(...data.week[monthIndex]),
                   )
