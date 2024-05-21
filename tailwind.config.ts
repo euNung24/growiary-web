@@ -8,14 +8,14 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      xl: '1440px',
+      lg: { max: '1160px' },
+      md: { max: '1024px' },
+      sm: { max: '708px' },
+      xs: { max: '360px' },
+    },
     extend: {
-      screens: {
-        xs: { max: '360px' },
-        sm: { max: '708px' },
-        md: { max: '1024px' },
-        lg: { max: '1160px' },
-        xl: '1440px',
-      },
       colors: {
         info: {
           50: '#E9F1FF',
