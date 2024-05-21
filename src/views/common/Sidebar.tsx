@@ -12,6 +12,8 @@ import { ProfileType } from '@/types/profileTypes';
 import { BADGE_INFO } from '@/utils/challenge';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useEffect } from 'react';
+import { requestPermission } from '@/utils/firebase';
 
 type MenuType = {
   src: string;
@@ -103,6 +105,10 @@ const Sidebar = () => {
       href: '/feedback',
     },
   ];
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   return (
     <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px] z-10">
