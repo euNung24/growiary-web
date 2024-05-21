@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { Button, ButtonIcon } from '@/components/ui/button';
 import Image from 'next/image';
 import useGetProfile from '@/hooks/profile/useGetProfile';
 import { ChevronRight } from 'lucide-react';
@@ -41,9 +41,34 @@ const SettingModal = () => {
     !open && history.back();
   };
 
+  const handleAddKakaoChannel = () => {
+    window.Kakao.Channel.followChannel({
+      channelPublicId: '_CChDG',
+    });
+  };
+
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    if (!isClient) {
+      setIsClient(true);
+    } else {
+      const script1 = document.createElement('script');
+      script1.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js';
+      script1.integrity =
+        'sha384-kDljxUXHaJ9xAb2AzRd59KxjrFjzHa5TAoFQ6GbYTCAG0bjM55XohjjDT7tDDC01';
+      script1.crossOrigin = 'anonymous';
+      document.body.appendChild(script1);
+    }
+  }, [isClient]);
+
+  useEffect(() => {
+    if (window.Kakao) {
+      const script = document.createElement('script');
+      script.defer = true;
+      script.innerHTML = window.Kakao.init('cc4180186b4c880c447667c958e415d7');
+
+      document.body.appendChild(script);
+    }
+  });
 
   useEffect(() => {
     if (isLogout) {
@@ -133,6 +158,14 @@ const SettingModal = () => {
                     </Button>
                   </div>
                 </section>
+                <Button
+                  size="lg"
+                  className="bg-[#FFE501] text-[#3C1D1E] focus:bg-[#FFE501] w-[345px] mx-auto gap-x-2 mt-[128px]"
+                  onClick={handleAddKakaoChannel}
+                >
+                  <ButtonIcon src="/assets/icons/kakao_icon.png" alt="kakao_channel" />
+                  그루어리 채널 추가하고 알림 받기
+                </Button>
               </>
             )}
           </DialogContent>
