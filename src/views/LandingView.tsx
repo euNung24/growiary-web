@@ -68,7 +68,7 @@ const LandingView = () => {
         </div>
       </div>
       <footer className="bg-[#002861] opacity-50">
-        <div className="pt-[54px] pl-[157px] pb-[21px] text-gray-100 flex flex-col gap-y-3 font-r14">
+        <div className="pt-[54px] pl-[157px] pb-[21px] text-gray-100 flex flex-col gap-y-3 font-r14 sm:pl-7">
           <Image
             src="/assets/icons/logo/wide_white.png"
             alt="logo"
@@ -78,24 +78,24 @@ const LandingView = () => {
           <div className="flex gap-x-[76px] gap-y-3 flex-wrap">
             <div className="flex flex-col">
               <span className="font-sb14">베러플레이스</span>
-              <dl className="flex [&>*]:flex">
+              <dl className="flex [&>*]:flex flex-wrap sm:flex-col">
                 <div>
                   <dt>대표자 : &nbsp;</dt>
                   <dd>배건우</dd>
-                  &nbsp;|&nbsp;
+                  <span className="sm:hidden">&nbsp;|&nbsp;</span>
                 </div>
                 <div>
                   <dt>사업자등록번호 : &nbsp;</dt>
                   <dd>493-06-02707</dd>
                 </div>
               </dl>
-              <dl className="flex [&>*]:flex">
-                <div className="shrink-0">
+              <dl className="flex [&>*]:flex flex-wrap sm:flex-col">
+                <div>
                   <dt>대표번호 : &nbsp;</dt>
                   <dd>0507-0178-0372</dd>
-                  &nbsp;|&nbsp;
+                  <span className="sm:hidden">&nbsp;|&nbsp;</span>
                 </div>
-                <div className="shrink-0">
+                <div>
                   <dt>주소지 : &nbsp;</dt>
                   <dd>대구광역시 북구 중앙대로 118길 19, 302호</dd>
                 </div>
