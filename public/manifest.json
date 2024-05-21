@@ -1,0 +1,26 @@
+{
+  "name":"그루어리",
+  "short_name":"growiary",
+  "theme_color": "#58b90e",
+  "background_color": "#002861",
+  "display": "standalone",
+  "lang":"ko-KR",
+  "start_url":"/",
+  "scope":"/",
+  "orientation": "any",
+  "dir":"auto",
+  "description":"나만의 생각과 경험, 일상을 기록하고 데이터 리포트로 확인해보세요. 나도 몰랐던 나의 기록 패턴, 성향, 지난 날의 여정과 생각들을 돌아볼 수 있을 거예요.",
+  "icons": [
+    {
+      "purpose":"maskable",
+      "sizes":"512x512",
+      "src":"/assets/icons/pwa/icon512_maskable.png",
+      "type":"image/png"
+    },
+    {
+      "purpose":"any",
+      "sizes":"512x512",
+      "src":"/assets/icons/pwa/icon512_rounded.png",
+      "type":"image/png"
+    }]
+}
