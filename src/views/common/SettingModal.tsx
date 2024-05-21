@@ -42,6 +42,12 @@ const SettingModal = () => {
   };
 
   const handleAddKakaoChannel = () => {
+    if (!window.Kakao.isInitialized()) {
+      const script = document.createElement('script');
+      script.innerHTML = window.Kakao.init('cc4180186b4c880c447667c958e415d7');
+      document.body.appendChild(script);
+    }
+
     window.Kakao.Channel.followChannel({
       channelPublicId: '_CChDG',
     });
@@ -59,16 +65,6 @@ const SettingModal = () => {
       document.body.appendChild(script1);
     }
   }, [isClient]);
-
-  useEffect(() => {
-    if (window.Kakao) {
-      const script = document.createElement('script');
-      script.defer = true;
-      script.innerHTML = window.Kakao.init('cc4180186b4c880c447667c958e415d7');
-
-      document.body.appendChild(script);
-    }
-  });
 
   useEffect(() => {
     if (isLogout) {
