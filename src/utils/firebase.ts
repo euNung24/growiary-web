@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { getMessaging, getToken, isSupported, onMessage } from 'firebase/messaging';
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,30 +11,38 @@ export const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
+const messageFn = async () => {
+  const messaging = (await isSupported()) ? getMessaging(app) : null;
 
-getToken(messaging, {
-  vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VALID_KEY,
-}).then(currentToken => {
-  if (currentToken) {
-    // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
-    console.log(currentToken);
-  } else {
-    console.log('No registration token available. Request permission to generate one.');
-  }
-});
+  if (!messaging) return;
+
+  getToken(messaging, {
+    vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VALID_KEY,
+  }).then(currentToken => {
+    if (currentToken) {
+      // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
+      console.log(currentToken);
+    } else {
+      console.log('No registration token available. Request permission to generate one.');
+    }
+  });
+
+  onMessage(messaging, payload => {
+    console.log('Message received. ', payload);
+  });
+};
 
 export function requestPermission() {
   console.log('Requesting permission...');
-  Notification.requestPermission().then(permission => {
-    if (permission === 'granted') {
-      console.log('Notification permission granted.');
-    } else {
-      console.log('denied');
-    }
-  });
+  if ('Notification' in window) {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+      } else {
+        console.log('denied');
+      }
+    });
+  }
 }
 
-onMessage(messaging, payload => {
-  console.log('Message received. ', payload);
-});
+messageFn();
