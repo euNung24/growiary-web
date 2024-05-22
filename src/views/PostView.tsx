@@ -2,7 +2,7 @@
 
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
@@ -87,6 +87,25 @@ const PostView = ({ postId }: PostViewProps) => {
       writeDate: post ? new Date(post.writeDate) : new Date(),
     },
   });
+
+  const handleSelectDate = (
+    date: Date | undefined,
+    field: ControllerRenderProps<z.infer<typeof FormSchema>, 'writeDate'>,
+  ) => {
+    if (!date) return;
+
+    const nowDate = new Date();
+    const writeDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      nowDate.getHours(),
+      nowDate.getMinutes(),
+      nowDate.getSeconds(),
+    );
+
+    field.onChange(writeDate);
+  };
 
   const movePageAfterSubmit = (post: ResPostType) => {
     form.reset();
@@ -209,12 +228,6 @@ const PostView = ({ postId }: PostViewProps) => {
                     className="font-r28 px-0 py-4 border-none"
                     minLength={1}
                     maxLength={50}
-                    // onInvalid={validateTextLength}
-                    // onChange={e => {
-                    //   const target = e.target as HTMLInputElement;
-                    //   titleField.onChange(target.value);
-                    //   target.setCustomValidity('');
-                    // }}
                   />
                 </FormControl>
               </FormItem>
@@ -260,7 +273,7 @@ const PostView = ({ postId }: PostViewProps) => {
                           <Calendar
                             mode="single"
                             selected={field.value}
-                            onSelect={field.onChange}
+                            onSelect={date => handleSelectDate(date, field)}
                             disabled={date =>
                               date > new Date() || date < new Date('1900-01-01')
                             }
