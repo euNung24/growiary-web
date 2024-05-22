@@ -24,10 +24,12 @@ import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 
 export const UserContext = createContext<{
+  isLogin: '' | 'LOGIN' | 'NOT_LOGIN';
   profile?: ProfileType;
   titleBadge?: Partial<keyof typeof BADGE_INFO>;
   setTitleBadge: Dispatch<SetStateAction<Partial<keyof typeof BADGE_INFO>>>;
 }>({
+  isLogin: '',
   profile: {} as ProfileType,
   titleBadge: 'first',
   setTitleBadge: () => {},
@@ -83,6 +85,7 @@ const UserProvider = ({ children }: UserProvider) => {
     (isError || !userState.isNotLoginAndFirst) && (
       <UserContext.Provider
         value={{
+          isLogin: !profile ? '' : Object.keys(profile).length ? 'LOGIN' : 'NOT_LOGIN',
           profile:
             !profile || !Object.keys(profile).length
               ? undefined
