@@ -186,30 +186,32 @@ const HistoryView = () => {
   }, [profile]);
 
   useEffect(() => {
-    mutation.mutateAsync(selectedMonth).then(res => {
-      if (!res) return;
-      if (!('posts' in res.data)) {
-        setPosts({});
-        setDates([]);
-        return;
-      }
-      const sortDataByDate = res.data.posts.reduce((f, v) => {
-        const date = format(new Date(v.writeDate), 'yyyy-MM-dd');
-        return {
-          ...f,
-          [date]: [...(f[date] || []), v],
-        };
-      }, {} as HistoryPostType);
+    mutation
+      .mutateAsync(`${selectedYear}-${selectedMonth.toString().padStart(2, '0')}`)
+      .then(res => {
+        if (!res) return;
+        if (!('posts' in res.data)) {
+          setPosts({});
+          setDates([]);
+          return;
+        }
+        const sortDataByDate = res.data.posts.reduce((f, v) => {
+          const date = format(new Date(v.writeDate), 'yyyy-MM-dd');
+          return {
+            ...f,
+            [date]: [...(f[date] || []), v],
+          };
+        }, {} as HistoryPostType);
 
-      setTotalPostCount(res.data.posts.length);
-      setPosts(sortDataByDate);
-      setDates(
-        Object.keys(sortDataByDate).toSorted((a, b) =>
-          +a.slice(-2) > +b.slice(-2) ? -1 : 1,
-        ),
-      );
-      setCategories(res.data.category);
-    });
+        setTotalPostCount(res.data.posts.length);
+        setPosts(sortDataByDate);
+        setDates(
+          Object.keys(sortDataByDate).toSorted((a, b) =>
+            +a.slice(-2) > +b.slice(-2) ? -1 : 1,
+          ),
+        );
+        setCategories(res.data.category);
+      });
   }, [selectedMonth]);
 
   return (

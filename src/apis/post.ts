@@ -32,8 +32,8 @@ export const deletePost = (id: string) =>
   withTokenPost(postApiUrl + '/update', { body: { status: false, id } }) as Promise<
     ApiSuccessResponse<ResPostType>
   >;
-export const getMonthlyPosts = (id: number) =>
-  withTokenPost(postApiUrl + '/record', { body: { month: id.toString() } }) as Promise<
+export const getMonthlyPosts = (date: string) =>
+  withTokenPost(postApiUrl + '/record', { body: { date } }) as Promise<
     ApiSuccessResponse<{ posts: ResPostType[]; category: Record<TopicCategory, number> }>
   >;
 

@@ -7,7 +7,7 @@ import { getNewAccessToken } from '@/utils/api';
 const useGetMonthlyPosts = () => {
   return useMutation({
     mutationKey: ['monthlyPosts'],
-    mutationFn: (id: number) => getMonthlyPosts(id),
+    mutationFn: (date: string) => getMonthlyPosts(date),
     onError: async error => {
       await getNewAccessToken(error);
       console.log(error.message);
