@@ -49,7 +49,7 @@ const RecentTopic = () => {
                 <TopicCardTitle>{recentTopic.topic?.category}</TopicCardTitle>
               </TopicCardHeader>
               <TopicCardContent>
-                <div>
+                <div className="z-[1]">
                   {recentTopic?.topic?.title?.split('/n').map((text, i) => (
                     <p key={i}>
                       {text}

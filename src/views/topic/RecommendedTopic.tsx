@@ -26,7 +26,7 @@ const RecommendedTopic = () => {
           <TopicCardTitle>{topTopic?.topic.category}</TopicCardTitle>
         </TopicCardHeader>
         <TopicCardContent>
-          <div>
+          <div className="z-[1]">
             {topTopic?.topic.title?.split('/n').map((text, i) => (
               <p key={i}>
                 {text}
