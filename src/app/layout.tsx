@@ -7,6 +7,7 @@ import { ReactNode } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { APP_INFO } from '@/utils/appInfo';
 import { Viewport } from 'next';
+import HotjarSnippet from '@/views/common/HotJarSnippet';
 
 const font = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -76,6 +77,7 @@ export default function RootLayout({
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </RecoilProvider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''} />
+        <HotjarSnippet />
       </body>
     </html>
   );
