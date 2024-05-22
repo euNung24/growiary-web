@@ -103,7 +103,12 @@ const HistoryView = () => {
 
   return (
     isLogin && (
-      <div className="w-full mt-[-83px] flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto] !mx-auto">
+      <div
+        className={cn(
+          'w-full flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]',
+          profile ? 'mt-[-72px]' : 'mt-[-86px]',
+        )}
+      >
         <div className="flex-1">
           <div
             className="flex justify-between sticky z-10 top-0 bg-white-0 border-b border-gray-100"
