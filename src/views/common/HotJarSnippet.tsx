@@ -3,10 +3,8 @@
 import Script from 'next/script';
 
 const HotjarSnippet = () => {
-  if (process.env.NEXT_PUBLIC_HOTJAR_ID) return null;
-
   return (
-    <div>
+    process.env.NEXT_PUBLIC_HOTJAR_ID && (
       <Script id="hotjar-snippet">
         {`
           (function(h,o,t,j,a,r){
@@ -19,7 +17,7 @@ const HotjarSnippet = () => {
           })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
         `}
       </Script>
-    </div>
+    )
   );
 };
 
