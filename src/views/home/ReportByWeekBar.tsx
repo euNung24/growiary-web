@@ -12,7 +12,7 @@ const ReportByWeekBar = () => {
 
   const [weekData, setWeekData] = useState<[number, number][] | null>(null);
   const totalWeekRef = useRef(0);
-  const { data: report, month } = useContext(ReportContext);
+  const { data: report, monthIndex } = useContext(ReportContext);
 
   const getLowBarHeight = (max: number, data: number) => {
     const multiple = MAX_BAR_HEIGHT / max;
@@ -21,7 +21,7 @@ const ReportByWeekBar = () => {
   };
 
   useEffect(() => {
-    const monthWeek = report?.week?.[month];
+    const monthWeek = report?.week?.[monthIndex];
     if (!report || !monthWeek) return;
 
     const mappingWithDate = monthWeek.map((count, i) => {

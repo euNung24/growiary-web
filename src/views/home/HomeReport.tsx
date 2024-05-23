@@ -46,11 +46,10 @@ const HomeReport = () => {
         {/* 로그인 된 경우 */}
         {profile &&
           (report?.post &&
-          report?.post?.user[`${year}-${(month + 1).toString().padStart(2, '0')}`] >=
-            1 ? (
+          report?.post?.user[`${year}-${month.toString().padStart(2, '0')}`] >= 1 ? (
             <>
               <ReportByPostWithAll
-                date={`${year}-${(month + 1).toString().padStart(2, '0')}`}
+                date={`${year}-${month.toString().padStart(2, '0')}`}
               />
               <ReportByWeekBar />
               <ReportByTimeBar />

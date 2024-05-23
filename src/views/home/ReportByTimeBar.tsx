@@ -18,7 +18,7 @@ const ReportByTimeBar = () => {
   const historyStrengthStyle = 'font-sb22 text-primary-900';
   const [timeData, setTimeData] = useState<[number, number][] | null>(null);
   const totalTimeRef = useRef(0);
-  const { data: report, month } = useContext(ReportContext);
+  const { data: report, monthIndex } = useContext(ReportContext);
 
   const getLowBarHeight = (max: number, data: number) => {
     const multiple = MAX_BAR_HEIGHT / max;
@@ -27,7 +27,7 @@ const ReportByTimeBar = () => {
   };
 
   useEffect(() => {
-    const monthTime = report?.time?.[month];
+    const monthTime = report?.time?.[monthIndex];
     if (!report || !monthTime) return;
 
     const mappingWithDate = monthTime.map((count, i) => {
