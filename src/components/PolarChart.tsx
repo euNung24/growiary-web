@@ -66,6 +66,9 @@ function PolarChart({ labels, data, backgroundColor }: PolarChartProps) {
             ? Math.floor((+value / total) * 100) + '%'
             : labels[context.dataIndex];
         },
+        color: function (context: Context) {
+          return context.active ? '#002861' : '#747F89';
+        },
       },
     },
   };
