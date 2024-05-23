@@ -11,7 +11,7 @@ type LayoutProps = {
 
 export default async function asLayout({ modal, children }: LayoutProps) {
   return (
-    <div>
+    <>
       {modal}
       <UserProvider>
         <Sidebar />
@@ -23,6 +23,6 @@ export default async function asLayout({ modal, children }: LayoutProps) {
         </div>
       </UserProvider>
       <Toaster />
-    </div>
+    </>
   );
 }

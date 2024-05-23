@@ -71,10 +71,19 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={font.className} style={{ scrollbarGutter: 'stable' }}>
+    <html lang="ko" className="overflow-hidden">
+      <body className={font.className}>
         <RecoilProvider>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ReactQueryProvider>
+            <div
+              className="h-screen overflow-auto"
+              style={{
+                scrollbarGutter: 'stable',
+              }}
+            >
+              {children}
+            </div>
+          </ReactQueryProvider>
         </RecoilProvider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''} />
         <HotjarSnippet />
