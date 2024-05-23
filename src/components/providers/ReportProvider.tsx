@@ -84,7 +84,7 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
         ) : (
           children
         )}
-        {data && (
+        {data && pathname === '/report' && (
           <FooterFeedbackView
             category="기록 데이터 보기"
             description=" 더 알고 싶은 기록 관련 데이터가 있다면 편하게 알려주세요"

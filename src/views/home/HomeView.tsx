@@ -6,7 +6,7 @@ import ReportProvider from '@/components/providers/ReportProvider';
 
 const HomeView = () => {
   return (
-    <div className="space-y-[72px]">
+    <div className="space-y-[72px] mb-[72px]">
       <HomeDailyChecker />
       <HomePosts />
       <HomeTopic />
