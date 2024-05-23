@@ -25,7 +25,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import useChangeUserTitleBadge from '@/hooks/challenge/useChangeUserTitleBadge';
-import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { cn } from '@/lib/utils';
 import { tracking } from '@/utils/mixPanel';
@@ -245,10 +244,6 @@ const ChallengeView = () => {
           </div>
         </section>
       </div>
-      <FooterFeedbackView
-        category="도전과제"
-        description="궁금하거나 떠오르는 아이디어, 의견이 있다면 자유롭게 남겨주세요"
-      />
     </>
   );
 };

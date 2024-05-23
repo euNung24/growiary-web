@@ -7,7 +7,6 @@ import { useState } from 'react';
 import RecentTopic from '@/views/topic/RecentTopic';
 import RecommendedTopic from '@/views/topic/RecommendedTopic';
 import TopicList from '@/views/topic/TopicList';
-import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 
 const TopicView = () => {
   const [currentCategory, setCurrentCategory] = useState(() => {
@@ -54,10 +53,6 @@ const TopicView = () => {
           <TopicList currentCategory={currentCategory} />
         </ul>
       </section>
-      <FooterFeedbackView
-        category="추천 주제"
-        description="간직하고 있는 좋은 질문이 있다면 공유해주세요."
-      />
     </>
   );
 };

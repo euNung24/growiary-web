@@ -3,7 +3,8 @@ import Preview from '@/views/common/Preview';
 export default function Home() {
   return (
     <>
-      <TopicView /> <Preview />
+      <TopicView />
+      <Preview />
     </>
   );
 }

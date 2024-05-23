@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import UserProvider from '@/components/providers/UserProvider';
 import TopStartButton from '@/views/common/TopStartButton';
+import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 
 type LayoutProps = {
   children: ReactNode;
@@ -20,6 +21,7 @@ export default async function asLayout({ modal, children }: LayoutProps) {
           <main className="mx-auto relative w-[960px] md:w-[640px] sm:w-[320px] [&>*]:mx-2.5">
             {children}
           </main>
+          <FooterFeedbackView />
         </div>
       </UserProvider>
       <Toaster />

@@ -9,7 +9,6 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 import { ReportState } from '@/store/reportStore';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 
 export const ReportContext = createContext<{
   data: ReportType | null;
@@ -83,12 +82,6 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
           </div>
         ) : (
           children
-        )}
-        {data && pathname === '/report' && (
-          <FooterFeedbackView
-            category="기록 데이터 보기"
-            description=" 더 알고 싶은 기록 관련 데이터가 있다면 편하게 알려주세요"
-          />
         )}
       </ReportContext.Provider>
     )

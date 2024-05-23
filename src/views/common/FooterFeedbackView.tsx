@@ -1,23 +1,27 @@
+'use client';
+
 import FeedbackModal from '@/views/common/FeedbackModal';
-import { MenuType } from '@/types';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { usePathname } from 'next/navigation';
+import { menu } from '@/utils';
 
-type FooterFeedbackViewProps = {
-  category: MenuType;
-  description: string;
-};
-
-const FooterFeedbackView = ({ description, category }: FooterFeedbackViewProps) => {
+const FooterFeedbackView = () => {
   const { profile } = useProfileContext();
+  const pathname = usePathname();
+  const menuIdx = menu.findIndex(v => v.href === pathname);
 
   return (
-    profile && (
+    profile &&
+    menu[menuIdx]?.footer && (
       <footer className="flex items-center flex-col gap-y-[15px] mt-[72px] h-[183px] bg-gray-50 pt-9">
-        <p className="text-gray-500 font-r16">{description}</p>
+        <p className="text-gray-500 font-r16">
+          {menu[menuIdx].placeholder ||
+            '궁금하거나 떠오르는 아이디어, 의견이 있다면 자유롭게 남겨주세요'}
+        </p>
         <div>
-          <FeedbackModal defaultCategory={category}>
+          <FeedbackModal>
             <button
               className="text-gray-800 bg-white-0 rounded-md py-2 px-6 font-r12"
               onClick={() => {

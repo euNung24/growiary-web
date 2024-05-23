@@ -95,9 +95,10 @@ export const menu = [
   {
     src: '/assets/icons/multi-window',
     alt: 'recommended topics',
-    name: '추천 주제',
+    name: MENU_NAMES['추천 주제'],
     href: '/topics',
     placeholder: '간직하고 있는 좋은 질문이 있다면 공유해주세요',
+    footer: true,
   },
   {
     src: '/assets/icons/report',
@@ -105,6 +106,7 @@ export const menu = [
     name: MENU_NAMES['기록 데이터 보기'],
     href: '/report',
     placeholder: '더 알고 싶은 기록 관련 데이터가 있다면 알려주세요',
+    footer: true,
   },
   // {
   //   src: '/assets/icons/book',
@@ -117,6 +119,7 @@ export const menu = [
     alt: 'challenge',
     name: MENU_NAMES['도전과제'],
     href: '/challenge',
+    footer: true,
   },
 ];
 
