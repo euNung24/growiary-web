@@ -57,14 +57,11 @@ const SAMPLE_POST_DATA: (Pick<ResPostType, 'title' | 'tags'> & {
   },
 ];
 
-type ReportByTopicProps = {
-  month: number;
-};
-const ReportByTopic = ({ month }: ReportByTopicProps) => {
+const ReportByTopic = () => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
-  const { data } = useReportContext();
+  const { data, month } = useReportContext();
   const [rankedTopic, setRankedTopic] = useState<[TopicCategory, ResPostType[]][] | null>(
     null,
   );

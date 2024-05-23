@@ -7,11 +7,6 @@ import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { SAMPLE_REPORT } from '@/utils/report';
 
-type ReportPostProps = {
-  year: number;
-  month: string;
-};
-
 const MAX_BAR_HEIGHT = 147;
 const getLowBarHeight = (all: number, user: number) => {
   if (isNaN(all) || isNaN(user)) return 0;
@@ -22,13 +17,14 @@ const getLowBarHeight = (all: number, user: number) => {
   return Math.min(all, user) * multiple;
 };
 
-const ReportPost = ({ year, month }: ReportPostProps) => {
+const ReportPost = () => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
 
   const { profile } = useProfileContext();
-  const { data: report } = useReportContext();
+  const { data: report, year, month: selectedMonth } = useReportContext();
+  const month = selectedMonth.toString().padStart(2, '0');
   const userData = report?.post?.user[`${year}-${month}`];
   const allData = report?.post?.all[`${year}-${month}`];
 

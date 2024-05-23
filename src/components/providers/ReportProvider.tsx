@@ -14,11 +14,13 @@ import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 export const ReportContext = createContext<{
   data: ReportType | null;
   year: number;
+  monthIndex: number;
   month: number;
 }>({
   data: null,
-  month: 0,
+  monthIndex: 0,
   year: 0,
+  month: 0,
 });
 
 type ReportProvider = {
@@ -53,7 +55,6 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
       .catch(() => {
         setData({} as ReportType);
         setDataLength(0);
-        setReportAcc({} as ReportType['all']);
       });
   }, [selectedMonth, isLogin]);
 
@@ -63,7 +64,8 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
         value={{
           data,
           year: selectedYear || year,
-          month: selectedMonth ? selectedMonth - 1 : month - 1,
+          month: selectedMonth ? selectedMonth : month,
+          monthIndex: selectedMonth ? selectedMonth - 1 : month - 1,
         }}
       >
         {dataLength === 0 && pathname === '/report' ? (

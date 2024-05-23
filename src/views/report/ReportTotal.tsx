@@ -7,20 +7,15 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 import { TIME, WEEK } from '@/utils';
 import { SAMPLE_REPORT } from '@/utils/report';
 
-type ReportTotal = {
-  year: number;
-  month: string;
-};
-
-const ReportTotal = ({ year, month }: ReportTotal) => {
+const ReportTotal = () => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
   const chipStyle = 'py-1 px-2 bg-gray-50 text-primary-900 font-m16 mr-1 leading-[100%]';
 
   const { isLogin } = useProfileContext();
-  const { data } = useReportContext();
+  const { data, year, month: selectedMonth, monthIndex } = useReportContext();
   const [topTopic, setTopTopic] = useState<string | null>(null);
   const [topNewTag, setTopNewTag] = useState<string | null>(null);
-  const monthIndex = +month - 1;
+  const month = selectedMonth.toString().padStart(2, '0');
 
   useEffect(() => {
     if (isLogin === 'NOT_LOGIN') {
@@ -39,7 +34,7 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
     );
 
     setTopTopic(sortedTopicByPostLengthArr[0][0]);
-  }, [data?.topic, month]);
+  }, [data?.topic, monthIndex]);
 
   useEffect(() => {
     const monthNewTag = data?.newTags?.[monthIndex];
@@ -57,7 +52,7 @@ const ReportTotal = ({ year, month }: ReportTotal) => {
       [...posts].sort((a, b) => (new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1)),
     ]);
     setTopNewTag(sortedNewMonthTag[0][0]);
-  }, [data?.newTags, month]);
+  }, [data?.newTags, monthIndex]);
 
   return (
     <section>

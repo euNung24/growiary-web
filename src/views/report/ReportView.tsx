@@ -6,18 +6,14 @@ import ReportByTime from '@/views/report/ReportByTime';
 import ReportByChar from '@/views/report/ReportByChar';
 import ReportByTopic from '@/views/report/ReportByTopic';
 import ReportByTag from '@/views/report/ReportByTag';
-import withMoveMonthly, { WithMoveMonthlyProps } from '@/views/common/withMoveMonthly';
+import withMoveMonthly from '@/views/common/withMoveMonthly';
 import ReportTotal from '@/views/report/ReportTotal';
 import useReportContext from '@/hooks/report/useReportContext';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 // import AdvanceReservation from '@/views/report/AdvanceReservation';
 // import { useRecoilValue } from 'recoil';
 
-type ReportViewProps = {
-  selectedYear: NonNullable<WithMoveMonthlyProps['selectedYear']>;
-  selectedMonth: NonNullable<WithMoveMonthlyProps['selectedMonth']>;
-};
-const ReportView = ({ selectedMonth, selectedYear }: ReportViewProps) => {
+const ReportView = () => {
   const { data } = useReportContext();
   const { isLogin } = useProfileContext();
   // const {
@@ -26,29 +22,20 @@ const ReportView = ({ selectedMonth, selectedYear }: ReportViewProps) => {
 
   return (
     <article className="flex flex-col w-full gap-y-[102px] mt-6">
-      {selectedMonth && ((isLogin === 'LOGIN' && data) || isLogin === 'NOT_LOGIN') && (
+      {((isLogin === 'LOGIN' && data) || isLogin === 'NOT_LOGIN') && (
         <>
-          <ReportTotal
-            year={selectedYear}
-            month={selectedMonth.toString().padStart(2, '0')}
-          />
-          <ReportPost
-            year={selectedYear}
-            month={selectedMonth.toString().padStart(2, '0')}
-          />
+          <ReportTotal />
+          <ReportPost />
           <section>
             <h2 className="title">기록 패턴</h2>
             <div className="flex gap-x-5 flex-wrap">
-              <ReportByDay month={selectedMonth - 1} />
-              <ReportByTime month={selectedMonth - 1} />
+              <ReportByDay />
+              <ReportByTime />
             </div>
           </section>
-          <ReportByChar
-            year={selectedYear || 0}
-            month={selectedMonth.toString().padStart(2, '0')}
-          />
-          <ReportByTopic month={selectedMonth - 1} />
-          <ReportByTag month={selectedMonth - 1} />
+          <ReportByChar />
+          <ReportByTopic />
+          <ReportByTag />
         </>
       )}
       {/*{isLogin === 'LOGIN' && year === selectedYear && month === selectedMonth && (*/}

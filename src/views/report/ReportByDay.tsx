@@ -5,33 +5,29 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { WEEK } from '@/utils';
 
-type ReportByDayProps = {
-  month: number;
-};
-
 const COLORS = ['#154284', '#204C90', '#3B619D', '#4F72A7', '#6E86B4', '#8094B0'];
 type WeekDataType = {
   label: string;
   data: number;
 };
-const ReportByDay = ({ month }: ReportByDayProps) => {
+const ReportByDay = () => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
 
-  const { data } = useReportContext();
+  const { data, monthIndex } = useReportContext();
   const [weekData, setWeekData] = useState<WeekDataType[] | null>(null);
 
   useEffect(() => {
     if (!data?.week) return;
 
-    const mappedData = data.week[month].map((v, i) => ({
+    const mappedData = data.week[monthIndex].map((v, i) => ({
       label: WEEK[i],
       data: v,
     }));
 
     setWeekData(mappedData);
-  }, [data?.week, month]);
+  }, [data?.week, monthIndex]);
 
   return (
     <div className="flex-1">

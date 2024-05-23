@@ -5,14 +5,11 @@ import useReportContext from '@/hooks/report/useReportContext';
 import { getPercentage, TIME } from '@/utils';
 import Image from 'next/image';
 
-type ReportByTimeProps = {
-  month: number;
-};
-const ReportByTime = ({ month }: ReportByTimeProps) => {
+const ReportByTime = () => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
-  const { data } = useReportContext();
+  const { data, monthIndex } = useReportContext();
   const [timeRankByPercent, setTimeRankByPercent] = useState<[string, number][] | null>(
     null,
   );
@@ -20,7 +17,7 @@ const ReportByTime = ({ month }: ReportByTimeProps) => {
   const totalTimeRef = useRef(0);
 
   useEffect(() => {
-    const monthTimeData = data?.time?.[month];
+    const monthTimeData = data?.time?.[monthIndex];
 
     if (!monthTimeData) return;
 
@@ -35,7 +32,7 @@ const ReportByTime = ({ month }: ReportByTimeProps) => {
     );
 
     setTimeRankByPercent(sortedTimeByPercent);
-  }, [data?.time, month]);
+  }, [data?.time, monthIndex]);
 
   return (
     <div className="flex-1">

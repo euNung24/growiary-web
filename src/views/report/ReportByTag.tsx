@@ -4,10 +4,6 @@ import { ResPostType } from '@/types/postTypes';
 import Chip from '@/components/Chip';
 import { cn } from '@/lib/utils';
 
-type ReportByTagProps = {
-  month: number;
-};
-
 const SAMPLE_TAG = [
   {
     count: '22',
@@ -54,26 +50,26 @@ const SAMPLE_NEW_TAG = [
     tag: '부상',
   },
 ];
-const ReportByTag = ({ month }: ReportByTagProps) => {
+const ReportByTag = () => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
 
-  const { data } = useReportContext();
+  const { data, monthIndex } = useReportContext();
   const [sortedTags, setSortedTags] = useState<[string, number][] | null>();
   const [sortedNewTags, setSortedNewTags] = useState<[string, ResPostType][] | null>();
 
   useEffect(() => {
-    const monthTag = data?.tags?.[month];
+    const monthTag = data?.tags?.[monthIndex];
     if (!monthTag) return;
 
     const sortedMonthTag = Object.entries(monthTag)
       .sort((a, b) => (a[1] > b[1] ? -1 : 1))
       .slice(0, 5);
     setSortedTags(sortedMonthTag);
-  }, [data?.tags, month]);
+  }, [data?.tags, monthIndex]);
 
   useEffect(() => {
-    const monthNewTag = data?.newTags?.[month];
+    const monthNewTag = data?.newTags?.[monthIndex];
     if (!monthNewTag) return;
 
     const sortedNewMonthTag = Object.entries(monthNewTag)
@@ -86,12 +82,12 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
       .toSorted((a, b) => (a[1].writeDate > b[1].writeDate ? -1 : 1));
 
     setSortedNewTags(sortedNewMonthTag);
-  }, [data?.newTags, month]);
+  }, [data?.newTags, monthIndex]);
 
   return (
     <section>
       <h2 className="title">기록 태그</h2>
-      {data?.tags && !Object.keys(data.tags[month]).length && (
+      {data?.tags && !Object.keys(data.tags[monthIndex]).length && (
         <div className="[&+*]:hidden bg-primary-50 rounded-2xl flex flex-col items-center justify-center font-r16 text-gray-800 mt-4 py-16">
           <p>아직 충분한 양의 태그를 수집하지 못했어요.</p>
           <p>
@@ -168,7 +164,7 @@ const ReportByTag = ({ month }: ReportByTagProps) => {
                   >
                     {tag}
                   </span>
-                  {Object.keys(data?.newTags[month] || []).includes(tag) && (
+                  {Object.keys(data?.newTags[monthIndex] || []).includes(tag) && (
                     <Chip variant="gray" className="self-auto">
                       New
                     </Chip>

@@ -6,11 +6,6 @@ import useReportContext from '@/hooks/report/useReportContext';
 import { format } from 'date-fns';
 import { ReportByCharCountType } from '@/types/reportTypes';
 
-type ReportByCharProps = {
-  year: number;
-  month: string;
-};
-
 const SAMPLE_CHAR_DATA: [string, Pick<ReportByCharCountType, 'sum'>][] = [
   ['2023-04', { sum: 11310 }],
   ['2023-03', { sum: 8725 }],
@@ -48,7 +43,7 @@ const SAMPLE_POST_DATA: (Pick<ResPostType, 'title' | 'charactersCount'> & {
     charactersCount: 79,
   },
 ];
-const ReportByChar = ({ year, month }: ReportByCharProps) => {
+const ReportByChar = () => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
@@ -58,7 +53,8 @@ const ReportByChar = ({ year, month }: ReportByCharProps) => {
     null,
   );
   const [clickedIndex, setClikcedIndex] = useState(0);
-  const { data } = useReportContext();
+  const { data, year, month: selectedMonth } = useReportContext();
+  const month = selectedMonth.toString().padStart(2, '0');
   const userData = data?.charCount?.[`${year}-${month}`];
 
   const handleChangeClickedIndex = (e: React.MouseEvent, idx: number) => {

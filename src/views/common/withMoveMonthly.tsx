@@ -132,7 +132,6 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
               {...props}
               selectedYear={selectedYear}
               selectedMonth={selectedMonth}
-              selectedMonthLastDate={lastDate}
             />
           </ReportProvider>
         </div>
