@@ -35,7 +35,7 @@ type AdvanceReservationProps = {
   children?: ReactNode;
 };
 
-const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
+const AdvanceReservationModal = ({ children }: AdvanceReservationProps) => {
   const [isClient, setIsClient] = useState(false);
   const btnToastRef = useRef<HTMLButtonElement | null>(null);
   const bntCloseModalRef = useRef<HTMLButtonElement | null>(null);
@@ -248,4 +248,4 @@ const AdvanceReservation = ({ children }: AdvanceReservationProps) => {
   );
 };
 
-export default AdvanceReservation;
+export default AdvanceReservationModal;

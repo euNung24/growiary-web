@@ -9,6 +9,7 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 import { ReportState } from '@/store/reportStore';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 
 export const ReportContext = createContext<{
   data: ReportType | null;
@@ -28,21 +29,16 @@ type ReportProvider = {
 const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvider) => {
   const pathname = usePathname();
   const mutation = useGetReport();
-  const [data, setData] = useState<ReportType>({} as ReportType);
-  const [isClient, setIsClient] = useState(false);
-  const [dataLength, setDataLength] = useState(0);
+  const [data, setData] = useState<ReportType | null>(null);
+  const [dataLength, setDataLength] = useState(-1);
   const setReportAcc = useSetRecoilState(ReportState);
   const {
     date: { year, month },
   } = useRecoilValue(TodayState);
-  const { profile } = useProfileContext();
+  const { isLogin } = useProfileContext();
 
   useEffect(() => {
-    if (!isClient) {
-      setIsClient(true);
-      return;
-    }
-    if (!profile) return;
+    if (isLogin !== 'LOGIN') return;
     const dateYYMM = `${selectedYear || year}-${(selectedMonth || month).toString().padStart(2, '0')}`;
 
     mutation
@@ -59,38 +55,41 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
         setDataLength(0);
         setReportAcc({} as ReportType['all']);
       });
-  }, [selectedMonth, isClient, profile]);
+  }, [selectedMonth, isLogin]);
 
   return (
-    <ReportContext.Provider
-      value={{
-        data: !data || !Object.keys(data).length ? null : data,
-        year: selectedYear || year,
-        month: selectedMonth ? selectedMonth - 1 : month - 1,
-      }}
-    >
-      {isClient &&
-        (profile ? (
-          dataLength === 0 && pathname === '/report' ? (
-            <div className="flex flex-col gap-y-[50px] items-center mt-[50px] mb-[140px]">
-              <p className="text-primary-900 text-center font-sb18">
-                해당 월에는 아직 기록이 없습니다.
-                <br /> 기록을 남기면 데이터를 확인할 수 있어요.
-              </p>
-              <Image
-                src="/assets/images/empty_box.png"
-                alt="no report"
-                width={180}
-                height={180}
-              />
-            </div>
-          ) : (
-            children
-          )
+    isLogin && (
+      <ReportContext.Provider
+        value={{
+          data,
+          year: selectedYear || year,
+          month: selectedMonth ? selectedMonth - 1 : month - 1,
+        }}
+      >
+        {dataLength === 0 && pathname === '/report' ? (
+          <div className="flex flex-col gap-y-[50px] items-center mt-[50px] mb-[140px]">
+            <p className="text-primary-900 text-center font-sb18">
+              해당 월에는 아직 기록이 없습니다.
+              <br /> 기록을 남기면 데이터를 확인할 수 있어요.
+            </p>
+            <Image
+              src="/assets/images/empty_box.png"
+              alt="no report"
+              width={180}
+              height={180}
+            />
+          </div>
         ) : (
           children
-        ))}
-    </ReportContext.Provider>
+        )}
+        {data && (
+          <FooterFeedbackView
+            category="기록 데이터 보기"
+            description=" 더 알고 싶은 기록 관련 데이터가 있다면 편하게 알려주세요"
+          />
+        )}
+      </ReportContext.Provider>
+    )
   );
 };
 
