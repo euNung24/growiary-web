@@ -105,7 +105,7 @@ const HistoryView = () => {
     isLogin && (
       <div
         className={cn(
-          'w-full flex border-gray-100 lg:max-w-[640px] mb-[-72px] mx-auto lg:min-w-[auto]',
+          'w-full flex border-gray-100 lg:max-w-[640px] mb-[-72px] !mx-auto lg:min-w-[auto]',
           profile && 'mt-[-72px]',
         )}
       >
