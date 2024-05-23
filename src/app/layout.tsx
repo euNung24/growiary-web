@@ -44,6 +44,9 @@ export const metadata: Metadata = {
       template: APP_INFO.TITLE_TEMPLATE,
     },
     description: APP_INFO.DESCRIPTION,
+    images: {
+      url: '/assets/images/thumb.png',
+    },
   },
   twitter: {
     card: 'summary',
@@ -52,6 +55,9 @@ export const metadata: Metadata = {
       template: APP_INFO.TITLE_TEMPLATE,
     },
     description: APP_INFO.DESCRIPTION,
+    images: {
+      url: '/assets/images/thumb.png',
+    },
   },
 };
 
