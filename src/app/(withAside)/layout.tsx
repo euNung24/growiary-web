@@ -16,9 +16,9 @@ export default async function asLayout({ modal, children }: LayoutProps) {
       {modal}
       <UserProvider>
         <Sidebar />
-        <div className="w-full pl-[200px] lg:pl-[68px]">
+        <div className="w-full h-full flex flex-col pl-[200px] lg:pl-[68px]">
           <TopStartButton />
-          <main className="mx-auto relative w-[960px] md:w-[640px] sm:w-[320px] [&>*]:mx-2.5">
+          <main className="mx-auto relative w-[960px] md:w-[640px] sm:w-[320px] [&>*]:mx-2.5 flex-1 pb-[72px]">
             {children}
           </main>
           <FooterFeedbackView />

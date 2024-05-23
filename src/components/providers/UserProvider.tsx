@@ -96,7 +96,8 @@ const UserProvider = ({ children }: UserProvider) => {
       >
         <div
           className={cn(
-            !profile || !Object.keys(profile).length ? 'mt-0 mb-[72px]' : 'mt-[72px]',
+            'h-full',
+            !profile || !Object.keys(profile).length ? 'mt-0' : 'pt-[72px]',
           )}
         >
           {children}

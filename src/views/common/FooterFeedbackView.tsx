@@ -15,7 +15,7 @@ const FooterFeedbackView = () => {
   return (
     profile &&
     menu[menuIdx]?.footer && (
-      <footer className="flex items-center flex-col gap-y-[15px] mt-[72px] h-[183px] bg-gray-50 pt-9">
+      <footer className="shrink-0 flex items-center flex-col gap-y-[15px] h-[183px] bg-gray-50 pt-9">
         <p className="text-gray-500 font-r16">
           {menu[menuIdx].placeholder ||
             '궁금하거나 떠오르는 아이디어, 의견이 있다면 자유롭게 남겨주세요'}
