@@ -71,8 +71,8 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={font.className}>
+    <html lang="ko">
+      <body className={font.className} style={{ scrollbarGutter: 'stable' }}>
         <RecoilProvider>
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </RecoilProvider>
