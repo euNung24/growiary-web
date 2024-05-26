@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { List } from 'lucide-react';
+import { Braces, List } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import {
@@ -56,6 +56,10 @@ type PostViewProps = {
   postId?: string;
 };
 const PostView = ({ postId }: PostViewProps) => {
+  const labelStyle =
+    'flex flex-[0_0_100px] gap-2 items-center pl-3 min-h-10 text-gray-500 font-r12';
+  const inputStyle = 'px-6 text-gray-900 font-r14';
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const topicId = searchParams.get('topic')
@@ -70,6 +74,8 @@ const PostView = ({ postId }: PostViewProps) => {
   const btnSaveToastRef = useRef<HTMLButtonElement | null>(null);
   const historyFnRef = useRef<() => void | false>(() => {});
   const isSavedRef = useRef(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const target = formRef.current?.parentElement;
 
   const { toast } = useToast();
   const { profile } = useProfileContext();
@@ -189,29 +195,26 @@ const PostView = ({ postId }: PostViewProps) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (target) {
+      target.style.overflow = 'hidden';
+      profile && (target.style.marginTop = '-48px');
+    }
+    return () => {
+      if (target) {
+        target.style.overflow = 'initial';
+        profile && (target.style.marginTop = '0');
+      }
+    };
+  }, [target, profile]);
+
   return (
     <Form {...form}>
       <form
+        ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn(
-          'flex flex-col pb-4 gap-y-4 mx-auto',
-          profile ? ' h-[90vh]' : 'h-[80vh]',
-        )}
+        className={cn('flex flex-col pb-4 mx-auto', 'h-[calc(100%+72px)]')}
       >
-        {template && (
-          <div>
-            <div className="border border-gray-200 rounded py-2.5 px-4 inline-flex items-center justify-center">
-              <div className="flex gap-x-2.5 text-gray-400">
-                {topicCategory[template.category]?.Icon({
-                  width: 20,
-                  height: 20,
-                  color: 'currentColor',
-                })}
-                <span className="text-gray-900">{template.category}</span>
-              </div>
-            </div>
-          </div>
-        )}
         <FormField
           control={form.control}
           name="title"
@@ -225,86 +228,92 @@ const PostView = ({ postId }: PostViewProps) => {
                     placeholder="제목을 입력하세요"
                     defaultValue={titleField.value}
                     onChange={titleField.onChange}
-                    className="font-r28 px-0 py-4 border-none"
+                    className="font-r28 px-2.5 py-4 border-none"
                     minLength={1}
                     maxLength={50}
                   />
                 </FormControl>
               </FormItem>
-              <div className="flex space-y-0 font-r16 text-gray-500">
-                <Label className="flex flex-[0_0_94px] gap-2 items-center min-h-10">
-                  <List width={22} height={22} />
+              <div className="flex space-y-0 items-center">
+                <Label className={labelStyle}>
+                  <Braces width={14} height={14} />
+                  카테고리
+                </Label>
+                <div className={inputStyle}>{template.category}</div>
+              </div>
+              <div className="flex space-y-0 items-center">
+                <Label className={labelStyle}>
+                  <List width={14} height={14} />
                   주제
                 </Label>
-                <div className="px-3 py-[14px] text-gray-900">
+                <div className={inputStyle}>
                   {template.title && template.title.replaceAll('/n ', '')}
                 </div>
               </div>
-              <div className="space-y-[14px]">
-                <FormField
-                  control={form.control}
-                  name="writeDate"
-                  render={({ field }) => (
-                    <FormItem className="flex space-y-0 font-r16 text-gray-500">
-                      <FormLabel className="flex flex-[0_0_94px] gap-2 items-center">
-                        <Image
-                          src="/assets/icons/calendar.png"
-                          alt="date"
-                          width={22}
-                          height={22}
+              <FormField
+                control={form.control}
+                name="writeDate"
+                render={({ field }) => (
+                  <FormItem className="flex space-y-0 items-center">
+                    <FormLabel className={labelStyle}>
+                      <Image
+                        src="/assets/icons/calendar.png"
+                        alt="date"
+                        width={14}
+                        height={14}
+                      />
+                      날짜
+                    </FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={'ghost'}
+                            className={cn(
+                              'flex-1 py-2 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
+                              !field.value && 'text-muted-foreground',
+                              inputStyle,
+                            )}
+                          >
+                            {format(field.value, 'yyyy년 M월 d일')}
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0 bg-white-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={date => handleSelectDate(date, field)}
+                          disabled={date =>
+                            date > new Date() || date < new Date('1900-01-01')
+                          }
+                          defaultMonth={field.value}
+                          initialFocus
+                          className="m-0 p-3"
                         />
-                        날짜
-                      </FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'ghost'}
-                              className={cn(
-                                'flex-1 pl-3 py-2 font-r16 text-gray-900 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
-                                !field.value && 'text-muted-foreground',
-                              )}
-                            >
-                              {format(field.value, 'yyyy년 M월 d일')}
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-white-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={date => handleSelectDate(date, field)}
-                            disabled={date =>
-                              date > new Date() || date < new Date('1900-01-01')
-                            }
-                            defaultMonth={field.value}
-                            initialFocus
-                            className="m-0 p-3"
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="tags"
-                  render={({ field }) => (
-                    <FormItem className="flex space-y-0 font-r16 text-gray-500">
-                      <FormLabel className="flex flex-[0_0_94px] gap-2 items-center">
-                        <Image
-                          src="/assets/icons/hashtag.png"
-                          alt="tag"
-                          width={22}
-                          height={22}
-                        />
-                        태그
-                      </FormLabel>
-                      <Tag setTags={field.onChange} tags={field.value} />
-                    </FormItem>
-                  )}
-                />
-              </div>
+                      </PopoverContent>
+                    </Popover>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem className="flex space-y-0 items-center">
+                    <FormLabel className={labelStyle}>
+                      <Image
+                        src="/assets/icons/hashtag.png"
+                        alt="tag"
+                        width={14}
+                        height={14}
+                      />
+                      태그
+                    </FormLabel>
+                    <Tag setTags={field.onChange} tags={field.value} />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="charactersCount"
@@ -314,7 +323,7 @@ const PostView = ({ postId }: PostViewProps) => {
                       control={form.control}
                       name="content"
                       render={({ field: contentField }) => (
-                        <div className="relative flex-1 mb-4 border border-[#ccc] rounded-xl max-h-[40vh]">
+                        <div className="relative flex-1 mb-4 border border-[#ccc] rounded-xl overflow-hidden mt-[15px]">
                           <Editor
                             placeholder={template.content}
                             className="flex flex-col h-full"

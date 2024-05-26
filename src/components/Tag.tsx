@@ -67,20 +67,20 @@ const Tag = ({ tags, setTags }: TagProps) => {
   }, [input]);
 
   return (
-    <div className="flex gap-2">
-      <ul className="flex gap-2">
+    <div className="flex font-r14 pl-3">
+      <ul className="flex">
         {tags?.map((v, i) => (
           <li
             key={`${i}_${v}`}
             className={cn(
-              'flex items-center font-r16 text-gray-900 py-[11px] pl-2.5 pr-1.5 rounded',
+              'flex items-center text-gray-900 py-2 pl-2.5 rounded',
               !setTags && 'px-2.5',
             )}
           >
             {v}
             <X
-              width={22}
-              height={22}
+              width={16}
+              height={16}
               className={cn(
                 'ml-1 inline-block text-gray-400 cursor-pointer',
                 !setTags && 'hidden',
@@ -97,7 +97,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
               ref={inputRef}
               type="text"
               placeholder="태그입력"
-              className="py-[11px] w-[67px] pl-[10px] pr-0 border-none text-gray-900"
+              className="py-2 w-[67px] pl-[10px] pr-0 border-none text-gray-900"
               onChange={handleChangeInput}
               onKeyDown={handleKeyDown}
               onKeyUp={handleKeyUp}
@@ -107,10 +107,10 @@ const Tag = ({ tags, setTags }: TagProps) => {
             <span ref={spanRef} className="absolute pl-3 opacity-0 z-[-1]">
               {input || '태그입력'}
             </span>
-            <div className="group">
+            <div className="group flex">
               <X
-                width={22}
-                height={22}
+                width={16}
+                height={16}
                 className="ml-1 inline-block text-gray-200 group-hover:text-gray-400 cursor-pointer"
                 onClick={handleDeleteInput}
               />

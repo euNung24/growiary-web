@@ -111,18 +111,17 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
           ref={containerRef}
           {...props}
           className={cn(
-            'max-h-[39vh]',
             readonly &&
               '[&>.ql-toolbar]:hidden border-t border-gray-[#ccc] border-l-0 border-r-0 overflow-auto',
             'h-full border-0',
           )}
         ></div>
         <div
-          className="ql-container ql-snow"
+          className="ql-container ql-snow top-[43.37px] left-[5px] sm:top-[68px]"
           style={{
             position: 'absolute',
-            top: '43.37px',
-            left: '5px',
+            // top: '43.37px',
+            // left: '5px',
             border: 'none',
             pointerEvents: 'none',
           }}
