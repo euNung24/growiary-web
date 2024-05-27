@@ -48,6 +48,9 @@ export const metadata: Metadata = {
       url: '/assets/images/thumb.png',
     },
   },
+  verification: {
+    google: '-SpawxeuLdcJ5iD2LjzD2BV-Arb960Rg2HQ8c8wqxy8',
+  },
   twitter: {
     card: 'summary',
     title: {
