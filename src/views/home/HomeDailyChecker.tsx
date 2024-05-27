@@ -67,7 +67,7 @@ const HomeDailyChecker = () => {
             </span>{' '}
             기록에 성공했어요
           </p>
-          <div className="border border-gray-100 rounded-xl flex flex-wrap justify-center items-end gap-x-[52px] pt-6 pb-[57px] overflow-hidden">
+          <div className="border border-gray-100 rounded-xl flex flex-wrap justify-center items-end gap-[52px] pt-6 pb-[57px] overflow-hidden md:px-10">
             {data ? (
               <>
                 {' '}
