@@ -55,11 +55,11 @@ const ReportAcc = () => {
               )}
             >
               <div className="flex justify-between">
-                <span className="'font-r14'">{report[i].name}</span>
+                <span className="font-r12">{report[i].name}</span>
               </div>
               <div
                 className={cn(
-                  'flex items-center justify-center font-r36 mt-2 mb-[38px]',
+                  'flex items-center justify-center font-r32 mt-[21px] mb-[28px]',
                   i % 2 !== 0 && 'text-primary-900',
                 )}
               >

@@ -137,7 +137,7 @@ const ReportByChar = () => {
                       i === clickedIndex && 'text-white-0',
                     )}
                   >
-                    <span className="font-r16">{+date.slice(-2)}월</span>
+                    <span className="font-r12">{+date.slice(-2)}월</span>
                     {i === 0 && (slicedData || SAMPLE_CHAR_DATA).length >= 2 && (
                       <span className="font-r12 flex items-center gap-x-0.5">
                         {(
@@ -159,7 +159,7 @@ const ReportByChar = () => {
                   </div>
                   <div
                     className={cn(
-                      'flex items-center justify-center font-m36 mt-2 mb-[38px] group-hover:text-white-0',
+                      'flex items-center justify-center font-r32 mt-[21px] mb-[28px] group-hover:text-white-0',
                       // i === clickedIndex && 'text-white-0  group-hover:text-primary-900',
                       i === clickedIndex && 'text-white-0',
                     )}
@@ -181,11 +181,11 @@ const ReportByChar = () => {
           {slicedDataLength === 1 && (
             <div className="group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-900 hover:text-white-0">
               <div className="flex justify-between text-gray-500 group-hover:text-white-0">
-                <span className="font-r16">
+                <span className="font-r12">
                   {data && +Object.keys(data?.charCount).reverse()[1].slice(-2)}월
                 </span>
               </div>
-              <div className="flex items-center justify-center font-m36 mt-2 mb-[38px] group-hover:text-white-0">
+              <div className="flex items-center justify-center font-r32 mt-[21px] mb-[28px] group-hover:text-white-0">
                 0
                 <span className="ml-2 text-gray-800 font-r16 group-hover:text-white-0">
                   자
