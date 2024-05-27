@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { List } from 'lucide-react';
+import { Braces, List } from 'lucide-react';
 import { ResPostType } from '@/types/postTypes';
 import Tag from '@/components/Tag';
 import { useEffect, useRef, useState } from 'react';
@@ -36,12 +36,19 @@ type PostDetailViewProps = {
   postId: string;
 };
 const PostDetailView = ({ postId }: PostDetailViewProps) => {
+  const labelStyle =
+    'flex flex-[0_0_100px] gap-2 items-center pl-3 min-h-10 text-gray-500 font-r12';
+  const inputStyle = 'px-6 text-gray-900 font-r14';
+
   const router = useRouter();
   const contentRef = useRef<HTMLDivElement | null>(null);
   // const isClickedFirst = useRef(false);
   const findMutation = useFindPost(postId);
   const deleteMutation = useDeletePost(postId);
   const [post, setPost] = useState<ResPostType | null>(null);
+  const formRef = useRef<HTMLDivElement | null>(null);
+  const target = formRef.current?.parentElement;
+
   const handleDeletePost = () => {
     tracking('기록 삭제');
     sendGAEvent({ event: '기록 삭제' });
@@ -82,63 +89,72 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
       });
   }, []);
 
+  useEffect(() => {
+    if (target) {
+      target.style.overflow = 'hidden';
+      target.style.marginTop = '-48px';
+    }
+    return () => {
+      if (target) {
+        target.style.overflow = '';
+        target.style.marginTop = '';
+      }
+    };
+  }, [target]);
+
   return (
     post && (
-      <div className="w-2/3 mt-[72px] flex flex-col gap-y-4 w-[960px] min-h-[80vh] mx-auto">
-        {post.topic && (
-          <div>
-            <div className="border border-gray-200 rounded py-2.5 px-4 inline-flex items-center justify-center">
-              <div className="flex gap-x-2.5 text-gray-400">
-                {topicCategory[post.topic.category]?.Icon({
-                  width: 20,
-                  height: 20,
-                  color: 'currentColor',
-                })}
-                <span className="text-gray-800">{post.topic.category}</span>
-              </div>
-            </div>
-          </div>
-        )}
-        <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-0 py-4 text-gray-900">
+      <div className="flex flex-col mx-auto h-[calc(100%+72px)]" ref={formRef}>
+        <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-2.5 py-4 text-gray-900">
           {post.title}
         </div>
-        <div className="space-y-[14px]">
+        {post.topic && (
+          <div className="flex space-y-0 items-center">
+            <Label className={labelStyle}>
+              <Braces width={14} height={14} />
+              카테고리
+            </Label>
+            <div className={inputStyle}>{post.topic.category}</div>
+          </div>
+        )}
+        <div>
           {post.topicId && (
-            <div className="flex space-y-0">
-              <Label className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-500">
-                <List width={22} height={22} />
+            <div className="flex space-y-0 items-center">
+              <Label className={labelStyle}>
+                <List width={14} height={14} />
                 주제
               </Label>
-              <div className="px-3 py-[14px] text-gray-900">
+              <div className={inputStyle}>
                 {post.topic && post.topic.title?.replaceAll('/n ', '')}
               </div>
             </div>
           )}
-          <div className="flex space-y-0">
-            <div className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-500">
-              <Image src="/assets/icons/calendar.png" alt="date" width={22} height={22} />{' '}
+          <div className="flex space-y-0 items-center">
+            <div className={labelStyle}>
+              <Image src="/assets/icons/calendar.png" alt="date" width={14} height={14} />{' '}
               날짜
             </div>
             <Button
               variant={'ghost'}
               disabled
               className={cn(
-                'flex-1 pl-3 py-2 font-r16 text-gray-900 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
+                'flex-1 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
+                inputStyle,
               )}
             >
               {getStringDateAndTime(new Date(post.writeDate))}
             </Button>
           </div>
-          <div className="flex space-y-0 py-[11px]">
-            <div className="flex flex-[0_0_94px] gap-2 items-center font-r16 text-gray-500">
-              <Image src="/assets/icons/hashtag.png" alt="tag" width={22} height={22} />
+          <div className="flex space-y-0 items-center">
+            <div className={labelStyle}>
+              <Image src="/assets/icons/hashtag.png" alt="tag" width={14} height={14} />
               태그
             </div>
             <Tag tags={post.tags} />
           </div>
         </div>
-        <div className="relative flex-1 pointer-events-nones cursor-default flex-1 border-t border-b border-[#ccc] max-h-[40vh]">
-          <Editor defaultValue={post.content} readonly className="" />
+        <div className="relative mt-[15px] mb-4 flex-1 overflow-hidden pointer-events-nones cursor-default border-t border-b border-[#ccc]">
+          <Editor defaultValue={post.content} readonly />
 
           {post.topic && (
             <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%] z-[-1]">
@@ -150,7 +166,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
             </div>
           )}
         </div>
-        <div className="flex justify-end items-center gap-x-2.5">
+        <div className="flex justify-end items-center gap-x-2.5 mb-4">
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button type="button" variant="outlineGray" size="lg">

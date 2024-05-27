@@ -10,7 +10,7 @@ type QuillComponentProps = {
     handleContentChange: ControllerRenderProps['onChange'];
     handleCountChange: ControllerRenderProps['onChange'];
   };
-  className: string;
+  className?: string;
   readonly?: boolean;
 };
 

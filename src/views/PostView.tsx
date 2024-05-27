@@ -202,8 +202,8 @@ const PostView = ({ postId }: PostViewProps) => {
     }
     return () => {
       if (target) {
-        target.style.overflow = 'initial';
-        profile && (target.style.marginTop = '0');
+        target.style.overflow = '';
+        profile && (target.style.marginTop = '');
       }
     };
   }, [target, profile]);
