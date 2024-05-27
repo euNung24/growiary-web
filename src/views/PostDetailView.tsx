@@ -105,111 +105,101 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
   return (
     post && (
       <div className="flex flex-col mx-auto h-[calc(100%+72px)]" ref={formRef}>
-        {target && (
-          <>
-            <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-2.5 py-4 text-gray-900">
-              {post.title}
+        {/*{target && (*/}
+        {/*  <>*/}
+        <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-2.5 py-4 text-gray-900">
+          {post.title}
+        </div>
+        <div>
+          {post.topic && (
+            <div className="flex space-y-0 items-center">
+              <Label className={labelStyle}>
+                <Braces width={14} height={14} />
+                카테고리
+              </Label>
+              <div className={inputStyle}>{post.topic.category}</div>
             </div>
-            <div>
-              {post.topic && (
-                <div className="flex space-y-0 items-center">
-                  <Label className={labelStyle}>
-                    <Braces width={14} height={14} />
-                    카테고리
-                  </Label>
-                  <div className={inputStyle}>{post.topic.category}</div>
-                </div>
-              )}
-              {post.topicId && (
-                <div className="flex space-y-0 items-center">
-                  <Label className={labelStyle}>
-                    <List width={14} height={14} />
-                    주제
-                  </Label>
-                  <div className={inputStyle}>
-                    {post.topic && post.topic.title?.replaceAll('/n ', '')}
-                  </div>
-                </div>
-              )}
-              <div className="flex space-y-0 items-center">
-                <div className={labelStyle}>
-                  <Image
-                    src="/assets/icons/calendar.png"
-                    alt="date"
-                    width={14}
-                    height={14}
-                  />{' '}
-                  날짜
-                </div>
-                <Button
-                  variant={'ghost'}
-                  disabled
-                  className={cn(
-                    'flex-1 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
-                    inputStyle,
-                  )}
-                >
-                  {getStringDateAndTime(new Date(post.writeDate))}
-                </Button>
-              </div>
-              <div className="flex space-y-0 items-center">
-                <div className={labelStyle}>
-                  <Image
-                    src="/assets/icons/hashtag.png"
-                    alt="tag"
-                    width={14}
-                    height={14}
-                  />
-                  태그
-                </div>
-                <Tag tags={post.tags} />
+          )}
+          {post.topicId && (
+            <div className="flex space-y-0 items-center">
+              <Label className={labelStyle}>
+                <List width={14} height={14} />
+                주제
+              </Label>
+              <div className={inputStyle}>
+                {post.topic && post.topic.title?.replaceAll('/n ', '')}
               </div>
             </div>
-            <div className="relative mt-[15px] mb-4 flex-1 overflow-hidden pointer-events-nones cursor-default border-t border-b border-[#ccc]">
-              <Editor defaultValue={post.content} readonly />
+          )}
+          <div className="flex space-y-0 items-center">
+            <div className={labelStyle}>
+              <Image src="/assets/icons/calendar.png" alt="date" width={14} height={14} />{' '}
+              날짜
+            </div>
+            <Button
+              variant={'ghost'}
+              disabled
+              className={cn(
+                'flex-1 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
+                inputStyle,
+              )}
+            >
+              {getStringDateAndTime(new Date(post.writeDate))}
+            </Button>
+          </div>
+          <div className="flex space-y-0 items-center">
+            <div className={labelStyle}>
+              <Image src="/assets/icons/hashtag.png" alt="tag" width={14} height={14} />
+              태그
+            </div>
+            <Tag tags={post.tags} />
+          </div>
+        </div>
+        <div className="relative mt-[15px] mb-4 flex-1 overflow-hidden pointer-events-nones cursor-default border-t border-b border-[#ccc]">
+          <Editor defaultValue={post.content} readonly />
 
-              {post.topic && (
-                <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%] z-[-1]">
-                  {topicCategory[post.topic.category]?.Icon({
-                    width: '100%',
-                    height: '100%',
-                    color: '#EEF9E6',
-                  })}
-                </div>
-              )}
+          {post.topic && (
+            <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%] z-[-1]">
+              {topicCategory[post.topic.category]?.Icon({
+                width: '100%',
+                height: '100%',
+                color: '#EEF9E6',
+              })}
             </div>
-            <div className="flex justify-end items-center gap-x-2.5 mb-4">
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button type="button" variant="outlineGray" size="sm">
-                    삭제하기
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitleIcon
-                      src="/assets/icons/info.png"
-                      width={32}
-                      height={32}
-                      alt="info"
-                    />
-                    <AlertDialogTitle>기록을 정말 삭제하시겠습니까?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      삭제된 글은 복원할 수 없습니다.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel onClick={handleDeletePost}>확인</AlertDialogCancel>
-                    <AlertDialogAction>취소</AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-              <Button type="button" variant="outlineGray" size="sm" asChild>
-                <Link href={`/history/${post.id}/edit`}>수정하기</Link>
+          )}
+        </div>
+        <div className="flex justify-end items-center gap-x-2.5 mb-4">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button type="button" variant="outlineGray" size="sm">
+                삭제하기
               </Button>
-            </div>
-          </>
-        )}
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitleIcon
+                  src="/assets/icons/info.png"
+                  width={32}
+                  height={32}
+                  alt="info"
+                />
+                <AlertDialogTitle>기록을 정말 삭제하시겠습니까?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  삭제된 글은 복원할 수 없습니다.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel onClick={handleDeletePost}>확인</AlertDialogCancel>
+                <AlertDialogAction>취소</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+          <Button type="button" variant="outlineGray" size="sm" asChild>
+            <Link href={`/history/${post.id}/edit`}>수정하기</Link>
+          </Button>
+        </div>
+        {/*  </>*/}
+        {/*)}*/}
       </div>
     )
   );
