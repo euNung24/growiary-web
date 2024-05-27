@@ -145,7 +145,7 @@ const ReportByTopic = () => {
               </div>
             ))}
       </div>
-      <div className="flex gap-x-5 mt-5">
+      <div className="flex flex-wrap gap-5 mt-5">
         <div className={cn(boxStyle, 'flex gap-x-12 h-[188px] grow-0 w-[378px]')}>
           <div className="flex flex-col justify-between">
             <div className="flex items-center gap-x-2">

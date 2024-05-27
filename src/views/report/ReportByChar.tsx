@@ -92,7 +92,7 @@ const ReportByChar = () => {
         를 작성했어요
       </p>
       <div className={cn(boxStyle)}>
-        <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
+        <div className="flex gap-x-7 sm:flex-col text-gray-400 font-r14 mb-5">
           <span>
             전체{' '}
             <b className="ml-[5px] text-gray-500 font-normal">
@@ -116,14 +116,14 @@ const ReportByChar = () => {
             </b>
           </span>
         </div>
-        <div className="flex gap-x-3">
+        <div className="flex gap-3 flex-wrap">
           {(slicedData || SAMPLE_CHAR_DATA).map(
             ([date, data], i) =>
               data.sum > 0 && (
                 <div
                   key={i}
                   className={cn(
-                    'group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-900 hover:text-white-0',
+                    'group flex-[1_0_218px] bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-900 hover:text-white-0',
                     // i === clickedIndex &&
                     //   'bg-primary-900 text-primary-900 hover:bg-primary-50 hover:text-primary-900',
                     i === clickedIndex && 'bg-primary-900 text-primary-900',
@@ -199,13 +199,16 @@ const ReportByChar = () => {
         {(slicedData ? slicedData[clickedIndex][1].top3 : SAMPLE_POST_DATA).map(
           (post, i) => (
             <div
-              className={cn('flex items-center text-gray-800 font-r14', boxStyle)}
+              className={cn(
+                'flex sm:flex-wrap gap-y-1.5 items-center text-gray-800 font-r14',
+                boxStyle,
+              )}
               key={i}
             >
               <span className="bg-primary-50 w-6 h-6 rounded-full flex items-center justify-center shrink-0">
                 {i + 1}
               </span>
-              <div className="ml-6 mr-8">
+              <div className="ml-6 mr-8 sm:w-[170px]">
                 <div className="flex items-center gap-3">
                   <span className="font-sb16">{post.title}</span>
                   <span className="text-gray-500 font-r12 ">

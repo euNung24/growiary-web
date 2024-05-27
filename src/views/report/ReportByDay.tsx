@@ -45,8 +45,13 @@ const ReportByDay = () => {
       </p>
 
       {weekData ? (
-        <div className={cn(boxStyle, 'h-[358px] flex justify-center items-center')}>
-          <div className="w-[300px] h-[300px] ">
+        <div
+          className={cn(
+            boxStyle,
+            'h-[358px] flex justify-center items-center sm:w-[300px]',
+          )}
+        >
+          <div className="w-[300px] h-[300px] sm:w-full ">
             <PolarChart
               labels={weekData.filter(v => v.data > 0).map(v => v.label)}
               data={weekData.filter(v => v.data > 0).map(v => v.data)}

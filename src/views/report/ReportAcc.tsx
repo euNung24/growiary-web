@@ -43,12 +43,12 @@ const ReportAcc = () => {
         <p className="font-r16 text-gray-800 mt-1 mb-6">
           현재까지 누적된 모든 기록 데이터
         </p>
-        <div className={cn('flex gap-x-2.5', boxStyle)}>
+        <div className={cn('flex gap-1.5 flex-wrap', boxStyle)}>
           {[...Array(4)].map((data, i) => (
             <div
               key={i}
               className={cn(
-                'group flex-1 rounded-xl px-4 py-3',
+                'group flex-[1_0_218px] rounded-xl px-4 py-3',
                 i % 2 === 0
                   ? 'bg-primary-900 text-white-0'
                   : 'bg-primary-50 text-gray-500',

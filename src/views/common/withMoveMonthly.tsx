@@ -72,7 +72,7 @@ const withMoveMonthly = <T extends object>(Component: ComponentType<T>): React.F
     return (
       isLogin && (
         <div className="mx-auto mt-9">
-          <div className="py-5 flex justify-between sticky top-0 bg-white-0">
+          <div className="py-5 flex justify-between flex-wrap gap-y-2.5 sticky top-0 bg-white-0">
             <div className="flex gap-x-3 items-center">
               <ChevronLeft
                 width={24}

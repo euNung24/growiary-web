@@ -38,7 +38,7 @@ const ReportPost = () => {
           </span>
           의 기록을 작성했어요
         </p>
-        <div className="flex gap-x-5 flex-wrap">
+        <div className="flex gap-5 flex-wrap">
           <div className={cn(boxStyle, 'flex-1')}>
             <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
               <span>

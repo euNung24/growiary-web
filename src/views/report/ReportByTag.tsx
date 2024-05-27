@@ -95,7 +95,7 @@ const ReportByTag = () => {
           </p>
         </div>
       )}
-      <div className="flex gap-x-[22px]">
+      <div className="flex gap-[22px] flex-wrap">
         <div className="flex-1">
           <p className={descriptionStyle}>
             <span className={strengthStyle}>
