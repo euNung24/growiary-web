@@ -21,14 +21,14 @@ const TopicView = () => {
     <>
       <section>
         <h2 className="title">다채로운 질문들을 만나보세요</h2>
-        <div className="flex flex-wrap gap-5 mt-6">
+        <div className="flex flex-wrap gap-5 mt-6 [&>*]:flex-[1_0_460px] sm:[&>*]:shrink">
           <RecommendedTopic />
           <RecentTopic />
         </div>
       </section>
       <hr className="border-gray-100 mt-[46px] mb-6" />
       <section>
-        <ul className="flex gap-x-3">
+        <ul className="flex gap-x-3 sm:flex-col">
           {(Object.keys(topicCategory) as TopicCategory[])
             .filter(v => v !== '자유')
             .map((category, i) => (

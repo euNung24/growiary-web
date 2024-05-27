@@ -20,7 +20,7 @@ const RecommendedTopic = () => {
 
   return (
     <div>
-      <TopicCard className="shrink-0">
+      <TopicCard>
         <TopicCardHeader>
           <TopicCardChip>주간 인기</TopicCardChip>
           <TopicCardTitle>{topTopic?.topic.category}</TopicCardTitle>

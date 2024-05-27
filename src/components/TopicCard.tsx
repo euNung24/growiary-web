@@ -13,7 +13,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const topicCardVariants = cva(
-  'group hover:shadow w-[460px] h-[284px] px-8 py-6 flex flex-col',
+  'group hover:shadow w-full h-[284px] px-8 py-6 flex flex-col',
   {
     variants: {
       variant: {

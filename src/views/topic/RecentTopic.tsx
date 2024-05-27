@@ -43,7 +43,7 @@ const RecentTopic = () => {
         recentTopic &&
         (Object.keys(recentTopic).length > 0 ? (
           <div>
-            <TopicCard className="shrink-0">
+            <TopicCard>
               <TopicCardHeader>
                 <TopicCardChip>최근에 기록한</TopicCardChip>
                 <TopicCardTitle>{recentTopic.topic?.category}</TopicCardTitle>
