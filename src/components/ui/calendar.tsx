@@ -8,12 +8,15 @@ import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { WEEK, WEEK_ENG } from '@/utils';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+  btnDisabled?: boolean;
+};
 
 function Calendar({
   className,
   classNames,
   showOutsideDays = false,
+  btnDisabled = false,
   ...props
 }: CalendarProps) {
   return (
@@ -29,6 +32,7 @@ function Calendar({
         nav_button: cn(
           buttonVariants({ variant: 'ghost' }),
           'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
+          btnDisabled && 'pointer-events-none',
         ),
         nav_button_previous: '',
         nav_button_next: '',
