@@ -157,7 +157,7 @@ const ChallengeView = () => {
           </div>
         </div>
         <section>
-          <div className="flex flex-wrap gap-2.5 py-6">
+          <div className="flex flex-wrap gap-2.5 px-[5px] py-6 [&>*]:flex-[1_1_460px]">
             <div>
               <div className="flex gap-x-1 items-center mb-3">
                 <span className="font-sb18 text-primary-900 block">나의 타이틀 뱃지</span>

@@ -29,7 +29,7 @@ export const badgeCardVariants = cva(
       },
       size: {
         default: '',
-        wide: 'w-[460px] h-[176px] pl-[23px] pr-0 pt-[63px] items-start text-left pointer-events-none',
+        wide: 'w-full h-[176px] pl-[23px] pr-0 pt-[63px] items-start text-left pointer-events-none',
       },
     },
     defaultVariants: {
@@ -60,9 +60,8 @@ BadgeCard.displayName = 'BadgeCard';
 const BadgeWideIcon = ({ src, alt, className, ...props }: ImageProps) => {
   return (
     <div
-      className="w-[310px] absolute"
+      className="w-[310px] absolute right-[-80px] sm:right-[-60%]"
       style={{
-        left: '50%',
         top: '50%',
         transform: 'translateY(-50%)',
         borderRadius: '100%',
@@ -183,7 +182,11 @@ const BadgeCardContent = React.forwardRef<
     <div
       ref={ref}
       {...props}
-      className={cn(size !== 'wide' && 'mt-6 items-center text-center', className)}
+      className={cn(
+        'z-[1]',
+        size !== 'wide' && 'mt-6 items-center text-center',
+        className,
+      )}
     />
   );
 });
