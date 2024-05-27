@@ -109,7 +109,7 @@ const HistoryView = () => {
           profile && 'mt-[-72px]',
         )}
       >
-        <div className="flex-1">
+        <div className="flex-1 overflow-hidden">
           <div
             className="flex justify-between sticky z-10 top-0 bg-white-0 border-b border-gray-100"
             ref={topStickyElRef}
