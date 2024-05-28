@@ -113,7 +113,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px] z-10">
+    <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px] z-10 mt-safeTop">
       {/* 로고 */}
       <Link
         href="/"

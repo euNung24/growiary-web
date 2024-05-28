@@ -16,6 +16,9 @@ const config: Config = {
       xs: { max: '360px' },
     },
     extend: {
+      spacing: {
+        safeTop: 'env(safe-area-inset-top)',
+      },
       colors: {
         info: {
           50: '#E9F1FF',
