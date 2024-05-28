@@ -147,6 +147,7 @@ const PostHistory = ({ posts, setPosts, assignRef }: PostHistoryProps) => {
                       'absolute right-6 top-6',
                       !profile && 'cursor-default pointer-events-none',
                     )}
+                    aria-label="더보기"
                   >
                     <Ellipsis width={24} height={24} color="#747F89" />
                   </PopoverTrigger>

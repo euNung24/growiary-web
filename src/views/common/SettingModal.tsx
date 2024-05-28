@@ -96,6 +96,7 @@ const SettingModal = () => {
                       alt="profile"
                       width={profile?.profileImage ? 76 : 42}
                       height={profile?.profileImage ? 76 : 42}
+                      priority
                     />
                   </div>
                   <span className="ml-[18px] font-r22 text-gray-900">
@@ -123,6 +124,7 @@ const SettingModal = () => {
                         width={24}
                         height={24}
                         className="rounded-full mr-3"
+                        priority
                       />
                       <span className="text-gray-500">{profile?.email}</span>
                     </div>

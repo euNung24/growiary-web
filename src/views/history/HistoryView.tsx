@@ -129,7 +129,7 @@ const HistoryView = () => {
                   {selectedYear}년 {selectedMonth}월
                 </span>
                 <Popover>
-                  <PopoverTrigger asChild>
+                  <PopoverTrigger asChild role="button">
                     <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50 hidden lg:block">
                       {selectedYear}년 {selectedMonth}월
                     </span>
