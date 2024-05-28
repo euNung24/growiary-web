@@ -75,6 +75,7 @@ const PostView = ({ postId }: PostViewProps) => {
   const historyFnRef = useRef<() => void | false>(() => {});
   const isSavedRef = useRef(false);
   const formRef = useRef<HTMLFormElement | null>(null);
+  const titleRef = useRef<HTMLInputElement | null>(null);
   const target = formRef.current?.parentElement;
 
   const { toast } = useToast();
@@ -224,6 +225,7 @@ const PostView = ({ postId }: PostViewProps) => {
                 <FormItem>
                   <FormControl>
                     <Input
+                      ref={titleRef}
                       required
                       type="text"
                       placeholder="제목을 입력하세요"
@@ -332,6 +334,9 @@ const PostView = ({ postId }: PostViewProps) => {
                               events={{
                                 handleContentChange: contentField.onChange,
                                 handleCountChange: countField.onChange,
+                                handleMount: () => {
+                                  titleRef.current?.focus();
+                                },
                               }}
                             />
                             {template?.category && (

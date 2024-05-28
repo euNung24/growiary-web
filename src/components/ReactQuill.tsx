@@ -11,6 +11,7 @@ type ReactQuillProps = {
   events?: {
     handleContentChange: ControllerRenderProps['onChange'];
     handleCountChange: ControllerRenderProps['onChange'];
+    handleMount: () => void;
   };
   readonly: boolean;
 };
@@ -90,6 +91,7 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
       });
 
       ref && (ref.current = quill);
+      events && events.handleMount();
 
       if (defaultValue) {
         if (typeof defaultValue === 'string') {

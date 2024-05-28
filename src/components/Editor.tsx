@@ -9,6 +9,7 @@ type QuillComponentProps = {
   events?: {
     handleContentChange: ControllerRenderProps['onChange'];
     handleCountChange: ControllerRenderProps['onChange'];
+    handleMount: () => void;
   };
   className?: string;
   readonly?: boolean;
