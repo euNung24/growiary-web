@@ -70,7 +70,6 @@ const HomeDailyChecker = () => {
           <div className="border border-gray-100 rounded-xl flex flex-wrap justify-center items-end gap-[52px] pt-6 pb-[57px] overflow-hidden md:px-10">
             {data ? (
               <>
-                {' '}
                 {/* 연속 기록 시작일 */}
                 {data.continue[data.continue.length - 1] && (
                   <DailyChecker
@@ -139,9 +138,12 @@ const HomeDailyChecker = () => {
               </>
             ) : (
               [...Array(7)].map((v, i) => (
-                <div key={i} className="group text-center text-gray-500 font-r16">
-                  <Skeleton className="mt-1 mb-3 h-4 w-10 mx-auto" />
-                  <Skeleton className="mt-1.5 rounded-full w-[70px] h-[70px]" />
+                <div
+                  key={i}
+                  className="group text-center text-gray-500 font-r16 pt-[17.5px]"
+                >
+                  <Skeleton className="mt-1 mb-3 h-4 w-11 mx-auto" />
+                  <Skeleton className="mt-1.5 rounded-full w-[76px] h-[76px]" />
                 </div>
               ))
             )}

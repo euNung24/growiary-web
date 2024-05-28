@@ -24,6 +24,7 @@ import { TopicCategory } from '@/types/topicTypes';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const SAMPLE_POSTS: (Pick<ResPostType, 'title' | 'tags'> & {
   topic: {
@@ -101,23 +102,77 @@ const HomePosts = () => {
       </div>
       <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>
       <div className="flex gap-5 flex-wrap">
-        {profile && posts && (
-          <>
-            <NewCard />
-            {posts.map(post => (
-              <Link key={post.id} href={`/history/${post.id}`}>
-                <Card className="shrink-0" size="lg">
+        {profile &&
+          (posts ? (
+            <>
+              <NewCard />
+              {posts.map(post => (
+                <Link key={post.id} href={`/history/${post.id}`}>
+                  <Card className="shrink-0" size="lg">
+                    <CardHeader>
+                      <CardChip size="lg">
+                        {topicCategory[post.topic?.category || '자유'].Icon({
+                          width: 12,
+                          height: 12,
+                          color: 'currentColor',
+                        })}
+                        {post.topic?.category || '자유'}
+                      </CardChip>
+                      <CardTitle className="overflow-hidden text-ellipsis whitespace-nowrap	">
+                        {post.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent
+                      className="flex flex-col"
+                      style={{
+                        border: 'none',
+                      }}
+                    >
+                      <div
+                        className="overflow-hidden text-ellipsis font-r16"
+                        style={{
+                          display: '-webkit-box',
+                          WebkitBoxOrient: 'vertical',
+                          WebkitLineClamp: 4,
+                          maxHeight: '104px',
+                        }}
+                      >
+                        {posts[0].content.ops.map(op =>
+                          typeof op.insert === 'string' && op.insert !== '\n'
+                            ? op.insert
+                            : '',
+                        )}
+                      </div>
+                      <div className="flex mt-auto flex-wrap max-w-full h-[22px] overflow-hidden">
+                        {post.tags?.map((v, i) => (
+                          <CardChip key={i} position="footer">
+                            {v}
+                          </CardChip>
+                        ))}
+                      </div>
+                    </CardContent>
+                    <CardFooter className="justify-end">
+                      <span className="mt-auto font-r14 text-gray-500 group-hover:text-gray-50">
+                        {getTwoFormatDate(new Date(post.writeDate).getMonth() + 1)}월{' '}
+                        {getTwoFormatDate(new Date(post.writeDate).getDate())}일
+                      </span>
+                    </CardFooter>
+                  </Card>
+                </Link>
+              ))}
+              {posts.length === 0 && (
+                <Card className="shrink-0 bg-primary-50 border-none" size="lg">
                   <CardHeader>
                     <CardChip size="lg">
-                      {topicCategory[post.topic?.category || '자유'].Icon({
+                      {topicCategory['자유'].Icon({
                         width: 12,
                         height: 12,
                         color: 'currentColor',
                       })}
-                      {post.topic?.category || '자유'}
+                      자유
                     </CardChip>
-                    <CardTitle className="overflow-hidden text-ellipsis whitespace-nowrap	">
-                      {post.title}
+                    <CardTitle className="overflow-hidden text-ellipsis">
+                      제목 타이틀
                     </CardTitle>
                   </CardHeader>
                   <CardContent
@@ -135,14 +190,14 @@ const HomePosts = () => {
                         maxHeight: '104px',
                       }}
                     >
-                      {posts[0].content.ops.map(op =>
-                        typeof op.insert === 'string' && op.insert !== '\n'
-                          ? op.insert
-                          : '',
-                      )}
+                      그루어리에 오신걸 환영합니다!
+                      <br />
+                      아직 작성된 글이 없어요
+                      <br />
+                      그루어리에서 더 많은 기록을 남겨주세요
                     </div>
-                    <div className="flex mt-auto flex-wrap max-w-full h-[22px] overflow-hidden">
-                      {post.tags?.map((v, i) => (
+                    <div className="flex gap-x-2.5 mt-auto">
+                      {['태그1', '태그2'].map((v, i) => (
                         <CardChip key={i} position="footer">
                           {v}
                         </CardChip>
@@ -151,66 +206,19 @@ const HomePosts = () => {
                   </CardContent>
                   <CardFooter className="justify-end">
                     <span className="mt-auto font-r14 text-gray-500 group-hover:text-gray-50">
-                      {getTwoFormatDate(new Date(post.writeDate).getMonth() + 1)}월{' '}
-                      {getTwoFormatDate(new Date(post.writeDate).getDate())}일
+                      {getTwoFormatDate(+month)}월 {getTwoFormatDate(+date)}일
                     </span>
                   </CardFooter>
                 </Card>
-              </Link>
-            ))}
-            {posts.length === 0 && (
-              <Card className="shrink-0 bg-primary-50 border-none" size="lg">
-                <CardHeader>
-                  <CardChip size="lg">
-                    {topicCategory['자유'].Icon({
-                      width: 12,
-                      height: 12,
-                      color: 'currentColor',
-                    })}
-                    자유
-                  </CardChip>
-                  <CardTitle className="overflow-hidden text-ellipsis">
-                    제목 타이틀
-                  </CardTitle>
-                </CardHeader>
-                <CardContent
-                  className="flex flex-col"
-                  style={{
-                    border: 'none',
-                  }}
-                >
-                  <div
-                    className="overflow-hidden text-ellipsis font-r16"
-                    style={{
-                      display: '-webkit-box',
-                      WebkitBoxOrient: 'vertical',
-                      WebkitLineClamp: 4,
-                      maxHeight: '104px',
-                    }}
-                  >
-                    그루어리에 오신걸 환영합니다!
-                    <br />
-                    아직 작성된 글이 없어요
-                    <br />
-                    그루어리에서 더 많은 기록을 남겨주세요
-                  </div>
-                  <div className="flex gap-x-2.5 mt-auto">
-                    {['태그1', '태그2'].map((v, i) => (
-                      <CardChip key={i} position="footer">
-                        {v}
-                      </CardChip>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="justify-end">
-                  <span className="mt-auto font-r14 text-gray-500 group-hover:text-gray-50">
-                    {getTwoFormatDate(+month)}월 {getTwoFormatDate(+date)}일
-                  </span>
-                </CardFooter>
-              </Card>
-            )}
-          </>
-        )}
+              )}
+            </>
+          ) : (
+            <>
+              <Skeleton className="rounded-xl w-[300px] h-[320px]" />
+              <Skeleton className="rounded-xl w-[300px] h-[320px]" />
+              <Skeleton className="rounded-xl w-[300px] h-[320px]" />
+            </>
+          ))}
         {!profile && (
           <>
             <NewCard isLogin={false} />

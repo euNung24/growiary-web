@@ -36,11 +36,12 @@ const LandingView = () => {
         <div className="flex flex-col items-center gap-y-8 text-white-0 mt-8 text-center z-10">
           <h1 className="hidden">그루어리</h1>
           <Image
-            className="mt-[98px]"
+            className="mt-[98px] w-[114px] h-auto"
             src="/assets/icons/logo/wide_white.png"
             alt="logo"
             width={114}
-            height={27.26}
+            height={27.5}
+            priority
           />
           <div>
             <h2 className="font-r22 mb-2.5">기록하며 성장하는 어른들을 위한 노트</h2>
@@ -70,10 +71,12 @@ const LandingView = () => {
       <footer className="bg-[#002861] opacity-50">
         <div className="pt-[54px] pl-[157px] pb-[21px] text-gray-100 flex flex-col gap-y-3 font-r14 sm:pl-7">
           <Image
+            className="w-[112.49px] h-auto"
             src="/assets/icons/logo/wide_white.png"
             alt="logo"
             width={112.49}
             height={25.64}
+            priority
           />
           <div className="flex gap-x-[76px] gap-y-3 flex-wrap">
             <div className="flex flex-col">

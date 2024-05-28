@@ -61,6 +61,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
             width={133.84}
             height={32}
             className="mb-6 ml-auto mr-auto pt-4"
+            priority
           />
           <DialogTitle>그루어리에 오신 것을 환영합니다</DialogTitle>
           <DialogDescription className="font-r12">
@@ -75,6 +76,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
             height={52}
             className="cursor-pointer"
             onClick={kakaoLogin}
+            priority
           />
           <Image
             src="/assets/icons/login_google.png"
@@ -83,6 +85,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
             height={52}
             className="cursor-pointer"
             onClick={googleLogin}
+            priority
           />
         </div>
         <DialogFooter>

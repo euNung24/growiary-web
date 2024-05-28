@@ -68,6 +68,7 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
               height={16}
               alt={item.alt}
               className="min-w-[16px] group-hover:hidden"
+              priority
             />
             <Image
               src={
@@ -80,6 +81,7 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
               height={16}
               alt={item.alt}
               className="hidden min-w-[16px] group-hover:block"
+              priority
             />
             <span className="lg:indent-[-9999px]">{item.name}</span>
           </Link>
@@ -159,6 +161,7 @@ const Sidebar = () => {
               width={profile && profile.profileImage ? 74 : 42}
               height={profile && profile.profileImage ? 74 : 42}
               className="lg:hidden"
+              priority
             />
             <Image
               src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
@@ -166,6 +169,7 @@ const Sidebar = () => {
               width={profile && profile.profileImage ? 36 : 24}
               height={profile && profile.profileImage ? 36 : 24}
               className="hidden lg:block"
+              priority
             />
           </div>
           {/* 뱃지 타이틀 */}

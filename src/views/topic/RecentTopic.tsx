@@ -18,6 +18,7 @@ import { topicCategory } from '@/utils/topicCategory';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const RecentTopic = () => {
   const mutation = useGetUserRecentTopic();
@@ -40,90 +41,93 @@ const RecentTopic = () => {
   return (
     <>
       {profile &&
-        recentTopic &&
-        (Object.keys(recentTopic).length > 0 ? (
-          <div>
-            <TopicCard>
+        (recentTopic ? (
+          Object.keys(recentTopic).length > 0 ? (
+            <div>
+              <TopicCard>
+                <TopicCardHeader>
+                  <TopicCardChip>최근에 기록한</TopicCardChip>
+                  <TopicCardTitle>{recentTopic.topic?.category}</TopicCardTitle>
+                </TopicCardHeader>
+                <TopicCardContent>
+                  <div className="z-[1]">
+                    {recentTopic?.topic?.title?.split('/n').map((text, i) => (
+                      <p key={i}>
+                        {text}
+                        <br />
+                      </p>
+                    ))}
+                  </div>
+                  <div className="absolute right-0">
+                    {recentTopic?.topic?.category &&
+                      topicCategory[recentTopic?.topic?.category].Icon({
+                        width: 110,
+                        height: 110,
+                        color: '#EEF9E6',
+                      })}
+                  </div>
+                </TopicCardContent>
+                <TopicCardFooter>
+                  <Button
+                    size="full"
+                    className={cn(
+                      'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
+                    )}
+                    asChild
+                    onClick={onClickNewPost}
+                  >
+                    <Link
+                      href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
+                    >
+                      <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />이
+                      주제로 기록하기
+                    </Link>
+                  </Button>
+                </TopicCardFooter>
+              </TopicCard>
+              <p className="text-gray-400 font-r16 ml-3 mt-3">
+                {profile?.nickname || '그루미'}님이{' '}
+                {recentTopic.day === 0
+                  ? '오늘'
+                  : recentTopic.day === 1
+                    ? '하루 전에'
+                    : recentTopic.day + '일 전에'}{' '}
+                기록한 주제
+              </p>
+            </div>
+          ) : (
+            <TopicCard className="shrink-0 bg-primary-50 border-none">
               <TopicCardHeader>
                 <TopicCardChip>최근에 기록한</TopicCardChip>
-                <TopicCardTitle>{recentTopic.topic?.category}</TopicCardTitle>
               </TopicCardHeader>
               <TopicCardContent>
-                <div className="z-[1]">
-                  {recentTopic?.topic?.title?.split('/n').map((text, i) => (
-                    <p key={i}>
-                      {text}
-                      <br />
-                    </p>
-                  ))}
-                </div>
-                <div className="absolute right-0">
-                  {recentTopic?.topic?.category &&
-                    topicCategory[recentTopic?.topic?.category].Icon({
-                      width: 110,
-                      height: 110,
-                      color: '#EEF9E6',
-                    })}
+                <div className="flex flex-col items-center justify-center mx-auto text-center gap-y-2.5 font-r16 text-gray-800 group-hover:text-white-0">
+                  <Image
+                    src="/assets/icons/info_white.png"
+                    alt="info"
+                    width={21.5}
+                    height={21.5}
+                  />
+                  최근에 작성한 기록이 없어요
+                  <br /> 기록을 작성해 주세요
                 </div>
               </TopicCardContent>
               <TopicCardFooter>
                 <Button
                   size="full"
-                  className={cn(
-                    'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
-                  )}
+                  className={cn('bg-white-0 text-primary-900/90 group-hover:bg-white-0')}
                   asChild
-                  onClick={onClickNewPost}
                 >
-                  <Link
-                    href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
-                  >
-                    <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />이
-                    주제로 기록하기
+                  <Link href={`/post`} onClick={onClickNewPost}>
+                    <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
+                    자유주제로 기록하기
                   </Link>
                 </Button>
               </TopicCardFooter>
             </TopicCard>
-            <p className="text-gray-400 font-r16 ml-3 mt-3">
-              {profile?.nickname || '그루미'}님이{' '}
-              {recentTopic.day === 0
-                ? '오늘'
-                : recentTopic.day === 1
-                  ? '하루 전에'
-                  : recentTopic.day + '일 전에'}{' '}
-              기록한 주제
-            </p>
-          </div>
+          )
         ) : (
-          <TopicCard className="shrink-0 bg-primary-50 border-none">
-            <TopicCardHeader>
-              <TopicCardChip>최근에 기록한</TopicCardChip>
-            </TopicCardHeader>
-            <TopicCardContent>
-              <div className="flex flex-col items-center justify-center mx-auto text-center gap-y-2.5 font-r16 text-gray-800 group-hover:text-white-0">
-                <Image
-                  src="/assets/icons/info_white.png"
-                  alt="info"
-                  width={21.5}
-                  height={21.5}
-                />
-                최근에 작성한 기록이 없어요
-                <br /> 기록을 작성해 주세요
-              </div>
-            </TopicCardContent>
-            <TopicCardFooter>
-              <Button
-                size="full"
-                className={cn('bg-white-0 text-primary-900/90 group-hover:bg-white-0')}
-                asChild
-              >
-                <Link href={`/post`} onClick={onClickNewPost}>
-                  <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
-                  자유주제로 기록하기
-                </Link>
-              </Button>
-            </TopicCardFooter>
-          </TopicCard>
+          <Skeleton className="w-full h-[284px]" />
         ))}
       {!profile && (
         <div>
