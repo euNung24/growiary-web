@@ -52,7 +52,9 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
 
   return (
     <Dialog onOpenChange={open => onOpenChange(open)}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger asChild role="button" aria-label="login">
+        {children}
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <Image

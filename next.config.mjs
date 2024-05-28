@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  compiler: {
+    removeConsole: process.env.NEXT_PUBLIC_NODE_ENV === 'prod',
+  },
   images: {
     remotePatterns: [
       {
