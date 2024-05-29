@@ -116,7 +116,7 @@ const ReportByChar = () => {
             </b>
           </span>
         </div>
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-1.5 flex-wrap">
           {(slicedData || SAMPLE_CHAR_DATA).map(
             ([date, data], i) =>
               data.sum > 0 && (
