@@ -71,7 +71,7 @@ const RectAreaChart = ({ data }: RectAreaChartProps) => {
   }, [data]);
 
   return (
-    <div className="rounded-3xl overflow-hidden text-white-0 flex justify-between *:flex *:flex-col *:justify-between w-[412px] h-[308px]">
+    <div className="rounded-3xl overflow-hidden text-white-0 flex justify-between *:flex *:flex-col *:justify-between w-[412px] h-[308px] mx-auto">
       <div className="*:flex *:items-center *:justify-center *:transition-colors">
         <div className="bg-primary-700 hover:bg-primary-900" ref={firstRectRef}></div>
         <div className="bg-primary-600 hover:bg-primary-800" ref={secondRectRef}></div>

@@ -35,7 +35,7 @@ const ReportByTime = () => {
   }, [data?.time, monthIndex]);
 
   return (
-    <div className="flex-1">
+    <div>
       <p className={descriptionStyle}>
         <span className={strengthStyle}>
           {timeRankByPercent ? timeRankByPercent[0][0] : TIME[3]}

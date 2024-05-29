@@ -130,7 +130,7 @@ const HistoryView = () => {
                 </span>
                 <Popover>
                   <PopoverTrigger asChild role="button">
-                    <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50 hidden lg:block">
+                    <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50 hidden break-keep text-center lg:block">
                       {selectedYear}년 {selectedMonth}월
                     </span>
                   </PopoverTrigger>
@@ -160,10 +160,10 @@ const HistoryView = () => {
                 onClick={handleClickNextMonth}
               />
             </div>
-            <div className="flex gap-x-[18px] items-center">
+            <div className="flex gap-x-[18px] items-center flex-wrap-reverse justify-end ">
               <Popover>
                 <PopoverTrigger asChild>
-                  <h4 className="font-r12 py-3 mx-4 text-gray-500 hidden lg:block">
+                  <h4 className="font-r12 py-3 mx-4 text-gray-500 hidden lg:block shrink-0">
                     카테고리
                   </h4>
                 </PopoverTrigger>

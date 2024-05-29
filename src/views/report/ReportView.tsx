@@ -28,7 +28,7 @@ const ReportView = () => {
           <ReportPost />
           <section>
             <h2 className="title">기록 패턴</h2>
-            <div className="flex gap-5 flex-wrap">
+            <div className="flex gap-5 flex-wrap [&>*]:flex-1 sm:[&>*]:flex-initial">
               <ReportByDay />
               <ReportByTime />
             </div>

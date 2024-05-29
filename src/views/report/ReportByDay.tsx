@@ -30,7 +30,7 @@ const ReportByDay = () => {
   }, [data?.week, monthIndex]);
 
   return (
-    <div className="flex-1">
+    <div>
       <p className={descriptionStyle}>
         <span className={strengthStyle}>
           {weekData

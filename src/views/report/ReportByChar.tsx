@@ -179,7 +179,7 @@ const ReportByChar = () => {
               ),
           )}
           {slicedDataLength === 1 && (
-            <div className="group flex-1 bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-900 hover:text-white-0">
+            <div className="group flex-[1_0_218px] bg-primary-50 rounded-xl px-6 py-3 text-primary-900 hover:bg-primary-900 hover:text-white-0">
               <div className="flex justify-between text-gray-500 group-hover:text-white-0">
                 <span className="font-r12">
                   {data && +Object.keys(data?.charCount).reverse()[1].slice(-2)}월

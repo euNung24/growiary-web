@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { SAMPLE_REPORT } from '@/utils/report';
+import { useEffect, useRef, useState } from 'react';
 
 const MAX_BAR_HEIGHT = 147;
 const getLowBarHeight = (all: number, user: number) => {
@@ -27,9 +28,16 @@ const ReportPost = () => {
   const month = selectedMonth.toString().padStart(2, '0');
   const userData = report?.post?.user[`${year}-${month}`];
   const allData = report?.post?.all[`${year}-${month}`];
+  const [isWidthSmall, setIsWidthSmall] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    sectionRef.current.clientWidth <= 360 && setIsWidthSmall(true);
+  }, []);
 
   return (
-    <section>
+    <section ref={sectionRef}>
       <div>
         <h2 className="title">기록 추이</h2>
         <p className={descriptionStyle}>
@@ -39,8 +47,8 @@ const ReportPost = () => {
           의 기록을 작성했어요
         </p>
         <div className="flex gap-5 flex-wrap">
-          <div className={cn(boxStyle, 'flex-1')}>
-            <div className="flex gap-x-7 text-gray-400 font-r14 mb-5">
+          <div className={cn(boxStyle, 'flex-[1_0_0%] sm:w-full')}>
+            <div className="flex gap-x-7 sm:flex-col text-gray-400 font-r14 mb-5">
               <span>
                 총 누적{' '}
                 <b className="ml-[5px] text-gray-500 font-normal">
@@ -107,6 +115,11 @@ const ReportPost = () => {
                       border: {
                         color: '#BEBFBF',
                         width: 0,
+                      },
+                      ticks: {
+                        font: {
+                          size: isWidthSmall ? 10 : 16,
+                        },
                       },
                     },
                     y: {

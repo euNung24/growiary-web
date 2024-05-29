@@ -158,7 +158,7 @@ const ReportByTopic = () => {
                 {selectedCategory || '하루생각'}
               </span>
             </div>
-            <span className="font-r16 text-gray-800 flex items-center">
+            <span className="font-r16 text-gray-800 flex items-center flex-wrap">
               작성한 글{' '}
               <b className="font-m36 text-primary-900 mx-2">
                 {selectedCategory ? data?.topic[selectedCategory]?.length : 12}
