@@ -10,20 +10,18 @@ const TopStartButton = () => {
   const pathname = usePathname();
   const { isLogin } = useProfileContext();
   const ref = useRef<HTMLDivElement | null>(null);
+  const target = ref.current?.parentElement;
 
   useEffect(() => {
-    const target = ref.current?.parentElement;
-
     if (target) {
       target.style.overflow = 'auto';
     }
     return () => {
-      const target = ref.current?.parentElement;
       if (target) {
-        target.style.overflow = 'auto';
+        target.style.overflow = '';
       }
     };
-  }, [isLogin]);
+  }, [ref.current, isLogin]);
 
   return (
     isLogin === 'NOT_LOGIN' &&

@@ -42,6 +42,8 @@ import StopMovePage from '@/components/StopMovePage';
 import useFindPost from '@/hooks/posts/useFindPost';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useSetRecoilState } from 'recoil';
+import { PostState } from '@/store/postStore';
 
 const FormSchema = z.object({
   topicId: z.number(),
@@ -80,6 +82,7 @@ const PostView = ({ postId }: PostViewProps) => {
 
   const { toast } = useToast();
   const { profile } = useProfileContext();
+  const setPostState = useSetRecoilState(PostState);
   const topicMutation = useFindTopic(post?.topic?.id || topicId);
   const postMutation = useFindPost(postId);
 
@@ -122,23 +125,27 @@ const PostView = ({ postId }: PostViewProps) => {
 
   async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
     isSavedRef.current = true;
-    post
-      ? await updatePost({ id: post.id, ...(data as ReqPostType) })
-          .then(res => {
-            tracking('기록 수정');
-            sendGAEvent({ event: '기록 수정' });
-            movePageAfterSubmit(res.data);
-          })
-          .catch(() => {
-            isSavedRef.current = false;
-          })
-      : await createPost(data as ReqPostType)
-          .then(res => {
-            movePageAfterSubmit(res.data[0]);
-          })
-          .catch(() => {
-            isSavedRef.current = false;
-          });
+    if (!profile) {
+      setPostState(data as ReqPostType);
+    } else {
+      post
+        ? await updatePost({ id: post.id, ...(data as ReqPostType) })
+            .then(res => {
+              tracking('기록 수정');
+              sendGAEvent({ event: '기록 수정' });
+              movePageAfterSubmit(res.data);
+            })
+            .catch(() => {
+              isSavedRef.current = false;
+            })
+        : await createPost(data as ReqPostType)
+            .then(res => {
+              movePageAfterSubmit(res.data[0]);
+            })
+            .catch(() => {
+              isSavedRef.current = false;
+            });
+    }
   }
 
   const openModalAndWaiteForChoice = () => {
@@ -375,10 +382,12 @@ const PostView = ({ postId }: PostViewProps) => {
                         </Button>
                         <LoginDialog>
                           <Button
-                            type="button"
+                            type="submit"
                             size="lg"
                             className={cn(profile && 'hidden')}
-                            // disabled={titleField.value.length < 1 || countField.value <= 10}
+                            disabled={
+                              titleField.value.length < 1 || countField.value < 10
+                            }
                           >
                             로그인
                           </Button>

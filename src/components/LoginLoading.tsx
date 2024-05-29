@@ -9,6 +9,10 @@ import useGetProfile from '@/hooks/profile/useGetProfile';
 import { useQueryClient } from '@tanstack/react-query';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useRecoilState } from 'recoil';
+import { PostState } from '@/store/postStore';
+import { createPost } from '@/apis/post';
+import { ReqPostType } from '@/types/postTypes';
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
 function encodeUrlSafe(text: string): string {
@@ -40,12 +44,19 @@ const LoginLoading = () => {
   const [isLogin, setIsLogin] = useState(false);
   const { profile } = useGetProfile();
   const queryClient = useQueryClient();
+  const [firstPost, setFirstPost] = useRecoilState(PostState);
 
   const key = searchParams.get('key') ?? '';
   const value = decrypt(key) ?? '';
 
   const accessToken = JSON.parse(value).accessToken;
   const refreshToken = JSON.parse(value).refreshToken;
+
+  const createPostByPostValue = async () => {
+    await createPost(firstPost).then(() => {
+      console.log('Success Create First Post');
+    });
+  };
 
   useEffect(() => {
     Cookies.set('accessToken', accessToken);
@@ -54,11 +65,20 @@ const LoginLoading = () => {
 
     if (isLogin && profile && !Object.keys(profile).length) {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
+
       if (profile.social) {
         tracking(`SNS 로그인 ${profile.social}`);
         sendGAEvent({ event: `SNS 로그인 ${profile.social}` });
       }
-      push('/');
+
+      if (firstPost.title) {
+        createPostByPostValue().then(() => {
+          setFirstPost({} as ReqPostType);
+          push('/history');
+        });
+      } else {
+        push('/');
+      }
     }
   }, [isLogin, profile]);
 
