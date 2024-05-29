@@ -137,7 +137,7 @@ const HomePosts = () => {
                           maxHeight: '104px',
                         }}
                       >
-                        {posts[0].content.ops.map(op =>
+                        {post.content.ops.map(op =>
                           typeof op.insert === 'string' && op.insert !== '\n'
                             ? op.insert
                             : '',
