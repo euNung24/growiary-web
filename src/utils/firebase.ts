@@ -12,9 +12,7 @@ export const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const messageFn = async () => {
-  const messaging = (await isSupported()) ? getMessaging(app) : null;
-
-  if (!messaging) return;
+  const messaging = getMessaging(app);
 
   getToken(messaging, {
     vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VALID_KEY,
@@ -45,4 +43,6 @@ export function requestPermission() {
   }
 }
 
-messageFn();
+isSupported().then(isSupported => {
+  isSupported && messageFn();
+});
