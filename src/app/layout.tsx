@@ -79,6 +79,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className="overflow-hidden">
       <body className={font.className}>
+        <link rel="preconnect" href={process.env.NEXT_PUBLIC_API_BASE} />
         <RecoilProvider>
           <ReactQueryProvider>
             <div
@@ -92,6 +93,7 @@ export default function RootLayout({
           </ReactQueryProvider>
         </RecoilProvider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''} />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID2 || ''} />
         <HotjarSnippet />
       </body>
     </html>
