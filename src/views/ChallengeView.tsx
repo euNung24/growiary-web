@@ -181,6 +181,7 @@ const ChallengeView = () => {
                 <BadgeWideIcon
                   src={BADGE_INFO[titleBadge || 'first']?.acquireImgSrc}
                   alt="badge"
+                  priority
                 />
                 <BadgeCardContent>
                   <BadgeCardTitle>
@@ -200,6 +201,7 @@ const ChallengeView = () => {
                 <BadgeWideIcon
                   src={BADGE_INFO[recentGotBadge || 'first'].acquireImgSrc}
                   alt={`badge_${BADGE_INFO[recentGotBadge || 'first'].name}`}
+                  priority
                 />
                 <BadgeCardContent>
                   <BadgeCardTitle>

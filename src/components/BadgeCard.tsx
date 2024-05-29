@@ -57,7 +57,13 @@ const BadgeCard = ({ className, variant, size, ...props }: BadgeCardProps) => {
 };
 BadgeCard.displayName = 'BadgeCard';
 
-const BadgeWideIcon = ({ src, alt, className, ...props }: ImageProps) => {
+const BadgeWideIcon = ({
+  src,
+  alt,
+  className,
+  priority = false,
+  ...props
+}: ImageProps) => {
   return (
     <div
       className="w-[310px] absolute right-[-80px] sm:right-[-60%]"
@@ -83,6 +89,7 @@ const BadgeWideIcon = ({ src, alt, className, ...props }: ImageProps) => {
           right: '15%',
           transform: 'translateY(-50%)',
         }}
+        priority={priority}
       />
     </div>
   );
