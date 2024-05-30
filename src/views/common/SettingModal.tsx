@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -167,7 +166,6 @@ const SettingModal = () => {
               </>
             )}
           </DialogContent>
-          <DialogFooter></DialogFooter>
         </Dialog>
       )}
     </>
