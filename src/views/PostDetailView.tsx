@@ -31,6 +31,7 @@ import Editor from '@/components/Editor';
 import useFindPost from '@/hooks/posts/useFindPost';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 
 type PostDetailViewProps = {
   postId: string;
@@ -47,6 +48,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
   const deleteMutation = useDeletePost(postId);
   const [post, setPost] = useState<ResPostType | null>(null);
   const formRef = useRef<HTMLDivElement | null>(null);
+  const { profile } = useProfileContext();
 
   const handleDeletePost = () => {
     tracking('기록 삭제');
@@ -89,7 +91,13 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col mx-auto h-[calc(100%+72px)]" ref={formRef}>
+    <div
+      className={cn(
+        'flex flex-col mx-auto',
+        profile ? 'mt-[-48px] h-[calc(100%+72px+48px)]' : 'h-[calc(100%+72px)]',
+      )}
+      ref={formRef}
+    >
       {post && (
         <>
           <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-2.5 py-4 text-gray-900">
