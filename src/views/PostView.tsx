@@ -78,7 +78,6 @@ const PostView = ({ postId }: PostViewProps) => {
   const isSavedRef = useRef(false);
   const formRef = useRef<HTMLFormElement | null>(null);
   const titleRef = useRef<HTMLInputElement | null>(null);
-  const target = formRef.current?.parentElement;
 
   const { toast } = useToast();
   const { profile } = useProfileContext();
@@ -203,19 +202,6 @@ const PostView = ({ postId }: PostViewProps) => {
     });
   }, []);
 
-  useEffect(() => {
-    if (target) {
-      target.style.overflow = 'hidden';
-      profile && (target.style.marginTop = '-48px');
-    }
-    return () => {
-      if (target) {
-        target.style.overflow = '';
-        profile && (target.style.marginTop = '');
-      }
-    };
-  }, [target, profile]);
-
   return (
     <Form {...form}>
       <form
@@ -223,191 +209,187 @@ const PostView = ({ postId }: PostViewProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn('flex flex-col pb-4 mx-auto', 'h-[calc(100%+72px)]')}
       >
-        {target && (
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field: titleField }) => (
-              <>
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      ref={titleRef}
-                      required
-                      type="text"
-                      placeholder="제목을 입력하세요"
-                      defaultValue={titleField.value}
-                      onChange={titleField.onChange}
-                      className="font-r28 px-2.5 py-4 border-none"
-                      minLength={1}
-                      maxLength={50}
-                    />
-                  </FormControl>
-                </FormItem>
-                <div className="flex space-y-0 items-center">
-                  <Label className={labelStyle}>
-                    <Braces width={14} height={14} />
-                    카테고리
-                  </Label>
-                  <div className={inputStyle}>{template.category}</div>
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field: titleField }) => (
+            <>
+              <FormItem>
+                <FormControl>
+                  <Input
+                    ref={titleRef}
+                    required
+                    type="text"
+                    placeholder="제목을 입력하세요"
+                    defaultValue={titleField.value}
+                    onChange={titleField.onChange}
+                    className="font-r28 px-2.5 py-4 border-none"
+                    minLength={1}
+                    maxLength={50}
+                  />
+                </FormControl>
+              </FormItem>
+              <div className="flex space-y-0 items-center">
+                <Label className={labelStyle}>
+                  <Braces width={14} height={14} />
+                  카테고리
+                </Label>
+                <div className={inputStyle}>{template.category}</div>
+              </div>
+              <div className="flex space-y-0 items-center">
+                <Label className={labelStyle}>
+                  <List width={14} height={14} />
+                  주제
+                </Label>
+                <div className={inputStyle}>
+                  {template.title && template.title.replaceAll('/n ', '')}
                 </div>
-                <div className="flex space-y-0 items-center">
-                  <Label className={labelStyle}>
-                    <List width={14} height={14} />
-                    주제
-                  </Label>
-                  <div className={inputStyle}>
-                    {template.title && template.title.replaceAll('/n ', '')}
-                  </div>
-                </div>
-                <FormField
-                  control={form.control}
-                  name="writeDate"
-                  render={({ field }) => (
-                    <FormItem className="flex space-y-0 items-center">
-                      <FormLabel className={labelStyle}>
-                        <Image
-                          src="/assets/icons/calendar.png"
-                          alt="date"
-                          width={14}
-                          height={14}
-                        />
-                        날짜
-                      </FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'ghost'}
-                              className={cn(
-                                'flex-1 py-2 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
-                                !field.value && 'text-muted-foreground',
-                                inputStyle,
-                              )}
-                            >
-                              {format(field.value, 'yyyy년 M월 d일')}
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-white-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={date => handleSelectDate(date, field)}
-                            disabled={date =>
-                              date > new Date() || date < new Date('1900-01-01')
-                            }
-                            defaultMonth={field.value}
-                            initialFocus
-                            className="m-0 p-3"
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="tags"
-                  render={({ field }) => (
-                    <FormItem className="flex space-y-0 items-center">
-                      <FormLabel className={labelStyle}>
-                        <Image
-                          src="/assets/icons/hashtag.png"
-                          alt="tag"
-                          width={14}
-                          height={14}
-                        />
-                        태그
-                      </FormLabel>
-                      <Tag setTags={field.onChange} tags={field.value} />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="charactersCount"
-                  render={({ field: countField }) => (
-                    <>
-                      <FormField
-                        control={form.control}
-                        name="content"
-                        render={({ field: contentField }) => (
-                          <div className="relative flex-1 mb-4 border border-[#ccc] rounded-xl overflow-hidden mt-[15px]">
-                            <Editor
-                              placeholder={template.content}
-                              className="flex flex-col h-full"
-                              defaultValue={contentField.value}
-                              events={{
-                                handleContentChange: contentField.onChange,
-                                handleCountChange: countField.onChange,
-                                handleMount: () => {
-                                  titleRef.current?.focus();
-                                },
-                              }}
-                            />
-                            {template?.category && (
-                              <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%] z-[-1]">
-                                {topicCategory[template.category]?.Icon({
-                                  width: '100%',
-                                  height: '100%',
-                                  color: '#EEF9E6',
-                                })}
-                              </div>
-                            )}
-                          </div>
-                        )}
+              </div>
+              <FormField
+                control={form.control}
+                name="writeDate"
+                render={({ field }) => (
+                  <FormItem className="flex space-y-0 items-center">
+                    <FormLabel className={labelStyle}>
+                      <Image
+                        src="/assets/icons/calendar.png"
+                        alt="date"
+                        width={14}
+                        height={14}
                       />
-                      <div className="flex justify-end items-center gap-x-[29px]">
-                        <div className="mr-auto font-r12 text-error-900">
-                          {titleField.value.length < 1
-                            ? '제목을 작성해주세요'
-                            : countField.value < 10
-                              ? '10자 이상의 기록을 작성해주세요'
-                              : ''}
+                      날짜
+                    </FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={'ghost'}
+                            className={cn(
+                              'flex-1 py-2 justify-start hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 focus:text-gray-700',
+                              !field.value && 'text-muted-foreground',
+                              inputStyle,
+                            )}
+                          >
+                            {format(field.value, 'yyyy년 M월 d일')}
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0 bg-white-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={date => handleSelectDate(date, field)}
+                          disabled={date =>
+                            date > new Date() || date < new Date('1900-01-01')
+                          }
+                          defaultMonth={field.value}
+                          initialFocus
+                          className="m-0 p-3"
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem className="flex space-y-0 items-center">
+                    <FormLabel className={labelStyle}>
+                      <Image
+                        src="/assets/icons/hashtag.png"
+                        alt="tag"
+                        width={14}
+                        height={14}
+                      />
+                      태그
+                    </FormLabel>
+                    <Tag setTags={field.onChange} tags={field.value} />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="charactersCount"
+                render={({ field: countField }) => (
+                  <>
+                    <FormField
+                      control={form.control}
+                      name="content"
+                      render={({ field: contentField }) => (
+                        <div className="relative flex-1 mb-4 border border-[#ccc] rounded-xl overflow-hidden mt-[15px]">
+                          <Editor
+                            placeholder={template.content}
+                            className="flex flex-col h-full"
+                            defaultValue={contentField.value}
+                            events={{
+                              handleContentChange: contentField.onChange,
+                              handleCountChange: countField.onChange,
+                              handleMount: () => {
+                                titleRef.current?.focus();
+                              },
+                            }}
+                          />
+                          {template?.category && (
+                            <div className="absolute bottom-0 right-0 max-w-[314px] max-h-[314px] pr-2 h-[50%] z-[-1]">
+                              {topicCategory[template.category]?.Icon({
+                                width: '100%',
+                                height: '100%',
+                                color: '#EEF9E6',
+                              })}
+                            </div>
+                          )}
                         </div>
-                        <span className="text-gray-400 font-r12">
-                          <span className={cn(countField.value < 10 && 'text-error-900')}>
-                            {countField.value}
-                          </span>{' '}
-                          / 2000
-                        </span>
+                      )}
+                    />
+                    <div className="flex justify-end items-center gap-x-[29px]">
+                      <div className="mr-auto font-r12 text-error-900">
+                        {titleField.value.length < 1
+                          ? '제목을 작성해주세요'
+                          : countField.value < 10
+                            ? '10자 이상의 기록을 작성해주세요'
+                            : ''}
+                      </div>
+                      <span className="text-gray-400 font-r12">
+                        <span className={cn(countField.value < 10 && 'text-error-900')}>
+                          {countField.value}
+                        </span>{' '}
+                        / 2000
+                      </span>
+                      <Button
+                        type="submit"
+                        size="sm"
+                        className={cn(!profile && 'hidden')}
+                        disabled={titleField.value.length < 1 || countField.value < 10}
+                      >
+                        기록완료
+                      </Button>
+                      <LoginDialog>
                         <Button
                           type="submit"
-                          size="sm"
-                          className={cn(!profile && 'hidden')}
+                          size="lg"
+                          className={cn(profile && 'hidden')}
                           disabled={titleField.value.length < 1 || countField.value < 10}
                         >
-                          기록완료
+                          로그인
                         </Button>
-                        <LoginDialog>
-                          <Button
-                            type="submit"
-                            size="lg"
-                            className={cn(profile && 'hidden')}
-                            disabled={
-                              titleField.value.length < 1 || countField.value < 10
-                            }
-                          >
-                            로그인
-                          </Button>
-                        </LoginDialog>
-                        <StopMovePage
-                          url={post ? `/history/${post.id}` : '/post'}
-                          isPreventCondition={
-                            (!!titleField.value || !!countField.value) &&
-                            !isSavedRef.current
-                          }
-                          isPageMove={handleOpenStopModal}
-                        />
-                      </div>
-                    </>
-                  )}
-                />
-              </>
-            )}
-          />
-        )}
+                      </LoginDialog>
+                      <StopMovePage
+                        url={post ? `/history/${post.id}` : '/post'}
+                        isPreventCondition={
+                          (!!titleField.value || !!countField.value) &&
+                          !isSavedRef.current
+                        }
+                        isPageMove={handleOpenStopModal}
+                      />
+                    </div>
+                  </>
+                )}
+              />
+            </>
+          )}
+        />
       </form>
       <AlertDialog open={modalOpen}>
         <AlertDialogTrigger className="hidden">글쓰기 중단 팝업</AlertDialogTrigger>
