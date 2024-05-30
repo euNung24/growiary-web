@@ -52,11 +52,11 @@ const LoginLoading = () => {
   const accessToken = JSON.parse(value).accessToken;
   const refreshToken = JSON.parse(value).refreshToken;
 
-  const createPostByPostValue = async () => {
-    await createPost(firstPost).then(() => {
+  const createPostByPostValue = async () =>
+    await createPost(firstPost).then(res => {
       console.log('Success Create First Post');
+      return res;
     });
-  };
 
   useEffect(() => {
     Cookies.set('accessToken', accessToken);
@@ -72,9 +72,9 @@ const LoginLoading = () => {
       }
 
       if (firstPost.title) {
-        createPostByPostValue().then(() => {
+        createPostByPostValue().then(res => {
           setFirstPost({} as ReqPostType);
-          push('/history');
+          push(`/history/${res.data[0].id}`);
         });
       } else {
         push('/');
