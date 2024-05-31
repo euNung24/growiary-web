@@ -3,7 +3,7 @@ import AuthUserProvider from '@/components/providers/AuthUserProvider';
 
 export default function asLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full mx-5 pt-8">
       <AuthUserProvider>{children}</AuthUserProvider>
       <footer className="h-[30px] flex justify-center mt-auto">
         <a href="https://growiary.com/" target="_black" rel="noopener noreferrer">
