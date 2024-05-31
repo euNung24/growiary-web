@@ -1,13 +1,22 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import TopStartButton from '@/views/common/TopStartButton';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import { cn } from '@/lib/utils';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function DetailLayout({ children }: { children: ReactNode }) {
   const { profile } = useProfileContext();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (!profile && /\/admin/.test(pathname)) {
+      router.push('/admin');
+    }
+  });
 
   return (
     <div
