@@ -12,6 +12,10 @@ const items = [
     title: '전체',
   },
   {
+    href: '/admin/users',
+    title: '유저',
+  },
+  {
     href: '/admin/feedback',
     title: '의견',
   },
