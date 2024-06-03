@@ -13,6 +13,8 @@ import AvgPostChart from '@/views/admin/total/AvgPostChart';
 import { getFormatDate } from '@/utils';
 import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
 import TotalCard from '@/views/admin/total/TotalCard';
+import { UnauthorizedError } from '@/utils/api';
+import { useRouter } from 'next/navigation';
 
 const isTodayPost = (postDate: string) => {
   return format(new Date(postDate), 'yyyyMMdd') === format(new Date(), 'yyyyMMdd');
@@ -27,6 +29,7 @@ type Info = {
   prevMau: number;
 };
 const TotalView = () => {
+  const router = useRouter();
   const { profile } = useGetProfile();
   const {
     date: { year, month, date, day },
@@ -57,10 +60,15 @@ const TotalView = () => {
 
     let postLength = 0;
 
-    userMutation.mutateAsync().then(res => {
-      if (!res) return;
-      setUserData(res.data);
-    });
+    userMutation
+      .mutateAsync()
+      .then(res => {
+        if (!res) return;
+        setUserData(res.data);
+      })
+      .catch(error => {
+        UnauthorizedError(error).then(() => router.push('/'));
+      });
 
     postByUserMutation.mutateAsync().then(res => {
       if (!res) return;

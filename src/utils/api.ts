@@ -8,6 +8,8 @@ export const setError = async (response: Response) => {
     return new Error('Expired token');
   } else if (response.status === 400 && message === '유효하지 않은 토큰입니다.') {
     return new Error('Expired token');
+  } else if (response.status === 400 && message === '관리자만 접근 가능합니다.') {
+    return new Error('Unauthorized');
   }
   return new Error('Network response was not ok');
 };
@@ -29,5 +31,11 @@ export const getNewAccessToken = async (error: Error) => {
       // alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
       return;
     }
+  }
+};
+
+export const UnauthorizedError = async (error: Error) => {
+  if (error.message === 'Unauthorized') {
+    alert('관리자만 접근가능합니다.');
   }
 };

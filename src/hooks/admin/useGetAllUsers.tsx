@@ -10,7 +10,7 @@ const useGetUsersInfo = () => {
     mutationFn: getAllUsers,
     onError: async error => {
       await getNewAccessToken(error);
-      console.log(error.message);
+      return error;
     },
   });
 };
