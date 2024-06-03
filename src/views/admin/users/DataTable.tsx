@@ -23,6 +23,7 @@ import {
   PaginationItem,
 } from '@/components/ui/pagination';
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -63,7 +64,7 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-center">
                       {header.isPlaceholder
                         ? null
                         : flexRender(header.column.columnDef.header, header.getContext())}
@@ -104,7 +105,7 @@ export function DataTable<TData, TValue>({
                 disabled={currentPage - 10 < 0}
                 onClick={handleClickPrevPage}
               >
-                Prev
+                <ChevronLeft />
               </Button>
             </PaginationItem>
             {[
@@ -114,21 +115,19 @@ export function DataTable<TData, TValue>({
                   : table.getPageCount() % 10,
               ),
             ].map((v, i) => (
-              <>
-                <PaginationItem>
-                  <Button
-                    size="icon"
-                    variant={
-                      Math.floor(currentPage / 10) * 10 + i !== currentPage
-                        ? 'outline'
-                        : 'default'
-                    }
-                    onClick={() => handleClickPage(Math.floor(currentPage / 10) * 10 + i)}
-                  >
-                    {Math.floor(currentPage / 10) * 10 + i + 1}
-                  </Button>
-                </PaginationItem>
-              </>
+              <PaginationItem key={Math.floor(currentPage / 10) * 10 + i + 1}>
+                <Button
+                  size="icon"
+                  variant={
+                    Math.floor(currentPage / 10) * 10 + i !== currentPage
+                      ? 'outline'
+                      : 'default'
+                  }
+                  onClick={() => handleClickPage(Math.floor(currentPage / 10) * 10 + i)}
+                >
+                  {Math.floor(currentPage / 10) * 10 + i + 1}
+                </Button>
+              </PaginationItem>
             ))}
             <PaginationItem>
               <Button
@@ -139,7 +138,7 @@ export function DataTable<TData, TValue>({
                   Math.floor(currentPage / 10) >= Math.floor(table.getPageCount() / 10)
                 }
               >
-                Next
+                <ChevronRight />
               </Button>
             </PaginationItem>
           </PaginationContent>

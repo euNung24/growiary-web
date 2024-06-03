@@ -6,7 +6,7 @@ export type UsersType = Pick<ProfileType, 'userId' | 'social' | 'email' | 'creat
   updatedAt: string;
   refreshToken: string;
   role: 'admin' | 'user';
-  profile: Pick<ProfileType, 'nickname' | 'profileImage' | 'email' | 'userId'> & {
+  profile: ProfileType & {
     titleBadge: 'first';
   };
   badge: ChallengeType['myBadge'];
