@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const genRandomNum = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -60,6 +62,10 @@ export const getStringMMDD = ({
 }) => {
   return `${month}월 ${date}일`;
 };
+
+export const getFormatDate = (date: Date, formatString?: string) => {
+  return format(date, formatString || 'yyyy-MM-dd');
+}
 
 export const getStringDateAndTime = (date: Date) => {
   let hour = date.getHours();

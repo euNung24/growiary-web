@@ -1,70 +1,187 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+'use client';
 
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEffect, useState } from 'react';
+import useGetProfile from '@/hooks/profile/useGetProfile';
+import { UsersType } from '@/types/admin/usersTypes';
+import { format } from 'date-fns';
+import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
+import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
+import { useRecoilValue } from 'recoil';
+import { TodayState } from '@/store/todayStore';
+import AvgPostChart from '@/views/admin/total/AvgPostChart';
+import { ResPostType } from '@/types/postTypes';
+import { getFormatDate } from '@/utils';
+import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
+import TotalCard from '@/views/admin/total/TotalCard';
+
+const isTodayPost = (postDate: string) => {
+  return format(new Date(postDate), 'yyyyMMdd') === format(new Date(), 'yyyyMMdd');
+};
+
+type Info = {
+  dau: number;
+  wau: number;
+  mau: number;
+  prevDau: number;
+  prevWau: number;
+  prevMau: number;
+};
 const TotalView = () => {
+  const { profile } = useGetProfile();
+  const {
+    date: { year, month, date, day },
+  } = useRecoilValue(TodayState);
+  const userMutation = useGetAllUsers();
+  const postByUserMutation = useGetPostsByUser();
+  const [userData, setUserData] = useState<UsersType[]>([]);
+  const [info, setInfo] = useState<Info>({
+    dau: 0,
+    wau: 0,
+    mau: 0,
+    prevDau: 0,
+    prevWau: 0,
+    prevMau: 0,
+  });
+  const [postLength, setPostLength] = useState(0);
+  const [avgPostByUser, setAvgPostByUser] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+  const [avgPostByMonth, setAvgPostByMonth] = useState<{ [key: string]: ResPostType[] }>(
+    {},
+  );
+
+  useEffect(() => {
+    if (!isClient) {
+      setIsClient(true);
+    }
+  }, []);
+  useEffect(() => {
+    if (!profile || !isClient) return;
+
+    let postLength = 0;
+
+    userMutation.mutateAsync().then(res => {
+      if (!res) return;
+      setUserData(res.data);
+    });
+
+    postByUserMutation.mutateAsync().then(res => {
+      if (!res) return;
+      const { data: postsByUser } = res;
+      let dau = 0;
+      let wau = 0;
+      let mau = 0;
+      let prevDau = 0;
+      let prevWau = 0;
+      let prevMau = 0;
+      const monthPostMap = {} as { [key: string]: ResPostType[] };
+
+      for (const posts of Object.values(postsByUser)) {
+        postLength += posts.length;
+        for (const post of posts) {
+          const yyyyMM = getFormatDate(new Date(post.createdAt), 'yyyy-MM');
+
+          monthPostMap[yyyyMM] = [...(monthPostMap[yyyyMM] || []), post];
+
+          // today
+          dau += isTodayPost(post.createdAt) ? 1 : 0;
+          // week (Mon - Sun)
+          wau +=
+            new Date(year, month - 1, date - (day === 0 ? 6 : day - 1), 0, 0, 0) <=
+            new Date(post.createdAt)
+              ? 1
+              : 0;
+          // month (1 ~ todayDate)
+          mau +=
+            new Date(year, month - 1, 1, 0, 0, 0) <= new Date(post.createdAt) ? 1 : 0;
+          prevDau +=
+            format(new Date(post.createdAt), 'yyyyMMdd') ===
+            format(new Date(year, month - 1, date - 1), 'yyyyMMdd')
+              ? 1
+              : 0;
+          prevWau +=
+            new Date(year, month - 1, date - (day === 0 ? 13 : day + 6), 0, 0, 0) <=
+              new Date(post.createdAt) &&
+            new Date(year, month - 1, date - (day === 0 ? 6 : day - 1), 0, 0, 0) >
+              new Date(post.createdAt)
+              ? 1
+              : 0;
+          prevMau +=
+            new Date(year, month - 2, 1, 0, 0, 0) <= new Date(post.createdAt) &&
+            new Date(year, month - 1, 1, 0, 0, 0) > new Date(post.createdAt)
+              ? 1
+              : 0;
+        }
+      }
+
+      const currentMonth = `${year}-${month.toString().padStart(2, '0')}`;
+      if (!(currentMonth in monthPostMap)) {
+        monthPostMap[currentMonth] = [];
+      }
+
+      setInfo({ dau, wau, mau, prevDau, prevWau, prevMau });
+      setPostLength(postLength);
+      setAvgPostByUser(postLength / Object.keys(postsByUser).length);
+      setAvgPostByMonth(monthPostMap);
+    });
+  }, [profile, isClient]);
+
+  // useEffect(() => {
+  //   setAvgPostByUser(postLength / userData.length);
+  // }, [postLength, userData]);
+
   return (
     <article className="flex flex-col gap-5">
       <section>
         <h3 className="font-sb18 mb-2">유저 유입량</h3>
         <div className="grid gap-4 grid-cols-3">
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>DAU</CardTitle>
-            </CardHeader>
-            <CardContent>content</CardContent>
-          </Card>
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>WAU</CardTitle>
-            </CardHeader>
-            <CardContent>content</CardContent>
-          </Card>
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>MAU</CardTitle>
-            </CardHeader>
-            <CardContent>content</CardContent>
-          </Card>
+          <ActiveUserCard
+            title="DAU"
+            date={getFormatDate(new Date(), 'yyyy.MM.dd')}
+            value={info.dau}
+            accValue={info.dau - info.prevDau}
+          />
+          <ActiveUserCard
+            title="WAU"
+            date={`${getFormatDate(
+              new Date(year, month - 1, date - (day === 0 ? 6 : day - 1), 0, 0, 0),
+              'yyyy.MM.dd',
+            )} ~ ${getFormatDate(new Date(), 'yyyy.MM.dd')}`}
+            value={info.wau}
+            accValue={info.wau - info.prevWau}
+          />
+          <ActiveUserCard
+            title="MAU"
+            date={`${getFormatDate(new Date(year, month - 1, 1, 0, 0, 0), 'yyyy.MM.dd')} ~ ${getFormatDate(new Date(), 'yyyy.MM.dd')}`}
+            value={info.mau}
+            accValue={info.mau - info.prevMau}
+          />
         </div>
       </section>
       <section>
         <h3 className="font-sb18 mb-2">유저 데이터</h3>
         <div className="grid gap-4 grid-cols-2">
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>전체 누적 유저수</CardTitle>
-            </CardHeader>
-            <CardContent>content</CardContent>
-          </Card>
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>오늘 회원가입 유저수</CardTitle>
-            </CardHeader>
-            <CardContent>content</CardContent>
-          </Card>
+          <TotalCard title="전체 누적 유저수" value={userData.length} />
+          <TotalCard
+            title="오늘 회원가입 유저수"
+            value={userData.filter(v => isTodayPost(v.createdAt)).length}
+          />
         </div>
       </section>
       <section>
         <h3 className="font-sb18 mb-2">기록 데이터</h3>
         <div className="grid gap-4 grid-cols-3">
-          <Card className="w-full">
+          <div className="flex flex-col gap-4">
+            <TotalCard title="총 작성된 기록 수" value={postLength} />
+            <TotalCard title="유저별 기록 평균 수" value={avgPostByUser} />
+          </div>
+          <Card className="w-full h-auto col-span-2">
             <CardHeader>
-              <CardTitle>총 작성된 기록 수</CardTitle>
+              <CardTitle className="font-r14">월별 평균 기록 수</CardTitle>
             </CardHeader>
-            <CardContent>content</CardContent>
-          </Card>
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>총 유저별 기록 평균 수 n개</CardTitle>
-            </CardHeader>
-            <CardContent>content</CardContent>
-          </Card>
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>
-                매달 작성된 평균 기록 수 (차트) → x축 월, y축을 평균 작성수
-              </CardTitle>
-            </CardHeader>
-            <CardContent>content</CardContent>
+            <CardContent className="font-sb24 mx-auto mt-4">
+              <AvgPostChart data={avgPostByMonth} />
+            </CardContent>
           </Card>
         </div>
       </section>

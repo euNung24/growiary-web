@@ -10,8 +10,8 @@ type PostType = {
   content: { ops: Op[] };
   tags: string[];
   charactersCount: number;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type ResPostType = PostType & {
