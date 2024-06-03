@@ -52,7 +52,7 @@ const FeedbackModal = ({ children, defaultOpen = false }: FeedbackModalProps) =>
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      category: menu[menuIdx]?.name || '',
+      category: menu[menuIdx]?.name || '그루어리 이용',
       content: '',
     },
   });
@@ -123,7 +123,7 @@ const FeedbackModal = ({ children, defaultOpen = false }: FeedbackModalProps) =>
                           컨텐츠
                         </FormLabel>
                         <Select
-                          defaultValue={menu[menuIdx]?.name || '그루어리'}
+                          defaultValue={menu[menuIdx]?.name || '그루어리 이용'}
                           onValueChange={value => handleChangeCategory(value, field)}
                         >
                           <SelectTrigger
@@ -133,7 +133,7 @@ const FeedbackModal = ({ children, defaultOpen = false }: FeedbackModalProps) =>
                             <SelectValue placeholder={'카테고리를 선택해 주세요'} />
                           </SelectTrigger>
                           <SelectContent className="">
-                            <SelectItem value="그루어리" className="group">
+                            <SelectItem value="그루어리 이용" className="group">
                               <div className="flex gap-x-2.5 items-center text-gray-400 group-hover:text-primary-900">
                                 <Dot width={20} height={20} color="currentColor" />
                                 <span className="text-gray-800 group-hover:text-primary-900">
