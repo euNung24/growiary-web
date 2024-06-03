@@ -5,32 +5,27 @@ import { MENU_NAMES } from '@/utils';
 import { DataTable } from '@/views/admin/feedback/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
+import { ResFeedbackType } from '@/types/feedbackType';
+import useGetAllFeedback from '@/hooks/admin/useGetAllFeedback';
 
-export type Feedback = {
-  id: string;
-  date: string;
-  content: string;
-  category: string;
-};
-
-export const columns: ColumnDef<Feedback>[] = [
+export const columns: ColumnDef<ResFeedbackType>[] = [
   {
     accessorKey: 'content',
     header: '의견',
   },
   {
-    accessorKey: 'date',
-    header: 'Amount',
+    accessorKey: 'createdAt',
+    header: '작성일',
     cell: ({ row }) => {
-      const date = row.getValue('date') as string;
-      const formatted = format(date, 'yyyy-MM-dd');
+      const date = row.getValue('createdAt') as string;
+      const formatted = format(new Date(date), 'yyyy-MM-dd');
 
       return <div>{formatted}</div>;
     },
   },
 ];
 
-const totalColumns: ColumnDef<Feedback>[] = [
+const totalColumns: ColumnDef<ResFeedbackType>[] = [
   ...columns,
   {
     accessorKey: 'category',
@@ -38,45 +33,52 @@ const totalColumns: ColumnDef<Feedback>[] = [
   },
 ];
 
-const payments: Feedback[] = [
-  {
-    id: '728ed52f',
-    date: new Date().toISOString(),
-    content: 'm@example.com',
-    category: '카테고리1',
-  },
-  {
-    id: '489e1d42',
-    date: new Date().toISOString(),
-    content: 'example@gmail.com',
-    category: '카테고리2',
-  },
-];
-
 const FeedbackView = () => {
+  const { data: payments } = useGetAllFeedback();
+
   return (
     <Tabs defaultValue="total" className="space-y-4">
       <TabsList>
         <TabsTrigger value="total">전체</TabsTrigger>
+        <TabsTrigger value="default">그루어리 이용</TabsTrigger>
         <TabsTrigger value="topics">{MENU_NAMES['추천 주제']}</TabsTrigger>
         <TabsTrigger value="report">{MENU_NAMES['기록 데이터 보기']}</TabsTrigger>
         <TabsTrigger value="challenge">{MENU_NAMES['도전과제']}</TabsTrigger>
       </TabsList>
       <TabsContent value="total" className="space-y-4">
-        total
-        <DataTable columns={totalColumns} data={payments} />
+        <DataTable columns={totalColumns} data={payments || []} />
+      </TabsContent>
+      <TabsContent value="default" className="space-y-4">
+        <DataTable
+          columns={columns}
+          data={payments ? payments.filter(v => v.category === '그루어리 이용') : []}
+        />
       </TabsContent>
       <TabsContent value="topics" className="space-y-4">
-        topics
-        <DataTable columns={columns} data={payments} />
+        <DataTable
+          columns={columns}
+          data={
+            payments ? payments.filter(v => v.category === MENU_NAMES['추천 주제']) : []
+          }
+        />
       </TabsContent>
       <TabsContent value="report" className="space-y-4">
-        report
-        <DataTable columns={columns} data={payments} />
+        <DataTable
+          columns={columns}
+          data={
+            payments
+              ? payments.filter(v => v.category === MENU_NAMES['기록 데이터 보기'])
+              : []
+          }
+        />
       </TabsContent>
       <TabsContent value="challenge" className="space-y-4">
-        challenge
-        <DataTable columns={columns} data={payments} />
+        <DataTable
+          columns={columns}
+          data={
+            payments ? payments.filter(v => v.category === MENU_NAMES['도전과제']) : []
+          }
+        />
       </TabsContent>
     </Tabs>
   );
