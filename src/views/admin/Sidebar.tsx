@@ -31,9 +31,9 @@ const Sidebar = () => {
           key={item.href}
           href={item.href}
           className={cn(
-            buttonVariants({ variant: 'ghost' }),
+            buttonVariants({ variant: 'link' }),
             pathname === item.href
-              ? 'bg-muted hover:bg-muted'
+              ? 'bg-primary-900 text-white-0 hover:bg-muted'
               : 'hover:bg-transparent hover:underline',
             'justify-start',
           )}
