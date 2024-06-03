@@ -1,4 +1,3 @@
-import { ResPostType } from '@/types/postTypes';
 import { CategoryScale, Chart, LinearScale, LineElement, PointElement } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
@@ -7,12 +6,12 @@ Chart.defaults.font.size = 16;
 Chart.defaults.font.weight = 'normal';
 Chart.defaults.color = '#747F89';
 Chart.defaults.borderColor = '#EFEFEF';
-const AvgPostChart = ({ data }: { data: { [key: string]: ResPostType[] } }) => {
+const AvgPostChart = ({ data }: { data: { [key: string]: number } }) => {
   const chartData = {
     labels: [...Object.keys(data).map(v => +v.slice(-2) + '월')],
     datasets: [
       {
-        data: [...Object.values(data).map(v => v.length)],
+        data: Object.values(data),
         borderColor: '#58B90E',
         backgroundColor: '#D5EFC1',
       },
@@ -21,6 +20,7 @@ const AvgPostChart = ({ data }: { data: { [key: string]: ResPostType[] } }) => {
 
   const options = {
     responsive: true,
+    aspectRatio: 4,
     scales: {
       y: {
         display: true,

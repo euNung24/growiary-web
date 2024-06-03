@@ -10,7 +10,6 @@ import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import AvgPostChart from '@/views/admin/total/AvgPostChart';
-import { ResPostType } from '@/types/postTypes';
 import { getFormatDate } from '@/utils';
 import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
 import TotalCard from '@/views/admin/total/TotalCard';
@@ -46,9 +45,7 @@ const TotalView = () => {
   const [postLength, setPostLength] = useState(0);
   const [avgPostByUser, setAvgPostByUser] = useState(0);
   const [isClient, setIsClient] = useState(false);
-  const [avgPostByMonth, setAvgPostByMonth] = useState<{ [key: string]: ResPostType[] }>(
-    {},
-  );
+  const [avgPostByMonth, setAvgPostByMonth] = useState<{ [key: string]: number }>({});
 
   useEffect(() => {
     if (!isClient) {
@@ -74,14 +71,20 @@ const TotalView = () => {
       let prevDau = 0;
       let prevWau = 0;
       let prevMau = 0;
-      const monthPostMap = {} as { [key: string]: ResPostType[] };
+      const monthPostMap = [...new Array(6)].reduce((f, v, i) => {
+        const key = getFormatDate(new Date(year, month - 6 + i, 1, 0, 0, 0), 'yyyy-MM');
+
+        return { ...f, [key]: 0 };
+      }, {});
 
       for (const posts of Object.values(postsByUser)) {
         postLength += posts.length;
         for (const post of posts) {
           const yyyyMM = getFormatDate(new Date(post.createdAt), 'yyyy-MM');
 
-          monthPostMap[yyyyMM] = [...(monthPostMap[yyyyMM] || []), post];
+          if (yyyyMM in monthPostMap) {
+            monthPostMap[yyyyMM]++;
+          }
 
           // today
           dau += isTodayPost(post.createdAt) ? 1 : 0;
@@ -112,11 +115,6 @@ const TotalView = () => {
               ? 1
               : 0;
         }
-      }
-
-      const currentMonth = `${year}-${month.toString().padStart(2, '0')}`;
-      if (!(currentMonth in monthPostMap)) {
-        monthPostMap[currentMonth] = [];
       }
 
       setInfo({ dau, wau, mau, prevDau, prevWau, prevMau });
@@ -179,7 +177,7 @@ const TotalView = () => {
             <CardHeader>
               <CardTitle className="font-r14">월별 평균 기록 수</CardTitle>
             </CardHeader>
-            <CardContent className="font-sb24 mx-auto mt-4">
+            <CardContent className="font-sb24 w-[90%] mx-auto mt-4">
               <AvgPostChart data={avgPostByMonth} />
             </CardContent>
           </Card>
