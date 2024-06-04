@@ -1,4 +1,4 @@
-import { setError, UnauthorizedError } from '@/utils/api';
+import { setError } from '@/utils/api';
 import { getCookie } from '@/utils';
 import { ApiSuccessResponse } from '@/types';
 
