@@ -1,8 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { UserState } from '@/store/userStore';
 
 const loginView = () => {
+  const setUserState = useSetRecoilState(UserState);
   const kakaoLogin = async () => {
     const url = 'https://kauth.kakao.com/oauth/authorize';
     const response_type = 'code';
@@ -23,6 +27,13 @@ const loginView = () => {
 
     window.location.assign(googleURL);
   };
+
+  useEffect(() => {
+    setUserState(v => ({
+      ...v,
+      isAdminLogin: true,
+    }));
+  }, []);
 
   return (
     <section className="flex flex-col items-center justify-center mt-[100px] gap-y-3">

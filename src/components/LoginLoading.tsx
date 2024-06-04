@@ -13,6 +13,7 @@ import { useRecoilState } from 'recoil';
 import { PostState } from '@/store/postStore';
 import { createPost } from '@/apis/post';
 import { ReqPostType } from '@/types/postTypes';
+import { UserState } from '@/store/userStore';
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
 function encodeUrlSafe(text: string): string {
@@ -45,6 +46,7 @@ const LoginLoading = () => {
   const { profile } = useGetProfile();
   const queryClient = useQueryClient();
   const [firstPost, setFirstPost] = useRecoilState(PostState);
+  const [userState, setUserState] = useRecoilState(UserState);
 
   const key = searchParams.get('key') ?? '';
   const value = decrypt(key) ?? '';
@@ -62,6 +64,7 @@ const LoginLoading = () => {
     Cookies.set('accessToken', accessToken);
     Cookies.set('refreshToken', refreshToken);
     setIsLogin(true);
+    console.log(userState);
 
     if (isLogin && profile && !Object.keys(profile).length) {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
@@ -77,7 +80,15 @@ const LoginLoading = () => {
           push(`/history/${res.data[0].id}`);
         });
       } else {
-        push('/');
+        if (userState.isAdminLogin) {
+          push('/admin');
+          setUserState(v => ({
+            ...v,
+            isAdminLogin: false,
+          }));
+        } else {
+          push('/');
+        }
       }
     }
   }, [isLogin, profile]);
