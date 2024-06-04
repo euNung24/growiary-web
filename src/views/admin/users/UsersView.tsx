@@ -160,6 +160,7 @@ const UsersView = () => {
   const postByUserMutation = useGetPostsByUser();
 
   const [isClient, setIsClient] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [users, setUsers] = useState<{ [key: string]: UsersType }>(
     {} as { [key: string]: UsersType },
   );
@@ -231,6 +232,7 @@ const UsersView = () => {
             {},
           );
           setUsers(userMapById);
+          setIsAdmin(true);
         })
         .catch(error => {
           UnauthorizedError(error).then(() => router.push('/'));
@@ -311,7 +313,7 @@ const UsersView = () => {
   );
 
   return (
-    !!Object.keys(postsByUser).length && (
+    isAdmin && (
       <>
         <DataTable columns={columns} data={[...processedPayments]}>
           <FilterBox label="가입일">
