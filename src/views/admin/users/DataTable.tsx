@@ -2,9 +2,13 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from '@tanstack/react-table';
 
@@ -22,23 +26,39 @@ import {
   PaginationContent,
   PaginationItem,
 } from '@/components/ui/pagination';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import * as React from 'react';
+import FilterBox from '@/views/admin/users/FilterBox';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  children: ReactNode;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  children,
 }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      sorting,
+      columnFilters,
+    },
   });
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -57,6 +77,19 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
+      <div className="flex flex-col gap-2 justify-center py-4">
+        <FilterBox label="이메일 / 유저ID">
+          <Input
+            placeholder="Filter emails or userIds..."
+            value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+            onChange={event =>
+              table.getColumn('email')?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        </FilterBox>
+        {children}
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -79,7 +112,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map(row => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}

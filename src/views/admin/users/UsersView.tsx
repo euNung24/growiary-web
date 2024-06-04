@@ -11,28 +11,57 @@ import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
 import useGetProfile from '@/hooks/profile/useGetProfile';
 import { getFormatDate } from '@/utils';
 import Image from 'next/image';
+import { UnauthorizedError } from '@/utils/api';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { ArrowUpDown } from 'lucide-react';
+import * as React from 'react';
+import { DateRange, SelectRangeEventHandler } from 'react-day-picker';
+import { DatePickerWithRange } from '@/views/admin/users/DatePickerWithRange';
+import FilterBox from '@/views/admin/users/FilterBox';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {
   profile: Pick<UsersType['profile'], 'nickname' | 'userId'>;
   firstDayPostCount: number;
   avgPostOfMonth: string;
   totalPostCount: number;
-  firstPostDate: string;
+  firstPostDate: Date | undefined;
 };
 
 const columns: ColumnDef<UserTable>[] = [
   {
     accessorKey: 'email',
     header: ' 이메일',
+    cell: ({ row }) => {
+      const [email, userId] = (row.getValue('email') as string).split(' ');
+
+      return (
+        <div className="text-left">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>{email}</TooltipTrigger>
+              <TooltipContent className="left-[42%] bottom-2">
+                <p>{userId}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+      );
+    },
   },
   {
     accessorKey: 'nickname',
     header: ' 닉네임',
     cell: ({ row }) => {
       const nickname = row.getValue('nickname') as string;
-      const email = row.getValue('email') as string;
 
-      return <div>{nickname ? nickname : email.split('@')[0]}</div>;
+      return <div className="text-left">{nickname}</div>;
     },
   },
   {
@@ -72,33 +101,40 @@ const columns: ColumnDef<UserTable>[] = [
   {
     accessorKey: 'firstDayPostCount',
     header: '가입 당일 작성 횟수',
-    cell: ({ row }) => {
-      return (
-        <div className="text-center">{row.getValue('firstDayPostCount') as string}</div>
-      );
-    },
   },
   {
     accessorKey: 'avgPostOfMonth',
-    header: '매달 평균 글 수',
-    cell: ({ row }) => {
+    header: ({ column }) => {
       return (
-        <div className="text-center">{row.getValue('avgPostOfMonth') as string}</div>
+        <Button
+          variant="ghost"
+          className="text-[#000000] font-medium focus:text-primary-900"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          매달 평균 글 수
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
       );
     },
   },
   {
     accessorKey: 'totalPostCount',
-    header: '전체 글 수',
-    cell: ({ row }) => {
+    header: ({ column }) => {
       return (
-        <div className="text-center">{row.getValue('totalPostCount') as string}</div>
+        <Button
+          variant="ghost"
+          className="text-[#000000] font-medium focus:text-primary-900"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          전체 글 수
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
       );
     },
   },
   {
     accessorKey: 'content',
-    header: '매 주 작성 여부',
+    header: '매주 작성 여부',
     // cell: ({ row }) => {
     //   return (
     //     <div className="text-center">{row.getValue('firstDayPostCount') as string}</div>
@@ -109,12 +145,20 @@ const columns: ColumnDef<UserTable>[] = [
     accessorKey: 'firstPostDate',
     header: '첫 글 작성일',
     cell: ({ row }) => {
-      return <div className="text-center">{row.getValue('firstPostDate') as string}</div>;
+      const date = row.getValue('firstPostDate') as Date | undefined;
+      const formatted = date && getFormatDate(date);
+
+      return <div className="text-center">{formatted || '-'}</div>;
     },
   },
 ];
 
 const UsersView = () => {
+  const router = useRouter();
+  const { profile } = useGetProfile();
+  const userMutation = useGetAllUsers();
+  const postByUserMutation = useGetPostsByUser();
+
   const [isClient, setIsClient] = useState(false);
   const [users, setUsers] = useState<{ [key: string]: UsersType }>(
     {} as { [key: string]: UsersType },
@@ -123,10 +167,43 @@ const UsersView = () => {
     {} as { [key: string]: ResPostType[] },
   );
   const [payments, setPayments] = useState<UserTable[]>([]);
+  const [processedPayments, setProcessedPayments] = useState<UserTable[]>([]);
+  const [firstPostDate, setFirstPostDate] = React.useState<DateRange | undefined>({
+    from: undefined,
+    to: undefined,
+  });
+  const [createdDate, setCreatedDate] = React.useState<DateRange | undefined>({
+    from: undefined,
+    to: undefined,
+  });
 
-  const { profile } = useGetProfile();
-  const userMutation = useGetAllUsers();
-  const postByUserMutation = useGetPostsByUser();
+  const handleRangeFirstPostDate: SelectRangeEventHandler = range => {
+    setFirstPostDate(range);
+    const originArr = [...payments];
+    setProcessedPayments(
+      originArr.filter(
+        v =>
+          v.firstPostDate &&
+          v.firstPostDate >= (range?.from || new Date('1900-01-01')) &&
+          v.firstPostDate <= (range?.to || new Date()),
+      ),
+    );
+  };
+
+  const handleRangeCreatedDate: SelectRangeEventHandler = range => {
+    setCreatedDate(range);
+    const originArr = [...payments];
+    setProcessedPayments(
+      originArr.filter(v => {
+        const createdDate = new Date(v.createdAt);
+
+        return (
+          createdDate >= (range?.from || new Date('1900-01-01')) &&
+          createdDate <= (range?.to || new Date())
+        );
+      }),
+    );
+  };
 
   useEffect(() => {
     if (!isClient) {
@@ -138,14 +215,26 @@ const UsersView = () => {
     function getAllUsers() {
       if (!profile || !isClient) return;
 
-      userMutation.mutateAsync().then(res => {
-        if (!res) return;
-        const userMapById = res.data.reduce(
-          (f, info) => ({ ...f, [info.profile.userId]: info }),
-          {},
-        );
-        setUsers(userMapById);
-      });
+      userMutation
+        .mutateAsync()
+        .then(res => {
+          if (!res) return;
+          const userMapById = res.data.reduce(
+            (f, info) => ({
+              ...f,
+              [info.profile.userId]: {
+                ...info,
+                email: `${info.email} ${info.profile.userId}`,
+                nickname: info.profile.nickname || info.email.split('@')[0],
+              },
+            }),
+            {},
+          );
+          setUsers(userMapById);
+        })
+        .catch(error => {
+          UnauthorizedError(error).then(() => router.push('/'));
+        });
     },
     [profile, isClient],
   );
@@ -191,24 +280,53 @@ const UsersView = () => {
           const yyyyMM = getFormatDate(new Date(post.createdAt), 'yyyy-MM');
           postMonthMap[yyyyMM] += postMonthMap[yyyyMM] ? 0 : 1;
         }
-        const avgPostOfMonth = posts.length
-          ? Math.round(posts.length / Object.keys(postMonthMap).length).toFixed(1)
-          : '0';
+
+        // 기록한 월만 계산
+        // const avgPostOfMonth = posts.length
+        //   ? Math.round(posts.length / Object.keys(postMonthMap).length).toFixed(1)
+        //   : '0';
+
+        // 가입 월부터 누적 계산
+        const oldDate = new Date(userInfo.createdAt);
+        const newDate = new Date();
+        const diff =
+          Math.abs(
+            (newDate.getFullYear() - oldDate.getFullYear()) * 12 +
+              (newDate.getMonth() - oldDate.getMonth()),
+          ) + 1;
+        const avgPostOfMonth = (posts.length / diff).toFixed(1);
 
         tempPayments.push({
           ...userInfo,
           firstDayPostCount,
           avgPostOfMonth,
           totalPostCount: posts.length,
-          firstPostDate: firstPostDate ? getFormatDate(firstPostDate) : '-',
+          firstPostDate,
         });
       }
       setPayments(tempPayments);
+      setProcessedPayments(tempPayments);
     },
     [users, postsByUser],
   );
 
-  return <DataTable columns={columns} data={[...payments]} />;
+  return (
+    !!Object.keys(postsByUser).length && (
+      <>
+        <DataTable columns={columns} data={[...processedPayments]}>
+          <FilterBox label="가입일">
+            <DatePickerWithRange date={createdDate} setDate={handleRangeCreatedDate} />
+          </FilterBox>
+          <FilterBox label="첫 글 작성일">
+            <DatePickerWithRange
+              date={firstPostDate}
+              setDate={handleRangeFirstPostDate}
+            />
+          </FilterBox>
+        </DataTable>
+      </>
+    )
+  );
 };
 
 export default UsersView;

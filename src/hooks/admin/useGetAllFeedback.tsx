@@ -10,6 +10,7 @@ const useGetAllFeedback = () => {
   const router = useRouter();
   const {
     data: data,
+    isSuccess,
     isError,
     error,
   } = useQuery({
@@ -30,7 +31,7 @@ const useGetAllFeedback = () => {
     }
   }, [data, isError, error]);
 
-  return { data, isError };
+  return { data, isError, isSuccess };
 };
 
 export default useGetAllFeedback;
