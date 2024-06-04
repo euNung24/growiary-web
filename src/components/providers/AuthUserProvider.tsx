@@ -31,6 +31,7 @@ const AuthUserProvider = ({ children }: AuthUserProvider) => {
       alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
+      router.push('/admin/login');
     }
   }, [isError]);
 
