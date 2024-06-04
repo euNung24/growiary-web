@@ -3,7 +3,7 @@
 import { DataTable } from '@/views/admin/users/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { UsersType } from '@/types/admin/usersTypes';
-import { format } from 'date-fns';
+import { addDays, format, set, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/types/postTypes';
 import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
@@ -25,6 +25,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card';
 
 type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {
   profile: Pick<UsersType['profile'], 'nickname' | 'userId'>;
@@ -32,6 +37,7 @@ type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {
   avgPostOfMonth: string;
   totalPostCount: number;
   firstPostDate: Date | undefined;
+  isPostEveryWeek: { [key: number]: number };
 };
 
 const columns: ColumnDef<UserTable>[] = [
@@ -133,13 +139,41 @@ const columns: ColumnDef<UserTable>[] = [
     },
   },
   {
-    accessorKey: 'content',
-    header: '매주 작성 여부',
-    // cell: ({ row }) => {
-    //   return (
-    //     <div className="text-center">{row.getValue('firstDayPostCount') as string}</div>
-    //   );
-    // },
+    accessorKey: 'isPostEveryWeek',
+    header: () => {
+      return (
+        <div>
+          매주 작성 여부
+          <br />
+          (첫글 작성주 이후 최대 5주)
+        </div>
+      );
+    },
+    cell: ({ row }) => {
+      const postEveryWeekMap = row.getValue('isPostEveryWeek') as {
+        [key: number]: number;
+      };
+      const values = Object.values(postEveryWeekMap);
+
+      return values.length ? (
+        <HoverCard>
+          <HoverCardTrigger className="cursor-default">
+            {values.length && values.every(v => v > 0) ? 'O' : 'X'}
+          </HoverCardTrigger>
+          <HoverCardContent className="bg-white-0">
+            <div className="flex flex-col items-center [&:last]:border-r">
+              {[...new Array(values.length)].map((v, i) => (
+                <div key={i}>
+                  {i + 1}주 후 : {postEveryWeekMap[i + 1]}개
+                </div>
+              ))}
+            </div>
+          </HoverCardContent>
+        </HoverCard>
+      ) : (
+        <div>-</div>
+      );
+    },
   },
   {
     accessorKey: 'firstPostDate',
@@ -213,7 +247,7 @@ const UsersView = () => {
   }, []);
 
   useEffect(
-    function getAllUsers() {
+    function getAllInitUsers() {
       if (!profile || !isClient) return;
 
       userMutation
@@ -242,7 +276,7 @@ const UsersView = () => {
   );
 
   useEffect(
-    function getAllPosts() {
+    function getAllInitPosts() {
       if (!profile || !isClient) return;
 
       postByUserMutation.mutateAsync().then(res => {
@@ -254,7 +288,7 @@ const UsersView = () => {
   );
 
   useEffect(
-    function () {
+    function setTableData() {
       if (!Object.keys(users).length || !Object.keys(postsByUser).length) return;
 
       const tempPayments = [] as UserTable[];
@@ -266,6 +300,7 @@ const UsersView = () => {
         let firstDayPostCount = 0;
         let firstPostDate;
         const postMonthMap = {} as { [key: string]: number };
+        const isPostEveryWeek = {} as { [key: number]: number };
 
         for (const post of posts) {
           const createdDate = new Date(post.createdAt);
@@ -281,6 +316,33 @@ const UsersView = () => {
               : 0;
           const yyyyMM = getFormatDate(new Date(post.createdAt), 'yyyy-MM');
           postMonthMap[yyyyMM] += postMonthMap[yyyyMM] ? 0 : 1;
+        }
+
+        if (firstPostDate) {
+          const currentDate = new Date();
+          const firstDay = new Date(firstPostDate).getDay();
+          const firstWeek =
+            firstDay === 0
+              ? set(subDays(firstPostDate, 6), { hours: 0, minutes: 0, seconds: 0 })
+              : set(subDays(firstPostDate, firstDay - 1), {
+                  hours: 0,
+                  minutes: 0,
+                  seconds: 0,
+                });
+          const lastWeek = Math.floor(
+            Math.abs(
+              (currentDate.getTime() - firstWeek.getTime()) / (60 * 60 * 24 * 7 * 1000),
+            ),
+          );
+          for (let i = 1; i <= (lastWeek > 5 ? 5 : lastWeek); i++) {
+            const targetStart = addDays(firstWeek, i * 7);
+            const targetEnd = addDays(firstWeek, i * 14);
+            const filteredPost = posts.filter(v => {
+              const createdPostDate = new Date(v.createdAt);
+              return createdPostDate >= targetStart && createdPostDate < targetEnd;
+            });
+            isPostEveryWeek[i] = filteredPost.length;
+          }
         }
 
         // 기록한 월만 계산
@@ -303,6 +365,7 @@ const UsersView = () => {
           firstDayPostCount,
           avgPostOfMonth,
           totalPostCount: posts.length,
+          isPostEveryWeek,
           firstPostDate,
         });
       }

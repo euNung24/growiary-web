@@ -88,6 +88,17 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         </FilterBox>
+        <FilterBox label="전체 글 수">
+          <Input
+            placeholder="Input number..."
+            value={(table.getColumn('totalPostCount')?.getFilterValue() as number) ?? ''}
+            onChange={event =>
+              table.getColumn('totalPostCount')?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+            type="number"
+          />
+        </FilterBox>
         {children}
       </div>
       <div className="rounded-md border">
