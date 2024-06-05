@@ -8,7 +8,7 @@ import Image from 'next/image';
 const ReportByTime = () => {
   const strengthStyle = 'font-b28 text-primary-900';
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
-  const boxStyle = 'rounded-xl border border-gray-100 p-6';
+  const boxStyle = 'rounded-xl border border-gray-100 p-6 sm:w-[300px]';
   const { data, monthIndex } = useReportContext();
   const [timeRankByPercent, setTimeRankByPercent] = useState<[string, number][] | null>(
     null,

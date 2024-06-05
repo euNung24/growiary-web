@@ -28,41 +28,6 @@ export const getPercentage = (data: number, total: number) => {
   return Math.round((data / total) * 100);
 };
 
-export const getYMD = (date: Date) => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const returnedDate = date.getDate();
-
-  return {
-    year,
-    month,
-    date: returnedDate,
-  };
-};
-
-export const getStringYMD = ({
-  year,
-  month,
-  date,
-}: {
-  year: number;
-  month: number;
-  date: number;
-}) => {
-  return `${year}년 ${month}월 ${date}일`;
-};
-
-export const getStringMMDD = ({
-  month,
-  date,
-}: {
-  year?: number;
-  month: number;
-  date: number;
-}) => {
-  return `${month}월 ${date}일`;
-};
-
 export const getFormatDate = (date: Date, formatString?: string) => {
   return format(date, formatString || 'yyyy-MM-dd');
 }

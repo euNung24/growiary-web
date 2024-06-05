@@ -1,17 +1,44 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { debounce } from '@/utils/utilFns';
 
 type RectAreaChartProps = {
   data?: [string, number][] | null;
 };
 
+const SMALL_WIDTH = 250;
+const DEFAULT_WIDTH = 412;
+const MEDIUM_WINDOW_WIDTH = 708;
+
 const RectAreaChart = ({ data }: RectAreaChartProps) => {
-  const containerWidth = 412;
   const containerHeight = 308;
+  const [containerWidth, setContainerWidth] = useState(DEFAULT_WIDTH);
 
   const firstRectRef = useRef<HTMLDivElement | null>(null);
   const secondRectRef = useRef<HTMLDivElement | null>(null);
   const thirdRectRef = useRef<HTMLDivElement | null>(null);
   const fourthRectRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (window.innerWidth <= MEDIUM_WINDOW_WIDTH) {
+      setContainerWidth(SMALL_WIDTH);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setContainerWidth(
+        window.innerWidth <= MEDIUM_WINDOW_WIDTH ? SMALL_WIDTH : DEFAULT_WIDTH,
+      );
+    };
+
+    const debouncedHandleResize = debounce(handleResize);
+
+    window.addEventListener('resize', debouncedHandleResize);
+
+    return () => {
+      window.removeEventListener('resize', debouncedHandleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (
@@ -68,10 +95,10 @@ const RectAreaChart = ({ data }: RectAreaChartProps) => {
     thirdRectRef.current.style.display = firstWidth === containerWidth ? 'none' : 'flex';
     fourthRectRef.current.style.display =
       thirdHeight === containerHeight ? 'none' : 'flex';
-  }, [data]);
+  }, [data, containerWidth]);
 
   return (
-    <div className="rounded-3xl overflow-hidden text-white-0 flex justify-between *:flex *:flex-col *:justify-between w-[412px] h-[308px] mx-auto">
+    <div className="rounded-3xl overflow-hidden text-white-0 flex justify-between *:flex *:flex-col *:justify-between max-w-[412px] h-[308px] mx-auto sm:w-full">
       <div className="*:flex *:items-center *:justify-center *:transition-colors">
         <div className="bg-primary-700 hover:bg-primary-900" ref={firstRectRef}></div>
         <div className="bg-primary-600 hover:bg-primary-800" ref={secondRectRef}></div>
