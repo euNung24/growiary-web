@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { ResPostType } from '@/types/postTypes';
 import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
 import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
-import useGetProfile from '@/hooks/profile/useGetProfile';
 import { getFormatDate } from '@/utils';
 import Image from 'next/image';
 import { UnauthorizedError } from '@/utils/api';
@@ -30,6 +29,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import useAuthProfileContext from '@/hooks/admin/useAuthProfileContext';
 
 type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {
   profile: Pick<UsersType['profile'], 'nickname' | 'userId'>;
@@ -189,7 +189,7 @@ const columns: ColumnDef<UserTable>[] = [
 
 const UsersView = () => {
   const router = useRouter();
-  const { profile } = useGetProfile();
+  const { profile } = useAuthProfileContext();
   const userMutation = useGetAllUsers();
   const postByUserMutation = useGetPostsByUser();
 

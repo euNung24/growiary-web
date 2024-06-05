@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
-import useGetProfile from '@/hooks/profile/useGetProfile';
 import { UsersType } from '@/types/admin/usersTypes';
 import { format } from 'date-fns';
 import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
@@ -15,6 +14,7 @@ import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
 import TotalCard from '@/views/admin/total/TotalCard';
 import { UnauthorizedError } from '@/utils/api';
 import { useRouter } from 'next/navigation';
+import useAuthProfileContext from '@/hooks/admin/useAuthProfileContext';
 
 const isTodayPost = (postDate: string) => {
   return format(new Date(postDate), 'yyyyMMdd') === format(new Date(), 'yyyyMMdd');
@@ -30,7 +30,7 @@ type Info = {
 };
 const TotalView = () => {
   const router = useRouter();
-  const { profile } = useGetProfile();
+  const { profile } = useAuthProfileContext();
   const {
     date: { year, month, date, day },
   } = useRecoilValue(TodayState);

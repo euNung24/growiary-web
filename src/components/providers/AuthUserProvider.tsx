@@ -46,12 +46,7 @@ const AuthUserProvider = ({ children }: AuthUserProvider) => {
     profile && (
       <AuthUserContext.Provider
         value={{
-          profile: !Object.keys(profile).length
-            ? undefined
-            : {
-                ...profile,
-                nickname: profile.nickname || profile.email?.split('@')[0],
-              },
+          profile: !profile || !Object.keys(profile).length ? undefined : profile,
         }}
       >
         {children}
