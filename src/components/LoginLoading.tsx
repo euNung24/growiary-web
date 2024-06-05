@@ -4,8 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import Cookies from 'js-cookie';
 import crypto from 'crypto-js';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import useGetProfile from '@/hooks/profile/useGetProfile';
+import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -14,6 +13,7 @@ import { PostState } from '@/store/postStore';
 import { createPost } from '@/apis/post';
 import { ReqPostType } from '@/types/postTypes';
 import { UserState } from '@/store/userStore';
+import useProfileContext from '@/hooks/profile/useProfileContext';
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
 function encodeUrlSafe(text: string): string {
@@ -42,17 +42,15 @@ export function decrypt(encryptedText: string) {
 const LoginLoading = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
-  const [isLogin, setIsLogin] = useState(false);
-  const { profile } = useGetProfile();
+  const { profile, isLogin } = useProfileContext();
   const queryClient = useQueryClient();
   const [firstPost, setFirstPost] = useRecoilState(PostState);
   const [userState, setUserState] = useRecoilState(UserState);
 
   const key = searchParams.get('key') ?? '';
   const value = decrypt(key) ?? '';
-
-  const accessToken = JSON.parse(value).accessToken;
-  const refreshToken = JSON.parse(value).refreshToken;
+  const accessToken = value ? JSON.parse(value).accessToken : '';
+  const refreshToken = value ? JSON.parse(value).refreshToken : '';
 
   const createPostByPostValue = async () =>
     await createPost(firstPost).then(res => {
@@ -61,14 +59,18 @@ const LoginLoading = () => {
     });
 
   useEffect(() => {
-    Cookies.set('accessToken', accessToken);
-    Cookies.set('refreshToken', refreshToken);
-    setIsLogin(true);
-    console.log(userState);
+    queryClient.invalidateQueries({ queryKey: ['profile'] });
 
-    if (isLogin && profile && !Object.keys(profile).length) {
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
+    if (accessToken) {
+      Cookies.set('accessToken', accessToken);
+      Cookies.set('refreshToken', refreshToken);
+    } else {
+      push('/');
+    }
 
+    if (!isLogin || !profile) return;
+
+    if (isLogin === 'LOGIN' && profile) {
       if (profile.social) {
         tracking(`SNS 로그인 ${profile.social}`);
         sendGAEvent({ event: `SNS 로그인 ${profile.social}` });
