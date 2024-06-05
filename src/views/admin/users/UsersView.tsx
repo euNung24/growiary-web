@@ -369,8 +369,11 @@ const UsersView = () => {
           firstPostDate,
         });
       }
-      setPayments(tempPayments);
-      setProcessedPayments(tempPayments);
+      const sortByCreatedAtPayments = tempPayments.sort((a, b) =>
+        a.createdAt > b.createdAt ? -1 : 1,
+      );
+      setPayments(sortByCreatedAtPayments);
+      setProcessedPayments(sortByCreatedAtPayments);
     },
     [users, postsByUser],
   );
