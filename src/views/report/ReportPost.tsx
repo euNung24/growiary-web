@@ -6,9 +6,12 @@ import { format } from 'date-fns';
 import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { SAMPLE_REPORT } from '@/utils/report';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { debounce } from '@/utils/utilFns';
 
 const MAX_BAR_HEIGHT = 147;
+const MEDIUM_WINDOW_WIDTH = 708;
+
 const getLowBarHeight = (all: number, user: number) => {
   if (isNaN(all) || isNaN(user)) return 0;
 
@@ -29,15 +32,29 @@ const ReportPost = () => {
   const userData = report?.post?.user[`${year}-${month}`];
   const allData = report?.post?.all[`${year}-${month}`];
   const [isWidthSmall, setIsWidthSmall] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
-    sectionRef.current.clientWidth <= 360 && setIsWidthSmall(true);
+    if (window.innerWidth <= MEDIUM_WINDOW_WIDTH) {
+      setIsWidthSmall(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsWidthSmall(window.innerWidth <= MEDIUM_WINDOW_WIDTH);
+    };
+
+    const debouncedHandleResize = debounce(handleResize);
+
+    window.addEventListener('resize', debouncedHandleResize);
+
+    return () => {
+      window.removeEventListener('resize', debouncedHandleResize);
+    };
   }, []);
 
   return (
-    <section ref={sectionRef}>
+    <section>
       <div>
         <h2 className="title">기록 추이</h2>
         <p className={descriptionStyle}>
@@ -77,9 +94,8 @@ const ReportPost = () => {
                 </b>
               </span>
             </div>
-            <div className="h-[266px]">
+            <div className="h-[266px] w-full">
               <BarChart
-                height=""
                 data={
                   profile && report
                     ? [...Object.values(report.post.user).reverse(), 0]
@@ -107,6 +123,8 @@ const ReportPost = () => {
                 ]}
                 options={{
                   responsive: true,
+                  aspectRatio: 2,
+                  maintainAspectRatio: false,
                   scales: {
                     x: {
                       grid: {
@@ -149,6 +167,9 @@ const ReportPost = () => {
                       color: '#002861',
                       formatter: function (value: string, context: Context) {
                         return context.active ? value : '';
+                      },
+                      font: {
+                        size: isWidthSmall ? 10 : 16,
                       },
                     },
                   },
