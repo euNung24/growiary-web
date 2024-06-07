@@ -5,11 +5,12 @@ import { ApiSuccessResponse } from '@/types';
 type WithTokenType<T> = {
   body?: T;
   token?: string;
+  abortController?: AbortController | null;
 };
 
 async function withToken<T, V>(
   url: string,
-  { body, token }: WithTokenType<V> = {},
+  { body, token, abortController }: WithTokenType<V> = {},
 ): Promise<ApiSuccessResponse<T> | undefined> {
   const accessToken = token || getCookie('accessToken');
 
@@ -21,6 +22,7 @@ async function withToken<T, V>(
       'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Bearer ${accessToken}`,
     },
+    signal: abortController?.signal,
     body: JSON.stringify(body),
   });
 

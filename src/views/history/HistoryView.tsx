@@ -77,7 +77,7 @@ const HistoryView = () => {
   }, [isLogin]);
 
   useEffect(() => {
-    if (!profile) return;
+    if (isLogin !== 'LOGIN') return;
 
     mutation
       .mutateAsync(`${selectedYear}-${selectedMonth.toString().padStart(2, '0')}`)
@@ -99,7 +99,7 @@ const HistoryView = () => {
         setPosts(sortDataByDate);
         setCategories(res.data.category);
       });
-  }, [profile, selectedMonth]);
+  }, [isLogin, selectedMonth]);
 
   return (
     isLogin && (
