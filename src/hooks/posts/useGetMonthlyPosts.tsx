@@ -8,7 +8,7 @@ import { useRef } from 'react';
 const useGetMonthlyPosts = () => {
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  const fn = (date: string) => {
+  const checkAbort = (date: string) => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
@@ -18,9 +18,9 @@ const useGetMonthlyPosts = () => {
     return getMonthlyPosts(date, { abortController: abortControllerRef.current });
   };
 
-  const mutation = useMutation({
+  return useMutation({
     mutationKey: ['monthlyPosts'],
-    mutationFn: (date: string) => fn(date),
+    mutationFn: (date: string) => checkAbort(date),
     onError: async error => {
       await getNewAccessToken(error);
       console.log(error.message);
@@ -30,9 +30,6 @@ const useGetMonthlyPosts = () => {
       abortControllerRef.current = null;
     },
   });
-
-  const a = mutation;
-  return a;
 };
 
 export default useGetMonthlyPosts;
