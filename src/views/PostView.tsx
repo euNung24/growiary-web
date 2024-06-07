@@ -250,8 +250,11 @@ const PostView = ({ postId }: PostViewProps) => {
       const selectedTopic =
         selectedTopicsByCategory.find(topic => topic.id === topicId) || ({} as TopicType);
 
-      !selectedTopic?.content &&
-        (selectedTopic['content'] = '자유롭게 작성할 수 있어요.');
+      if (selectedTopic.content) {
+        form.setValue('content', selectedTopic.content);
+      } else {
+        selectedTopic['content'] = '자유롭게 작성할 수 있어요.';
+      }
       setTemplate(selectedTopic);
     },
     [topics],
