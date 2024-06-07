@@ -38,8 +38,8 @@ type PostDetailViewProps = {
 };
 const PostDetailView = ({ postId }: PostDetailViewProps) => {
   const labelStyle =
-    'flex flex-[0_0_100px] gap-2 items-center pl-3 min-h-10 text-gray-500 font-r12';
-  const inputStyle = 'px-6 text-gray-900 font-r14';
+    'flex flex-[0_0_100px] gap-2 items-center pl-3 min-h-[34px] text-gray-500 font-r12';
+  const inputStyle = 'px-6 text-gray-900 font-r12';
 
   const router = useRouter();
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -110,7 +110,13 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
                   <Braces width={14} height={14} />
                   카테고리
                 </Label>
-                <div className={inputStyle}>{post.topic.category}</div>
+                <div className={cn(inputStyle, 'flex items-center gap-x-1')}>
+                  {topicCategory[post.topic.category]?.Icon({
+                    width: 20,
+                    height: 20,
+                  })}
+                  {post.topic.category}
+                </div>
               </div>
             )}
             {post.topicId && (

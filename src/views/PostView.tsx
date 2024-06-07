@@ -67,8 +67,8 @@ type PostViewProps = {
 };
 const PostView = ({ postId }: PostViewProps) => {
   const labelStyle =
-    'flex flex-[0_0_100px] gap-2 items-center pl-3 min-h-10 text-gray-500 font-r12';
-  const inputStyle = 'px-6 text-gray-900 font-r14';
+    'flex flex-[0_0_100px] gap-2 items-center pl-3 min-h-[34px] text-gray-500 font-r12';
+  const inputStyle = 'font-r12 text-gray-900 h-[34px]';
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -286,19 +286,23 @@ const PostView = ({ postId }: PostViewProps) => {
                     value={selectedCategory}
                     onValueChange={value => handleChangeCategory(value)}
                   >
-                    <SelectTrigger aria-label="select category" icon={false}>
+                    <SelectTrigger
+                      aria-label="select category"
+                      className={cn(inputStyle, 'py-2 px-5')}
+                      icon={false}
+                    >
                       <SelectValue placeholder={'카테고리를 선택해 주세요'} />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.keys(topics).map(category => (
                         <SelectItem key={category} value={category} className="group">
-                          <div className="flex items-center gap-x-2.5 text-gray-400 group-hover:text-primary-900">
+                          <div className="flex items-center gap-x-1 font-r12 text-gray-400 group-hover:text-primary-900">
                             {topicCategory[category as TopicCategory]?.Icon({
-                              width: 20,
-                              height: 20,
+                              width: 14,
+                              height: 14,
                               color: 'currentColor',
                             })}
-                            <span className="text-gray-800 group-hover:text-primary-900">
+                            <span className="text-gray-900 group-hover:text-primary-900">
                               {category}
                             </span>
                           </div>
@@ -323,8 +327,15 @@ const PostView = ({ postId }: PostViewProps) => {
                         value={topicIdField.value}
                         onValueChange={value => handleChangeTopic(value, topicIdField)}
                       >
-                        <SelectTrigger aria-label="select subject" icon={false}>
-                          <SelectValue placeholder={'주제를 선택해 주세요'} />
+                        <SelectTrigger
+                          aria-label="select subject"
+                          className={cn(inputStyle, 'py-2')}
+                          icon={false}
+                        >
+                          <SelectValue
+                            className={inputStyle}
+                            placeholder={'주제를 선택해 주세요'}
+                          />
                         </SelectTrigger>
                         <SelectContent>
                           {selectedTopicsByCategory?.map(topic => (
@@ -333,8 +344,8 @@ const PostView = ({ postId }: PostViewProps) => {
                               value={topic.id.toString()}
                               className="group"
                             >
-                              <div className="flex items-center gap-x-2.5 text-gray-400 group-hover:text-primary-900">
-                                <span className="text-gray-800 group-hover:text-primary-900">
+                              <div className="flex items-center gap-x-2.5 font-r12 text-gray-400 group-hover:text-primary-900">
+                                <span className="text-gray-900 group-hover:text-primary-900">
                                   {topic?.title?.replaceAll('/n ', '')}
                                 </span>
                               </div>
