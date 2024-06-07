@@ -217,11 +217,6 @@ const PostView = ({ postId }: PostViewProps) => {
       postMutation.mutateAsync().then(res => {
         if (!res) return;
         setPost(res.data);
-        res.data.topic &&
-          setTemplate({
-            ...res.data.topic,
-            content: res.data.topic.content || '자유롭게 작성할 수 있어요.',
-          });
 
         form.reset({
           topicId: res.data.topicId?.toString(),
@@ -233,6 +228,11 @@ const PostView = ({ postId }: PostViewProps) => {
         });
 
         setSelectedCategory(res.data.topic.category);
+        res.data.topic &&
+          setTemplate({
+            ...res.data.topic,
+            content: res.data.topic.content || '자유롭게 작성할 수 있어요.',
+          });
       });
   }, []);
 
