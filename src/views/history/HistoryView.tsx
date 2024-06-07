@@ -191,17 +191,21 @@ const HistoryView = () => {
             </div>
           </div>
           <section className="flex flex-col gap-y-[72px] pb-5 mx-2.5 my-4 pt-3">
-            <TodayNewPost
-              condition={
-                isLogin === 'NOT_LOGIN' ||
-                (!posts[today] && year === selectedYear && month === selectedMonth)
-              }
-              assignRef={assignRef}
-              year={selectedYear}
-              month={selectedMonth}
-              date={date.getDate()}
-            />
-            <PostHistory posts={posts} assignRef={assignRef} setPosts={setPosts} />
+            {(isLogin === 'NOT_LOGIN' ||
+              (mutation.isSuccess &&
+                !posts[today] &&
+                year === selectedYear &&
+                month === selectedMonth)) && (
+              <TodayNewPost
+                assignRef={assignRef}
+                year={selectedYear}
+                month={selectedMonth}
+                date={date.getDate()}
+              />
+            )}
+            {(isLogin === 'NOT_LOGIN' || mutation.isSuccess) && (
+              <PostHistory posts={posts} assignRef={assignRef} setPosts={setPosts} />
+            )}
             <div className="h-[300px]"></div>
           </section>
         </div>
