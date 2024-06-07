@@ -30,8 +30,8 @@ import { ReqPostType, ResPostType } from '@/types/postTypes';
 import { createPost, updatePost } from '@/apis/post';
 import useFindTopic from '@/hooks/topics/useFindTopics';
 import { useEffect, useRef, useState } from 'react';
-import { TopicType } from '@/types/topicTypes';
-import { topicCategory } from '@/utils/topicCategory';
+import { TopicCategory, TopicType } from '@/types/topicTypes';
+import { checkIsTopicCategory, topicCategory } from '@/utils/topicCategory';
 import { useToast } from '@/components/ui/use-toast';
 import { Label } from '@/components/ui/label';
 import { NO_TOPIC_ID } from '@/utils';
@@ -44,9 +44,17 @@ import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useSetRecoilState } from 'recoil';
 import { PostState } from '@/store/postStore';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
 
 const FormSchema = z.object({
-  topicId: z.number(),
+  topicId: z.string().min(1),
   title: z.string().min(1),
   content: z.string().or(z.object({ ops: z.array(z.any()) })),
   tags: z.array(z.string()),
@@ -67,6 +75,10 @@ const PostView = ({ postId }: PostViewProps) => {
   const topicId = searchParams.get('topic')
     ? parseInt(searchParams.get('topic')!, 10)
     : NO_TOPIC_ID;
+  const [selectedCategory, setSelectedCategory] = useState(
+    searchParams.get('category') || '자유',
+  );
+
   const [post, setPost] = useState<ResPostType | null>(null);
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
   const [modalOpen, setModalOpen] = useState(false);
@@ -84,14 +96,22 @@ const PostView = ({ postId }: PostViewProps) => {
   const setPostState = useSetRecoilState(PostState);
   const topicMutation = useFindTopic(post?.topic?.id || topicId);
   const postMutation = useFindPost(postId);
+  const topics = useGetTopicsByCategory();
+  const getSelectedTopics = (category: TopicCategory) => {
+    return topics && topics[category];
+  };
+  const selectedTopicsByCategory = checkIsTopicCategory(
+    selectedCategory,
+    getSelectedTopics,
+  );
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      topicId: post ? post.topicId : topicId,
+      topicId: post ? post.topicId?.toString() : topicId?.toString(),
       title: post?.title || '',
       tags: post ? [...post.tags] : [],
-      content: post?.content || '',
+      content: post?.content || undefined,
       charactersCount: post?.charactersCount || 0,
       writeDate: post ? new Date(post.writeDate) : new Date(),
     },
@@ -124,6 +144,7 @@ const PostView = ({ postId }: PostViewProps) => {
 
   async function onSubmit(data: z.infer<typeof FormSchema> | ReqPostType) {
     isSavedRef.current = true;
+
     if (!profile) {
       setPostState(data as ReqPostType);
     } else {
@@ -172,6 +193,27 @@ const PostView = ({ postId }: PostViewProps) => {
     }
   };
 
+  const handleChangeCategory = (category: string) => {
+    setSelectedCategory(category);
+    form.setValue('topicId', '');
+    setTemplate({
+      content: '자유롭게 작성할 수 있어요.',
+    } as TopicType);
+  };
+
+  const handleChangeTopic = (
+    value: string,
+    field: ControllerRenderProps<z.infer<typeof FormSchema>, 'topicId'>,
+  ) => {
+    const selectedTopic = selectedTopicsByCategory?.find(v => v.id.toString() === value);
+    selectedTopic &&
+      setTemplate({
+        ...selectedTopic,
+        content: selectedTopic.content || '자유롭게 작성할 수 있어요.',
+      });
+    field.onChange(value);
+  };
+
   useEffect(function getPost() {
     postMutation &&
       postMutation.mutateAsync().then(res => {
@@ -184,13 +226,15 @@ const PostView = ({ postId }: PostViewProps) => {
           });
 
         form.reset({
-          topicId: res.data.topicId,
+          topicId: res.data.topicId?.toString(),
           title: res.data.title,
           tags: [...res.data.tags],
           content: { ...res.data.content },
           writeDate: new Date(res.data.writeDate),
           charactersCount: res.data.charactersCount,
         });
+
+        setSelectedCategory(res.data.topic.category);
       });
   }, []);
 
@@ -241,17 +285,71 @@ const PostView = ({ postId }: PostViewProps) => {
                   <Braces width={14} height={14} />
                   카테고리
                 </Label>
-                <div className={inputStyle}>{template.category}</div>
+                {template && topics && (
+                  <Select
+                    value={selectedCategory}
+                    onValueChange={value => handleChangeCategory(value)}
+                  >
+                    <SelectTrigger aria-label="select category" icon={false}>
+                      <SelectValue placeholder={'카테고리를 선택해 주세요'} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.keys(topics).map(category => (
+                        <SelectItem key={category} value={category} className="group">
+                          <div className="flex items-center gap-x-2.5 text-gray-400 group-hover:text-primary-900">
+                            {topicCategory[category as TopicCategory]?.Icon({
+                              width: 20,
+                              height: 20,
+                              color: 'currentColor',
+                            })}
+                            <span className="text-gray-800 group-hover:text-primary-900">
+                              {category}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
               </div>
-              <div className="flex space-y-0 items-center">
-                <Label className={labelStyle}>
-                  <List width={14} height={14} />
-                  주제
-                </Label>
-                <div className={inputStyle}>
-                  {template.title && template.title.replaceAll('/n ', '')}
-                </div>
-              </div>
+              <FormField
+                control={form.control}
+                name="topicId"
+                render={({ field: topicIdField }) => (
+                  <FormItem className="flex space-y-0 items-center">
+                    <FormLabel className={labelStyle}>
+                      <List width={14} height={14} />
+                      주제
+                    </FormLabel>
+                    {template && topics && (
+                      <Select
+                        required
+                        value={topicIdField.value}
+                        onValueChange={value => handleChangeTopic(value, topicIdField)}
+                      >
+                        <SelectTrigger aria-label="select subject" icon={false}>
+                          <SelectValue placeholder={'주제를 선택해 주세요'} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {selectedTopicsByCategory?.map(topic => (
+                            <SelectItem
+                              key={topic.id}
+                              value={topic.id.toString()}
+                              className="group"
+                            >
+                              <div className="flex items-center gap-x-2.5 text-gray-400 group-hover:text-primary-900">
+                                <span className="text-gray-800 group-hover:text-primary-900">
+                                  {topic?.title?.replaceAll('/n ', '')}
+                                </span>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="writeDate"
@@ -354,9 +452,11 @@ const PostView = ({ postId }: PostViewProps) => {
                       <div className="mr-auto font-r12 text-error-900">
                         {titleField.value.length < 1
                           ? '제목을 작성해주세요'
-                          : countField.value < 10
-                            ? '10자 이상의 기록을 작성해주세요'
-                            : ''}
+                          : form.getValues('topicId') === ''
+                            ? '주제를 선택해주세요'
+                            : countField.value < 10
+                              ? '10자 이상의 기록을 작성해주세요'
+                              : ''}
                       </div>
                       <span className="text-gray-400 font-r12">
                         <span className={cn(countField.value < 10 && 'text-error-900')}>
