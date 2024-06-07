@@ -36,4 +36,5 @@
 .ql-container {
     height: calc(100% - 43px);
     overflow: auto;
+    font-family: 'Pretendard Variable', 'sans-serif';
 }
