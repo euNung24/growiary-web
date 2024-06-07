@@ -67,7 +67,7 @@ const Tag = ({ tags, setTags }: TagProps) => {
   }, [input]);
 
   return (
-    <div className="flex font-r14 pl-3">
+    <div className="flex font-r12 pl-3">
       <ul className="flex">
         {tags?.map((v, i) => (
           <li
