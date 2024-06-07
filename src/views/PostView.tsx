@@ -197,7 +197,11 @@ const PostView = ({ postId }: PostViewProps) => {
   useEffect(function setInitTemplate() {
     if (postId) return;
     topicMutation.mutateAsync().then(({ data }) => {
-      !data.content && (data['content'] = '자유롭게 작성할 수 있어요.');
+      if (data.content) {
+        form.setValue('content', data.content);
+      } else {
+        data['content'] = '자유롭게 작성할 수 있어요.';
+      }
       setTemplate(data);
     });
   }, []);
