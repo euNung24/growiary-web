@@ -217,6 +217,7 @@ const PostView = ({ postId }: PostViewProps) => {
       postMutation.mutateAsync().then(res => {
         if (!res) return;
         setPost(res.data);
+        setSelectedCategory(res.data.topic.category);
 
         form.reset({
           topicId: res.data.topicId?.toString(),
@@ -227,7 +228,6 @@ const PostView = ({ postId }: PostViewProps) => {
           charactersCount: res.data.charactersCount,
         });
 
-        setSelectedCategory(res.data.topic.category);
         res.data.topic &&
           setTemplate({
             ...res.data.topic,
@@ -235,6 +235,14 @@ const PostView = ({ postId }: PostViewProps) => {
           });
       });
   }, []);
+
+  useEffect(
+    function setInitPostTopic() {
+      if (!post) return;
+      form.setValue('topicId', post?.topicId?.toString() || '');
+    },
+    [post],
+  );
 
   useEffect(
     function setInitTemplate() {
