@@ -32,3 +32,9 @@ export const topicCategory: Record<TopicCategory, CategoryInfo> = {
     Icon: UnCategoriedIcon
   }
 };
+
+export const checkIsTopicCategory = <T>(category: string, callback: (category: TopicCategory) => T) => {
+  if(Object.keys(topicCategory).includes(category)) {
+    return callback(category as TopicCategory);
+  }
+}

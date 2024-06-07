@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllTopics } from '@/apis/topics';
 import { useEffect } from 'react';
 import { TopicCategory, TopicType } from '@/types/topicTypes';
-import { topicCategory } from '@/utils/topicCategory';
 
 const useGetTopicsByCategory = () => {
   const {
@@ -19,15 +18,9 @@ const useGetTopicsByCategory = () => {
     select: data => {
       const filteredByCategory: Record<TopicCategory, TopicType[]> = data.data.reduce(
         (f, v) => {
-          const category = v.category.split(':')[0].trim() as TopicCategory;
-
-          if (!(category in topicCategory)) {
-            return { ...f };
-          }
-
           return {
             ...f,
-            [category]: [...(f[category] || []), v],
+            [v.category]: [...(f[v.category] || []), v],
           };
         },
         {} as Record<TopicCategory, TopicType[]>,

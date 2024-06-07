@@ -5,7 +5,6 @@ import { TopicCategory, TopicType } from '@/types/topicTypes';
 type PostType = {
   index?: number;
   topicId?: number;
-  topic?: TopicType;
   title: string;
   content: { ops: Op[] };
   tags: string[];
@@ -17,6 +16,7 @@ type PostType = {
 export type ResPostType = PostType & {
   writeDate: string;
   id: string;
+  topic: TopicType;
 };
 
 export type ReqPostType = PostType & {
