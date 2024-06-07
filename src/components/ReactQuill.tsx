@@ -75,7 +75,11 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
       });
 
       quill.on('text-change', delta => {
-        if (Object.keys(delta.ops[0])?.[0] === 'delete' && placeholder) {
+        if (
+          (delta.ops[0]?.delete ||
+            (delta.ops[0]?.insert === '\n' && delta.ops[1]?.delete)) &&
+          placeholder
+        ) {
           placeholderContainerRef.current!.style.display = 'block';
         } else if (placeholderContainerRef.current!.style.display === 'block') {
           placeholderContainerRef.current!.style.display = 'none';
