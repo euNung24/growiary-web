@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 type ReactQuillProps = {
   defaultValue?: Delta | string;
   placeholder?: string;
+  template?: string;
   events?: {
     handleContentChange: ControllerRenderProps['onChange'];
     handleCountChange: ControllerRenderProps['onChange'];
@@ -63,23 +64,14 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
 
       quill.scrollSelectionIntoView();
 
-      // placeholder 세팅
-      if (placeholder) {
-        quill.clipboard.dangerouslyPasteHTML(placeholder);
-        placeholderContainerRef.current!.innerHTML = quill.root.innerHTML;
-        quill.deleteText(0, quill.getLength());
-      }
-
       quill.once('text-change', () => {
         placeholderContainerRef.current!.style.display = 'none';
       });
 
       quill.on('text-change', delta => {
-        if (
-          (delta.ops[0]?.delete ||
-            (delta.ops[0]?.insert === '\n' && delta.ops[1]?.delete)) &&
-          placeholder
-        ) {
+        const condition =
+          delta.ops[0]?.delete || (delta.ops[0]?.insert === '\n' && delta.ops[1]?.delete);
+        if (condition) {
           placeholderContainerRef.current!.style.display = 'block';
         } else if (placeholderContainerRef.current!.style.display === 'block') {
           placeholderContainerRef.current!.style.display = 'none';
@@ -91,11 +83,21 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
         }
 
         events && events.handleContentChange(quill.getContents());
-        events && events.handleCountChange(quill.getLength());
+        events &&
+          events.handleCountChange(condition ? quill.getLength() - 1 : quill.getLength());
       });
 
       ref && (ref.current = quill);
       events && events.handleMount();
+
+      // placeholder 세팅
+      quill.clipboard.dangerouslyPasteHTML(placeholder || '자유롭게 작성할 수 있어요.');
+      placeholderContainerRef.current!.innerHTML = quill.root.innerHTML;
+      if (placeholder) {
+        placeholderContainerRef.current!.style.display = 'none';
+      } else {
+        quill.deleteText(0, quill.getLength());
+      }
 
       if (defaultValue) {
         if (typeof defaultValue === 'string') {
