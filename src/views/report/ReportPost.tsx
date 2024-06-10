@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils';
 import BarChart from '@/components/BarChart';
 import useReportContext from '@/hooks/report/useReportContext';
 import Image from 'next/image';
-import { format } from 'date-fns';
 import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { SAMPLE_REPORT } from '@/utils/report';
@@ -98,7 +97,7 @@ const ReportPost = () => {
               <BarChart
                 data={
                   profile && report
-                    ? [...Object.values(report.post.user).reverse(), 0]
+                    ? [...Object.values(report.post.user).reverse()]
                     : [18, 33, 28, 47, 28, 30, 37, 0]
                 }
                 labels={
@@ -107,7 +106,6 @@ const ReportPost = () => {
                         ...Object.keys(report.post.user)
                           .reverse()
                           .map(v => +v.slice(-2) + '월'),
-                        format(new Date(year, +month - 1 + 1, 1, 0, 0, 0), 'M월'),
                       ]
                     : ['10월', '11월', '12월', '1월', '2월', '3월', '4월', '5월']
                 }
