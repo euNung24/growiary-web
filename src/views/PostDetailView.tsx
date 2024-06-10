@@ -112,8 +112,9 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
                 </Label>
                 <div className={cn(inputStyle, 'flex items-center gap-x-1')}>
                   {topicCategory[post.topic.category]?.Icon({
-                    width: 20,
-                    height: 20,
+                    width: 14,
+                    height: 14,
+                    color: '#8A9299',
                   })}
                   {post.topic.category}
                 </div>
