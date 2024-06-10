@@ -81,9 +81,11 @@ const PostView = ({ postId }: PostViewProps) => {
   const [post, setPost] = useState<ResPostType | null>(null);
   const [template, setTemplate] = useState<TopicType>({} as TopicType);
   const [modalOpen, setModalOpen] = useState(false);
+  const [changeCategoryModalOpen, setChangeCategoryModalOpen] = useState(false);
   const [moveResolveFn, setMoveResolveFn] = useState<((choice: boolean) => void) | null>(
     null,
   );
+  const categoryRef = useRef('');
   const btnSaveToastRef = useRef<HTMLButtonElement | null>(null);
   const historyFnRef = useRef<() => void | false>(() => {});
   const isSavedRef = useRef(false);
@@ -95,6 +97,8 @@ const PostView = ({ postId }: PostViewProps) => {
   const setPostState = useSetRecoilState(PostState);
   const postMutation = useFindPost(postId);
   const topics = useGetTopicsByCategory();
+  const checkModalTopicIds = topics && topics['회고'].map(v => v.id);
+
   const getSelectedTopics = (category: TopicCategory) => {
     return topics && topics[category];
   };
@@ -194,22 +198,38 @@ const PostView = ({ postId }: PostViewProps) => {
   const handleChangeCategory = (category: string) => {
     setSelectedCategory(category);
     form.setValue('topicId', '');
-    setTemplate({
-      content: '자유롭게 작성할 수 있어요.',
-    } as TopicType);
+    setTemplate({} as TopicType);
   };
 
   const handleChangeTopic = (
     value: string,
     field: ControllerRenderProps<z.infer<typeof FormSchema>, 'topicId'>,
   ) => {
-    const selectedTopic = selectedTopicsByCategory?.find(v => v.id.toString() === value);
-    selectedTopic &&
-      setTemplate({
-        ...selectedTopic,
-        content: selectedTopic.content || '자유롭게 작성할 수 있어요.',
-      });
-    field.onChange(value);
+    // 회고 카테고리 내에서 주제를 선택한 경우
+    if (value && checkModalTopicIds?.includes(+value)) {
+      setChangeCategoryModalOpen(true);
+      categoryRef.current = value;
+    } else {
+      const selectedTopic = selectedTopicsByCategory?.find(
+        v => v.id.toString() === value,
+      );
+      selectedTopic && setTemplate(selectedTopic);
+      field?.onChange(value);
+    }
+  };
+
+  const handleNotChangeCategoryModal = () => {
+    setChangeCategoryModalOpen(false);
+  };
+
+  const handleChangeCategoryModal = () => {
+    setChangeCategoryModalOpen(false);
+    const selectedTopic = selectedTopicsByCategory?.find(
+      v => v.id.toString() === categoryRef.current,
+    );
+    selectedTopic && setTemplate(selectedTopic);
+    form.setValue('topicId', categoryRef.current);
+    form.setValue('content', '');
   };
 
   useEffect(function getPost() {
@@ -217,6 +237,7 @@ const PostView = ({ postId }: PostViewProps) => {
       postMutation.mutateAsync().then(res => {
         if (!res) return;
         setPost(res.data);
+        setSelectedCategory(res.data.topic.category);
 
         form.reset({
           topicId: res.data.topicId?.toString(),
@@ -226,15 +247,17 @@ const PostView = ({ postId }: PostViewProps) => {
           writeDate: new Date(res.data.writeDate),
           charactersCount: res.data.charactersCount,
         });
-
-        setSelectedCategory(res.data.topic.category);
-        res.data.topic &&
-          setTemplate({
-            ...res.data.topic,
-            content: res.data.topic.content || '자유롭게 작성할 수 있어요.',
-          });
+        res.data.topic && setTemplate(res.data.topic);
       });
   }, []);
+
+  useEffect(
+    function setInitPostTopic() {
+      if (!post) return;
+      form.setValue('topicId', post?.topicId?.toString() || '');
+    },
+    [post],
+  );
 
   useEffect(
     function setInitTemplate() {
@@ -242,8 +265,10 @@ const PostView = ({ postId }: PostViewProps) => {
       const selectedTopic =
         selectedTopicsByCategory.find(topic => topic.id === topicId) || ({} as TopicType);
 
-      !selectedTopic?.content &&
-        (selectedTopic['content'] = '자유롭게 작성할 수 있어요.');
+      if (selectedTopic.content) {
+        form.setValue('content', selectedTopic.content);
+      }
+
       setTemplate(selectedTopic);
     },
     [topics],
@@ -537,6 +562,32 @@ const PostView = ({ postId }: PostViewProps) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <AlertDialog open={changeCategoryModalOpen}>
+        <AlertDialogTrigger className="hidden">카테고리 변경 팝업</AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitleIcon
+              src="/assets/icons/info.png"
+              width={32}
+              height={32}
+              alt="info"
+            />
+            <AlertDialogTitle>카테고리를 변경하시겠습니까?</AlertDialogTitle>
+            <AlertDialogDescription>
+              변경사항이 저장되지 않을 수 있습니다.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleNotChangeCategoryModal}>
+              취소
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={handleChangeCategoryModal}>
+              확인
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <Button
         ref={btnSaveToastRef}
         variant="hidden"

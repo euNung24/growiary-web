@@ -43,7 +43,7 @@ export function DataTable<TData, TValue>({
                   <TableHead
                     key={header.id}
                     colSpan={i === 0 ? 2 : 1}
-                    className="text-center"
+                    className={cn('text-center', i !== 0 && 'w-[140px]')}
                   >
                     {header.isPlaceholder
                       ? null
