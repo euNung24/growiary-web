@@ -28,7 +28,6 @@ import Tag from '@/components/Tag';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ReqPostType, ResPostType } from '@/types/postTypes';
 import { createPost, updatePost } from '@/apis/post';
-import useFindTopic from '@/hooks/topics/useFindTopics';
 import { useEffect, useRef, useState } from 'react';
 import { TopicCategory, TopicType } from '@/types/topicTypes';
 import { checkIsTopicCategory, topicCategory } from '@/utils/topicCategory';
@@ -94,7 +93,6 @@ const PostView = ({ postId }: PostViewProps) => {
   const { toast } = useToast();
   const { profile } = useProfileContext();
   const setPostState = useSetRecoilState(PostState);
-  const topicMutation = useFindTopic(post?.topic?.id || topicId);
   const postMutation = useFindPost(postId);
   const topics = useGetTopicsByCategory();
   const getSelectedTopics = (category: TopicCategory) => {
@@ -219,11 +217,7 @@ const PostView = ({ postId }: PostViewProps) => {
       postMutation.mutateAsync().then(res => {
         if (!res) return;
         setPost(res.data);
-        res.data.topic &&
-          setTemplate({
-            ...res.data.topic,
-            content: res.data.topic.content || '자유롭게 작성할 수 있어요.',
-          });
+        setSelectedCategory(res.data.topic.category);
 
         form.reset({
           topicId: res.data.topicId?.toString(),
@@ -233,22 +227,37 @@ const PostView = ({ postId }: PostViewProps) => {
           writeDate: new Date(res.data.writeDate),
           charactersCount: res.data.charactersCount,
         });
-
-        setSelectedCategory(res.data.topic.category);
+        res.data.topic &&
+          setTemplate({
+            ...res.data.topic,
+            content: res.data.topic.content || '자유롭게 작성할 수 있어요.',
+          });
       });
   }, []);
 
-  useEffect(function setInitTemplate() {
-    if (postId) return;
-    topicMutation.mutateAsync().then(({ data }) => {
-      if (data.content) {
-        form.setValue('content', data.content);
+  useEffect(
+    function setInitPostTopic() {
+      if (!post) return;
+      form.setValue('topicId', post?.topicId?.toString() || '');
+    },
+    [post],
+  );
+
+  useEffect(
+    function setInitTemplate() {
+      if (postId || !topics || !selectedTopicsByCategory) return;
+      const selectedTopic =
+        selectedTopicsByCategory.find(topic => topic.id === topicId) || ({} as TopicType);
+
+      if (selectedTopic.content) {
+        form.setValue('content', selectedTopic.content);
       } else {
-        data['content'] = '자유롭게 작성할 수 있어요.';
+        selectedTopic['content'] = '자유롭게 작성할 수 있어요.';
       }
-      setTemplate(data);
-    });
-  }, []);
+      setTemplate(selectedTopic);
+    },
+    [topics],
+  );
 
   return (
     <Form {...form}>
@@ -479,7 +488,11 @@ const PostView = ({ postId }: PostViewProps) => {
                         type="submit"
                         size="sm"
                         className={cn(!profile && 'hidden')}
-                        disabled={titleField.value.length < 1 || countField.value < 10}
+                        disabled={
+                          titleField.value.length < 1 ||
+                          countField.value < 10 ||
+                          form.getValues('topicId') === ''
+                        }
                       >
                         기록완료
                       </Button>
@@ -488,7 +501,11 @@ const PostView = ({ postId }: PostViewProps) => {
                           type="submit"
                           size="lg"
                           className={cn(profile && 'hidden')}
-                          disabled={titleField.value.length < 1 || countField.value < 10}
+                          disabled={
+                            titleField.value.length < 1 ||
+                            countField.value < 10 ||
+                            form.getValues('topicId') === ''
+                          }
                         >
                           로그인
                         </Button>
