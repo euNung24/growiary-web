@@ -251,10 +251,12 @@ const PostView = ({ postId }: PostViewProps) => {
 
       if (selectedTopic.content) {
         form.setValue('content', selectedTopic.content);
-      } else {
-        selectedTopic['content'] = '자유롭게 작성할 수 있어요.';
       }
-      setTemplate(selectedTopic);
+
+      setTemplate({
+        ...selectedTopic,
+        content: selectedTopic.content || '자유롭게 작성할 수 있어요.',
+      });
     },
     [topics],
   );
