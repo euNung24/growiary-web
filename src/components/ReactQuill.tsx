@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 import './editor.css';
 import Delta from 'quill-delta';
@@ -21,6 +21,7 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
   ({ defaultValue, placeholder, readonly, events, ...props }, ref) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const placeholderContainerRef = useRef<HTMLDivElement | null>(null);
+    const [quill, setQuill] = useState<Quill | null>(null);
 
     const toolbarOptions = [
       [{ size: ['small', false, 'large', 'huge'] }],
@@ -44,74 +45,91 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
       ],
     ];
 
-    useEffect(() => {
-      if (typeof ref === 'function' || !containerRef.current) {
-        return;
-      }
+    useEffect(
+      function setInitQuillEditor() {
+        if (typeof ref === 'function' || !containerRef.current) {
+          return;
+        }
 
-      const container = containerRef.current;
-      const editorContainer = container!.appendChild(
-        container.ownerDocument.createElement('div'),
-      );
-      const quill = new Quill(editorContainer, {
-        modules: {
-          toolbar: toolbarOptions,
-        },
-        theme: 'snow',
-        readOnly: readonly,
-      });
-      quill.scroll;
+        const container = containerRef.current;
+        const editorContainer = container!.appendChild(
+          container.ownerDocument.createElement('div'),
+        );
+        const quillInstance = new Quill(editorContainer, {
+          modules: {
+            toolbar: toolbarOptions,
+          },
+          theme: 'snow',
+          readOnly: readonly,
+        });
+        setQuill(quillInstance);
 
-      quill.scrollSelectionIntoView();
+        return () => {
+          ref && (ref.current = null);
+          container.innerHTML = '';
+        };
+      },
+      [ref],
+    );
 
-      quill.once('text-change', () => {
-        placeholderContainerRef.current!.style.display = 'none';
-      });
+    useEffect(
+      function setEditorEvents() {
+        if (!quill) return;
 
-      quill.on('text-change', delta => {
-        const condition =
-          delta.ops[0]?.delete || (delta.ops[0]?.insert === '\n' && delta.ops[1]?.delete);
-        if (condition) {
-          placeholderContainerRef.current!.style.display = 'block';
-        } else if (placeholderContainerRef.current!.style.display === 'block') {
+        quill.once('text-change', () => {
           placeholderContainerRef.current!.style.display = 'none';
-        }
+        });
 
-        if (quill.getLength() > 2000) {
-          alert('2000자 이내의 글만 작성할 수 있습니다.');
-          quill.deleteText(1999, quill.getLength());
-        }
+        quill.on('text-change', delta => {
+          const condition =
+            delta.ops[0]?.delete ||
+            (delta.ops[0]?.insert === '\n' && delta.ops[1]?.delete);
+          if (condition) {
+            placeholderContainerRef.current!.style.display = 'block';
+          } else if (placeholderContainerRef.current!.style.display === 'block') {
+            placeholderContainerRef.current!.style.display = 'none';
+          }
 
-        events && events.handleContentChange(quill.getContents());
-        events &&
-          events.handleCountChange(condition ? quill.getLength() - 1 : quill.getLength());
-      });
+          if (quill.getLength() > 2000) {
+            alert('2000자 이내의 글만 작성할 수 있습니다.');
+            quill.deleteText(1999, quill.getLength());
+          }
 
-      ref && (ref.current = quill);
-      events && events.handleMount();
+          events && events.handleContentChange(quill.getContents());
+          events &&
+            events.handleCountChange(
+              condition ? quill.getLength() - 1 : quill.getLength(),
+            );
+        });
 
-      // placeholder 세팅
-      quill.clipboard.dangerouslyPasteHTML(placeholder || '자유롭게 작성할 수 있어요.');
-      placeholderContainerRef.current!.innerHTML = quill.root.innerHTML;
-      if (placeholder) {
-        placeholderContainerRef.current!.style.display = 'none';
-      } else {
-        quill.deleteText(0, quill.getLength());
-      }
+        events && events.handleMount();
+      },
+      [quill],
+    );
 
-      if (defaultValue) {
-        if (typeof defaultValue === 'string') {
-          quill.clipboard.dangerouslyPasteHTML(defaultValue);
+    useEffect(
+      function setInitTextOrPlaceholder() {
+        if (!quill) return;
+
+        // placeholder 세팅
+        quill.clipboard.dangerouslyPasteHTML(placeholder || '자유롭게 작성할 수 있어요.');
+        placeholderContainerRef.current!.innerHTML = quill.root.innerHTML;
+        if (placeholder) {
+          placeholderContainerRef.current!.style.display = 'none';
         } else {
-          quill.setContents(defaultValue);
+          quill.deleteText(0, quill.getLength());
         }
-      }
 
-      return () => {
-        ref && (ref.current = null);
-        container.innerHTML = '';
-      };
-    }, [ref, placeholder]);
+        if (defaultValue) {
+          if (typeof defaultValue === 'string') {
+            quill.clipboard.dangerouslyPasteHTML(defaultValue);
+          } else {
+            quill.setContents(defaultValue);
+          }
+        }
+      },
+      [quill, placeholder],
+    );
 
     return (
       <>
@@ -128,8 +146,6 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
           className="ql-container ql-snow top-[43.37px] left-[5px] sm:top-[68px]"
           style={{
             position: 'absolute',
-            // top: '43.37px',
-            // left: '5px',
             border: 'none',
             pointerEvents: 'none',
           }}
