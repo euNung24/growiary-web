@@ -1,5 +1,14 @@
 @import 'quill/dist/quill.snow.css';
 
+/*.reset-style {*/
+/*    all: unset;*/
+/*    all: revert;*/
+/*}*/
+
+/*.ql-editor * {*/
+/*    @apply reset-style;*/
+/*}*/
+
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value=large]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
     content: "medium"
 }
@@ -36,5 +45,6 @@
 .ql-container {
     height: calc(100% - 43px);
     overflow: auto;
+    font-size: 13px;
     font-family: 'Pretendard Variable', 'sans-serif';
 }

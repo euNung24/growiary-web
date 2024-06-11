@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 import './editor.css';
 import Delta from 'quill-delta';
 import { ControllerRenderProps } from 'react-hook-form';
 import { cn } from '@/lib/utils';
+// @ts-expect-error
+import QuillMarkdown from 'quilljs-markdown';
+import 'quilljs-markdown/dist/quilljs-markdown-common-style.css';
 
 type ReactQuillProps = {
   defaultValue?: Delta | string;
@@ -63,6 +67,7 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
           readOnly: readonly,
         });
         setQuill(quillInstance);
+        new QuillMarkdown(quillInstance, {});
 
         return () => {
           ref && (ref.current = null);
