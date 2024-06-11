@@ -25,7 +25,7 @@ const LandingView = () => {
 
   return (
     <>
-      <div className="relative bg-primary-900 w-screen h-screen flex justify-center overflow-hidden">
+      <div className="relative bg-primary-900 w-screen h-screen sm:h-auto flex justify-center overflow-hidden">
         <div
           className="absolute w-[960px] h-[960px] mt-[22px] rounded-full opacity-[0.2]"
           style={{
@@ -59,13 +59,14 @@ const LandingView = () => {
               그루어리 시작하기
             </Link>
           </Button>
-          <div
-            className="flex-1 w-[200%]"
-            style={{
-              background:
-                "no-repeat top/contain url('/assets/images/landing_screen.png')",
-            }}
-          ></div>
+          <Image
+            className="flex mb-5 sm:w-[80%]"
+            src="/assets/images/landing_screen.png"
+            alt="laptop"
+            width={2188 / 3}
+            height={1322 / 3}
+            priority
+          />
         </div>
       </div>
       <footer className="bg-[#002861] opacity-50">
