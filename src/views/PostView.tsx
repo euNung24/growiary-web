@@ -279,10 +279,7 @@ const PostView = ({ postId }: PostViewProps) => {
       <form
         ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn(
-          'flex flex-col pb-4 mx-auto',
-          profile ? 'mt-[-48px] h-[calc(100%+72px+48px)]' : 'h-[calc(100%+72px)]',
-        )}
+        className={cn('flex flex-col pb-4 mx-auto', 'h-[calc(100%+72px)]')}
       >
         <FormField
           control={form.control}
@@ -514,7 +511,7 @@ const PostView = ({ postId }: PostViewProps) => {
                       <LoginDialog>
                         <Button
                           type="submit"
-                          size="lg"
+                          size="sm"
                           className={cn(profile && 'hidden')}
                           disabled={
                             titleField.value.length < 1 ||
