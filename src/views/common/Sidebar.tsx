@@ -12,14 +12,20 @@ import { ProfileType } from '@/types/profileTypes';
 import { BADGE_INFO } from '@/utils/challenge';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { requestPermission } from '@/utils/firebase';
+import { X } from 'lucide-react';
+import * as React from 'react';
+import { useRecoilState } from 'recoil';
+import { LocalState } from '@/store/localStore';
 
 type MenuType = {
   src: string;
   alt: string;
   name: string;
   href: string;
+  indicator?: string;
+  indicatorLeft?: string;
 };
 
 type MenuProps = {
@@ -32,6 +38,15 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
   const active =
     'rounded bg-primary-900 text-white-0 hover:bg-primary-900 hover:text-white-0';
   const pathname = usePathname();
+  const indicators = menu
+    .filter(v => v.indicator)
+    .map((v, i) => ({ index: i, name: v.name }));
+
+  const [localState, setLocalState] = useRecoilState(LocalState);
+  const [indicator, setIndicator] = useState<{
+    index: number;
+    name: string;
+  } | null>(indicators[0]);
 
   const handleClickMenu = (e: React.MouseEvent, name: string, isLogin: boolean) => {
     tracking(name);
@@ -42,10 +57,31 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
     }
   };
 
+  const changeIndicator = () => {
+    indicator &&
+      setIndicator(
+        indicator.index < indicators.length - 1 ? indicators[indicator.index + 1] : null,
+      );
+    indicator?.index === indicators.length - 1 &&
+      setLocalState(v => ({ ...v, showIndicator: false }));
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', changeIndicator);
+
+    return () => {
+      window.removeEventListener('click', changeIndicator);
+    };
+  }, [indicator]);
+
+  useEffect(function setIndicatorCookie() {
+    !localState.showIndicator && setIndicator(null);
+  }, []);
+
   return (
     <ul>
       {items.map((item, i) => (
-        <li key={i} className="mb-4">
+        <li key={i} className="mb-4 relative">
           <Link
             href={item.href}
             className={cn(
@@ -83,8 +119,22 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
               className="hidden min-w-[16px] group-hover:block"
               priority
             />
-            <span className="lg:indent-[-9999px]">{item.name}</span>
+            <div className="lg:indent-[-9999px]">{item.name}</div>
           </Link>
+          {indicator?.name === item.name && item.indicator && (
+            <div
+              className={
+                'absolute left-full top-[calc(50%-3px)] -translate-y-1/2 flex gap-2 items-center font-r12 text-nowrap bg-primary-900 pl-2.5 pr-1 py-1.5 rounded text-white-0 lg:!left-[58px]'
+              }
+              style={{
+                left: item.indicatorLeft,
+              }}
+            >
+              {item.indicator}
+              <X className="text-gray-200 cursor-pointer" width={16} height={16} />
+              <div className="absolute top-1/2 left-[-14px] -translate-y-1/2 w-4 h-4 border border-secondary-900 border-8 border-r-primary-900 border-t-transparent border-b-transparent border-l-transparent"></div>
+            </div>
+          )}
         </li>
       ))}
     </ul>
@@ -196,7 +246,6 @@ const Sidebar = () => {
           )}
         </div>
       </LoginDialog>
-
       <Menu items={menu} />
       <hr className="my-6 border-gray-200" />
       <Menu items={menu2} checkLogin={true} profile={profile} />

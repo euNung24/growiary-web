@@ -55,6 +55,8 @@ export const menu = [
     name: MENU_NAMES['기록하기'],
     href: '/post',
     placeholder: '',
+    indicator: '새로운 기록을 시작해볼까요?',
+    indicatorLeft: '104px',
   },
   {
     src: '/assets/icons/calendar',
@@ -62,6 +64,8 @@ export const menu = [
     name: MENU_NAMES['나의 기록들'],
     href: '/history',
     placeholder: '',
+    indicator: '작성된 기록은 이곳에서 볼 수 있어요',
+    indicatorLeft: '117px',
   },
   {
     src: '/assets/icons/multi-window',
@@ -77,6 +81,8 @@ export const menu = [
     name: MENU_NAMES['기록 데이터 보기'],
     href: '/report',
     placeholder: '더 알고 싶은 기록 관련 데이터가 있다면 알려주세요',
+    indicator: '내가 쓴 기록의 통계를 확인해보세요',
+    indicatorLeft: '144px',
     footer: true,
   },
   // {

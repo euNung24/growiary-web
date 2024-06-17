@@ -136,7 +136,7 @@
   .font-r12 {
     @apply font-normal;
     font-size: 12px;
-    line-height: 16px;
+    line-height: 18px;
   }
 
   .font-r11 {
