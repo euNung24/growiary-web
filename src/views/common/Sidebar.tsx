@@ -74,9 +74,12 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
     };
   }, [indicator]);
 
-  useEffect(function setIndicatorCookie() {
-    !localState.showIndicator && setIndicator(null);
-  }, []);
+  useEffect(
+    function setIndicatorCookie() {
+      !localState.showIndicator && setIndicator(null);
+    },
+    [profile],
+  );
 
   return (
     <ul>
@@ -121,19 +124,22 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
             />
             <div className="lg:indent-[-9999px]">{item.name}</div>
           </Link>
-          {indicator?.name === item.name && item.indicator && (
-            <div
-              className={
-                'absolute left-full top-[calc(50%-3px)] -translate-y-1/2 flex gap-2 items-center font-r12 text-nowrap bg-primary-900 pl-2.5 pr-1 py-1.5 rounded text-white-0 lg:!left-[58px]'
-              }
-              style={{
-                left: item.indicatorLeft,
-              }}
-            >
-              {item.indicator}
-              <X className="text-gray-200 cursor-pointer" width={16} height={16} />
-              <div className="absolute top-1/2 left-[-14px] -translate-y-1/2 w-4 h-4 border border-secondary-900 border-8 border-r-primary-900 border-t-transparent border-b-transparent border-l-transparent"></div>
-            </div>
+          {profile && indicator?.name === item.name && item.indicator && (
+            <>
+              <div className="fixed bg-black/20 inset-0 z-10"></div>
+              <div
+                className={
+                  'z-20 absolute left-full top-[calc(50%-3px)] -translate-y-1/2 flex gap-2 items-center font-r12 text-nowrap bg-primary-900 pl-2.5 pr-1 py-1.5 rounded text-white-0 lg:!left-[58px]'
+                }
+                style={{
+                  left: item.indicatorLeft,
+                }}
+              >
+                {item.indicator}
+                <X className="text-gray-200 cursor-pointer" width={16} height={16} />
+                <div className="absolute top-1/2 left-[-14px] -translate-y-1/2 w-4 h-4 border border-secondary-900 border-8 border-r-primary-900 border-t-transparent border-b-transparent border-l-transparent"></div>
+              </div>
+            </>
           )}
         </li>
       ))}
@@ -246,7 +252,7 @@ const Sidebar = () => {
           )}
         </div>
       </LoginDialog>
-      <Menu items={menu} />
+      <Menu items={menu} profile={profile} />
       <hr className="my-6 border-gray-200" />
       <Menu items={menu2} checkLogin={true} profile={profile} />
     </aside>
