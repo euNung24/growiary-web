@@ -5,7 +5,7 @@ import { ReportType } from '@/types/reportTypes';
 import { useRecoilValue } from 'recoil';
 import { ReportState } from '@/store/reportStore';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 const SAMPLE_DATA = [1028, 36, 732060, 24511];
 
