@@ -198,9 +198,9 @@ const HistoryView = () => {
                 month === selectedMonth)) && (
               <TodayNewPost
                 assignRef={assignRef}
-                year={selectedYear}
-                month={selectedMonth}
-                date={date.getDate()}
+                year={year}
+                month={month}
+                date={todayDate}
               />
             )}
             {(isLogin === 'NOT_LOGIN' || mutation.isSuccess) && (
