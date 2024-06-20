@@ -19,11 +19,13 @@ import CategoryHistory from '@/views/history/CategoryHistory';
 import TodayNewPost from '@/views/history/TodayNewPost';
 import PostHistory from '@/views/history/PostHistory';
 import CalendarHistory from '@/views/history/CalendarHistory';
+import { useRouter } from 'next/navigation';
 
 type HistoryPostType = {
   [key: string]: ResPostType[];
 };
 const HistoryView = () => {
+  const router = useRouter();
   const {
     date: { year, month, date: todayDate },
   } = useRecoilValue(TodayState);
@@ -61,10 +63,10 @@ const HistoryView = () => {
 
     if (!stickyHeight || !topStickyElRef.current) return;
 
-    const offsetTop = topStickyElRef.current?.offsetHeight + 20;
+    const offsetTop = topStickyElRef.current?.offsetHeight - 40;
     const targetPosition = stickyHeight - offsetTop;
 
-    window.scrollTo({
+    document.querySelector('#scroll')?.scrollTo({
       top: targetPosition,
       behavior: 'smooth',
     });

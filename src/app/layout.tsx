@@ -83,6 +83,7 @@ export default function RootLayout({
         <RecoilProvider>
           <ReactQueryProvider>
             <div
+              id="scroll"
               className="h-dvh overflow-auto pt-safeTop"
               style={{
                 scrollbarGutter: 'stable',
