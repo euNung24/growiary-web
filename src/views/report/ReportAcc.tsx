@@ -5,6 +5,7 @@ import { ReportType } from '@/types/reportTypes';
 import { useRecoilValue } from 'recoil';
 import { ReportState } from '@/store/reportStore';
 import useProfileContext from '@/hooks/profile/useProfileContext';
+import { useEffect, useMemo } from 'react';
 
 const SAMPLE_DATA = [1028, 36, 732060, 24511];
 
@@ -13,28 +14,30 @@ const ReportAcc = () => {
   const reportData = useRecoilValue(ReportState);
   const { isLogin, profile } = useProfileContext();
 
-  const report = [
-    {
-      name: '총 작성된 기록',
-      num: (data: ReportType['all']) => data?.post?.sum || 0,
-      ext: '개',
-    },
-    {
-      name: '월 평균 작성된 기록',
-      num: (data: ReportType['all']) => data?.post?.avg || 0,
-      ext: '개',
-    },
-    {
-      name: '총 작성된 글자수',
-      num: (data: ReportType['all']) => data?.charactersCount?.sum || 0,
-      ext: '자',
-    },
-    {
-      name: '월 평균 작성된 글자수',
-      num: (data: ReportType['all']) => data?.charactersCount?.avg || 0,
-      ext: '자',
-    },
-  ];
+  const report = useMemo(() => {
+    return [
+      {
+        name: '총 작성된 기록',
+        num: (data: ReportType['all']) => data?.post?.sum || 0,
+        ext: '개',
+      },
+      {
+        name: '월 평균 작성된 기록',
+        num: (data: ReportType['all']) => data?.post?.avg || 0,
+        ext: '개',
+      },
+      {
+        name: '총 작성된 글자수',
+        num: (data: ReportType['all']) => data?.charactersCount?.sum || 0,
+        ext: '자',
+      },
+      {
+        name: '월 평균 작성된 글자수',
+        num: (data: ReportType['all']) => data?.charactersCount?.avg || 0,
+        ext: '자',
+      },
+    ];
+  }, [JSON.stringify(reportData)]);
 
   return (
     isLogin && (
