@@ -9,7 +9,7 @@ const dailyCheckerStyles = {
   prev: 'relative bg-primary-50 text-gray-900',
   ellipsis: 'bg-gray-50/50 text-gray-400',
   today:
-    'relative text-gray-900 bg-gray-100 group-hover:bg-primary-900 group-hover:text-white-0',
+    'relative text-gray-900 bg-gray-100 group-hover:bg-primary-900 group-hover:text-white-0 transition-[background] duration-150',
   next: 'text-gray-400 border border-gray-200 border-dashed',
 };
 

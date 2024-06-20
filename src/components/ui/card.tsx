@@ -9,7 +9,7 @@ const cardVariants = cva('group flex flex-col hover:shadow w-[300px]', {
   variants: {
     variant: {
       default:
-        'bg-white-0 border border-gray-100 text-gray-900 hover:bg-primary-900 hover:text-white-0 hover:border-transparent',
+        'bg-white-0 border border-gray-100 text-gray-900 hover:bg-primary-900 hover:text-white-0 hover:border-transparent transition duration-150',
       primary: 'bg-primary-900 text-white-0',
       secondary: 'bg-secondary-50 text-gray-900',
       disabled: 'bg-gray-50 hover:shadow-none',
@@ -74,7 +74,11 @@ const CardChip = React.forwardRef<HTMLDivElement, CardChipProps>(
       <div
         ref={ref}
         {...props}
-        className={cn(cardChipVariants({ position, size }), className)}
+        className={cn(
+          'group-hover:transition group-hover:duration-150',
+          cardChipVariants({ position, size }),
+          className,
+        )}
       />
     );
   },
@@ -135,7 +139,7 @@ const CardContent = React.forwardRef<
       ref={ref}
       {...props}
       className={cn(
-        'flex-1 text-gray-800 group-hover:text-white-0',
+        'flex-1 text-gray-800 group-hover:text-white-0 group-hover:transition group-hover:duration-150',
         variant === 'disabled' && 'group-hover:text-gray-800',
         size === 'lg' ? 'pt-2' : 'pt-1',
         className,

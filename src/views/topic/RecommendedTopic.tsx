@@ -48,7 +48,9 @@ const RecommendedTopic = () => {
           <TopicCardFooter>
             <Button
               size="full"
-              className={cn('bg-primary-50 text-primary-900/90 group-hover:bg-white-0')}
+              className={cn(
+                'bg-primary-50 text-primary-900/90 group-hover:bg-white-0 transition-colors duration-150',
+              )}
               asChild
             >
               <Link

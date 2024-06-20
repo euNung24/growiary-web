@@ -88,7 +88,7 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
           <Link
             href={item.href}
             className={cn(
-              'group flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-500 font-sb12 lg:justify-center lg:gap-0 hover:bg-primary-50 hover:text-primary-900 rounded-md',
+              'group flex gap-1 items-center px-3.5 py-2 mx-[10px] text-gray-500 font-sb12 lg:justify-center lg:gap-0 hover:bg-primary-50 hover:text-primary-900 rounded-md transition-colors duration-150',
               item.href.split('/')[1] === pathname.split('/')[1] && active,
               checkLogin && !profile && 'text-gray-200 pointer-events-none',
             )}

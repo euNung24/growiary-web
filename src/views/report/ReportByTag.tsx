@@ -109,7 +109,7 @@ const ReportByTag = () => {
                 <div
                   key={tag + count}
                   className={cn(
-                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center',
+                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center transition-colors duration-150',
                     i === 0
                       ? 'bg-primary-900 text-white-0 group-hover/parent:bg-white-0 hover:!bg-primary-900 hover:!text-white-0'
                       : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
@@ -147,7 +147,7 @@ const ReportByTag = () => {
                 <div
                   key={tag + count}
                   className={cn(
-                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center',
+                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center transition-colors duration-150',
                     i === 0
                       ? 'bg-primary-900 text-white-0 group-hover/parent:bg-white-0 hover:!bg-primary-900 hover:!text-white-0'
                       : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
@@ -195,7 +195,7 @@ const ReportByTag = () => {
                 <div
                   key={tag + i}
                   className={cn(
-                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center',
+                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center transition-colors duration-150',
                     i === 0
                       ? 'bg-primary-900 text-white-0 group-hover/parent:bg-white-0 hover:!bg-primary-900 hover:!text-white-0'
                       : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
@@ -226,7 +226,7 @@ const ReportByTag = () => {
                 <div
                   key={tag + i}
                   className={cn(
-                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center',
+                    'group flex gap-x-3 pl-7 pr-4 py-5 border border-gray-100 rounded-xl font-r22 items-center transition-colors duration-150',
                     i === 0
                       ? 'bg-primary-900 text-white-0 group-hover/parent:bg-white-0 hover:!bg-primary-900 hover:!text-white-0'
                       : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',

@@ -71,7 +71,7 @@ const RecentTopic = () => {
                   <Button
                     size="full"
                     className={cn(
-                      'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
+                      'bg-primary-50 text-primary-900/90 group-hover:bg-white-0 transition-colors duration-150',
                     )}
                     asChild
                     onClick={onClickNewPost}
@@ -115,7 +115,9 @@ const RecentTopic = () => {
               <TopicCardFooter>
                 <Button
                   size="full"
-                  className={cn('bg-white-0 text-primary-900/90 group-hover:bg-white-0')}
+                  className={cn(
+                    'bg-white-0 text-primary-900/90 group-hover:bg-white-0 transition-colors duration-150',
+                  )}
                   asChild
                 >
                   <Link href={`/post`} onClick={onClickNewPost}>
@@ -145,7 +147,7 @@ const RecentTopic = () => {
                 <Button
                   size="full"
                   className={cn(
-                    'bg-primary-50 text-primary-900/90 group-hover:bg-white-0',
+                    'bg-primary-50 text-primary-900/90 group-hover:bg-white-0 transition-colors duration-150',
                   )}
                 >
                   <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
