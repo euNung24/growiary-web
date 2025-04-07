@@ -2,7 +2,6 @@
 
 import { getMonthlyPosts } from '@/apis/post';
 import { useMutation } from '@tanstack/react-query';
-import { getNewAccessToken } from '@/utils/api';
 import { useRef } from 'react';
 
 const useGetMonthlyPosts = () => {
@@ -21,10 +20,6 @@ const useGetMonthlyPosts = () => {
   return useMutation({
     mutationKey: ['monthlyPosts'],
     mutationFn: (date: string) => checkAbort(date),
-    onError: async error => {
-      await getNewAccessToken(error);
-      console.log(error.message);
-    },
     onSettled: () => {
       // mutation이 완료된 후 실행됩니다 (성공 또는 실패 시).
       abortControllerRef.current = null;

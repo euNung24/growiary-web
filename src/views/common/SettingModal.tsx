@@ -27,7 +27,7 @@ const SettingModal = () => {
   const [isLogout, setIsLogout] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const setUserState = useSetRecoilState(UserState);
-  const { profile } = useGetProfile();
+  const { data: profile } = useGetProfile();
   const queryClient = useQueryClient();
 
   const handleClickLogout = () => {
@@ -67,7 +67,7 @@ const SettingModal = () => {
 
   useEffect(() => {
     if (isLogout) {
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.clear();
       setUserState(v => ({ ...v, isNotLoginAndFirst: true }));
       tracking(`로그아웃`);
       sendGAEvent({ event: `로그아웃` });

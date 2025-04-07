@@ -1,27 +1,43 @@
 import { ProfileType } from '@/types/profileTypes';
-import { getCookie } from '@/utils';
 import withToken from '@/apis/withToken';
 import { BadgeKeyType } from '@/types/challengeTypes';
 import { ApiSuccessResponse } from '@/types';
-import { setError } from '@/utils/api';
+import { getCookie } from '@/utils';
+import { getNewAccessToken, setError } from '@/utils/api';
 
 const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';
 
 export const getProfile = async (): Promise<ProfileType> => {
-  const accessToken = getCookie('accessToken');
-  if (!accessToken) return {} as ProfileType;
+  const request = async () => {
+    const accessToken = getCookie('accessToken');
 
-  const response = await fetch(profileApiUrl, {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  if (!response.ok) {
-    throw await setError(response);
+    if (!accessToken) return {};
+
+    const response = await fetch(profileApiUrl, {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw await setError(response);
+    }
+
+    return await response.json();
+  };
+
+  try {
+    return await request();
+  } catch (error) {
+    if (error instanceof Error && error.message === 'Expired token') {
+      await getNewAccessToken();
+
+      return await request();
+    } else {
+      throw error;
+    }
   }
-
-  return response.json();
 };
 
 export const updateUserTitleBadge = (badgeKey: BadgeKeyType) =>

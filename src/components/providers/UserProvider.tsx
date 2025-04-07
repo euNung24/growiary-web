@@ -15,7 +15,6 @@ import useGetProfile from '@/hooks/profile/useGetProfile';
 import useGetUserBadgeInfo from '@/hooks/challenge/useGetUserBadgeInfo';
 import { BADGE_INFO } from '@/utils/challenge';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
 import { useRecoilState } from 'recoil';
 import { UserState } from '@/store/userStore';
 import { tracking } from '@/utils/mixPanel';
@@ -38,7 +37,7 @@ type UserProvider = {
 };
 const UserProvider = ({ children }: UserProvider) => {
   const router = useRouter();
-  const { profile, isError } = useGetProfile();
+  const { data: profile, isError } = useGetProfile();
   const userBadgeInfo = useGetUserBadgeInfo();
   const [titleBadge, setTitleBadge] = useState<Partial<keyof typeof BADGE_INFO>>('first');
   const [isClient, setIsClient] = useState(false);
@@ -48,14 +47,6 @@ const UserProvider = ({ children }: UserProvider) => {
     if (!userBadgeInfo) return;
     setTitleBadge(userBadgeInfo.data?.titleBadge || 'first');
   }, [userBadgeInfo]);
-
-  useEffect(() => {
-    if (isError) {
-      alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
-    }
-  }, [isError]);
 
   useEffect(() => {
     if (

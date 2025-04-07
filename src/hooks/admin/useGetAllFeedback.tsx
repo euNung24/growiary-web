@@ -1,7 +1,6 @@
 'use client';
 
-import { getNewAccessToken, UnauthorizedError } from '@/utils/api';
-import { useEffect } from 'react';
+import { UnauthorizedError } from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { getAllFeedback } from '@/apis/admin/feedbacks';
 import { useRouter } from 'next/navigation';
@@ -19,17 +18,9 @@ const useGetAllFeedback = () => {
     select: res => res.data,
   });
 
-  useEffect(() => {
-    const fn = async (error: Error) => {
-      await getNewAccessToken(error);
-      UnauthorizedError(error).then(() => router.push('/'));
-    };
-
-    if (isError) {
-      fn(error).then();
-      return;
-    }
-  }, [data, isError, error]);
+  if (isError) {
+    UnauthorizedError(error).then(() => router.push('/'));
+  }
 
   return { data, isError, isSuccess };
 };
