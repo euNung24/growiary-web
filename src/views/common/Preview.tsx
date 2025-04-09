@@ -5,7 +5,7 @@ import useGetProfile from '@/hooks/profile/useGetProfile';
 
 const Preview = () => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { profile } = useGetProfile();
+  const { data: profile } = useGetProfile();
 
   useEffect(() => {
     if (!profile || Object.keys(profile).length || !ref.current) return;

@@ -16,7 +16,7 @@ type AuthUserProvider = {
   children: ReactNode;
 };
 const AuthUserProvider = ({ children }: AuthUserProvider) => {
-  const { profile, isError } = useGetProfile();
+  const { data: profile, isError } = useGetProfile();
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
