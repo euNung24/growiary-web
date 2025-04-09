@@ -3,7 +3,7 @@ import withToken from '@/apis/withToken';
 import { BadgeKeyType } from '@/types/challengeTypes';
 import { ApiSuccessResponse } from '@/types';
 import { getCookie } from '@/utils';
-import { getNewAccessToken, setError } from '@/utils/api';
+import { handleError, setError } from '@/utils/api';
 
 const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';
 
@@ -30,8 +30,8 @@ export const getProfile = async (): Promise<ProfileType> => {
   try {
     return await request();
   } catch (error) {
-    if (error instanceof Error && error.message === 'Expired token') {
-      await getNewAccessToken();
+    if (error instanceof Error) {
+      await handleError(error);
 
       return await request();
     } else {

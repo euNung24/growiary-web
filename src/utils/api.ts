@@ -8,7 +8,7 @@ export const setError = async (response: Response) => {
   if (response.status === 400 && message === '만료된 토큰입니다.') {
     return new Error('Expired token');
   } else if (response.status === 400 && message === '유효하지 않은 토큰입니다.') {
-    return new Error('Expired token');
+    return new Error('Invalid token');
   } else if (response.status === 400 && message === '관리자만 접근 가능합니다.') {
     return new Error('Unauthorized');
   }
@@ -17,7 +17,7 @@ export const setError = async (response: Response) => {
 
 let refreshingTokenPromise: Promise<string | void> | null = null;
 
-export const getNewAccessToken = async () => {
+const getNewAccessToken = async () => {
   if (refreshingTokenPromise) return refreshingTokenPromise;
 
   refreshingTokenPromise = (async () => {
@@ -50,8 +50,35 @@ export const getNewAccessToken = async () => {
   return refreshingTokenPromise;
 };
 
+const handleInvalidToken = async () => {
+  if (refreshingTokenPromise) return refreshingTokenPromise;
+
+  Cookies.remove('accessToken');
+  Cookies.remove('refreshToken');
+  queryClient.clear();
+  alert('유효하지 않은 토큰입니다. 다시 로그인해주세요.');
+  refreshingTokenPromise = null;
+  window.location.href = '/landing';
+};
+
 export const UnauthorizedError = async (error: Error) => {
   if (error.message === 'Unauthorized') {
     alert('관리자만 접근가능합니다.');
+  }
+};
+
+export const handleError = async (error: Error) => {
+  switch (error.message) {
+    case 'Expired token': {
+      await getNewAccessToken();
+      break;
+    }
+    case 'Invalid token': {
+      await handleInvalidToken();
+      break;
+    }
+    default: {
+      throw error;
+    }
   }
 };

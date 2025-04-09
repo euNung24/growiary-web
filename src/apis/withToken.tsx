@@ -1,4 +1,4 @@
-import { getNewAccessToken, setError } from '@/utils/api';
+import { handleError, setError } from '@/utils/api';
 import { getCookie } from '@/utils';
 import { ApiSuccessResponse } from '@/types';
 
@@ -36,12 +36,12 @@ async function withToken<T, V>(
   try {
     return await request();
   } catch (error) {
-    if (error instanceof Error && error.message === 'Expired token') {
-      await getNewAccessToken();
+    if (error instanceof Error) {
+      await handleError(error);
 
       return await request();
     } else {
-      throw error;
+      console.error('Unknown error occurred:', error);
     }
   }
 }
@@ -74,8 +74,8 @@ export async function withTokenGet<T, V>(
   try {
     return await request();
   } catch (error) {
-    if (error instanceof Error && error.message === 'Expired token') {
-      await getNewAccessToken();
+    if (error instanceof Error) {
+      await handleError(error);
 
       return await request();
     } else {
