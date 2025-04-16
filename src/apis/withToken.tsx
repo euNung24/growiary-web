@@ -1,6 +1,7 @@
-import { handleError, setError } from '@/utils/api';
+import { handleError } from '@/utils/api';
 import { getCookie } from '@/utils';
 import { ApiSuccessResponse } from '@/types';
+import { setError } from '@/utils/error';
 
 type WithTokenType<T> = {
   body?: T;

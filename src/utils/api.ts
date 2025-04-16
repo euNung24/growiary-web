@@ -1,19 +1,7 @@
 import { decrypt, encrypt } from '@/components/LoginLoading';
-import { queryClient } from '@/components/providers/ReactQueryProvider';
+import { browserQueryClient } from '@/components/providers/ReactQueryProvider';
 import { getCookie } from '@/utils/index';
 import Cookies from 'js-cookie';
-
-export const setError = async (response: Response) => {
-  const { message } = await response.json();
-  if (response.status === 400 && message === '만료된 토큰입니다.') {
-    return new Error('Expired token');
-  } else if (response.status === 400 && message === '유효하지 않은 토큰입니다.') {
-    return new Error('Invalid token');
-  } else if (response.status === 400 && message === '관리자만 접근 가능합니다.') {
-    return new Error('Unauthorized');
-  }
-  return new Error('Network response was not ok');
-};
 
 let refreshingTokenPromise: Promise<string | void> | null = null;
 
@@ -32,7 +20,7 @@ const getNewAccessToken = async () => {
     if (!res.ok || res.status === 400) {
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
-      queryClient.clear();
+      browserQueryClient?.clear();
       alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
       refreshingTokenPromise = null;
       window.location.reload();
@@ -55,7 +43,7 @@ const handleInvalidToken = async () => {
 
   Cookies.remove('accessToken');
   Cookies.remove('refreshToken');
-  queryClient.clear();
+  browserQueryClient?.clear();
   alert('유효하지 않은 토큰입니다. 다시 로그인해주세요.');
   refreshingTokenPromise = null;
   window.location.href = '/landing';
