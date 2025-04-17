@@ -1,15 +1,14 @@
 'use client';
 
-import { UserState } from '@/store/userStore';
-import { useRecoilValue } from 'recoil';
+import useGetProfile from '@/hooks/profile/useGetProfile';
 
 const useProfileContext = () => {
-  const { profile } = useRecoilValue(UserState);
+  const { data } = useGetProfile();
 
   return {
-    isLogin: profile ? 'LOGIN' : 'NOT_LOGIN',
-    profile,
-    titleBadge: profile?.titleBadge || 'first',
+    isLogin: data ? 'LOGIN' : 'NOT_LOGIN',
+    profile: data,
+    titleBadge: data?.titleBadge || 'first',
   };
 };
 

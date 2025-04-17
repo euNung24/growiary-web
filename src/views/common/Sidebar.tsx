@@ -146,6 +146,7 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
     </ul>
   );
 };
+
 const Sidebar = () => {
   const { profile, titleBadge } = useProfileContext();
 
@@ -212,18 +213,18 @@ const Sidebar = () => {
           {/* 프로필 이미지 */}
           <div className="mx-auto flex justify-center items-center w-[74px] h-[74px] rounded-full bg-gray-100 overflow-hidden lg:w-9 lg:h-9">
             <Image
-              src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
+              src={profile?.profileImage || '/assets/icons/profile.png'}
               alt="profile"
-              width={profile && profile.profileImage ? 74 : 42}
-              height={profile && profile.profileImage ? 74 : 42}
+              width={profile?.profileImage ? 74 : 42}
+              height={profile?.profileImage ? 74 : 42}
               className="lg:hidden"
               priority
             />
             <Image
-              src={(profile && profile.profileImage) || '/assets/icons/profile.png'}
+              src={profile?.profileImage || '/assets/icons/profile.png'}
               alt="profile"
-              width={profile && profile.profileImage ? 36 : 24}
-              height={profile && profile.profileImage ? 36 : 24}
+              width={profile?.profileImage ? 36 : 24}
+              height={profile?.profileImage ? 36 : 24}
               className="hidden lg:block"
               priority
             />
