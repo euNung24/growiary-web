@@ -13,7 +13,8 @@ type TopicListProps = {
 };
 const TopicList = ({ currentCategory }: TopicListProps) => {
   const topics = useGetTopicsByCategory();
-  const bestTopics = useGetRecommendedTopic()?.category;
+  const { data } = useGetRecommendedTopic();
+  const bestTopics = data?.category;
   const [currentTopics, setCurrentTopics] = useState<TopicType[]>([]);
 
   useEffect(() => {

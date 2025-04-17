@@ -16,8 +16,8 @@ import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const RecommendedTopic = () => {
-  const recommendedTopic = useGetRecommendedTopic();
-  const topTopic = recommendedTopic?.top;
+  const { data } = useGetRecommendedTopic();
+  const topTopic = data?.top;
 
   return (
     <div>

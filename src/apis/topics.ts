@@ -44,7 +44,13 @@ export const findTopic = async (id: FindTopicType['id']) =>
 export const getUserRecentTopic = () =>
   withToken(topicApiUrl + '/recent') as Promise<ApiSuccessResponse<RecentTopicType>>;
 
-export const getRecommendedTopic = async () =>
-  withToken(topicApiUrl + '/recommendation') as Promise<
-    ApiSuccessResponse<RecommendedTopic>
-  >;
+export const getRecommendedTopic = async (): Promise<RecommendedTopic> => {
+  const response = await fetch(topicApiUrl + '/recommendation', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  });
+
+  return (await response.json()).data;
+};
