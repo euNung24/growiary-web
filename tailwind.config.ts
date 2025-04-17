@@ -93,10 +93,15 @@ const config: Config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'fade-out': {
+          '0%': { opacity: '1', visibility: 'visible' },
+          '100%': { opacity: '0', visibility: 'hidden' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'fade-out': 'fade-out 0.1s 1.5s forwards',
       },
     },
   },

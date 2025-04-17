@@ -2,26 +2,22 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { useRecoilState } from 'recoil';
-import { UserState } from '@/store/userStore';
-import { useEffect } from 'react';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useRouter } from 'next/navigation';
+import { useSetRecoilState } from 'recoil';
+import { UserState } from '@/store/userStore';
 
 const LandingView = () => {
-  const [userState, setUserState] = useRecoilState(UserState);
+  const router = useRouter();
+  const setUserState = useSetRecoilState(UserState);
 
   const handleClickStart = () => {
+    setUserState(v => ({ ...v, hasVisited: true }));
     tracking(`메인 페이지`);
     sendGAEvent({ event: '메인 페이지' });
+    router.push('/');
   };
-
-  useEffect(() => {
-    if (userState.isNotLoginAndFirst) {
-      setUserState(v => ({ ...v, isNotLoginAndFirst: false }));
-    }
-  }, [userState]);
 
   return (
     <>
@@ -53,11 +49,12 @@ const LandingView = () => {
             variant="secondary"
             size="sm"
             className="text-gray-900 bg-secondary-400"
-            asChild
+            onClick={handleClickStart}
+            // asChild
           >
-            <Link href="/" className="font-m12" onClick={handleClickStart}>
-              그루어리 시작하기
-            </Link>
+            {/* <Link href="/" className="font-m12" onClick={handleClickStart}> */}
+            그루어리 시작하기
+            {/* </Link> */}
           </Button>
           <Image
             className="flex mb-5 sm:w-[80%]"

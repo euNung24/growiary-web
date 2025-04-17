@@ -1,3 +1,5 @@
+import { BadgeKeyType } from "@/types/challengeTypes";
+
 export type ProfileType = {
   userId: string;
   nickname: string;
@@ -6,4 +8,5 @@ export type ProfileType = {
   profileImage: string;
   create: string;
   createdAt: string;
+  titleBadge: BadgeKeyType
 };

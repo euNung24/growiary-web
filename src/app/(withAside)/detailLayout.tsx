@@ -6,17 +6,21 @@ import TopStartButton from '@/views/common/TopStartButton';
 import FooterFeedbackView from '@/views/common/FooterFeedbackView';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAvoidHydration } from '@/hooks/useAvoidHydration';
 
 export default function DetailLayout({ children }: { children: ReactNode }) {
   const { profile } = useProfileContext();
   const router = useRouter();
   const pathname = usePathname();
+  const isClient = useAvoidHydration();
 
   useEffect(() => {
     if (!profile && /\/admin/.test(pathname)) {
       router.push('/admin');
     }
   });
+
+  if (!isClient) return;
 
   return (
     <div

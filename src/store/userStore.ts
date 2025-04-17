@@ -1,10 +1,12 @@
 import { atom } from 'recoil';
 import { sessionStorageEffect } from '@/store/index';
+import { ProfileType } from '@/types/profileTypes';
 
 export type UserType = {
   key: 'user';
   default: {
-    isNotLoginAndFirst: boolean;
+    hasVisited: boolean;
+    profile: ProfileType | undefined;
     isAdminLogin: boolean;
   };
 };
@@ -12,7 +14,8 @@ export type UserType = {
 export const UserState = atom(<UserType>{
   key: 'user',
   default: {
-    isNotLoginAndFirst: true,
+    hasVisited: false,
+    profile: undefined,
     isAdminLogin: false,
   },
   effects: [sessionStorageEffect('user')],

@@ -1,9 +1,16 @@
 'use client';
-import { useContext } from 'react';
-import { UserContext } from '@/components/providers/UserProvider';
+
+import { UserState } from '@/store/userStore';
+import { useRecoilValue } from 'recoil';
 
 const useProfileContext = () => {
-  return useContext(UserContext);
+  const { profile } = useRecoilValue(UserState);
+
+  return {
+    isLogin: profile ? 'LOGIN' : 'NOT_LOGIN',
+    profile,
+    titleBadge: profile?.titleBadge || 'first',
+  };
 };
 
 export default useProfileContext;

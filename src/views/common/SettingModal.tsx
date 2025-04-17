@@ -68,7 +68,7 @@ const SettingModal = () => {
   useEffect(() => {
     if (isLogout) {
       queryClient.clear();
-      setUserState(v => ({ ...v, isNotLoginAndFirst: true }));
+      setUserState(v => ({ ...v, hasVisited: false }));
       tracking(`로그아웃`);
       sendGAEvent({ event: `로그아웃` });
       router.push('/');
