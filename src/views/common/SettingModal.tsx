@@ -17,8 +17,6 @@ import PrivateTerm from '@/views/common/PrivateTerm';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
-import { useSetRecoilState } from 'recoil';
-import { UserState } from '@/store/userStore';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAvoidHydration } from '@/hooks/useAvoidHydration';
@@ -29,14 +27,13 @@ const SettingModal = () => {
 
   const isClient = useAvoidHydration();
   const { data: profile } = useGetProfile();
-  const setUserState = useSetRecoilState(UserState);
 
   const handleClickLogout = () => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
+    Cookies.remove('hasVisited');
 
     queryClient.clear();
-    setUserState(v => ({ ...v, hasVisited: false }));
     tracking(`로그아웃`);
     sendGAEvent({ event: `로그아웃` });
     router.refresh();

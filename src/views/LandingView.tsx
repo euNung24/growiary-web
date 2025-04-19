@@ -5,19 +5,32 @@ import { Button } from '@/components/ui/button';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';
-import { useSetRecoilState } from 'recoil';
-import { UserState } from '@/store/userStore';
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
+
+const getCookieExpireDate = () => {
+  const date = new Date();
+  date.setHours(date.getHours() + 1);
+
+  return date;
+};
 
 const LandingView = () => {
   const router = useRouter();
-  const setUserState = useSetRecoilState(UserState);
 
   const handleClickStart = () => {
-    setUserState(v => ({ ...v, hasVisited: true }));
+    Cookies.set('hasVisited', 'Y', {
+      expires: getCookieExpireDate(),
+    });
     tracking(`메인 페이지`);
     sendGAEvent({ event: '메인 페이지' });
     router.push('/');
   };
+
+  useEffect(() => {
+    tracking(`랜딩 페이지`);
+    sendGAEvent({ event: '랜딩 페이지' });
+  }, []);
 
   return (
     <>
@@ -50,11 +63,8 @@ const LandingView = () => {
             size="sm"
             className="text-gray-900 bg-secondary-400"
             onClick={handleClickStart}
-            // asChild
           >
-            {/* <Link href="/" className="font-m12" onClick={handleClickStart}> */}
             그루어리 시작하기
-            {/* </Link> */}
           </Button>
           <Image
             className="flex mb-5 sm:w-[80%]"
