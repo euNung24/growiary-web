@@ -1,13 +1,17 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const EXCLUDED_PATHS = ['/landing', '/admin'];
+const EXCLUDED_PATHS = ['/landing', '/admin', '/_next'];
+const EXACT_EXCLUDED_PATHS = ['/favicon.ico', '/robots.txt', '/sitemap.xml'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // 예외 페이지 처리
-  if (EXCLUDED_PATHS.some(path => pathname.startsWith(path))) {
+  if (
+    EXCLUDED_PATHS.some(path => pathname.startsWith(path)) ||
+    EXACT_EXCLUDED_PATHS.includes(pathname)
+  ) {
     return NextResponse.next();
   }
 
@@ -21,7 +25,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/((?!landing|admin|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
-  ],
+  matcher: ['/((?!_next|favicon.ico|sitemap.xml|robots.txt|landing|admin).*)'],
 };
