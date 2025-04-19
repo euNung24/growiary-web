@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import {
   FindTopicType,
   PostTopicType,
@@ -10,8 +8,6 @@ import {
 } from '@/types/topicTypes';
 import withToken from '@/apis/withToken';
 import { ApiSuccessResponse } from '@/types';
-import { getCookie } from '@/utils';
-import { setError } from '@/utils/api';
 
 const topicApiUrl = process.env.NEXT_PUBLIC_API + '/topic';
 

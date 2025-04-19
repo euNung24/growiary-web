@@ -2,16 +2,17 @@ import { ProfileType } from '@/types/profileTypes';
 import withToken from '@/apis/withToken';
 import { BadgeKeyType } from '@/types/challengeTypes';
 import { ApiSuccessResponse } from '@/types';
-import { getCookie } from '@/utils';
-import { handleError, setError } from '@/utils/api';
+import { handleError } from '@/utils/api';
+import { setError } from '@/utils/error';
+import Cookies from 'js-cookie';
 
 const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';
 
 export const getProfile = async (): Promise<ProfileType> => {
   const request = async () => {
-    const accessToken = getCookie('accessToken');
+    const accessToken = Cookies.get('accessToken');
 
-    if (!accessToken) return {};
+    if (!accessToken) return;
 
     const response = await fetch(profileApiUrl, {
       headers: {

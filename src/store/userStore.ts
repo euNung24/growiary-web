@@ -4,7 +4,7 @@ import { sessionStorageEffect } from '@/store/index';
 export type UserType = {
   key: 'user';
   default: {
-    isNotLoginAndFirst: boolean;
+    hasVisited: boolean;
     isAdminLogin: boolean;
   };
 };
@@ -12,7 +12,7 @@ export type UserType = {
 export const UserState = atom(<UserType>{
   key: 'user',
   default: {
-    isNotLoginAndFirst: true,
+    hasVisited: false,
     isAdminLogin: false,
   },
   effects: [sessionStorageEffect('user')],

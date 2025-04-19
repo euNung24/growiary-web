@@ -7,10 +7,10 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const TopStartButton = () => {
   const pathname = usePathname();
-  const { isLogin } = useProfileContext();
+  const { profile } = useProfileContext();
 
   return (
-    isLogin === 'NOT_LOGIN' &&
+    !profile &&
     !['/history'].includes(pathname) && (
       <div className={'sticky top-0 bg-white-0 z-10'}>
         <div className="flex justify-end py-[23px] mx-auto bg-white-0">

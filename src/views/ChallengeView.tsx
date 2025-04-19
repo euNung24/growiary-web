@@ -29,12 +29,14 @@ import useProfileContext from '@/hooks/profile/useProfileContext';
 import { cn } from '@/lib/utils';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ChallengeView = () => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
   const strengthStyle = 'font-b28 text-primary-900';
 
-  const { profile, setTitleBadge, titleBadge } = useProfileContext();
+  const queryClient = useQueryClient();
+  const { profile, titleBadge } = useProfileContext();
   const mutation = useChangeUserTitleBadge();
   const userBadgeInfo = useGetUserBadgeInfo();
   const [myBadges, setMyBadges] = useState<string[]>([]);
@@ -58,8 +60,9 @@ const ChallengeView = () => {
 
     mutation
       .mutateAsync(badgeKey)
-      .then(res => {
-        setTitleBadge(res.data);
+      .then(() => {
+        queryClient.invalidateQueries({ queryKey: ['profile'] });
+        queryClient.invalidateQueries({ queryKey: ['badge'] });
       })
       .catch(() => {
         alert('뱃지 변경에 실패했습니다.');

@@ -1,7 +1,7 @@
 import Sidebar from '@/views/common/Sidebar';
 import { ReactNode } from 'react';
 import { Toaster } from '@/components/ui/toaster';
-import UserProvider from '@/components/providers/UserProvider';
+import ServerProfile from '@/components/server/ServerProfile';
 import DetailLayout from '@/app/(withAside)/detailLayout';
 
 type LayoutProps = {
@@ -13,10 +13,10 @@ export default async function asLayout({ modal, children }: LayoutProps) {
   return (
     <>
       {modal}
-      <UserProvider>
+      <ServerProfile>
         <Sidebar />
         <DetailLayout>{children}</DetailLayout>
-      </UserProvider>
+      </ServerProfile>
       <Toaster />
     </>
   );
