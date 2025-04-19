@@ -92,8 +92,9 @@ const LandingView = () => {
               <dl className="flex [&>*]:flex flex-wrap sm:flex-col">
                 <div>
                   <dt>대표자 : &nbsp;</dt>
-                  <dd>배건우</dd>
-                  <span className="sm:hidden">&nbsp;|&nbsp;</span>
+                  <dd className='after:content-["|"] after:mx-1 sm:after:hidden'>
+                    배건우
+                  </dd>
                 </div>
                 <div>
                   <dt>사업자등록번호 : &nbsp;</dt>
@@ -103,8 +104,9 @@ const LandingView = () => {
               <dl className="flex [&>*]:flex flex-wrap sm:flex-col">
                 <div>
                   <dt>대표번호 : &nbsp;</dt>
-                  <dd>0507-0178-0372</dd>
-                  <span className="sm:hidden">&nbsp;|&nbsp;</span>
+                  <dd className='after:content-["|"] after:mx-1 sm:after:hidden'>
+                    0507-0178-0372
+                  </dd>
                 </div>
                 <div>
                   <dt>주소지 : &nbsp;</dt>
