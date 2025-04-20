@@ -8,9 +8,9 @@ import ReportByTimeBar from '@/views/home/ReportByTimeBar';
 import useReportContext from '@/hooks/report/useReportContext';
 import LinkOrLogin from '@/components/LinkOrLogin';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import { tracking } from '@/utils/mixPanel';
 import { MENU_NAMES } from '@/utils';
-import { sendGAEvent } from '@next/third-parties/google';
+import { onTrackingHandler } from '@/utils/trackingAnalytics';
+import { cn } from '@/lib/utils';
 
 const HomeReport = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -21,25 +21,19 @@ const HomeReport = () => {
     <section>
       <div className="flex justify-between">
         <h2 className="title">기록 데이터</h2>
-        <Button variant="ghostGray" size="sm" className="text-gray-500 font-sb12" asChild>
-          <LinkOrLogin
-            href="/report"
-            isLogin={!!profile}
-            handleClick={() => {
-              tracking(MENU_NAMES['기록 데이터 보기']);
-              sendGAEvent({ event: MENU_NAMES['기록 데이터 보기'] });
-            }}
+        <LinkOrLogin
+          href="/report"
+          handleClick={onTrackingHandler(MENU_NAMES['기록 데이터 보기'])}
+        >
+          <Button
+            variant="ghostGray"
+            size="sm"
+            className={cn('text-gray-500 font-sb12', !profile && 'p-0')}
+            asChild={!!profile}
           >
-            <Button
-              variant="ghostGray"
-              size="sm"
-              className="text-gray-500 font-sb12 p-0 cursor-pointer"
-              asChild
-            >
-              <span>전체보기</span>
-            </Button>
-          </LinkOrLogin>
-        </Button>
+            <span>전체보기</span>
+          </Button>
+        </LinkOrLogin>
       </div>
       <p className={headerDescriptionStyle}>작성해주신 기록을 그루어리가 분석했어요</p>
       <div className="flex gap-5 flex-wrap">
