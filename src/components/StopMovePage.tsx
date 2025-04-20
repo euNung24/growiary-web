@@ -1,18 +1,58 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTitleIcon,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 type StopMovePageProps = {
-  url: string;
   isPreventCondition: boolean;
-  isPageMove: () => Promise<boolean>;
 };
 
-const StopMovePage = ({ url, isPreventCondition, isPageMove }: StopMovePageProps) => {
+const StopMovePage = ({ isPreventCondition }: StopMovePageProps) => {
   const router = useRouter();
   const isClickedFirst = useRef(false);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [moveResolveFn, setMoveResolveFn] = useState<((choice: boolean) => void) | null>(
+    null,
+  );
+
+  const openModalAndWaiteForChoice = () => {
+    return new Promise<boolean>(resolve => {
+      setModalOpen(true);
+      setMoveResolveFn(() => resolve);
+    });
+  };
+
+  const handleOpenStopModal = async () => {
+    return await openModalAndWaiteForChoice();
+  };
+
+  const handleMoveModal = () => {
+    if (moveResolveFn) {
+      setModalOpen(false);
+      moveResolveFn(true);
+    }
+  };
+
+  const handleNotMoveModal = () => {
+    if (moveResolveFn) {
+      setModalOpen(false);
+      moveResolveFn(false);
+    }
+  };
 
   const handleBeforeUnload = useCallback(
     (e: BeforeUnloadEvent) => {
@@ -27,7 +67,7 @@ const StopMovePage = ({ url, isPreventCondition, isPageMove }: StopMovePageProps
 
   const handlePopState = useCallback(async () => {
     // 페이지를 벗어나지 않아야 하는 경우
-    if (isPreventCondition && !(await isPageMove())) {
+    if (isPreventCondition && !(await handleOpenStopModal())) {
       history.pushState(null, '', '');
       return;
     }
@@ -61,22 +101,52 @@ const StopMovePage = ({ url, isPreventCondition, isPageMove }: StopMovePageProps
   // 링크 이동
   useEffect(() => {
     const originalPush = router.push;
-    const newPush = async (href: string, options?: NavigateOptions | undefined) => {
-      // 페이지를 벗어나지 않아야 하는 경우
-      if (href !== `${url}` && isPreventCondition && !(await isPageMove())) {
-        return;
-      }
 
-      originalPush(href, options);
-      return;
-    };
-    router.push = newPush;
+    if (isPreventCondition) {
+      const newPush = async (href: string, options?: NavigateOptions | undefined) => {
+        // 페이지를 벗어나지 않아야 하는 경우
+        console.log('in', isPreventCondition);
+
+        if (!(await handleOpenStopModal())) {
+          return;
+        }
+
+        originalPush(href, options);
+        return;
+      };
+
+      router.push = newPush;
+    } else {
+      router.push = originalPush;
+    }
     return () => {
       router.push = originalPush;
     };
   }, [router, isPreventCondition]);
 
-  return <></>;
+  return (
+    <AlertDialog open={modalOpen}>
+      <AlertDialogTrigger className="hidden">글쓰기 중단 팝업</AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitleIcon
+            src="/assets/icons/info.png"
+            width={32}
+            height={32}
+            alt="info"
+          />
+          <AlertDialogTitle>글쓰기를 중단하시겠습니까?</AlertDialogTitle>
+          <AlertDialogDescription>
+            변경사항이 저장되지 않을 수 있습니다.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={handleNotMoveModal}>취소</AlertDialogCancel>
+          <AlertDialogAction onClick={handleMoveModal}>확인</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
 };
 
 export default StopMovePage;

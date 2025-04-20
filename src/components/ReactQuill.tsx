@@ -106,8 +106,6 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
               condition ? quill.getLength() - 1 : quill.getLength(),
             );
         });
-
-        events && events.handleMount();
       },
       [quill],
     );
@@ -117,12 +115,11 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
         if (!quill) return;
 
         // placeholder 세팅
-        quill.clipboard.dangerouslyPasteHTML(placeholder || '자유롭게 작성할 수 있어요.');
-        placeholderContainerRef.current!.innerHTML = quill.root.innerHTML;
         if (placeholder) {
           placeholderContainerRef.current!.style.display = 'none';
+          quill.clipboard.dangerouslyPasteHTML(placeholder);
         } else {
-          quill.deleteText(0, quill.getLength());
+          placeholderContainerRef.current!.innerHTML = `<p>자유롭게 작성할 수 있어요.</p>`;
         }
 
         if (defaultValue) {
@@ -132,6 +129,8 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
             quill.setContents(defaultValue);
           }
         }
+
+        events && events.handleMount();
       },
       [quill, placeholder],
     );
