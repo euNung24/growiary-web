@@ -96,8 +96,8 @@ const PostView = ({ postId }: PostViewProps) => {
   const { profile } = useProfileContext();
   const setPostState = useSetRecoilState(PostState);
   const postMutation = useFindPost(postId);
-  const topics = useGetTopicsByCategory();
-  const checkModalTopicIds = topics && topics['회고'].map(v => v.id);
+  const { data: topics } = useGetTopicsByCategory();
+  const checkModalTopicIds = topics?.['회고']?.map(v => v.id);
 
   const getSelectedTopics = (category: TopicCategory) => {
     return topics && topics[category];
