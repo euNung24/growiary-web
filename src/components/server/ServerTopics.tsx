@@ -1,0 +1,16 @@
+import { PropsWithChildren } from 'react';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { getAllTopics } from '@/apis/topics/server';
+
+const ServerTopics = async ({ children }: PropsWithChildren) => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ['allTopics'],
+    queryFn: getAllTopics,
+  });
+
+  return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
+};
+
+export default ServerTopics;
