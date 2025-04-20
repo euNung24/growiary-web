@@ -7,6 +7,8 @@ import { sendGAEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
+import logo from '@assets/icons/logo/wide_white.png';
+import labtop from '@assets/images/landing_screen.png';
 
 const getCookieExpireDate = () => {
   const date = new Date();
@@ -46,7 +48,7 @@ const LandingView = () => {
           <h1 className="hidden">그루어리</h1>
           <Image
             className="mt-[98px] w-[114px] h-auto"
-            src="/assets/icons/logo/wide_white.png"
+            src={logo}
             alt="logo"
             width={114}
             height={27.5}
@@ -68,7 +70,7 @@ const LandingView = () => {
           </Button>
           <Image
             className="flex mb-5 sm:w-[80%]"
-            src="/assets/images/landing_screen.png"
+            src={labtop}
             alt="laptop"
             width={2188 / 3}
             height={1322 / 3}
