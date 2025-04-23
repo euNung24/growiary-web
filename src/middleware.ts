@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const EXCLUDED_PATHS = ['/landing', '/admin', 'assets', '/_next/static', '/_next/image'];
+const EXCLUDED_PATHS = [
+  '/landing',
+  '/login',
+  '/admin',
+  'assets',
+  '/_next/static',
+  '/_next/image',
+];
 const EXACT_EXCLUDED_PATHS = ['/favicon.ico', '/robots.txt', '/sitemap.xml'];
 
 export function middleware(request: NextRequest) {
@@ -40,6 +47,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|landing|assets).*)',
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|landing|login|assets).*)',
   ],
 };

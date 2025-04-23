@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { PostState } from '@/store/postStore';
 import { createPost } from '@/apis/post';
 import { ReqPostType } from '@/types/postTypes';
@@ -49,9 +49,9 @@ const LoginLoading = () => {
   const searchParams = useSearchParams();
   const { data: profile, refetch } = useGetProfile();
   const [firstPost, setFirstPost] = useRecoilState(PostState);
-  const [userState, setUserState] = useRecoilState(UserState);
   const isClient = useAvoidHydration();
   const queryClient = useQueryClient();
+  const userState = useRecoilValue(UserState);
 
   const key = searchParams.get('key') ?? '';
   const value = decrypt(key) ?? '';
@@ -104,10 +104,6 @@ const LoginLoading = () => {
     } else {
       if (userState.isAdminLogin) {
         push('/admin');
-        setUserState(v => ({
-          ...v,
-          isAdminLogin: false,
-        }));
       } else {
         push('/');
       }
