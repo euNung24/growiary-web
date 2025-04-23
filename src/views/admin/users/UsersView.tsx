@@ -27,8 +27,8 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
-import useAuthProfileContext from '@/hooks/admin/useAuthProfileContext';
 import { handleError } from '@/apis/token/client';
+import useGetProfile from '@/hooks/profile/useGetProfile';
 
 type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {
   profile: Pick<UsersType['profile'], 'nickname' | 'userId'>;
@@ -187,7 +187,7 @@ const columns: ColumnDef<UserTable>[] = [
 ];
 
 const UsersView = () => {
-  const { profile } = useAuthProfileContext();
+  const { data: profile } = useGetProfile();
   const userMutation = useGetAllUsers();
   const postByUserMutation = useGetPostsByUser();
 
