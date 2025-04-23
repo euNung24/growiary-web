@@ -38,9 +38,11 @@ async function withToken<T, V>(
     return await request();
   } catch (error) {
     if (error instanceof Error) {
-      await handleError(error);
+      const result = await handleError(error);
 
-      return await request();
+      if (result?.shouldRetry) {
+        return await request();
+      }
     } else {
       console.error('Unknown error occurred:', error);
     }

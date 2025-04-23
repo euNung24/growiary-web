@@ -59,7 +59,8 @@ export const handleError = async (error: Error) => {
   switch (error.message) {
     case 'Expired token': {
       await getNewAccessToken();
-      break;
+
+      return { shouldRetry: true };
     }
     case 'Invalid token': {
       await handleInvalidToken();

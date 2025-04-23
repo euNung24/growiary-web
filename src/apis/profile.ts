@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 
 const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';
 
-export const getProfile = async (): Promise<ProfileType> => {
+export const getProfile = async (): Promise<ProfileType | undefined> => {
   const request = async () => {
     const accessToken = Cookies.get('accessToken');
 
@@ -32,11 +32,13 @@ export const getProfile = async (): Promise<ProfileType> => {
     return await request();
   } catch (error) {
     if (error instanceof Error) {
-      await handleError(error);
+      const result = await handleError(error);
 
-      return await request();
+      if (result?.shouldRetry) {
+        return await request();
+      }
     } else {
-      throw error;
+      console.error('Unknown error occurred:', error);
     }
   }
 };
