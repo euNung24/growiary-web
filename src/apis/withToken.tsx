@@ -1,6 +1,5 @@
 import { handleError } from '@/apis/token/client';
 import { ApiSuccessResponse } from '@/types';
-import { setError } from '@/utils/error';
 import Cookies from 'js-cookie';
 
 type WithTokenType<T> = {
@@ -28,24 +27,18 @@ async function withToken<T, V>(
     });
 
     if (!response.ok) {
-      throw await setError(response);
+      if (response.status === 400) {
+        const message = await response.json();
+        throw new Error(message);
+      }
     }
-
     return response.json();
   };
 
   try {
     return await request();
   } catch (error) {
-    if (error instanceof Error) {
-      const result = await handleError(error);
-
-      if (result?.shouldRetry) {
-        return await request();
-      }
-    } else {
-      console.error('Unknown error occurred:', error);
-    }
+    await handleError(error, request);
   }
 }
 
@@ -68,22 +61,25 @@ export async function withTokenGet<T, V>(
     });
 
     if (!response.ok) {
-      throw await setError(response);
+      if (response.status === 400) {
+        let message = 'Unknown error';
+        try {
+          message = await response.json();
+        } catch (e) {
+          if (e instanceof Error) {
+            message = e.message;
+          }
+        }
+        throw new Error(message);
+      }
     }
-
     return response.json();
   };
 
   try {
     return await request();
   } catch (error) {
-    if (error instanceof Error) {
-      await handleError(error);
-
-      return await request();
-    } else {
-      throw error;
-    }
+    await handleError(error, request);
   }
 }
 
