@@ -1,5 +1,6 @@
 import { decrypt, encrypt } from '@/components/LoginLoading';
 import { browserQueryClient } from '@/components/providers/ReactQueryProvider';
+import { SERVER_ERROR } from '@/utils/error';
 import Cookies from 'js-cookie';
 
 let refreshingTokenPromise: Promise<string | void> | null = null;
@@ -50,7 +51,7 @@ const handleInvalidToken = () => {
 export const handleError = async (error: unknown, retry: () => Promise<unknown>) => {
   if (error instanceof Error) {
     switch (error.message) {
-      case '만료된 토큰입니다.': {
+      case SERVER_ERROR.EXPIRED_TOKEN: {
         try {
           const newAccessToken = await getNewAccessToken();
 
@@ -65,11 +66,11 @@ export const handleError = async (error: unknown, retry: () => Promise<unknown>)
         }
         break;
       }
-      case '유효하지 않은 토큰입니다.':
+      case SERVER_ERROR.INVALID_TOKEN:
         handleInvalidToken();
 
         break;
-      case '관리자만 접근 가능합니다.':
+      case SERVER_ERROR.ONLY_ADMIN_ACCESS:
         alert('관리자만 접근가능합니다.');
 
         break;
@@ -78,5 +79,5 @@ export const handleError = async (error: unknown, retry: () => Promise<unknown>)
     }
     return;
   }
-  throw new Error('Network response was not ok');
+  throw error;
 };
