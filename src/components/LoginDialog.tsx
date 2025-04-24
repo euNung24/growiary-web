@@ -10,17 +10,17 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import Image from 'next/image';
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import ServiceTerm from '@/views/common/ServiceTerm';
 import PrivateTerm from '@/views/common/PrivateTerm';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 
 type LoginDialogProps = {
-  children: ReactNode;
-};
+  open?: boolean;
+} & PropsWithChildren;
 
-const LoginDialog = ({ children }: LoginDialogProps) => {
+const LoginDialog = ({ open = false, children }: LoginDialogProps) => {
   const termsStyle = 'font-sb12 text-gray-700';
   const kakaoLogin = async () => {
     const url = 'https://kauth.kakao.com/oauth/authorize';
@@ -51,7 +51,7 @@ const LoginDialog = ({ children }: LoginDialogProps) => {
   };
 
   return (
-    <Dialog onOpenChange={open => onOpenChange(open)}>
+    <Dialog defaultOpen={open} onOpenChange={open => onOpenChange(open)}>
       <DialogTrigger asChild role="button" aria-label="login">
         {children}
       </DialogTrigger>
