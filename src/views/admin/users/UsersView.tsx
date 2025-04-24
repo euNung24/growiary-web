@@ -10,7 +10,7 @@ import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
 import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
 import { getFormatDate } from '@/utils';
 import Image from 'next/image';
-import { UnauthorizedError } from '@/utils/api';
+import { UnauthorizedError } from '@/apis/token/client';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';

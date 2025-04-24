@@ -1,6 +1,6 @@
 'use client';
 
-import { UnauthorizedError } from '@/utils/api';
+import { UnauthorizedError } from '@/apis/token/client';
 import { useQuery } from '@tanstack/react-query';
 import { getAllFeedback } from '@/apis/admin/feedbacks';
 import { useRouter } from 'next/navigation';

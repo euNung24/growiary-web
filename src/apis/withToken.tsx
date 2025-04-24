@@ -1,4 +1,4 @@
-import { handleError } from '@/utils/api';
+import { handleError } from '@/apis/token/client';
 import { ApiSuccessResponse } from '@/types';
 import { setError } from '@/utils/error';
 import Cookies from 'js-cookie';

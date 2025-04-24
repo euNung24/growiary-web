@@ -2,7 +2,7 @@ import { ProfileType } from '@/types/profileTypes';
 import withToken from '@/apis/withToken';
 import { BadgeKeyType } from '@/types/challengeTypes';
 import { ApiSuccessResponse } from '@/types';
-import { handleError } from '@/utils/api';
+import { handleError } from '@/apis/token/client';
 import { setError } from '@/utils/error';
 import Cookies from 'js-cookie';
 

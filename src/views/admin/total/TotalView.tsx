@@ -12,7 +12,7 @@ import AvgPostChart from '@/views/admin/total/AvgPostChart';
 import { getFormatDate } from '@/utils';
 import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
 import TotalCard from '@/views/admin/total/TotalCard';
-import { UnauthorizedError } from '@/utils/api';
+import { UnauthorizedError } from '@/apis/token/client';
 import { useRouter } from 'next/navigation';
 import useAuthProfileContext from '@/hooks/admin/useAuthProfileContext';
 
