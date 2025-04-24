@@ -16,6 +16,7 @@ import useGetProfile from '@/hooks/profile/useGetProfile';
 import { ALERT_ERROR_MESSAGE } from '@/utils/error';
 import LoginDialog from '@/components/LoginDialog';
 import { useAvoidHydration } from '@/hooks/useAvoidHydration';
+import { useQueryClient } from '@tanstack/react-query';
 
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
@@ -50,6 +51,7 @@ const LoginLoading = () => {
   const [firstPost, setFirstPost] = useRecoilState(PostState);
   const [userState, setUserState] = useRecoilState(UserState);
   const isClient = useAvoidHydration();
+  const queryClient = useQueryClient();
 
   const key = searchParams.get('key') ?? '';
   const value = decrypt(key) ?? '';
@@ -80,6 +82,9 @@ const LoginLoading = () => {
           ? ALERT_ERROR_MESSAGE[error as keyof typeof ALERT_ERROR_MESSAGE]
           : '오류가 발생했습니다. 다시 로그인 해주세요.',
       );
+      Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
+      queryClient.clear();
     }
   }, [isClient]);
 
