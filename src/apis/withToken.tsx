@@ -1,7 +1,7 @@
 import { handleError } from '@/utils/api';
-import { getCookie } from '@/utils';
 import { ApiSuccessResponse } from '@/types';
 import { setError } from '@/utils/error';
+import Cookies from 'js-cookie';
 
 type WithTokenType<T> = {
   body?: T;
@@ -13,7 +13,7 @@ async function withToken<T, V>(
   { body, abortController }: WithTokenType<V> = {},
 ): Promise<ApiSuccessResponse<T> | undefined> {
   const request = async () => {
-    const accessToken = getCookie('accessToken');
+    const accessToken = Cookies.get('accessToken');
 
     if (!accessToken) return;
 
@@ -54,7 +54,7 @@ export async function withTokenGet<T, V>(
   { body }: WithTokenType<V> = {},
 ): Promise<ApiSuccessResponse<T> | undefined> {
   const request = async () => {
-    const accessToken = getCookie('accessToken');
+    const accessToken = Cookies.get('accessToken');
 
     if (!accessToken) return {};
 

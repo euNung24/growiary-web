@@ -1,6 +1,5 @@
 import { decrypt, encrypt } from '@/components/LoginLoading';
 import { browserQueryClient } from '@/components/providers/ReactQueryProvider';
-import { getCookie } from '@/utils/index';
 import Cookies from 'js-cookie';
 
 let refreshingTokenPromise: Promise<string | void> | null = null;
@@ -13,7 +12,7 @@ const getNewAccessToken = async () => {
       method: 'POST',
       headers: {},
       body: JSON.stringify({
-        key: encrypt(getCookie('refreshToken')),
+        key: encrypt(Cookies.get('refreshToken') ?? ''),
       }),
     });
 
