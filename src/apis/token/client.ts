@@ -60,24 +60,23 @@ export const handleError = async (error: unknown, retry: () => Promise<unknown>)
           }
         } catch {
           clearAuthCookies();
-          alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
+          alert('토큰이 만료되었습니다. 다시 로그인해주세요');
           window.location.reload();
-          throw new Error('Redirected due to invalid token');
+          return;
         }
-        break;
+        return;
       }
       case SERVER_ERROR.INVALID_TOKEN:
         handleInvalidToken();
 
-        break;
+        return;
       case SERVER_ERROR.ONLY_ADMIN_ACCESS:
         alert('관리자만 접근가능합니다.');
 
-        break;
+        return;
       default:
         throw error;
     }
-    return;
   }
   throw error;
 };
