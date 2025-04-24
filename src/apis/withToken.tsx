@@ -28,8 +28,8 @@ async function withToken<T, V>(
 
     if (!response.ok) {
       if (response.status === 400) {
-        const message = await response.json();
-        throw new Error(message);
+        const res = await response.json();
+        throw new Error(res.message);
       }
     }
     return response.json();

@@ -21,7 +21,8 @@ export const getProfile = async (): Promise<ProfileType | undefined> => {
       if (response.status === 400) {
         let message = 'Unknown error';
         try {
-          message = await response.json();
+          const res = await response.json();
+          message = res.message;
         } catch (e) {
           if (e instanceof Error) {
             message = e.message;
