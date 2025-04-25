@@ -1,6 +1,6 @@
 import { decrypt, encrypt } from '@/components/LoginLoading';
 import { browserQueryClient } from '@/components/providers/ReactQueryProvider';
-import { SERVER_ERROR } from '@/utils/error';
+import { ALERT_ERROR_MESSAGE, SERVER_ERROR } from '@/utils/error';
 import Cookies from 'js-cookie';
 
 let refreshingTokenPromise: Promise<string | void> | null = null;
@@ -26,7 +26,10 @@ const getNewAccessToken = async () => {
     });
 
     if (!res.ok) {
-      throw new Error('토큰을 새로 발급할 수 없습니다.');
+      alert(ALERT_ERROR_MESSAGE.EXPIRED_TOKEN);
+      clearAuthCookies();
+      window.location.reload();
+      return;
     }
 
     const data = await res.json();
@@ -43,8 +46,8 @@ const getNewAccessToken = async () => {
 const handleInvalidToken = () => {
   if (refreshingTokenPromise) return refreshingTokenPromise;
 
+  alert(ALERT_ERROR_MESSAGE.INVALID_TOKEN);
   clearAuthCookies();
-  alert('유효하지 않은 토큰입니다. 다시 로그인해주세요.');
   window.location.href = '/landing';
 };
 
@@ -52,17 +55,10 @@ export const handleError = async (error: unknown, retry: () => Promise<unknown>)
   if (error instanceof Error) {
     switch (error.message) {
       case SERVER_ERROR.EXPIRED_TOKEN: {
-        try {
-          const newAccessToken = await getNewAccessToken();
+        const newAccessToken = await getNewAccessToken();
 
-          if (newAccessToken) {
-            return await retry();
-          }
-        } catch {
-          clearAuthCookies();
-          alert('토큰이 만료되었습니다. 다시 로그인해주세요');
-          window.location.reload();
-          return;
+        if (newAccessToken) {
+          return await retry();
         }
         return;
       }
@@ -71,8 +67,6 @@ export const handleError = async (error: unknown, retry: () => Promise<unknown>)
 
         return;
       case SERVER_ERROR.ONLY_ADMIN_ACCESS:
-        alert('관리자만 접근가능합니다.');
-
         return;
       default:
         throw error;
