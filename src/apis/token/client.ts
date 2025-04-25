@@ -67,6 +67,9 @@ export const handleError = async (error: unknown, retry: () => Promise<unknown>)
 
         return;
       case SERVER_ERROR.ONLY_ADMIN_ACCESS:
+        alert(ALERT_ERROR_MESSAGE.ONLY_ADMIN_ACCESS);
+        window.location.href = '/';
+
         return;
       default:
         throw error;
