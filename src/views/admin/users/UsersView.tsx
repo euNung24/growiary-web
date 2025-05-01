@@ -10,8 +10,6 @@ import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
 import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
 import { getFormatDate } from '@/utils';
 import Image from 'next/image';
-import { UnauthorizedError } from '@/apis/token/client';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';
 import * as React from 'react';
@@ -30,6 +28,7 @@ import {
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
 import useAuthProfileContext from '@/hooks/admin/useAuthProfileContext';
+import { handleError } from '@/apis/token/client';
 
 type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {
   profile: Pick<UsersType['profile'], 'nickname' | 'userId'>;
@@ -188,7 +187,6 @@ const columns: ColumnDef<UserTable>[] = [
 ];
 
 const UsersView = () => {
-  const router = useRouter();
   const { profile } = useAuthProfileContext();
   const userMutation = useGetAllUsers();
   const postByUserMutation = useGetPostsByUser();
@@ -269,7 +267,7 @@ const UsersView = () => {
           setIsAdmin(true);
         })
         .catch(error => {
-          UnauthorizedError(error).then(() => router.push('/'));
+          handleError(error);
         });
     },
     [profile, isClient],

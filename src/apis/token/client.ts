@@ -51,14 +51,14 @@ const handleInvalidToken = () => {
   window.location.href = '/landing';
 };
 
-export const handleError = async (error: unknown, retry: () => Promise<unknown>) => {
+export const handleError = async (error: unknown, retry?: () => Promise<unknown>) => {
   if (error instanceof Error) {
     switch (error.message) {
       case SERVER_ERROR.EXPIRED_TOKEN: {
         const newAccessToken = await getNewAccessToken();
 
         if (newAccessToken) {
-          return await retry();
+          return await retry?.();
         }
         return;
       }

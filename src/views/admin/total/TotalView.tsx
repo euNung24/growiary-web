@@ -12,9 +12,8 @@ import AvgPostChart from '@/views/admin/total/AvgPostChart';
 import { getFormatDate } from '@/utils';
 import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
 import TotalCard from '@/views/admin/total/TotalCard';
-import { UnauthorizedError } from '@/apis/token/client';
-import { useRouter } from 'next/navigation';
 import useAuthProfileContext from '@/hooks/admin/useAuthProfileContext';
+import { handleError } from '@/apis/token/client';
 
 const isTodayPost = (postDate: string) => {
   return format(new Date(postDate), 'yyyyMMdd') === format(new Date(), 'yyyyMMdd');
@@ -29,7 +28,6 @@ type Info = {
   prevMau: number;
 };
 const TotalView = () => {
-  const router = useRouter();
   const { profile } = useAuthProfileContext();
   const {
     date: { year, month, date, day },
@@ -70,7 +68,7 @@ const TotalView = () => {
           setIsAdmin(true);
         })
         .catch(error => {
-          UnauthorizedError(error).then(() => router.push('/'));
+          handleError(error);
         });
     },
     [profile, isClient],
