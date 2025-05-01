@@ -12,7 +12,8 @@ import labtop from '@assets/images/landing_screen.png';
 
 const getCookieExpireDate = () => {
   const date = new Date();
-  date.setHours(date.getHours() + 1);
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() + 1);
 
   return date;
 };
