@@ -1,40 +1,9 @@
-'use client';
-
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { tracking } from '@/utils/mixPanel';
-import { sendGAEvent } from '@next/third-parties/google';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
-import { useEffect } from 'react';
 import logo from '@assets/icons/logo/wide_white.png';
 import labtop from '@assets/images/landing_screen.png';
+import { PropsWithChildren } from 'react';
 
-const getCookieExpireDate = () => {
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-  date.setDate(date.getDate() + 1);
-
-  return date;
-};
-
-const LandingView = () => {
-  const router = useRouter();
-
-  const handleClickStart = () => {
-    Cookies.set('hasVisited', 'Y', {
-      expires: getCookieExpireDate(),
-    });
-    tracking(`메인 페이지`);
-    sendGAEvent({ event: '메인 페이지' });
-    router.push('/');
-  };
-
-  useEffect(() => {
-    tracking(`랜딩 페이지`);
-    sendGAEvent({ event: '랜딩 페이지' });
-  }, []);
-
+const LandingView = ({ children }: PropsWithChildren) => {
   return (
     <>
       <div className="relative bg-primary-900 w-screen h-screen sm:h-auto flex justify-center overflow-hidden">
@@ -61,14 +30,7 @@ const LandingView = () => {
               나만의 생각과 경험, 일상을 기록하고 데이터로 확인하세요
             </p>
           </div>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="text-gray-900 bg-secondary-400"
-            onClick={handleClickStart}
-          >
-            그루어리 시작하기
-          </Button>
+          {children}
           <Image
             className="flex mb-5 sm:w-[80%]"
             src={labtop}
