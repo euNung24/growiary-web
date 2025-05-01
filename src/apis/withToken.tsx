@@ -1,7 +1,6 @@
-import { handleError } from '@/utils/api';
-import { getCookie } from '@/utils';
+import { handleError } from '@/apis/token/client';
 import { ApiSuccessResponse } from '@/types';
-import { setError } from '@/utils/error';
+import Cookies from 'js-cookie';
 
 type WithTokenType<T> = {
   body?: T;
@@ -13,7 +12,7 @@ async function withToken<T, V>(
   { body, abortController }: WithTokenType<V> = {},
 ): Promise<ApiSuccessResponse<T> | undefined> {
   const request = async () => {
-    const accessToken = getCookie('accessToken');
+    const accessToken = Cookies.get('accessToken');
 
     if (!accessToken) return;
 
@@ -28,22 +27,18 @@ async function withToken<T, V>(
     });
 
     if (!response.ok) {
-      throw await setError(response);
+      if (response.status === 400) {
+        const res = await response.json();
+        throw new Error(res.message);
+      }
     }
-
     return response.json();
   };
 
   try {
     return await request();
   } catch (error) {
-    if (error instanceof Error) {
-      await handleError(error);
-
-      return await request();
-    } else {
-      console.error('Unknown error occurred:', error);
-    }
+    await handleError(error, request);
   }
 }
 
@@ -52,7 +47,7 @@ export async function withTokenGet<T, V>(
   { body }: WithTokenType<V> = {},
 ): Promise<ApiSuccessResponse<T> | undefined> {
   const request = async () => {
-    const accessToken = getCookie('accessToken');
+    const accessToken = Cookies.get('accessToken');
 
     if (!accessToken) return {};
 
@@ -66,22 +61,25 @@ export async function withTokenGet<T, V>(
     });
 
     if (!response.ok) {
-      throw await setError(response);
+      if (response.status === 400) {
+        let message = 'Unknown error';
+        try {
+          message = await response.json();
+        } catch (e) {
+          if (e instanceof Error) {
+            message = e.message;
+          }
+        }
+        throw new Error(message);
+      }
     }
-
     return response.json();
   };
 
   try {
     return await request();
   } catch (error) {
-    if (error instanceof Error) {
-      await handleError(error);
-
-      return await request();
-    } else {
-      throw error;
-    }
+    await handleError(error, request);
   }
 }
 

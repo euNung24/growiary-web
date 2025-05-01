@@ -13,6 +13,10 @@ import { createPost } from '@/apis/post';
 import { ReqPostType } from '@/types/postTypes';
 import { UserState } from '@/store/userStore';
 import useGetProfile from '@/hooks/profile/useGetProfile';
+import { ALERT_ERROR_MESSAGE } from '@/utils/error';
+import LoginDialog from '@/components/LoginDialog';
+import { useAvoidHydration } from '@/hooks/useAvoidHydration';
+import { useQueryClient } from '@tanstack/react-query';
 
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
@@ -39,17 +43,23 @@ export function decrypt(encryptedText: string) {
     return null;
   }
 }
+
 const LoginLoading = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const { data: profile, refetch } = useGetProfile();
   const [firstPost, setFirstPost] = useRecoilState(PostState);
   const [userState, setUserState] = useRecoilState(UserState);
+  const isClient = useAvoidHydration();
+  const queryClient = useQueryClient();
 
   const key = searchParams.get('key') ?? '';
   const value = decrypt(key) ?? '';
   const accessToken = value ? JSON.parse(value).accessToken : '';
   const refreshToken = value ? JSON.parse(value).refreshToken : '';
+
+  const error = searchParams.get('error') ?? '';
+  const isServerError = Object.keys(ALERT_ERROR_MESSAGE).includes(error);
 
   const createPostByPostValue = async () =>
     await createPost(firstPost).then(res => {
@@ -58,15 +68,28 @@ const LoginLoading = () => {
     });
 
   useEffect(() => {
+    if (!isClient) return;
+
     if (accessToken) {
       Cookies.set('accessToken', accessToken);
       Cookies.set('refreshToken', refreshToken);
       refetch();
     }
-  }, []);
+
+    if (error) {
+      alert(
+        isServerError
+          ? ALERT_ERROR_MESSAGE[error as keyof typeof ALERT_ERROR_MESSAGE]
+          : '오류가 발생했습니다. 다시 로그인 해주세요.',
+      );
+      Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
+      queryClient.clear();
+    }
+  }, [isClient]);
 
   useEffect(() => {
-    if (!profile) return;
+    if (!isClient || !profile || error) return;
 
     if (profile.social) {
       tracking(`SNS 로그인 ${profile.social}`);
@@ -89,7 +112,15 @@ const LoginLoading = () => {
         push('/');
       }
     }
-  }, [profile]);
+  }, [profile, error, isClient]);
+
+  if (!isClient) {
+    return null;
+  }
+
+  if (error) {
+    return <LoginDialog open />;
+  }
 
   return <>Loading</>;
 };

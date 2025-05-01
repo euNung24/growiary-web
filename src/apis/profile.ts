@@ -2,13 +2,12 @@ import { ProfileType } from '@/types/profileTypes';
 import withToken from '@/apis/withToken';
 import { BadgeKeyType } from '@/types/challengeTypes';
 import { ApiSuccessResponse } from '@/types';
-import { handleError } from '@/utils/api';
-import { setError } from '@/utils/error';
+import { handleError } from '@/apis/token/client';
 import Cookies from 'js-cookie';
 
 const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';
 
-export const getProfile = async (): Promise<ProfileType> => {
+export const getProfile = async (): Promise<ProfileType | undefined> => {
   const request = async () => {
     const accessToken = Cookies.get('accessToken');
 
@@ -22,22 +21,26 @@ export const getProfile = async (): Promise<ProfileType> => {
     });
 
     if (!response.ok) {
-      throw await setError(response);
+      if (response.status === 400) {
+        let message = 'Unknown error';
+        try {
+          const res = await response.json();
+          message = res.message;
+        } catch (e) {
+          if (e instanceof Error) {
+            message = e.message;
+          }
+        }
+        throw new Error(message);
+      }
     }
-
-    return await response.json();
+    return response.json();
   };
 
   try {
     return await request();
   } catch (error) {
-    if (error instanceof Error) {
-      await handleError(error);
-
-      return await request();
-    } else {
-      throw error;
-    }
+    await handleError(error, request);
   }
 };
 
