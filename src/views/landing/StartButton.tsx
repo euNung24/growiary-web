@@ -24,6 +24,7 @@ const StartButton = () => {
     });
     tracking(`메인 페이지`);
     sendGAEvent({ event: '메인 페이지' });
+    performance.mark('landing-to-main-start');
     router.push('/');
   };
 

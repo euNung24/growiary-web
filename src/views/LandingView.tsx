@@ -3,7 +3,7 @@ import logo from '@assets/icons/logo/wide_white.png';
 import labtop from '@assets/images/landing_screen.png';
 import { PropsWithChildren } from 'react';
 
-const LandingView = ({ children }: PropsWithChildren) => {
+const LandingView = async ({ children }: PropsWithChildren) => {
   return (
     <>
       <main className="relative bg-primary-900 w-screen h-screen sm:h-auto flex justify-center overflow-hidden">
