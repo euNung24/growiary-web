@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import logo from '@assets/icons/logo/wide_white.png';
-import labtop from '@assets/images/landing_screen.png';
 import { PropsWithChildren } from 'react';
 
 const LandingView = async ({ children }: PropsWithChildren) => {
@@ -18,7 +16,7 @@ const LandingView = async ({ children }: PropsWithChildren) => {
           <h1 className="hidden">그루어리</h1>
           <Image
             className="mt-[98px] w-[114px] h-auto"
-            src={logo}
+            src="/assets/icons/logo/wide_white.png"
             alt="logo"
             width={114}
             height={27.5}
@@ -33,7 +31,7 @@ const LandingView = async ({ children }: PropsWithChildren) => {
           {children}
           <Image
             className="flex mb-5 sm:w-[80%]"
-            src={labtop}
+            src="/assets/images/landing_screen.png"
             alt="laptop"
             width={2188 / 3}
             height={1322 / 3}
