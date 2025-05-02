@@ -74,8 +74,6 @@ const PostView = ({ postId }: PostViewProps) => {
   );
 
   const movePageAfterSubmit = (post: ResPostType) => {
-    console.log('postview', form.formState.isDirty && !isSubmitSuccessful);
-
     router.push(`/history/${post.id}`);
     toast({
       description: '기록이 저장되었습니다',
