@@ -1,4 +1,4 @@
-import LandingTracking from '@/views/landing/LandingTracking';
+import LandingInitEffects from '@/views/landing/LandingInitEffects';
 import StartButton from '@/views/landing/StartButton';
 import LandingView from '@/views/LandingView';
 
@@ -8,7 +8,7 @@ export default async function Home() {
       <LandingView>
         <StartButton />
       </LandingView>
-      <LandingTracking />
+      <LandingInitEffects />
     </>
   );
 }

@@ -6,7 +6,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 import { browserQueryClient } from '@/components/providers/ReactQueryProvider';
 import { getProfile } from '@/apis/profile';
 
-const LandingTracking = () => {
+const LandingInitEffects = () => {
   useEffect(() => {
     tracking(`랜딩 페이지`);
     sendGAEvent({ event: '랜딩 페이지' });
@@ -23,4 +23,4 @@ const LandingTracking = () => {
   return null;
 };
 
-export default LandingTracking;
+export default LandingInitEffects;
