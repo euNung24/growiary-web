@@ -1,21 +1,24 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { TopicCategory } from '@/types/topicTypes';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
-import { MENU_NAMES } from '@/utils';
-import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
-import useProfileContext from '@/hooks/profile/useProfileContext';
-import LinkOrLogin from '@/components/LinkOrLogin';
+
 import { cn } from '@/lib/utils';
+import { MENU_NAMES } from '@/utils';
 import { onTrackingHandler } from '@/utils/trackingAnalytics';
+import { TopicCategory } from '@/types/topicTypes';
+
+import useGetProfile from '@/hooks/profile/useGetProfile';
+import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import LinkOrLogin from '@/components/LinkOrLogin';
 import HomeTopicCard from '@/views/home/HomeTopicCard';
 
 const TOTAL_TOPIC_COUNT = 6;
 
 const HomeTopic = () => {
-  const { profile } = useProfileContext();
+  const { data: profile } = useGetProfile();
   const { data } = useGetTopicsByCategory();
 
   const categories = Object.keys(data || []) as TopicCategory[];
