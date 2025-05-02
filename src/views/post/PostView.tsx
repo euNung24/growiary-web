@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { createPost, updatePost } from '@/apis/post';
@@ -152,7 +152,9 @@ const PostView = ({ postId }: PostViewProps) => {
           })}
         />
         <FormOptions />
-        <FormContent selectedTopic={selectedTopic} />
+        <Suspense>
+          <FormContent selectedTopic={selectedTopic} />
+        </Suspense>
         <FormFooter />
       </form>
       <StopMovePage isPreventCondition={form.formState.isDirty && !isSubmitSuccessful} />
