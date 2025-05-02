@@ -1,40 +1,10 @@
-'use client';
-
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { tracking } from '@/utils/mixPanel';
-import { sendGAEvent } from '@next/third-parties/google';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import { PropsWithChildren } from 'react';
 
-const getCookieExpireDate = () => {
-  const date = new Date();
-  date.setHours(date.getHours() + 1);
-
-  return date;
-};
-
-const LandingView = () => {
-  const router = useRouter();
-
-  const handleClickStart = () => {
-    Cookies.set('hasVisited', 'Y', {
-      expires: getCookieExpireDate(),
-    });
-    tracking(`메인 페이지`);
-    sendGAEvent({ event: '메인 페이지' });
-    router.push('/');
-  };
-
-  useEffect(() => {
-    tracking(`랜딩 페이지`);
-    sendGAEvent({ event: '랜딩 페이지' });
-  }, []);
-
+const LandingView = async ({ children }: PropsWithChildren) => {
   return (
     <>
-      <div className="relative bg-primary-900 w-screen h-screen sm:h-auto flex justify-center overflow-hidden">
+      <main className="relative bg-primary-900 w-screen h-screen sm:h-auto flex justify-center overflow-hidden">
         <div
           className="absolute w-[960px] h-[960px] mt-[22px] rounded-full opacity-[0.2]"
           style={{
@@ -42,7 +12,7 @@ const LandingView = () => {
               'linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 75.5%)',
           }}
         ></div>
-        <div className="flex flex-col items-center gap-y-8 text-white-0 mt-8 text-center z-10">
+        <section className="flex flex-col items-center gap-y-8 text-white-0 mt-8 text-center z-10">
           <h1 className="hidden">그루어리</h1>
           <Image
             className="mt-[98px] w-[114px] h-auto"
@@ -58,14 +28,7 @@ const LandingView = () => {
               나만의 생각과 경험, 일상을 기록하고 데이터로 확인하세요
             </p>
           </div>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="text-gray-900 bg-secondary-400"
-            onClick={handleClickStart}
-          >
-            그루어리 시작하기
-          </Button>
+          {children}
           <Image
             className="flex mb-5 sm:w-[80%]"
             src="/assets/images/landing_screen.png"
@@ -74,8 +37,8 @@ const LandingView = () => {
             height={1322 / 3}
             priority
           />
-        </div>
-      </div>
+        </section>
+      </main>
       <footer className="bg-[#002861] opacity-50">
         <div className="pt-[54px] pl-[157px] pb-[21px] text-gray-100 flex flex-col gap-y-3 font-r14 sm:pl-7">
           <Image
@@ -92,8 +55,9 @@ const LandingView = () => {
               <dl className="flex [&>*]:flex flex-wrap sm:flex-col">
                 <div>
                   <dt>대표자 : &nbsp;</dt>
-                  <dd>배건우</dd>
-                  <span className="sm:hidden">&nbsp;|&nbsp;</span>
+                  <dd className='after:content-["|"] after:mx-1 sm:after:hidden'>
+                    배건우
+                  </dd>
                 </div>
                 <div>
                   <dt>사업자등록번호 : &nbsp;</dt>
@@ -103,8 +67,9 @@ const LandingView = () => {
               <dl className="flex [&>*]:flex flex-wrap sm:flex-col">
                 <div>
                   <dt>대표번호 : &nbsp;</dt>
-                  <dd>0507-0178-0372</dd>
-                  <span className="sm:hidden">&nbsp;|&nbsp;</span>
+                  <dd className='after:content-["|"] after:mx-1 sm:after:hidden'>
+                    0507-0178-0372
+                  </dd>
                 </div>
                 <div>
                   <dt>주소지 : &nbsp;</dt>
