@@ -1,6 +1,7 @@
 import LinkOrLogin from '@/components/LinkOrLogin';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from '@/components/ui/use-toast';
 import { TopicCategory, TopicType } from '@/types/topicTypes';
 import { genRandomNum } from '@/utils';
 import { topicCategory } from '@/utils/topicCategory';
@@ -46,6 +47,9 @@ const HomeTopicCard = ({ category, topics }: HomeTopicCardProps) => {
 
     if (topics.length <= 1) {
       trackingAnalytics(`오늘의 추천 주제_새로고침(${category})`);
+      toast({
+        description: '이 카테고리에 더 이상 주제가 없습니다.',
+      });
 
       return;
     }
