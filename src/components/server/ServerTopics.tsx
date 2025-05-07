@@ -8,6 +8,7 @@ const ServerTopics = async ({ children }: PropsWithChildren) => {
   await queryClient.prefetchQuery({
     queryKey: ['allTopics'],
     queryFn: getAllTopics,
+    staleTime: 60 * 60 * 1000
   });
 
   return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
