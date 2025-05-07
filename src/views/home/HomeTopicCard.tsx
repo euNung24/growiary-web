@@ -44,6 +44,12 @@ const HomeTopicCard = ({ category, topics }: HomeTopicCardProps) => {
 
     let newRandomTopicIdx;
 
+    if (topics.length <= 1) {
+      trackingAnalytics(`오늘의 추천 주제_새로고침(${category})`);
+
+      return;
+    }
+
     while (newRandomTopicIdx === undefined || newRandomTopicIdx === randomTopicIdx) {
       newRandomTopicIdx = genRandomNum(0, topics.length);
     }
