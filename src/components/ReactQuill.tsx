@@ -115,11 +115,13 @@ const ReactQuill = forwardRef<Quill, ReactQuillProps>(
         if (!quill) return;
 
         // placeholder 세팅
-        if (placeholder) {
-          placeholderContainerRef.current!.style.display = 'none';
-          quill.clipboard.dangerouslyPasteHTML(placeholder);
-        } else {
-          placeholderContainerRef.current!.innerHTML = `<p>자유롭게 작성할 수 있어요.</p>`;
+        if (placeholderContainerRef.current) {
+          if (placeholder) {
+            placeholderContainerRef.current.style.display = 'none';
+            quill.clipboard.dangerouslyPasteHTML(placeholder);
+          } else {
+            placeholderContainerRef.current.innerHTML = `<p>자유롭게 작성할 수 있어요.</p>`;
+          }
         }
 
         if (defaultValue) {
