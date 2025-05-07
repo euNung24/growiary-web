@@ -105,8 +105,6 @@ const StopMovePage = ({ isPreventCondition }: StopMovePageProps) => {
     if (isPreventCondition) {
       const newPush = async (href: string, options?: NavigateOptions | undefined) => {
         // 페이지를 벗어나지 않아야 하는 경우
-        console.log('in', isPreventCondition);
-
         if (!(await handleOpenStopModal())) {
           return;
         }
