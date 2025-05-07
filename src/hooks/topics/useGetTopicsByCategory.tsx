@@ -2,19 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getAllTopics } from '@/apis/topics';
-import { useEffect } from 'react';
 import { TopicCategory, TopicType } from '@/types/topicTypes';
 
 const useGetTopicsByCategory = () => {
-  const {
-    data: data,
-    isError,
-    isSuccess,
-    error,
-  } = useQuery({
+  return useQuery({
     queryKey: ['allTopics'],
     queryFn: getAllTopics,
-    staleTime: Infinity,
+    staleTime: 60 * 60 * 1 * 1000,
     select: data => {
       const filteredByCategory: Record<TopicCategory, TopicType[]> = data.data.reduce(
         (f, v) => {
@@ -29,17 +23,6 @@ const useGetTopicsByCategory = () => {
       return filteredByCategory;
     },
   });
-
-  useEffect(() => {
-    if (isError) {
-      alert(error.message);
-    }
-    if (isSuccess && data) {
-      // console.log('select', data);
-    }
-  }, [data]);
-
-  return data;
 };
 
 export default useGetTopicsByCategory;

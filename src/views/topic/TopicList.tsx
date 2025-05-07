@@ -12,7 +12,7 @@ type TopicListProps = {
   currentCategory: TopicCategory;
 };
 const TopicList = ({ currentCategory }: TopicListProps) => {
-  const topics = useGetTopicsByCategory();
+  const { data: topics } = useGetTopicsByCategory();
   const { data } = useGetRecommendedTopic();
   const bestTopics = data?.category;
   const [currentTopics, setCurrentTopics] = useState<TopicType[]>([]);
@@ -20,7 +20,7 @@ const TopicList = ({ currentCategory }: TopicListProps) => {
   useEffect(() => {
     if (!bestTopics || !topics) return;
     const bestTopic = bestTopics[currentCategory];
-    const filteredBestTopic = topics[currentCategory].filter(
+    const filteredBestTopic = topics[currentCategory]?.filter(
       topic => topic.id !== bestTopic.id,
     );
     setCurrentTopics(

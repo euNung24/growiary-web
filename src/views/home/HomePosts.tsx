@@ -22,9 +22,9 @@ import LinkOrLogin from '@/components/LinkOrLogin';
 import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/types/topicTypes';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import { tracking } from '@/utils/mixPanel';
-import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/components/ui/skeleton';
+import { onTrackingHandler } from '@/utils/trackingAnalytics';
+import { cn } from '@/lib/utils';
 
 const SAMPLE_POSTS: (Pick<ResPostType, 'title' | 'tags'> & {
   topic: {
@@ -80,25 +80,19 @@ const HomePosts = () => {
     <section>
       <div className="flex justify-between">
         <h2 className="title">나의 기록</h2>
-        <Button variant="ghostGray" size="sm" className="text-gray-500 font-sb12" asChild>
-          <LinkOrLogin
-            href="/history"
-            isLogin={!!posts}
-            handleClick={() => {
-              tracking(MENU_NAMES['나의 기록들']);
-              sendGAEvent({ event: MENU_NAMES['나의 기록들'] });
-            }}
+        <LinkOrLogin
+          href="/history"
+          handleClick={onTrackingHandler(MENU_NAMES['나의 기록들'])}
+        >
+          <Button
+            variant="ghostGray"
+            size="sm"
+            className={cn('text-gray-500 font-sb12', !profile && 'p-0')}
+            asChild={!!profile}
           >
-            <Button
-              variant="ghostGray"
-              size="sm"
-              className="text-gray-500 font-sb12 p-0 cursor-pointer"
-              asChild
-            >
-              <span>전체보기</span>
-            </Button>
-          </LinkOrLogin>
-        </Button>
+            <span>전체보기</span>
+          </Button>
+        </LinkOrLogin>
       </div>
       <p className={headerDescriptionStyle}>오늘의 기록을 작성해주세요</p>
       <div className="flex gap-5 flex-wrap">
