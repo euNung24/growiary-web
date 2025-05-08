@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { Braces, List } from 'lucide-react';
 import { sendGAEvent } from '@next/third-parties/google';
 
-import '@/shared/components/editor.css';
+import '@user/post/components/editor.css';
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import { getStringDateAndTime } from '@/shared/utils';
