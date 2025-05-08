@@ -1,4 +1,4 @@
-import { ResPostType } from '@/types/postTypes';
+import { ResPostType } from '@/post/types';
 import { TopicCategory } from '@/types/topicTypes';
 
 export const SAMPLE_CATEGORY_DATA: Record<TopicCategory, number> = {

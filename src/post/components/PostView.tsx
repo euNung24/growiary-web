@@ -7,21 +7,21 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { createPost, updatePost } from '@/apis/post';
-import { ReqPostType, ResPostType } from '@/types/postTypes';
+import { createPost, updatePost } from '@/post/api';
+import { ReqPostType, ResPostType } from '@/post/types';
 import { TopicCategory } from '@/types/topicTypes';
 import { NO_TOPIC_ID } from '@/utils';
 import { trackingAnalytics } from '@/utils/trackingAnalytics';
-import useFindPost from '@/hooks/posts/useFindPost';
+import useFindPost from '@/post/hooks/useFindPost';
 import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import StopMovePage from '@/components/StopMovePage';
-import FormFooter from '@/views/post/FormFooter';
-import FormContent from '@/views/post/FormContent';
-import FormOptions from '@/views/post/FormOptions';
-import { PostState } from '@/store/postStore';
+import FormFooter from '@/post/components/FormFooter';
+import FormContent from '@/post/components/FormContent';
+import FormOptions from '@/post/components/FormOptions';
+import { PostState } from '@/post/store';
 
 export const FormSchema = z.object({
   topicId: z.string().min(1),

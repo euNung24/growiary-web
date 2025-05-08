@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { ReqPostType } from '@/types/postTypes';
+import { ReqPostType } from '@/post/types';
 import { sessionStorageEffect } from '@/store/index';
 
 export type PostStoreType = {

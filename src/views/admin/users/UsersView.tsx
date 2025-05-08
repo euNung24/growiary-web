@@ -5,7 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { UsersType } from '@/types/admin/usersTypes';
 import { addDays, format, set, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@/types/postTypes';
+import { ResPostType } from '@/post/types';
 import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
 import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
 import { getFormatDate } from '@/utils';

@@ -1,6 +1,6 @@
 import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@/types/postTypes';
+import { ResPostType } from '@/post/types';
 import Chip from '@/components/Chip';
 import { cn } from '@/lib/utils';
 

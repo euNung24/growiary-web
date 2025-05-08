@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import DailyChecker from '@/components/DailyChecker';
-import { getDailyCheckerPost } from '@/apis/post';
+import { getDailyCheckerPost } from '@/post/api';
 import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
-import { DailyCheckerType } from '@/types/postTypes';
+import { DailyCheckerType } from '@/post/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { tracking } from '@/utils/mixPanel';

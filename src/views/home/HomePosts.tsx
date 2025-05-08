@@ -13,8 +13,8 @@ import {
 import { useEffect, useState } from 'react';
 import { getTwoFormatDate, MENU_NAMES } from '@/utils';
 import NewCard from '@/components/NewCard';
-import { ResPostType } from '@/types/postTypes';
-import useGetPosts from '@/hooks/posts/useGetPosts';
+import { ResPostType } from '@/post/types';
+import useGetPosts from '@/post/hooks/useGetPosts';
 import '../../components/editor.css';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';

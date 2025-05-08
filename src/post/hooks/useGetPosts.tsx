@@ -1,6 +1,6 @@
 'use client';
 
-import { getAllPosts } from '@/apis/post';
+import { getAllPosts } from '@/post/api';
 import { useMutation } from '@tanstack/react-query';
 
 const useGetPosts = () => {

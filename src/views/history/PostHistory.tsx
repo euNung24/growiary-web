@@ -21,8 +21,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import useProfileContext from '@/hooks/profile/useProfileContext';
-import { ResPostType } from '@/types/postTypes';
-import { deletePost } from '@/apis/post';
+import { ResPostType } from '@/post/types';
+import { deletePost } from '@/post/api';
 import { toast } from '@/components/ui/use-toast';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';

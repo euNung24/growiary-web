@@ -1,9 +1,4 @@
-import {
-  DailyCheckerType,
-  ReqPostType,
-  ResPostType,
-  UpdatePostType,
-} from '@/types/postTypes';
+import { DailyCheckerType, ReqPostType, ResPostType, UpdatePostType } from '@/post/types';
 import withToken from '@/apis/withToken';
 import { TopicCategory } from '@/types/topicTypes';
 import { ApiSuccessResponse } from '@/types';

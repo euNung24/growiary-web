@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Triangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@/types/postTypes';
+import { ResPostType } from '@/post/types';
 import useReportContext from '@/hooks/report/useReportContext';
 import { format } from 'date-fns';
 import { ReportByCharCountType } from '@/types/reportTypes';
