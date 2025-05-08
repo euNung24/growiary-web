@@ -15,10 +15,10 @@ import useGetMonthlyPosts from '@/post/hooks/useGetMonthlyPosts';
 import { Button } from '@/components/ui/button';
 import useProfileContext from '@/profile/hooks/useProfileContext';
 import LoginDialog from '@/components/LoginDialog';
-import CategoryHistory from '@/views/history/CategoryHistory';
-import TodayNewPost from '@/views/history/TodayNewPost';
-import PostHistory from '@/views/history/PostHistory';
-import CalendarHistory from '@/views/history/CalendarHistory';
+import CategoryHistory from '@/history/components/CategoryHistory';
+import TodayNewPost from '@/history/components/TodayNewPost';
+import PostHistory from '@/history/components/PostHistory';
+import CalendarHistory from '@/history/components/CalendarHistory';
 
 type HistoryPostType = {
   [key: string]: ResPostType[];

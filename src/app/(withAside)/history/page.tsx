@@ -1,5 +1,6 @@
-import HistoryView from '@/views/history/HistoryView';
+import HistoryView from '@/history/components/HistoryView';
 import Preview from '@/views/common/Preview';
+
 export default function Home() {
   return (
     <>
