@@ -3,7 +3,7 @@
 import LoginDialog from '@/shared/components/LoginDialog';
 import { Button } from '@/shared/components/ui/button';
 import { usePathname } from 'next/navigation';
-import useProfileContext from '@/profile/hooks/useProfileContext';
+import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 
 const TopStartButton = () => {
   const pathname = usePathname();

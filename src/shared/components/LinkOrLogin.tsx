@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import LoginDialog from '@/shared/components/LoginDialog';
-import useProfileContext from '@/profile/hooks/useProfileContext';
+import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 
 type LinkOrLoginProps = {
   href: string;

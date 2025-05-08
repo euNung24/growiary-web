@@ -25,7 +25,7 @@ import {
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip';
 import useChangeUserTitleBadge from '@/domain/challenge/hooks/useChangeUserTitleBadge';
-import useProfileContext from '@/profile/hooks/useProfileContext';
+import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { cn } from '@/shared/utils/cn';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';

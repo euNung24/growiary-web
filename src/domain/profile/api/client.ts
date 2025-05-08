@@ -1,4 +1,4 @@
-import { ProfileType } from '@/profile/type';
+import { ProfileType } from '@/domain/profile/type';
 import withToken from '@/shared/apis/withToken';
 import { BadgeKeyType } from '@/domain/challenge/type';
 import { ApiSuccessResponse } from '@/shared/types';

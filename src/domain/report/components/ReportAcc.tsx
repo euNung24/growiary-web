@@ -4,7 +4,7 @@ import { cn } from '@/shared/utils/cn';
 import { ReportType } from '@/domain/report/type';
 import { useRecoilValue } from 'recoil';
 import { ReportState } from '@/domain/report/store';
-import useProfileContext from '@/profile/hooks/useProfileContext';
+import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { useMemo } from 'react';
 
 const SAMPLE_DATA = [1028, 36, 732060, 24511];

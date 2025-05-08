@@ -1,4 +1,4 @@
-import { ProfileType } from '@/profile/type';
+import { ProfileType } from '@/domain/profile/type';
 import { ChallengeType } from '@/domain/challenge/type';
 
 export type UsersType = Pick<ProfileType, 'userId' | 'social' | 'email' | 'createdAt'> & {

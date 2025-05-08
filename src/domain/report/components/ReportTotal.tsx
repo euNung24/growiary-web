@@ -3,7 +3,7 @@ import Chip from '@/shared/components/Chip';
 import useReportContext from '@/domain/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import { ReportByTopicType } from '@/domain/report/type';
-import useProfileContext from '@/profile/hooks/useProfileContext';
+import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { TIME, WEEK } from '@/shared/utils';
 import { SAMPLE_REPORT } from '@/shared/utils/report';
 

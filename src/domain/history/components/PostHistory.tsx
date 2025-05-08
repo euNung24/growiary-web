@@ -20,7 +20,7 @@ import {
   AlertDialogTitleIcon,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
-import useProfileContext from '@/profile/hooks/useProfileContext';
+import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { ResPostType } from '@/domain/post/types';
 import { deletePost } from '@/domain/post/api';
 import { toast } from '@/shared/components/ui/use-toast';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getProfile } from '@/profile/api/client';
+import { getProfile } from '@/domain/profile/api/client';
 import Cookies from 'js-cookie';
 
 const useGetProfile = () => {

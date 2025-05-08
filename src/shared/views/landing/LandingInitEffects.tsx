@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { browserQueryClient } from '@/shared/components/providers/ReactQueryProvider';
-import { getProfile } from '@/profile/api/client';
+import { getProfile } from '@/domain/profile/api/client';
 
 const LandingInitEffects = () => {
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { updateUserTitleBadge } from '@/profile/api/client';
+import { updateUserTitleBadge } from '@/domain/profile/api/client';
 import { useMutation } from '@tanstack/react-query';
 import { BadgeKeyType } from '@/domain/challenge/type';
 

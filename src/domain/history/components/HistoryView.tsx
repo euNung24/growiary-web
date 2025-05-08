@@ -13,7 +13,7 @@ import { cn } from '@/shared/utils/cn';
 import { SelectSingleEventHandler } from 'react-day-picker';
 import useGetMonthlyPosts from '@/domain/post/hooks/useGetMonthlyPosts';
 import { Button } from '@/shared/components/ui/button';
-import useProfileContext from '@/profile/hooks/useProfileContext';
+import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import LoginDialog from '@/shared/components/LoginDialog';
 import CategoryHistory from '@/domain/history/components/CategoryHistory';
 import TodayNewPost from '@/domain/history/components/TodayNewPost';
