@@ -1,6 +1,6 @@
-import LandingInitEffects from '@/app/landing/comonents/LandingInitEffects';
-import StartButton from '@/app/landing/comonents/StartButton';
-import LandingView from '@/app/landing/comonents/LandingView';
+import LandingInitEffects from '@/user/features/landing/components/LandingInitEffects';
+import StartButton from '@/user/features/landing/components/StartButton';
+import LandingView from '@/user/features/landing/components/LandingView';
 
 export default function Home() {
   return (
