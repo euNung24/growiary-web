@@ -11,8 +11,8 @@ import {
 } from '@/shared/components/ui/dialog';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
-import ServiceTerm from '@/shared/views/common/ServiceTerm';
-import PrivateTerm from '@/shared/views/common/PrivateTerm';
+import ServiceTerm from '@/shared/components/ServiceTerm';
+import PrivateTerm from '@/shared/components/PrivateTerm';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 

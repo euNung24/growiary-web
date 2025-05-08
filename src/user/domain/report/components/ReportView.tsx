@@ -6,7 +6,7 @@ import ReportByTime from '@user/report/components/ReportByTime';
 import ReportByChar from '@user/report/components/ReportByChar';
 import ReportByTopic from '@user/report/components/ReportByTopic';
 import ReportByTag from '@user/report/components/ReportByTag';
-import withMoveMonthly from '@/shared/views/common/withMoveMonthly';
+import withMoveMonthly from '@/shared/components/withMoveMonthly';
 import ReportTotal from '@user/report/components/ReportTotal';
 import useReportContext from '@user/report/hooks/useReportContext';
 import useProfileContext from '@/shared/hooks/useProfileContext';

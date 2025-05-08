@@ -13,7 +13,7 @@ import useGetTopicsByCategory from '@user/topic/use-cases/useGetTopicsByCategory
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import LinkOrLogin from '@/shared/components/LinkOrLogin';
-import HomeTopicCard from '@/shared/views/home/HomeTopicCard';
+import HomeTopicCard from '@/user/features/home/components/HomeTopicCard';
 
 const TOTAL_TOPIC_COUNT = 6;
 

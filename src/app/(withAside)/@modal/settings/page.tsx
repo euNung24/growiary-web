@@ -1,4 +1,4 @@
-import SettingModal from '@/shared/views/common/SettingModal';
+import SettingModal from '@/shared/components/SettingModal';
 
 export default async function Home() {
   return <SettingModal />;

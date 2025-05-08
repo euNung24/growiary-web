@@ -1,4 +1,4 @@
-import FeedbackModal from '@/shared/views/common/FeedbackModal';
+import FeedbackModal from '@/shared/components/FeedbackModal';
 
 export default async function Home() {
   return <FeedbackModal defaultOpen={true} />;

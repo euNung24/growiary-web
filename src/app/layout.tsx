@@ -7,7 +7,7 @@ import { ReactNode } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { APP_INFO } from '@/shared/utils/appInfo';
 import { Viewport } from 'next';
-import HotjarSnippet from '@/shared/views/common/HotJarSnippet';
+import HotjarSnippet from '@/shared/components/HotJarSnippet';
 
 const font = localFont({
   src: './fonts/PretendardVariable.woff2',

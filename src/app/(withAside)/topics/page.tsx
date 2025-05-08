@@ -1,5 +1,5 @@
 import TopicView from '@user/topic/components/TopicView';
-import Preview from '@/shared/views/common/Preview';
+import Preview from '@/shared/components/Preview';
 export default function Home() {
   return (
     <>

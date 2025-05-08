@@ -2,9 +2,9 @@
 
 import { Button } from '@/shared/components/ui/button';
 import Image from 'next/image';
-import ReportByPostWithAll from '@/shared/views/home/ReportByPostWithAll';
-import ReportByWeekBar from '@/shared/views/home/ReportByWeekBar';
-import ReportByTimeBar from '@/shared/views/home/ReportByTimeBar';
+import ReportByPostWithAll from '@/user/features/home/components/ReportByPostWithAll';
+import ReportByWeekBar from '@/user/features/home/components/ReportByWeekBar';
+import ReportByTimeBar from '@/user/features/home/components/ReportByTimeBar';
 import useReportContext from '@user/report/hooks/useReportContext';
 import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import useProfileContext from '@/shared/hooks/useProfileContext';

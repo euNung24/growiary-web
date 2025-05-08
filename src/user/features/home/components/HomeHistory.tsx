@@ -12,7 +12,7 @@ import {
 } from '@/shared/components/ui/card';
 import { useEffect, useState } from 'react';
 import { getTwoFormatDate, MENU_NAMES } from '@/shared/utils';
-import NewCard from '@/shared/views/home/components/NewCard';
+import NewCard from '@/user/features/home/components/NewCard';
 import { ResPostType } from '@user/post/models/post';
 import useGetPosts from '@user/post/use-cases/useGetPosts';
 import '@/shared/components/editor.css';

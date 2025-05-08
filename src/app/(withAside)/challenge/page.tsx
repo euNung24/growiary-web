@@ -1,5 +1,5 @@
 import ChallengeView from '@user/challenge/components/ChallengeView';
-import Preview from '@/shared/views/common/Preview';
+import Preview from '@/shared/components/Preview';
 export default function Home() {
   return (
     <>
