@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import RectAreaChart from '@/components/RectAreaChart';
 import { useEffect, useRef, useState } from 'react';
-import useReportContext from '@/hooks/report/useReportContext';
+import useReportContext from '@/report/hooks/useReportContext';
 import { getPercentage, TIME } from '@/utils';
 import Image from 'next/image';
 

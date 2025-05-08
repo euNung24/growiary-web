@@ -1,14 +1,14 @@
 'use client';
 
-import ReportPost from '@/views/report/ReportPost';
-import ReportByDay from '@/views/report/ReportByDay';
-import ReportByTime from '@/views/report/ReportByTime';
-import ReportByChar from '@/views/report/ReportByChar';
-import ReportByTopic from '@/views/report/ReportByTopic';
-import ReportByTag from '@/views/report/ReportByTag';
+import ReportPost from '@/report/components/ReportPost';
+import ReportByDay from '@/report/components/ReportByDay';
+import ReportByTime from '@/report/components/ReportByTime';
+import ReportByChar from '@/report/components/ReportByChar';
+import ReportByTopic from '@/report/components/ReportByTopic';
+import ReportByTag from '@/report/components/ReportByTag';
 import withMoveMonthly from '@/views/common/withMoveMonthly';
-import ReportTotal from '@/views/report/ReportTotal';
-import useReportContext from '@/hooks/report/useReportContext';
+import ReportTotal from '@/report/components/ReportTotal';
+import useReportContext from '@/report/hooks/useReportContext';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 // import AdvanceReservation from '@/views/report/AdvanceReservation';
 // import { useRecoilValue } from 'recoil';

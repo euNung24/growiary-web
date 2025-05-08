@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils';
 import Chip from '@/components/Chip';
-import useReportContext from '@/hooks/report/useReportContext';
+import useReportContext from '@/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
-import { ReportByTopicType } from '@/types/reportTypes';
+import { ReportByTopicType } from '@/report/type';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { TIME, WEEK } from '@/utils';
 import { SAMPLE_REPORT } from '@/utils/report';

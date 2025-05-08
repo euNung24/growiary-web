@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import PolarChart from '@/components/PolarChart';
-import useReportContext from '@/hooks/report/useReportContext';
+import useReportContext from '@/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { WEEK } from '@/utils';

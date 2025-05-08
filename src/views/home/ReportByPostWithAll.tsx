@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import useReportContext from '@/hooks/report/useReportContext';
+import useReportContext from '@/report/hooks/useReportContext';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 
 const MAX_BAR_HEIGHT = 147;

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import BarChart from '@/components/BarChart';
-import useReportContext from '@/hooks/report/useReportContext';
+import useReportContext from '@/report/hooks/useReportContext';
 import Image from 'next/image';
 import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/hooks/profile/useProfileContext';

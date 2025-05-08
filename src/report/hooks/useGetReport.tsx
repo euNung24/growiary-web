@@ -1,6 +1,6 @@
 'use client';
 
-import { getReport } from '@/apis/report';
+import { getReport } from '@/report/api';
 import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
 

@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import AdvanceReservationModal from '@/views/common/AdvanceReservationModal';
+import AdvanceReservationModal from '@/report/components/AdvanceReservationModal';
 
 const AdvanceReservation = () => {
   return (
