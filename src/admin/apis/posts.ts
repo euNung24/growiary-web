@@ -1,4 +1,4 @@
-import withToken from '@/shared/apis/withToken';
+import withToken from '@/shared/utils/withToken';
 import { ApiSuccessResponse } from '@/shared/types';
 import { ResPostType } from '@user/post/types';
 

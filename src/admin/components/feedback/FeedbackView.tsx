@@ -2,11 +2,11 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { MENU_NAMES } from '@/shared/utils';
-import { DataTable } from '@admin/components/feedback/DataTable';
+import { DataTable } from '@/admin/components/feedback/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { ResFeedbackType } from '@/shared/types/feedbackType';
-import useGetAllFeedback from '@admin/hooks/useGetAllFeedback';
+import useGetAllFeedback from '@/admin/hooks/useGetAllFeedback';
 
 export const columns: ColumnDef<ResFeedbackType>[] = [
   {

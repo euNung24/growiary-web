@@ -1,4 +1,4 @@
-import { withTokenGet } from '@/shared/apis/withToken';
+import { withTokenGet } from '@/shared/utils/withToken';
 import { ApiSuccessResponse } from '@/shared/types';
 import { ResFeedbackType } from '@/shared/types/feedbackType';
 

@@ -2,16 +2,16 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { useEffect, useState } from 'react';
-import { UsersType } from '@admin/type';
+import { UsersType } from '@/admin/type';
 import { format } from 'date-fns';
-import useGetAllUsers from '@admin/hooks/useGetAllUsers';
-import useGetPostsByUser from '@admin/hooks/useGetPostsByUser';
+import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
+import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
-import AvgPostChart from '@admin/components/total/AvgPostChart';
+import AvgPostChart from '@/admin/components/total/AvgPostChart';
 import { getFormatDate } from '@/shared/utils';
-import ActiveUserCard from '@admin/components/total/ActiveUserCard';
-import TotalCard from '@admin/components/total/TotalCard';
+import ActiveUserCard from '@/admin/components/total/ActiveUserCard';
+import TotalCard from '@/admin/components/total/TotalCard';
 import { handleError } from '@/shared/apis/token/client';
 import useGetProfile from '@/domain/profile/hooks/useGetProfile';
 

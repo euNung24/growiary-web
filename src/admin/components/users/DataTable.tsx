@@ -30,7 +30,7 @@ import { ReactNode, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Input } from '@/shared/components/ui/input';
 import * as React from 'react';
-import FilterBox from '@admin/components/users/FilterBox';
+import FilterBox from '@/admin/components/users/FilterBox';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

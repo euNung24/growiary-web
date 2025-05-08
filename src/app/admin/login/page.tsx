@@ -1,4 +1,4 @@
-import LoginView from '@admin/components/LoginView';
+import LoginView from '@/admin/components/LoginView';
 
 export default function Page() {
   return <LoginView />;
