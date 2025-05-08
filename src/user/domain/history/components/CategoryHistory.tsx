@@ -1,6 +1,6 @@
 import { topicCategory } from '@/shared/utils/topicCategory';
 
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import { TopicCategory } from '@user/topic/models/topic';
 import { SAMPLE_CATEGORY_DATA } from '@user/history/constants/sample';
 

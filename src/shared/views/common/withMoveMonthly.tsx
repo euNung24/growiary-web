@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import { cn } from '@/shared/utils/cn';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import Image from 'next/image';
 import ReportProvider from '@user/report/providers/ReportProvider';
 

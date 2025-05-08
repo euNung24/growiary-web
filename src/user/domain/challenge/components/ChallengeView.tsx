@@ -31,7 +31,7 @@ import { BADGE_INFO } from '@user/challenge/constants/badges';
 import { BadgeKeyType } from '@user/challenge/constants/badges';
 import useGetUserBadgeInfo from '@user/challenge/use-cases/useGetUserBadgeInfo';
 import useChangeUserTitleBadge from '@user/challenge/use-cases/useChangeUserTitleBadge';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 
 const ChallengeView = () => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';

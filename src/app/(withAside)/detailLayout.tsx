@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import TopStartButton from '@/shared/views/common/TopStartButton';
 import FooterFeedbackView from '@/shared/views/common/FooterFeedbackView';
 import { cn } from '@/shared/utils/cn';

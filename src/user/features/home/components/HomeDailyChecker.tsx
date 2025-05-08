@@ -11,7 +11,7 @@ import { Skeleton } from '@/shared/components/ui/skeleton';
 import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';
 
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import { getDailyCheckerPost } from '@/user/features/home/infra/homeApi';
 import { DailyCheckerType } from '@user/history/models/post';
 

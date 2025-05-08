@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { SelectSingleEventHandler } from 'react-day-picker';
 
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import { Calendar } from '@/shared/components/ui/calendar';
 
 type CalendarHistoryProps = {

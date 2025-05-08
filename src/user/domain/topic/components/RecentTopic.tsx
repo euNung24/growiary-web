@@ -15,7 +15,7 @@ import { RecentTopicType } from '@user/topic/models/topic';
 import Image from 'next/image';
 import LoginDialog from '@/shared/components/LoginDialog';
 import { topicCategory } from '@/shared/utils/topicCategory';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/shared/components/ui/skeleton';

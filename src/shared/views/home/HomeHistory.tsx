@@ -21,7 +21,7 @@ import { TodayState } from '@/shared/store/todayStore';
 import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import { topicCategory } from '@/shared/utils/topicCategory';
 import { TopicCategory } from '@user/topic/models/topic';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';
 import { cn } from '@/shared/utils/cn';

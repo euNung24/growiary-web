@@ -13,7 +13,7 @@ import { trackingAnalytics } from '@/shared/utils/trackingAnalytics';
 import { useToast } from '@/shared/components/ui/use-toast';
 import { Input } from '@/shared/components/ui/input';
 
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import { TopicCategory } from '@user/topic/models/topic';
 import useGetTopicsByCategory from '@user/topic/use-cases/useGetTopicsByCategory';
 import { createPost, updatePost } from '@user/post/infra/postApi';

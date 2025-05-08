@@ -3,7 +3,7 @@ import BarChart from '@user/report/components/BarChart';
 import useReportContext from '@user/report/hooks/useReportContext';
 import Image from 'next/image';
 import { Context } from 'chartjs-plugin-datalabels';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import { SAMPLE_REPORT } from '@user/report/constants/sample';
 import { useEffect, useState } from 'react';
 import { debounce } from '@/shared/utils/utilFns';

@@ -4,7 +4,7 @@ import LoginDialog from '@/shared/components/LoginDialog';
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 
 const FormFooter = () => {
   const methods = useFormContext();

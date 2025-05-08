@@ -28,7 +28,7 @@ import { toast } from '@/shared/components/ui/use-toast';
 import { tracking } from '@/shared/utils/mixPanel';
 import { TodayState } from '@/shared/store/todayStore';
 
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import { SAMPLE_DATA } from '@user/history/constants/sample';
 import { ResPostType } from '@user/history/models/post';
 import { deletePost } from '@user/post/infra/postApi';

@@ -14,7 +14,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 import LoginDialog from '@/shared/components/LoginDialog';
 import { Button } from '@/shared/components/ui/button';
 
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useProfileContext from '@/shared/hooks/useProfileContext';
 import useGetMonthlyPosts from '@/user/features/home/use-cases/useGetMonthlyPosts';
 import { TopicCategory } from '@user/topic/models/topic';
 import { ResPostType } from '@user/history/models/post';
