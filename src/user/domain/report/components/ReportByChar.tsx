@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ResPostType } from '@user/post/types';
 import useReportContext from '@user/report/hooks/useReportContext';
 import { format } from 'date-fns';
-import { ReportByCharCountType } from '@user/report/type';
+import { ReportByCharCountType } from '@user/report/models/report';
 
 const SAMPLE_CHAR_DATA: [string, Pick<ReportByCharCountType, 'sum'>][] = [
   ['2023-04', { sum: 11310 }],

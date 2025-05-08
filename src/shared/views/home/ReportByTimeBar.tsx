@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { ReportContext } from '@user/report/components/ReportProvider';
+import { ReportContext } from '@user/report/providers/ReportProvider';
 import Image from 'next/image';
 import { cn } from '@/shared/utils/cn';
 import { TIME } from '@/shared/utils';

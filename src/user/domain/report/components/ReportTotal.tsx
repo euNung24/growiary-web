@@ -2,10 +2,10 @@ import { cn } from '@/shared/utils/cn';
 import Chip from '@/shared/components/Chip';
 import useReportContext from '@user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
-import { ReportByTopicType } from '@user/report/type';
+import { ReportByTopicType } from '@user/report/models/report';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
 import { TIME, WEEK } from '@/shared/utils';
-import { SAMPLE_REPORT } from '@user/report/utils/sample';
+import { SAMPLE_REPORT } from '@user/report/constants/sample';
 
 const ReportTotal = () => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';
