@@ -37,7 +37,7 @@ const createServerFetcher =
     }
   };
 
-export const fetchOnServer = <TServer>(
-  api: string,
-  config?: RequestInit,
-): (() => Promise<TServer>) => createServerFetcher(api, config);
+export const fetchOnServer =
+  <TServer>(api: string, config?: RequestInit) =>
+  (): Promise<TServer> =>
+    createServerFetcher(api, config)();
