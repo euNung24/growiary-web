@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import { DailyCheckerType } from '@/post/types';
 import { Skeleton } from '@/components/ui/skeleton';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 import { tracking } from '@/utils/mixPanel';
 import { MENU_NAMES } from '@/utils';
 import { sendGAEvent } from '@next/third-parties/google';

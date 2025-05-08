@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import LoginDialog from '@/components/LoginDialog';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 
 type LinkOrLoginProps = {
   href: string;
@@ -10,12 +10,7 @@ type LinkOrLoginProps = {
   handleClick?: () => void;
 };
 
-const LinkOrLogin = ({
-  href,
-  children,
-  className,
-  handleClick,
-}: LinkOrLoginProps) => {
+const LinkOrLogin = ({ href, children, className, handleClick }: LinkOrLoginProps) => {
   const { profile } = useProfileContext();
 
   return profile ? (

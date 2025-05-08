@@ -9,7 +9,7 @@ import ReportByTag from '@/report/components/ReportByTag';
 import withMoveMonthly from '@/views/common/withMoveMonthly';
 import ReportTotal from '@/report/components/ReportTotal';
 import useReportContext from '@/report/hooks/useReportContext';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 // import AdvanceReservation from '@/views/report/AdvanceReservation';
 // import { useRecoilValue } from 'recoil';
 

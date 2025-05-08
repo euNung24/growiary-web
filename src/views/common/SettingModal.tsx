@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button, ButtonIcon } from '@/components/ui/button';
 import Image from 'next/image';
-import useGetProfile from '@/hooks/profile/useGetProfile';
+import useGetProfile from '@/profile/hooks/useGetProfile';
 import { ChevronRight } from 'lucide-react';
 import ServiceTerm from '@/views/common/ServiceTerm';
 import PrivateTerm from '@/views/common/PrivateTerm';

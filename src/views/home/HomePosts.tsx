@@ -21,7 +21,7 @@ import { TodayState } from '@/store/todayStore';
 import LinkOrLogin from '@/components/LinkOrLogin';
 import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/topic/type';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import { onTrackingHandler } from '@/utils/trackingAnalytics';
 import { cn } from '@/lib/utils';

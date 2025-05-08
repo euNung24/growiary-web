@@ -1,7 +1,7 @@
 import { Calendar } from '@/components/ui/calendar';
 import { Dispatch, SetStateAction } from 'react';
 import { SelectSingleEventHandler } from 'react-day-picker';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 
 type CalendarHistoryProps = {
   date: Date;

@@ -7,7 +7,7 @@ import ReportByWeekBar from '@/views/home/ReportByWeekBar';
 import ReportByTimeBar from '@/views/home/ReportByTimeBar';
 import useReportContext from '@/report/hooks/useReportContext';
 import LinkOrLogin from '@/components/LinkOrLogin';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 import { MENU_NAMES } from '@/utils';
 import { onTrackingHandler } from '@/utils/trackingAnalytics';
 import { cn } from '@/lib/utils';

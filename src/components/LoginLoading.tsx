@@ -12,7 +12,7 @@ import { PostState } from '@/post/store';
 import { createPost } from '@/post/api';
 import { ReqPostType } from '@/post/types';
 import { UserState } from '@/store/userStore';
-import useGetProfile from '@/hooks/profile/useGetProfile';
+import useGetProfile from '@/profile/hooks/useGetProfile';
 import { ALERT_ERROR_MESSAGE } from '@/utils/error';
 import LoginDialog from '@/components/LoginDialog';
 import { useAvoidHydration } from '@/hooks/useAvoidHydration';

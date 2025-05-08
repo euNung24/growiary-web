@@ -1,6 +1,6 @@
 import LoginDialog from '@/components/LoginDialog';
 import { Button } from '@/components/ui/button';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 import { cn } from '@/lib/utils';
 import { useFormContext } from 'react-hook-form';
 

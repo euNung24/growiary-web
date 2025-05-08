@@ -13,7 +13,7 @@ import { getFormatDate } from '@/utils';
 import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
 import TotalCard from '@/views/admin/total/TotalCard';
 import { handleError } from '@/apis/token/client';
-import useGetProfile from '@/hooks/profile/useGetProfile';
+import useGetProfile from '@/profile/hooks/useGetProfile';
 
 const isTodayPost = (postDate: string) => {
   return format(new Date(postDate), 'yyyyMMdd') === format(new Date(), 'yyyyMMdd');

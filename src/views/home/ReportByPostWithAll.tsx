@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import useReportContext from '@/report/hooks/useReportContext';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 
 const MAX_BAR_HEIGHT = 147;
 type ReportByPostWithAllProps = {

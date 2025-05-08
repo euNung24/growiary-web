@@ -5,7 +5,7 @@ import { ReportType } from '@/report/type';
 import useGetReport from '@/report/hooks/useGetReport';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { TodayState } from '@/store/todayStore';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 import { ReportState } from '@/report/store';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';

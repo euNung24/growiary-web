@@ -1,4 +1,4 @@
-import { ProfileType } from '@/types/profileTypes';
+import { ProfileType } from '@/profile/type';
 import withToken from '@/apis/withToken';
 import { BadgeKeyType } from '@/challenge/type';
 import { ApiSuccessResponse } from '@/types';

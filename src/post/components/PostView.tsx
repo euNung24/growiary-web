@@ -14,7 +14,7 @@ import { NO_TOPIC_ID } from '@/utils';
 import { trackingAnalytics } from '@/utils/trackingAnalytics';
 import useFindPost from '@/post/hooks/useFindPost';
 import useGetTopicsByCategory from '@/topic/hooks/useGetTopicsByCategory';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import StopMovePage from '@/components/StopMovePage';

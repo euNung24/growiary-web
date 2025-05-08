@@ -1,6 +1,6 @@
 'use client';
 
-import useGetProfile from '@/hooks/profile/useGetProfile';
+import useGetProfile from '@/profile/hooks/useGetProfile';
 import { cn } from '@/lib/utils';
 import { PropsWithChildren, useEffect } from 'react';
 

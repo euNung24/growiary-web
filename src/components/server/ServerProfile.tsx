@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { getProfile } from '@/apis/profile/server';
+import { getProfile } from '@/profile/api/server';
 import UserProvider from '@/components/providers/UserProvider';
 import ServerTopics from '@/components/server/ServerTopics';
 

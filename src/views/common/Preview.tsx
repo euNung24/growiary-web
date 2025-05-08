@@ -1,6 +1,6 @@
 'use client';
 
-import useGetProfile from '@/hooks/profile/useGetProfile';
+import useGetProfile from '@/profile/hooks/useGetProfile';
 
 const Preview = () => {
   const { data } = useGetProfile();

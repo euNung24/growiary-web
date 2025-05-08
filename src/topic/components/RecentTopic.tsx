@@ -15,7 +15,7 @@ import { RecentTopicType } from '@/topic/type';
 import Image from 'next/image';
 import LoginDialog from '@/components/LoginDialog';
 import { topicCategory } from '@/utils/topicCategory';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/components/ui/skeleton';

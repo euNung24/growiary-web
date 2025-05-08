@@ -1,7 +1,7 @@
 import { topicCategory } from '@/utils/topicCategory';
 import { TopicCategory } from '@/topic/type';
 import { SAMPLE_CATEGORY_DATA } from '@/utils/sampleData';
-import useProfileContext from '@/hooks/profile/useProfileContext';
+import useProfileContext from '@/profile/hooks/useProfileContext';
 
 type CategoryHistoryProps = {
   selectedMonth: number;
