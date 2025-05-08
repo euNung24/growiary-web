@@ -1,4 +1,4 @@
-import TotalView from '@/admin/components/total/TotalView';
+import TotalView from '@/domain/admin/components/total/TotalView';
 
 export default function Page() {
   return <TotalView />;

@@ -1,6 +1,6 @@
 import withToken from '@/shared/apis/withToken';
 import { ApiSuccessResponse } from '@/shared/types';
-import { UsersType } from '@/admin/type';
+import { UsersType } from '@/domain/admin/type';
 
 const usersApiUrl = process.env.NEXT_PUBLIC_API + '/admin/user';
 export const getAllUsers = () =>

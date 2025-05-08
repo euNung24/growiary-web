@@ -4,7 +4,6 @@ const config: Config = {
   content: [
     './src/shared/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/shared/views/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/admin/**/components/*.{js,ts,jsx,tsx,mdx}',
     './src/domain/**/components/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
