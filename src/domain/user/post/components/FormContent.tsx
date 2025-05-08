@@ -1,4 +1,4 @@
-import Editor from '@/shared/components/Editor';
+import Editor from '@/domain/user/post/components/Editor';
 import { TopicCategory, TopicType } from '@/domain/user/topic/type';
 import { topicCategory } from '@/shared/utils/topicCategory';
 import { Controller, useFormContext } from 'react-hook-form';

@@ -1,5 +1,5 @@
 import { cn } from '@/shared/utils/cn';
-import DonutChart from '@/shared/components/DonutChart';
+import DonutChart from '@/domain/user/report/components/DonutChart';
 import Chip from '@/shared/components/Chip';
 import useReportContext from '@/domain/user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';

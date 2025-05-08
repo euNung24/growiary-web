@@ -1,5 +1,5 @@
 import { cn } from '@/shared/utils/cn';
-import PolarChart from '@/shared/components/PolarChart';
+import PolarChart from '@/domain/user/report/components/PolarChart';
 import useReportContext from '@/domain/user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';

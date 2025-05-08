@@ -17,7 +17,7 @@ import useGetTopicsByCategory from '@/domain/user/topic/hooks/useGetTopicsByCate
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { useToast } from '@/shared/components/ui/use-toast';
 import { Input } from '@/shared/components/ui/input';
-import StopMovePage from '@/shared/components/StopMovePage';
+import StopMovePage from '@/domain/user/post/components/StopMovePage';
 import FormFooter from '@/domain/user/post/components/FormFooter';
 import FormContent from '@/domain/user/post/components/FormContent';
 import FormOptions from '@/domain/user/post/components/FormOptions';

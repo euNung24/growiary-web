@@ -30,7 +30,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 import { format } from 'date-fns';
 import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
-import Tag from '@/shared/components/Tag';
+import Tag from '@/domain/user/post/components/Tag';
 
 const FormOptions = () => {
   const labelStyle =

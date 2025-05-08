@@ -6,7 +6,7 @@ import {
   TopicCardFooter,
   TopicCardHeader,
   TopicCardTitle,
-} from '@/shared/components/TopicCard';
+} from '@/domain/user/topic/components/TopicCard';
 import { Button, ButtonIcon } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import Link from 'next/link';

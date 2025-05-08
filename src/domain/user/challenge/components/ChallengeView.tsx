@@ -10,7 +10,7 @@ import {
   BadgeWideIcon,
   BadgeCardHeader,
   badgeCardVariants,
-} from '@/shared/components/BadgeCard';
+} from '@/domain/user/challenge/components/BadgeCard';
 import * as React from 'react';
 import { BADGE_INFO } from '@/domain/user/challenge/utils/badges';
 import useGetUserBadgeInfo from '@/domain/user/challenge/hooks/useGetUserBadgeInfo';
