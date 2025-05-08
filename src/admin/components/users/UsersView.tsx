@@ -2,10 +2,10 @@
 
 import { DataTable } from '@/admin/components/users/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { UsersType } from '@/admin/type';
+import { UserType } from '@admin/types/user';
 import { addDays, format, set, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@user/post/models/post';
+import { ResPostType } from '@admin/types/post';
 import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
 import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
 import { getFormatDate } from '@/shared/utils';
@@ -30,8 +30,8 @@ import {
 import { handleError } from '@/shared/apis/token/client';
 import useGetProfile from '@/shared/hooks/useGetProfile';
 
-type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {
-  profile: Pick<UsersType['profile'], 'nickname' | 'userId'>;
+type UserTable = Pick<UserType, 'createdAt' | 'email' | 'social'> & {
+  profile: Pick<UserType['profile'], 'nickname' | 'userId'>;
   firstDayPostCount: number;
   avgPostOfMonth: string;
   totalPostCount: number;
@@ -193,8 +193,8 @@ const UsersView = () => {
 
   const [isClient, setIsClient] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [users, setUsers] = useState<{ [key: string]: UsersType }>(
-    {} as { [key: string]: UsersType },
+  const [users, setUsers] = useState<{ [key: string]: UserType }>(
+    {} as { [key: string]: UserType },
   );
   const [postsByUser, setPostByUser] = useState<{ [key: string]: ResPostType[] }>(
     {} as { [key: string]: ResPostType[] },

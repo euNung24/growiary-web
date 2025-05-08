@@ -1,7 +1,7 @@
 import { ProfileType } from '@/shared/types/profile';
 import { ChallengeType } from '@user/challenge/models/challenge';
 
-export type UsersType = Pick<ProfileType, 'userId' | 'social' | 'email' | 'createdAt'> & {
+export type UserType = Pick<ProfileType, 'userId' | 'social' | 'email' | 'createdAt'> & {
   uid: string;
   updatedAt: string;
   refreshToken: string;

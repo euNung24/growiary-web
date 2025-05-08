@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { useEffect, useState } from 'react';
-import { UsersType } from '@/admin/type';
+import { UserType } from '@admin/types/user';
 import { format } from 'date-fns';
 import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
 import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
@@ -37,7 +37,7 @@ const TotalView = () => {
 
   const [isClient, setIsClient] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [userData, setUserData] = useState<UsersType[]>([]);
+  const [userData, setUserData] = useState<UserType[]>([]);
   const [info, setInfo] = useState<Info>({
     dau: 0,
     wau: 0,
