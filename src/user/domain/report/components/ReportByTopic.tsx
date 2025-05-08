@@ -3,7 +3,7 @@ import DonutChart from '@user/report/components/DonutChart';
 import Chip from '@/shared/components/Chip';
 import useReportContext from '@user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@user/post/types';
+import { ResPostType } from '@user/post/models/post';
 import { topicCategory } from '@/shared/utils/topicCategory';
 import { TopicCategory } from '@user/topic/models/topic';
 import { getPercentage } from '@/shared/utils';

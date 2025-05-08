@@ -2,7 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 
-import { deletePost } from '@user/post/api';
+import { deletePost } from '@user/post/infra/postApi';
 
 const useDeletePost = (id: string) => {
   return useMutation({

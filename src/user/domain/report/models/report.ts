@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { ResPostType } from '@user/post/types';
+import { ResPostType } from '@user/post/models/post';
 import { TopicCategory } from '@user/topic/models/topic';
 
 type ReportByPostType = {

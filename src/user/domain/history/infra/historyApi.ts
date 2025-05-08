@@ -1,7 +1,7 @@
 import withToken from '@/shared/apis/withToken';
 import { ApiSuccessResponse } from '@/shared/types';
 
-import { ResPostType } from '@user/post/types';
+import { ResPostType } from '@user/post/models/post';
 import { TopicCategory } from '@user/topic/models/topic';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
