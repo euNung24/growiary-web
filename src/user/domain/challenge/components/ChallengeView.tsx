@@ -27,10 +27,10 @@ import {
   BadgeCardHeader,
   badgeCardVariants,
 } from '@user/challenge/components/BadgeCard';
-import { BADGE_INFO } from '@user/challenge/utils/badges';
-import { BadgeKeyType } from '@user/challenge/type';
-import useGetUserBadgeInfo from '@user/challenge/hooks/useGetUserBadgeInfo';
-import useChangeUserTitleBadge from '@user/challenge/hooks/useChangeUserTitleBadge';
+import { BADGE_INFO } from '@user/challenge/constants/badges';
+import { BadgeKeyType } from '@user/challenge/constants/badges';
+import useGetUserBadgeInfo from '@user/challenge/use-cases/useGetUserBadgeInfo';
+import useChangeUserTitleBadge from '@user/challenge/use-cases/useChangeUserTitleBadge';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
 
 const ChallengeView = () => {

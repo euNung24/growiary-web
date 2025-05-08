@@ -1,3 +1,5 @@
+export type BadgeKeyType = Partial<keyof typeof BADGE_INFO>;
+
 export const BADGE_INFO = {
   first: {
     key: 'first',

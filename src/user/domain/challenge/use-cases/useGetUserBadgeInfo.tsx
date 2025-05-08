@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { getUserBadge } from '@user/challenge/api';
+import { getUserBadge } from '@user/challenge/infra/challengeApi';
 
 const useGetUserBadgeInfo = () => {
   const { data } = useQuery({
