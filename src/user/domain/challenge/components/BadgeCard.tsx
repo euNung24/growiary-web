@@ -1,5 +1,12 @@
 'use client';
 
+import { forwardRef } from 'react';
+import { createContext, useContext } from 'react';
+import Image, { ImageProps } from 'next/image';
+
+import { cva, VariantProps } from 'class-variance-authority';
+import { Bookmark } from 'lucide-react';
+
 import {
   Card,
   CardHeader,
@@ -7,12 +14,7 @@ import {
   CardDescription,
   CardFooter,
 } from '@/shared/components/ui/card';
-import { cva, VariantProps } from 'class-variance-authority';
-import * as React from 'react';
 import { cn } from '@/shared/utils/cn';
-import { createContext, useContext } from 'react';
-import Image, { ImageProps } from 'next/image';
-import { Bookmark } from 'lucide-react';
 import Chip from '@/shared/components/Chip';
 
 export const badgeCardVariants = cva(
@@ -179,24 +181,23 @@ const BadgeCardDescription = (props: React.HTMLAttributes<HTMLParagraphElement>)
 
 BadgeCardDescription.displayName = 'BadgeCardDescription';
 
-const BadgeCardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  const { size } = useContext(BadgeCardContext);
+const BadgeCardContent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => {
+    const { size } = useContext(BadgeCardContext);
 
-  return (
-    <div
-      ref={ref}
-      {...props}
-      className={cn(
-        'z-[1]',
-        size !== 'wide' && 'mt-6 items-center text-center',
-        className,
-      )}
-    />
-  );
-});
+    return (
+      <div
+        ref={ref}
+        {...props}
+        className={cn(
+          'z-[1]',
+          size !== 'wide' && 'mt-6 items-center text-center',
+          className,
+        )}
+      />
+    );
+  },
+);
 
 BadgeCardContent.displayName = 'BadgeCardContent';
 const BadgeCardFooter = CardFooter;

@@ -1,6 +1,22 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+
+import { VariantProps } from 'class-variance-authority';
+import { sendGAEvent } from '@next/third-parties/google';
+import { useQueryClient } from '@tanstack/react-query';
+
 import Chip from '@/shared/components/Chip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/shared/components/ui/tooltip';
+import { cn } from '@/shared/utils/cn';
+import { tracking } from '@/shared/utils/mixPanel';
+
 import {
   BadgeCard,
   BadgeCardDescription,
@@ -11,25 +27,11 @@ import {
   BadgeCardHeader,
   badgeCardVariants,
 } from '@user/challenge/components/BadgeCard';
-import * as React from 'react';
 import { BADGE_INFO } from '@user/challenge/utils/badges';
-import useGetUserBadgeInfo from '@user/challenge/hooks/useGetUserBadgeInfo';
-import { useEffect, useState } from 'react';
 import { BadgeKeyType } from '@user/challenge/type';
-import { VariantProps } from 'class-variance-authority';
-import Image from 'next/image';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/shared/components/ui/tooltip';
+import useGetUserBadgeInfo from '@user/challenge/hooks/useGetUserBadgeInfo';
 import useChangeUserTitleBadge from '@user/challenge/hooks/useChangeUserTitleBadge';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
-import { cn } from '@/shared/utils/cn';
-import { tracking } from '@/shared/utils/mixPanel';
-import { sendGAEvent } from '@next/third-parties/google';
-import { useQueryClient } from '@tanstack/react-query';
 
 const ChallengeView = () => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';

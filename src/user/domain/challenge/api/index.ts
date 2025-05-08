@@ -1,8 +1,9 @@
 'use client';
 
 import { ApiSuccessResponse } from '@/shared/types';
-import { ChallengeType } from '@user/challenge/type';
 import { withTokenGet } from '@/shared/apis/withToken';
+
+import { ChallengeType } from '@user/challenge/type';
 
 const challengeApiUrl = process.env.NEXT_PUBLIC_API + '/challenge';
 
