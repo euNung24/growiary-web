@@ -2,12 +2,12 @@
 
 import { DataTable } from '@/views/admin/users/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { UsersType } from '@/types/admin/usersTypes';
+import { UsersType } from '@/admin/type';
 import { addDays, format, set, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/post/types';
-import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
-import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
+import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
+import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
 import { getFormatDate } from '@/utils';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';

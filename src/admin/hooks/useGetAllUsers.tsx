@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { getAllUsers } from '@/apis/admin/users';
+import { getAllUsers } from '@/admin/apis/users';
 
 const useGetUsersInfo = () => {
   return useMutation({

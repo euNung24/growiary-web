@@ -2,10 +2,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
-import { UsersType } from '@/types/admin/usersTypes';
+import { UsersType } from '@/admin/type';
 import { format } from 'date-fns';
-import useGetAllUsers from '@/hooks/admin/useGetAllUsers';
-import useGetPostsByUser from '@/hooks/admin/useGetPostsByUser';
+import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
+import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import AvgPostChart from '@/views/admin/total/AvgPostChart';
