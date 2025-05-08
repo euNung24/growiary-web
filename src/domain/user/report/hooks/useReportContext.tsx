@@ -1,6 +1,6 @@
 'use client';
 import { useContext } from 'react';
-import { ReportContext } from '@/domain/user/report/components/ReportProvider';
+import { ReportContext } from '@user/report/components/ReportProvider';
 
 const useReportContext = () => {
   return useContext(ReportContext);

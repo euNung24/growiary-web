@@ -10,9 +10,9 @@ import { Label } from '@/shared/components/ui/label';
 import { Braces, List } from 'lucide-react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { cn } from '@/shared/utils/cn';
-import useGetTopicsByCategory from '@/domain/user/topic/hooks/useGetTopicsByCategory';
+import useGetTopicsByCategory from '@user/topic/hooks/useGetTopicsByCategory';
 import { checkIsTopicCategory, topicCategory } from '@/shared/utils/topicCategory';
-import { TopicCategory } from '@/domain/user/topic/type';
+import { TopicCategory } from '@user/topic/type';
 import { useRef, useState } from 'react';
 import {
   AlertDialog,
@@ -30,7 +30,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 import { format } from 'date-fns';
 import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
-import Tag from '@/domain/user/post/components/Tag';
+import Tag from '@user/post/components/Tag';
 
 const FormOptions = () => {
   const labelStyle =

@@ -10,12 +10,12 @@ import {
   BadgeWideIcon,
   BadgeCardHeader,
   badgeCardVariants,
-} from '@/domain/user/challenge/components/BadgeCard';
+} from '@user/challenge/components/BadgeCard';
 import * as React from 'react';
-import { BADGE_INFO } from '@/domain/user/challenge/utils/badges';
-import useGetUserBadgeInfo from '@/domain/user/challenge/hooks/useGetUserBadgeInfo';
+import { BADGE_INFO } from '@user/challenge/utils/badges';
+import useGetUserBadgeInfo from '@user/challenge/hooks/useGetUserBadgeInfo';
 import { useEffect, useState } from 'react';
-import { BadgeKeyType } from '@/domain/user/challenge/type';
+import { BadgeKeyType } from '@user/challenge/type';
 import { VariantProps } from 'class-variance-authority';
 import Image from 'next/image';
 import {
@@ -24,7 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip';
-import useChangeUserTitleBadge from '@/domain/user/challenge/hooks/useChangeUserTitleBadge';
+import useChangeUserTitleBadge from '@user/challenge/hooks/useChangeUserTitleBadge';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { cn } from '@/shared/utils/cn';
 import { tracking } from '@/shared/utils/mixPanel';

@@ -18,6 +18,8 @@
       }
     ],
     "paths": {
+      "@user/*": ["./src/domain/user/*"],
+      "@admin/*": ["./src/domain/admin/*"],
       "@/*": ["./src/*"]
     }
   },

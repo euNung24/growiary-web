@@ -1,11 +1,11 @@
 import { cn } from '@/shared/utils/cn';
 import Chip from '@/shared/components/Chip';
-import useReportContext from '@/domain/user/report/hooks/useReportContext';
+import useReportContext from '@user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
-import { ReportByTopicType } from '@/domain/user/report/type';
+import { ReportByTopicType } from '@user/report/type';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { TIME, WEEK } from '@/shared/utils';
-import { SAMPLE_REPORT } from '@/domain/user/report/utils/sample';
+import { SAMPLE_REPORT } from '@user/report/utils/sample';
 
 const ReportTotal = () => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';

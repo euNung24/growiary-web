@@ -7,21 +7,21 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { createPost, updatePost } from '@/domain/user/post/api';
-import { ReqPostType, ResPostType } from '@/domain/user/post/types';
-import { TopicCategory } from '@/domain/user/topic/type';
+import { createPost, updatePost } from '@user/post/api';
+import { ReqPostType, ResPostType } from '@user/post/types';
+import { TopicCategory } from '@user/topic/type';
 import { NO_TOPIC_ID } from '@/shared/utils';
 import { trackingAnalytics } from '@/shared/utils/trackingAnalytics';
-import useFindPost from '@/domain/user/post/hooks/useFindPost';
-import useGetTopicsByCategory from '@/domain/user/topic/hooks/useGetTopicsByCategory';
+import useFindPost from '@user/post/hooks/useFindPost';
+import useGetTopicsByCategory from '@user/topic/hooks/useGetTopicsByCategory';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { useToast } from '@/shared/components/ui/use-toast';
 import { Input } from '@/shared/components/ui/input';
-import StopMovePage from '@/domain/user/post/components/StopMovePage';
-import FormFooter from '@/domain/user/post/components/FormFooter';
-import FormContent from '@/domain/user/post/components/FormContent';
-import FormOptions from '@/domain/user/post/components/FormOptions';
-import { PostState } from '@/domain/user/post/store';
+import StopMovePage from '@user/post/components/StopMovePage';
+import FormFooter from '@user/post/components/FormFooter';
+import FormContent from '@user/post/components/FormContent';
+import FormOptions from '@user/post/components/FormOptions';
+import { PostState } from '@user/post/store';
 
 export const FormSchema = z.object({
   topicId: z.string().min(1),

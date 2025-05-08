@@ -1,6 +1,6 @@
 'use client';
 
-import { getMonthlyPosts } from '@/domain/user/post/api';
+import { getMonthlyPosts } from '@user/post/api';
 import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
 

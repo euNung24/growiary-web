@@ -1,9 +1,9 @@
 'use client';
 
 import { cn } from '@/shared/utils/cn';
-import { ReportType } from '@/domain/user/report/type';
+import { ReportType } from '@user/report/type';
 import { useRecoilValue } from 'recoil';
-import { ReportState } from '@/domain/user/report/store';
+import { ReportState } from '@user/report/store';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { useMemo } from 'react';
 

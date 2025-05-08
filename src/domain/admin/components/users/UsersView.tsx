@@ -1,21 +1,21 @@
 'use client';
 
-import { DataTable } from '@/domain/admin/components/users/DataTable';
+import { DataTable } from '@admin/components/users/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { UsersType } from '@/domain/admin/type';
+import { UsersType } from '@admin/type';
 import { addDays, format, set, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@/domain/user/post/types';
-import useGetAllUsers from '@/domain/admin/hooks/useGetAllUsers';
-import useGetPostsByUser from '@/domain/admin/hooks/useGetPostsByUser';
+import { ResPostType } from '@user/post/types';
+import useGetAllUsers from '@admin/hooks/useGetAllUsers';
+import useGetPostsByUser from '@admin/hooks/useGetPostsByUser';
 import { getFormatDate } from '@/shared/utils';
 import Image from 'next/image';
 import { Button } from '@/shared/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';
 import * as React from 'react';
 import { DateRange, SelectRangeEventHandler } from 'react-day-picker';
-import { DatePickerWithRange } from '@/domain/admin/components/users/DatePickerWithRange';
-import FilterBox from '@/domain/admin/components/users/FilterBox';
+import { DatePickerWithRange } from '@admin/components/users/DatePickerWithRange';
+import FilterBox from '@admin/components/users/FilterBox';
 import {
   Tooltip,
   TooltipContent,

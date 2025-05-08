@@ -1,10 +1,10 @@
 import { cn } from '@/shared/utils/cn';
-import BarChart from '@/domain/user/report/components/BarChart';
-import useReportContext from '@/domain/user/report/hooks/useReportContext';
+import BarChart from '@user/report/components/BarChart';
+import useReportContext from '@user/report/hooks/useReportContext';
 import Image from 'next/image';
 import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
-import { SAMPLE_REPORT } from '@/domain/user/report/utils/sample';
+import { SAMPLE_REPORT } from '@user/report/utils/sample';
 import { useEffect, useState } from 'react';
 import { debounce } from '@/shared/utils/utilFns';
 

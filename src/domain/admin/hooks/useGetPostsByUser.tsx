@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { getPostsByUser } from '@/domain/admin/apis/posts';
+import { getPostsByUser } from '@admin/apis/posts';
 
 const useGetPostsByUser = () => {
   const query = useMutation({

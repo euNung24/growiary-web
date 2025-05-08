@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Sidebar from '@/domain/admin/components/Sidebar';
+import Sidebar from '@admin/components/Sidebar';
 import Image from 'next/image';
 
 export default function asLayout({ children }: { children: ReactNode }) {

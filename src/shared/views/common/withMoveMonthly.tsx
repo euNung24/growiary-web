@@ -7,7 +7,7 @@ import { TodayState } from '@/shared/store/todayStore';
 import { cn } from '@/shared/utils/cn';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import Image from 'next/image';
-import ReportProvider from '@/domain/user/report/components/ReportProvider';
+import ReportProvider from '@user/report/components/ReportProvider';
 
 export type WithMoveMonthlyProps = {
   selectedMonth?: number;

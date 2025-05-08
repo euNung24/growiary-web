@@ -18,8 +18,8 @@ import { Input } from '@/shared/components/ui/input';
 import { toast } from '@/shared/components/ui/use-toast';
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group';
 import { Label } from '@/shared/components/ui/label';
-import { createReserve } from '@/domain/user/report/api/reservation';
-import { ReservationType } from '@/domain/user/report/type/reservationType';
+import { createReserve } from '@user/report/api/reservation';
+import { ReservationType } from '@user/report/type/reservationType';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 
