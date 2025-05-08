@@ -10,7 +10,7 @@ import {
 import { Button, ButtonIcon } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import Link from 'next/link';
-import { topicCategory } from '@/shared/utils/topicCategory';
+import { topicCategory } from '@/shared/types/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/shared/components/ui/skeleton';

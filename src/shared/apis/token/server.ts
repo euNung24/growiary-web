@@ -1,5 +1,5 @@
-import { decrypt, encrypt } from '@/shared/components/LoginLoading';
-import { SERVER_ERROR } from '@/shared/utils/error';
+import { decrypt, encrypt } from '@/user/features/login/components/LoginLoading';
+import { SERVER_ERROR } from '@/shared/constants/error';
 import { cookies } from 'next/headers';
 
 const getNewAccessToken = async () => {

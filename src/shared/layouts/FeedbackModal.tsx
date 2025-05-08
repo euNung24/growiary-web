@@ -27,7 +27,7 @@ import { Textarea } from '@/shared/components/ui/textarea';
 import { menu } from '@/shared/utils';
 import { toast } from '@/shared/components/ui/use-toast';
 import Image from 'next/image';
-import { FeedbackType } from '@/shared/types/feedbackType';
+import { FeedbackType } from '@/shared/types/feedback';
 import { createFeedback } from '@/shared/apis/feedback';
 import { usePathname } from 'next/navigation';
 

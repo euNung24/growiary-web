@@ -1,8 +1,8 @@
-import Sidebar from '@/shared/components/Sidebar';
+import Sidebar from '@/shared/layouts/Sidebar';
 import { ReactNode } from 'react';
 import { Toaster } from '@/shared/components/ui/toaster';
-import ServerProfile from '@/shared/components/server/ServerProfile';
-import DetailLayout from '@/app/(withAside)/detailLayout';
+import ServerProfile from '@/shared/layouts/server/ServerProfile';
+import DetailLayout from '@/shared/layouts/detailLayout';
 
 type LayoutProps = {
   children: ReactNode;

@@ -1,5 +1,5 @@
 import { handleError } from '@/shared/apis/token/client';
-import { ApiSuccessResponse } from '@/shared/types';
+import { ApiSuccessResponse } from '@/shared/types/response';
 import Cookies from 'js-cookie';
 
 type WithTokenType<T> = {

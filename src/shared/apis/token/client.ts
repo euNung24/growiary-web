@@ -1,6 +1,6 @@
-import { decrypt, encrypt } from '@/shared/components/LoginLoading';
-import { browserQueryClient } from '@/shared/components/providers/ReactQueryProvider';
-import { ALERT_ERROR_MESSAGE, SERVER_ERROR } from '@/shared/utils/error';
+import { decrypt, encrypt } from '@/user/features/login/components/LoginLoading';
+import { browserQueryClient } from '@/shared/providers/ReactQueryProvider';
+import { ALERT_ERROR_MESSAGE, SERVER_ERROR } from '@/shared/constants/error';
 import Cookies from 'js-cookie';
 
 let refreshingTokenPromise: Promise<string | void> | null = null;

@@ -9,7 +9,7 @@ import {
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import LoginDialog from '@/shared/components/LoginDialog';
-import { topicCategory } from '@/shared/utils/topicCategory';
+import { topicCategory } from '@/shared/types/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';
 import { sendGAEvent } from '@next/third-parties/google';

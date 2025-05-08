@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/shared/utils/cn';
-import { topicCategory } from '@/shared/utils/topicCategory';
+import { topicCategory } from '@/shared/types/topicCategory';
 import { TopicCategory } from '@user/topic/models/topic';
 import { useState } from 'react';
 import RecentTopic from '@user/topic/components/RecentTopic';

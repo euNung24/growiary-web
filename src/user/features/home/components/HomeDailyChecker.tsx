@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import { sendGAEvent } from '@next/third-parties/google';
 
-import DailyChecker from '@/shared/components/DailyChecker';
+import DailyChecker from '@/user/features/home/components/DailyChecker';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';

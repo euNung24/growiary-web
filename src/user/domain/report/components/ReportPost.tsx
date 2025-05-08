@@ -6,7 +6,7 @@ import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { SAMPLE_REPORT } from '@user/report/constants/sample';
 import { useEffect, useState } from 'react';
-import { debounce } from '@/shared/utils/utilFns';
+import { debounce } from '@/shared/utils/debounce';
 
 const MAX_BAR_HEIGHT = 147;
 const MEDIUM_WINDOW_WIDTH = 708;

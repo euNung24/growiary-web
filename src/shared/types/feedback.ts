@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 export type FeedbackType = {
   category: string;
   content: string;

@@ -14,7 +14,7 @@ import {
 } from '@/shared/components/ui/select';
 import { Label } from '@/shared/components/ui/label';
 import { cn } from '@/shared/utils/cn';
-import { checkIsTopicCategory, topicCategory } from '@/shared/utils/topicCategory';
+import { checkIsTopicCategory, topicCategory } from '@/shared/types/topicCategory';
 import {
   AlertDialog,
   AlertDialogAction,

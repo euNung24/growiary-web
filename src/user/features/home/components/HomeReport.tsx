@@ -6,7 +6,7 @@ import ReportByPostWithAll from '@/user/features/home/components/ReportByPostWit
 import ReportByWeekBar from '@/user/features/home/components/ReportByWeekBar';
 import ReportByTimeBar from '@/user/features/home/components/ReportByTimeBar';
 import useReportContext from '@user/report/hooks/useReportContext';
-import LinkOrLogin from '@/shared/components/LinkOrLogin';
+import LinkOrLogin from '@/user/features/home/components/LinkOrLogin';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { MENU_NAMES } from '@/shared/utils';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';

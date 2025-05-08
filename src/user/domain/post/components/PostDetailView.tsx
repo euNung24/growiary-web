@@ -26,7 +26,7 @@ import {
 } from '@/shared/components/ui/alert-dialog';
 import { toast } from '@/shared/components/ui/use-toast';
 import { Label } from '@/shared/components/ui/label';
-import { topicCategory } from '@/shared/utils/topicCategory';
+import { topicCategory } from '@/shared/types/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 
 import { ResPostType } from '@user/post/models/post';

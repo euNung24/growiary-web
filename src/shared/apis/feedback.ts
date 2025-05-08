@@ -1,6 +1,6 @@
-import withTokenPost from '@/shared/apis/withToken';
-import { FeedbackType, ResFeedbackType } from '@/shared/types/feedbackType';
-import { ApiSuccessResponse } from '@/shared/types';
+import withTokenPost from '@/shared/utils/withToken';
+import { FeedbackType, ResFeedbackType } from '@/shared/types/feedback';
+import { ApiSuccessResponse } from '@/shared/types/response';
 
 const reserveApiUrl = process.env.NEXT_PUBLIC_API + '/feedback';
 

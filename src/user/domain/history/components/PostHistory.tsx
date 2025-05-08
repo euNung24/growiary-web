@@ -8,7 +8,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 import { cn } from '@/shared/utils/cn';
 import Chip from '@/shared/components/Chip';
 import { CardChip } from '@/shared/components/ui/card';
-import { topicCategory } from '@/shared/utils/topicCategory';
+import { topicCategory } from '@/shared/types/topicCategory';
 import { getStringDateAndTime, getTwoFormatDate } from '@/shared/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Button } from '@/shared/components/ui/button';

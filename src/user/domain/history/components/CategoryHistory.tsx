@@ -1,4 +1,4 @@
-import { topicCategory } from '@/shared/utils/topicCategory';
+import { topicCategory } from '@/shared/types/topicCategory';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { TopicCategory } from '@user/topic/models/topic';

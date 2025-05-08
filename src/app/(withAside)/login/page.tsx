@@ -1,4 +1,4 @@
-import LoginLoading from '@/shared/components/LoginLoading';
+import LoginLoading from '@/user/features/login/components/LoginLoading';
 import { Suspense } from 'react';
 
 export default function Page() {

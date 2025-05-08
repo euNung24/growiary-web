@@ -1,7 +1,7 @@
 'use client';
 
-import { ApiSuccessResponse } from '@/shared/types';
-import { withTokenGet } from '@/shared/apis/withToken';
+import { ApiSuccessResponse } from '@/shared/types/response';
+import { withTokenGet } from '@/shared/utils/withToken';
 
 import { ChallengeType } from '@user/challenge/models/challenge';
 

@@ -4,7 +4,7 @@ import Chip from '@/shared/components/Chip';
 import useReportContext from '@user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@user/post/models/post';
-import { topicCategory } from '@/shared/utils/topicCategory';
+import { topicCategory } from '@/shared/types/topicCategory';
 import { TopicCategory } from '@user/topic/models/topic';
 import { getPercentage } from '@/shared/utils';
 import { tracking } from '@/shared/utils/mixPanel';

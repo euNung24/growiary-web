@@ -1,5 +1,5 @@
 import withToken from '@/shared/utils/withToken';
-import { ApiSuccessResponse } from '@/shared/types';
+import { ApiSuccessResponse } from '@/shared/types/response';
 import { UsersType } from '@/admin/type';
 
 const usersApiUrl = process.env.NEXT_PUBLIC_API + '/admin/user';

@@ -1,5 +1,5 @@
-import withToken from '@/shared/apis/withToken';
-import { ApiSuccessResponse } from '@/shared/types';
+import withToken from '@/shared/utils/withToken';
+import { ApiSuccessResponse } from '@/shared/types/response';
 
 import { ReqPostType, ResPostType, UpdatePostType } from '@user/post/models/post';
 
