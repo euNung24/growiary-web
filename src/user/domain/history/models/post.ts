@@ -23,9 +23,7 @@ export type ReqPostType = PostType & {
   writeDate: Date;
 };
 
-export type DeletePostType = PostType & {
-  status: boolean;
+export type DailyCheckerType = {
+  today: number;
+  continue: number[];
 };
-
-export type UpdatePostType = { id: string } & ReqPostType;
-

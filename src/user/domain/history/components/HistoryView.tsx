@@ -15,9 +15,9 @@ import LoginDialog from '@/shared/components/LoginDialog';
 import { Button } from '@/shared/components/ui/button';
 
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import useGetMonthlyPosts from '@/user/features/home/use-cases/useGetMonthlyPosts';
 import { TopicCategory } from '@user/topic/type';
-import { ResPostType } from '@user/post/types';
-import useGetMonthlyPosts from '@user/post/hooks/useGetMonthlyPosts';
+import { ResPostType } from '@user/history/models/post';
 import CategoryHistory from '@user/history/components/CategoryHistory';
 import TodayNewPost from '@user/history/components/TodayNewPost';
 import PostHistory from '@user/history/components/PostHistory';

@@ -29,8 +29,8 @@ import { tracking } from '@/shared/utils/mixPanel';
 import { TodayState } from '@/shared/store/todayStore';
 
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
-import { SAMPLE_DATA } from '@user/history/utils/sample';
-import { ResPostType } from '@user/post/types';
+import { SAMPLE_DATA } from '@user/history/constants/sample';
+import { ResPostType } from '@user/history/models/post';
 import { deletePost } from '@user/post/api';
 
 type PostHistoryProps = {

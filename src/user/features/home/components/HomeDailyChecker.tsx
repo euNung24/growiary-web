@@ -1,16 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import DailyChecker from '@/shared/components/DailyChecker';
-import { getDailyCheckerPost } from '@user/post/api';
 import Link from 'next/link';
+
 import { useMutation } from '@tanstack/react-query';
-import { DailyCheckerType } from '@user/post/types';
+import { sendGAEvent } from '@next/third-parties/google';
+
+import DailyChecker from '@/shared/components/DailyChecker';
 import { Skeleton } from '@/shared/components/ui/skeleton';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
 import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';
-import { sendGAEvent } from '@next/third-parties/google';
+
+import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import { getDailyCheckerPost } from '@/user/features/home/infra/homeApi';
+import { DailyCheckerType } from '@user/history/models/post';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';

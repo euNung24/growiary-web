@@ -1,13 +1,7 @@
 import withToken from '@/shared/apis/withToken';
 import { ApiSuccessResponse } from '@/shared/types';
 
-import {
-  DailyCheckerType,
-  ReqPostType,
-  ResPostType,
-  UpdatePostType,
-} from '@user/post/types';
-import { TopicCategory } from '@user/topic/type';
+import { ReqPostType, ResPostType, UpdatePostType } from '@user/post/types';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 
@@ -32,16 +26,4 @@ export const updatePost = (postData: UpdatePostType) =>
 export const deletePost = (id: string) =>
   withToken(postApiUrl + '/update', { body: { status: false, id } }) as Promise<
     ApiSuccessResponse<ResPostType>
-  >;
-export const getMonthlyPosts = (
-  date: string,
-  { abortController }: { abortController: AbortController | null },
-) =>
-  withToken(postApiUrl + '/record', { body: { date }, abortController }) as Promise<
-    ApiSuccessResponse<{ posts: ResPostType[]; category: Record<TopicCategory, number> }>
-  >;
-
-export const getDailyCheckerPost = () =>
-  withToken(postApiUrl + '/continue-range') as Promise<
-    ApiSuccessResponse<DailyCheckerType>
   >;
