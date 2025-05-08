@@ -1,7 +1,9 @@
+import { Controller, useFormContext } from 'react-hook-form';
+
+import { topicCategory } from '@/shared/utils/topicCategory';
+
 import Editor from '@user/post/components/Editor';
 import { TopicCategory, TopicType } from '@user/topic/type';
-import { topicCategory } from '@/shared/utils/topicCategory';
-import { Controller, useFormContext } from 'react-hook-form';
 
 type FormContentProps = {
   selectedTopic?: TopicType;

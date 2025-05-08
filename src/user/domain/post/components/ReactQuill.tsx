@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { forwardRef, useEffect, useRef, useState } from 'react';
+
 import Quill from 'quill';
-import './editor.css';
 import Delta from 'quill-delta';
 import { ControllerRenderProps } from 'react-hook-form';
-import { cn } from '@/shared/utils/cn';
 // @ts-expect-error
 import QuillMarkdown from 'quilljs-markdown';
 import 'quilljs-markdown/dist/quilljs-markdown-common-style.css';
+
+import './editor.css';
+import { cn } from '@/shared/utils/cn';
 
 type ReactQuillProps = {
   defaultValue?: Delta | string;

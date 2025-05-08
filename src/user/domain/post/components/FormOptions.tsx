@@ -1,4 +1,10 @@
+import { useRef, useState } from 'react';
 import Image from 'next/image';
+
+import { Braces, List } from 'lucide-react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { format } from 'date-fns';
+
 import {
   Select,
   SelectContent,
@@ -7,13 +13,8 @@ import {
   SelectValue,
 } from '@/shared/components/ui/select';
 import { Label } from '@/shared/components/ui/label';
-import { Braces, List } from 'lucide-react';
-import { Controller, useFormContext } from 'react-hook-form';
 import { cn } from '@/shared/utils/cn';
-import useGetTopicsByCategory from '@user/topic/hooks/useGetTopicsByCategory';
 import { checkIsTopicCategory, topicCategory } from '@/shared/utils/topicCategory';
-import { TopicCategory } from '@user/topic/type';
-import { useRef, useState } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,9 +28,11 @@ import {
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { format } from 'date-fns';
 import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
+
+import useGetTopicsByCategory from '@user/topic/hooks/useGetTopicsByCategory';
+import { TopicCategory } from '@user/topic/type';
 import Tag from '@user/post/components/Tag';
 
 const FormOptions = () => {

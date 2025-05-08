@@ -5,9 +5,11 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Input } from '@/shared/components/ui/input';
+
 import { X } from 'lucide-react';
 import { ControllerRenderProps } from 'react-hook-form';
+
+import { Input } from '@/shared/components/ui/input';
 import { cn } from '@/shared/utils/cn';
 
 type TagProps = {

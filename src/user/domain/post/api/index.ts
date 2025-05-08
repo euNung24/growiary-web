@@ -1,12 +1,13 @@
+import withToken from '@/shared/apis/withToken';
+import { ApiSuccessResponse } from '@/shared/types';
+
 import {
   DailyCheckerType,
   ReqPostType,
   ResPostType,
   UpdatePostType,
 } from '@user/post/types';
-import withToken from '@/shared/apis/withToken';
 import { TopicCategory } from '@user/topic/type';
-import { ApiSuccessResponse } from '@/shared/types';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 

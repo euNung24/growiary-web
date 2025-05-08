@@ -1,8 +1,10 @@
 'use client';
 
-import { getMonthlyPosts } from '@user/post/api';
-import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
+
+import { useMutation } from '@tanstack/react-query';
+
+import { getMonthlyPosts } from '@user/post/api';
 
 const useGetMonthlyPosts = () => {
   const abortControllerRef = useRef<AbortController | null>(null);

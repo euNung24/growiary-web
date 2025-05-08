@@ -1,5 +1,6 @@
-import dynamic from 'next/dynamic';
 import React from 'react';
+import dynamic from 'next/dynamic';
+
 import Delta, { Op } from 'quill-delta';
 import { ControllerRenderProps } from 'react-hook-form';
 

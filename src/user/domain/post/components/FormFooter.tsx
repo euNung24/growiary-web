@@ -1,8 +1,10 @@
+import { useFormContext } from 'react-hook-form';
+
 import LoginDialog from '@/shared/components/LoginDialog';
 import { Button } from '@/shared/components/ui/button';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
 import { cn } from '@/shared/utils/cn';
-import { useFormContext } from 'react-hook-form';
+
+import useProfileContext from '@/user/profile/hooks/useProfileContext';
 
 const FormFooter = () => {
   const methods = useFormContext();

@@ -1,6 +1,8 @@
 import { atom } from 'recoil';
-import { ReqPostType } from '@user/post/types';
+
 import { sessionStorageEffect } from '@/shared/store/index';
+
+import { ReqPostType } from '@user/post/types';
 
 export type PostStoreType = {
   key: 'post';
