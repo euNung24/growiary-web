@@ -14,8 +14,8 @@ import { useToast } from '@/shared/components/ui/use-toast';
 import { Input } from '@/shared/components/ui/input';
 
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
-import { TopicCategory } from '@user/topic/type';
-import useGetTopicsByCategory from '@user/topic/hooks/useGetTopicsByCategory';
+import { TopicCategory } from '@user/topic/models/topic';
+import useGetTopicsByCategory from '@user/topic/use-cases/useGetTopicsByCategory';
 import { createPost, updatePost } from '@user/post/api';
 import { ReqPostType, ResPostType } from '@user/post/types';
 import useFindPost from '@user/post/hooks/useFindPost';

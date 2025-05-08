@@ -1,5 +1,5 @@
 import { ResPostType } from '@user/post/types';
-import { TopicCategory } from '@user/topic/type';
+import { TopicCategory } from '@user/topic/models/topic';
 
 export const SAMPLE_CATEGORY_DATA: Record<TopicCategory, number> = {
   하루생각: 8,

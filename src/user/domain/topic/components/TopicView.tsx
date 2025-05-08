@@ -2,7 +2,7 @@
 
 import { cn } from '@/shared/utils/cn';
 import { topicCategory } from '@/shared/utils/topicCategory';
-import { TopicCategory } from '@user/topic/type';
+import { TopicCategory } from '@user/topic/models/topic';
 import { useState } from 'react';
 import RecentTopic from '@user/topic/components/RecentTopic';
 import RecommendedTopic from '@user/topic/components/RecommendedTopic';

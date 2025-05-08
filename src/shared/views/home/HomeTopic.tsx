@@ -5,10 +5,10 @@ import Image from 'next/image';
 import { cn } from '@/shared/utils/cn';
 import { MENU_NAMES } from '@/shared/utils';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';
-import { TopicCategory } from '@user/topic/type';
+import { TopicCategory } from '@user/topic/models/topic';
 
 import useGetProfile from '@/user/profile/hooks/useGetProfile';
-import useGetTopicsByCategory from '@user/topic/hooks/useGetTopicsByCategory';
+import useGetTopicsByCategory from '@user/topic/use-cases/useGetTopicsByCategory';
 
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';

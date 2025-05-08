@@ -2,7 +2,7 @@ import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { toast } from '@/shared/components/ui/use-toast';
-import { TopicCategory, TopicType } from '@user/topic/type';
+import { TopicCategory, TopicType } from '@user/topic/models/topic';
 import { genRandomNum } from '@/shared/utils';
 import { topicCategory } from '@/shared/utils/topicCategory';
 import { onTrackingHandler, trackingAnalytics } from '@/shared/utils/trackingAnalytics';

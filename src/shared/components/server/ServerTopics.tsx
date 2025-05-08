@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { getAllTopics } from '@user/topic/api/server';
+import { getAllTopics } from '@user/topic/infra/topicApi.server';
 
 const ServerTopics = async ({ children }: PropsWithChildren) => {
   const queryClient = new QueryClient();

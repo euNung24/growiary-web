@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { getUserRecentTopic } from '@user/topic/api/client';
+import { getUserRecentTopic } from '@user/topic/infra/topicApi.client';
 
 const useGetUserRecentTopic = () => {
   return useMutation({

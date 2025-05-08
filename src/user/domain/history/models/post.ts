@@ -1,6 +1,6 @@
 import { Op } from 'quill-delta';
 
-import { TopicType } from '@user/topic/type';
+import { TopicType } from '@user/topic/models/topic';
 
 type PostType = {
   index?: number;
