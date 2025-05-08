@@ -8,10 +8,10 @@ import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
 import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
-import AvgPostChart from '@/views/admin/total/AvgPostChart';
+import AvgPostChart from '@/admin/components/total/AvgPostChart';
 import { getFormatDate } from '@/utils';
-import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
-import TotalCard from '@/views/admin/total/TotalCard';
+import ActiveUserCard from '@/admin/components/total/ActiveUserCard';
+import TotalCard from '@/admin/components/total/TotalCard';
 import { handleError } from '@/apis/token/client';
 import useGetProfile from '@/profile/hooks/useGetProfile';
 

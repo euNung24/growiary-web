@@ -1,6 +1,6 @@
 'use client';
 
-import { DataTable } from '@/views/admin/users/DataTable';
+import { DataTable } from '@/admin/components/users/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { UsersType } from '@/admin/type';
 import { addDays, format, set, subDays } from 'date-fns';
@@ -14,8 +14,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';
 import * as React from 'react';
 import { DateRange, SelectRangeEventHandler } from 'react-day-picker';
-import { DatePickerWithRange } from '@/views/admin/users/DatePickerWithRange';
-import FilterBox from '@/views/admin/users/FilterBox';
+import { DatePickerWithRange } from '@/admin/components/users/DatePickerWithRange';
+import FilterBox from '@/admin/components/users/FilterBox';
 import {
   Tooltip,
   TooltipContent,

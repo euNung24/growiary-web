@@ -2,7 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { MENU_NAMES } from '@/utils';
-import { DataTable } from '@/views/admin/feedback/DataTable';
+import { DataTable } from '@/admin/components/feedback/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { ResFeedbackType } from '@/types/feedbackType';
