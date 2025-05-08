@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import Preview from '@/views/common/Preview';
-import PostView from '@/views/post/PostView';
+import Preview from '@/shared/components/Preview';
+import PostView from '@user/post/components/PostView';
 
 export default function Home() {
   return (

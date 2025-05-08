@@ -1,5 +1,5 @@
-import HomeView from '@/views/home/HomeView';
-import Preview from '@/views/common/Preview';
+import HomeView from '@/user/features/home/components/HomeView';
+import Preview from '@/shared/components/Preview';
 
 export default async function Home() {
   return (

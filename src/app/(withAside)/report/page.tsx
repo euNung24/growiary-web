@@ -1,6 +1,6 @@
-import ReportView from '@/views/report/ReportView';
-import Preview from '@/views/common/Preview';
-import ReportAcc from '@/views/report/ReportAcc';
+import ReportView from '@user/report/components/ReportView';
+import Preview from '@/shared/components/Preview';
+import ReportAcc from '@user/report/components/ReportAcc';
 
 export default function Home() {
   return (

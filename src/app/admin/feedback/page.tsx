@@ -1,4 +1,4 @@
-import FeedbackView from '@/views/admin/feedback/FeedbackView';
+import FeedbackView from '@/admin/components/feedback/FeedbackView';
 
 export default function Page() {
   return <FeedbackView />;

@@ -1,4 +1,4 @@
-import UsersView from '@/views/admin/users/UsersView';
+import UsersView from '@/admin/components/users/UsersView';
 
 export default function Page() {
   return <UsersView />;
