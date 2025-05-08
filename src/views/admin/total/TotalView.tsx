@@ -12,8 +12,8 @@ import AvgPostChart from '@/views/admin/total/AvgPostChart';
 import { getFormatDate } from '@/utils';
 import ActiveUserCard from '@/views/admin/total/ActiveUserCard';
 import TotalCard from '@/views/admin/total/TotalCard';
-import useAuthProfileContext from '@/hooks/admin/useAuthProfileContext';
 import { handleError } from '@/apis/token/client';
+import useGetProfile from '@/hooks/profile/useGetProfile';
 
 const isTodayPost = (postDate: string) => {
   return format(new Date(postDate), 'yyyyMMdd') === format(new Date(), 'yyyyMMdd');
@@ -28,7 +28,7 @@ type Info = {
   prevMau: number;
 };
 const TotalView = () => {
-  const { profile } = useAuthProfileContext();
+  const { data: profile } = useGetProfile();
   const {
     date: { year, month, date, day },
   } = useRecoilValue(TodayState);
