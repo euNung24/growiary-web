@@ -1,4 +1,4 @@
-import HistoryView from '@/history/components/HistoryView';
+import HistoryView from '@/domain/history/components/HistoryView';
 import Preview from '@/views/common/Preview';
 
 export default function Home() {

@@ -2,7 +2,7 @@ import LinkOrLogin from '@/components/LinkOrLogin';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from '@/components/ui/use-toast';
-import { TopicCategory, TopicType } from '@/topic/type';
+import { TopicCategory, TopicType } from '@/domain/topic/type';
 import { genRandomNum } from '@/utils';
 import { topicCategory } from '@/utils/topicCategory';
 import { onTrackingHandler, trackingAnalytics } from '@/utils/trackingAnalytics';

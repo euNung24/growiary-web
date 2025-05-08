@@ -2,7 +2,7 @@ import HomeDailyChecker from '@/views/home/HomeDailyChecker';
 import HomeReport from '@/views/home/HomeReport';
 import HomeTopic from '@/views/home/HomeTopic';
 import HomePosts from '@/views/home/HomePosts';
-import ReportProvider from '@/report/components/ReportProvider';
+import ReportProvider from '@/domain/report/components/ReportProvider';
 
 const HomeView = () => {
   return (

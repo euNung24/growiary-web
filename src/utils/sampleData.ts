@@ -1,5 +1,5 @@
-import { ResPostType } from '@/post/types';
-import { TopicCategory } from '@/topic/type';
+import { ResPostType } from '@/domain/post/types';
+import { TopicCategory } from '@/domain/topic/type';
 
 export const SAMPLE_CATEGORY_DATA: Record<TopicCategory, number> = {
   하루생각: 8,

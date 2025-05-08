@@ -1,4 +1,4 @@
-import { BadgeKeyType } from '@/challenge/type';
+import { BadgeKeyType } from '@/domain/challenge/type';
 
 export type ProfileType = {
   userId: string;

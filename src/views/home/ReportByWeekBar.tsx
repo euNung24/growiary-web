@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { ReportContext } from '@/report/components/ReportProvider';
+import { ReportContext } from '@/domain/report/components/ReportProvider';
 import { cn } from '@/lib/utils';
 import { WEEK, WEEK_ENG } from '@/utils';
 
