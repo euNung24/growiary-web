@@ -1,6 +1,7 @@
-import Chip from '@/shared/components/Chip';
 import Link from 'next/link';
 import Image from 'next/image';
+
+import Chip from '@/shared/components/Chip';
 
 type TodayNewPostProps = {
   assignRef: (index: string) => (element: HTMLDivElement) => void;

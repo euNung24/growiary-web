@@ -1,12 +1,16 @@
-import { SAMPLE_DATA } from '@user/history/utils/sample';
+import { Dispatch, SetStateAction } from 'react';
+import Link from 'next/link';
+
+import { Ellipsis } from 'lucide-react';
+import { useRecoilValue } from 'recoil';
+import { sendGAEvent } from '@next/third-parties/google';
+
 import { cn } from '@/shared/utils/cn';
 import Chip from '@/shared/components/Chip';
-import Link from 'next/link';
 import { CardChip } from '@/shared/components/ui/card';
 import { topicCategory } from '@/shared/utils/topicCategory';
 import { getStringDateAndTime, getTwoFormatDate } from '@/shared/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { Ellipsis } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
 import {
   AlertDialog,
@@ -20,15 +24,14 @@ import {
   AlertDialogTitleIcon,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
-import useProfileContext from '@/user/profile/hooks/useProfileContext';
-import { ResPostType } from '@user/post/types';
-import { deletePost } from '@user/post/api';
 import { toast } from '@/shared/components/ui/use-toast';
 import { tracking } from '@/shared/utils/mixPanel';
-import { sendGAEvent } from '@next/third-parties/google';
-import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
-import { Dispatch, SetStateAction } from 'react';
+
+import useProfileContext from '@/user/profile/hooks/useProfileContext';
+import { SAMPLE_DATA } from '@user/history/utils/sample';
+import { ResPostType } from '@user/post/types';
+import { deletePost } from '@user/post/api';
 
 type PostHistoryProps = {
   posts: { [key: string]: ResPostType[] };
