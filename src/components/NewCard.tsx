@@ -9,9 +9,9 @@ import {
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import LoginDialog from '@/components/LoginDialog';
-import { topicCategory } from '@/utils/topicCategory';
-import { tracking } from '@/utils/mixPanel';
-import { MENU_NAMES } from '@/utils';
+import { topicCategory } from '@/shared/utils/topicCategory';
+import { tracking } from '@/shared/utils/mixPanel';
+import { MENU_NAMES } from '@/shared/utils';
 import { sendGAEvent } from '@next/third-parties/google';
 
 type NewCardProps = {

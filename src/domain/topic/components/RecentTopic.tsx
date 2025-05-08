@@ -14,9 +14,9 @@ import { useEffect, useState } from 'react';
 import { RecentTopicType } from '@/domain/topic/type';
 import Image from 'next/image';
 import LoginDialog from '@/components/LoginDialog';
-import { topicCategory } from '@/utils/topicCategory';
+import { topicCategory } from '@/shared/utils/topicCategory';
 import useProfileContext from '@/profile/hooks/useProfileContext';
-import { tracking } from '@/utils/mixPanel';
+import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/components/ui/skeleton';
 

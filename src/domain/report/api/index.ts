@@ -1,6 +1,6 @@
 import { ReportType } from '@/domain/report/type';
-import withToken from '@/apis/withToken';
-import { ApiSuccessResponse } from '@/types';
+import withToken from '@/shared/apis/withToken';
+import { ApiSuccessResponse } from '@/shared/types';
 
 const reportApiUrl = process.env.NEXT_PUBLIC_API + '/report';
 

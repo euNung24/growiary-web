@@ -12,7 +12,7 @@ import {
   badgeCardVariants,
 } from '@/components/BadgeCard';
 import * as React from 'react';
-import { BADGE_INFO } from '@/utils/challenge';
+import { BADGE_INFO } from '@/shared/utils/challenge';
 import useGetUserBadgeInfo from '@/domain/challenge/hooks/useGetUserBadgeInfo';
 import { useEffect, useState } from 'react';
 import { BadgeKeyType } from '@/domain/challenge/type';
@@ -27,7 +27,7 @@ import {
 import useChangeUserTitleBadge from '@/domain/challenge/hooks/useChangeUserTitleBadge';
 import useProfileContext from '@/profile/hooks/useProfileContext';
 import { cn } from '@/lib/utils';
-import { tracking } from '@/utils/mixPanel';
+import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useQueryClient } from '@tanstack/react-query';
 

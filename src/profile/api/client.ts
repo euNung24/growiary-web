@@ -1,8 +1,8 @@
 import { ProfileType } from '@/profile/type';
-import withToken from '@/apis/withToken';
+import withToken from '@/shared/apis/withToken';
 import { BadgeKeyType } from '@/domain/challenge/type';
-import { ApiSuccessResponse } from '@/types';
-import { handleError } from '@/apis/token/client';
+import { ApiSuccessResponse } from '@/shared/types';
+import { handleError } from '@/shared/apis/token/client';
 import Cookies from 'js-cookie';
 
 const profileApiUrl = process.env.NEXT_PUBLIC_API + '/profile';

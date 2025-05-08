@@ -2,8 +2,8 @@
 
 import { ReactNode, useEffect } from 'react';
 import useProfileContext from '@/profile/hooks/useProfileContext';
-import TopStartButton from '@/views/common/TopStartButton';
-import FooterFeedbackView from '@/views/common/FooterFeedbackView';
+import TopStartButton from '@/shared/views/common/TopStartButton';
+import FooterFeedbackView from '@/shared/views/common/FooterFeedbackView';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
 

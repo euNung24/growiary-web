@@ -20,7 +20,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { createReserve } from '@/domain/report/api/reservation';
 import { ReservationType } from '@/domain/report/type/reservationType';
-import { tracking } from '@/utils/mixPanel';
+import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 
 const FormSchema = z.object({

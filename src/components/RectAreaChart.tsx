@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { debounce } from '@/utils/utilFns';
+import { debounce } from '@/shared/utils/utilFns';
 
 type RectAreaChartProps = {
   data?: [string, number][] | null;

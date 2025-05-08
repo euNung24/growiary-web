@@ -4,9 +4,9 @@ import useReportContext from '@/domain/report/hooks/useReportContext';
 import Image from 'next/image';
 import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/profile/hooks/useProfileContext';
-import { SAMPLE_REPORT } from '@/utils/report';
+import { SAMPLE_REPORT } from '@/shared/utils/report';
 import { useEffect, useState } from 'react';
-import { debounce } from '@/utils/utilFns';
+import { debounce } from '@/shared/utils/utilFns';
 
 const MAX_BAR_HEIGHT = 147;
 const MEDIUM_WINDOW_WIDTH = 708;

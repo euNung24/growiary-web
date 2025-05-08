@@ -1,11 +1,11 @@
 'use client';
 
 import { useRecoilValue } from 'recoil';
-import { TodayState } from '@/store/todayStore';
+import { TodayState } from '@/shared/store/todayStore';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ResPostType } from '@/domain/post/types';
-import { getTwoFormatDate } from '@/utils';
+import { getTwoFormatDate } from '@/shared/utils';
 import { TopicCategory } from '@/domain/topic/type';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';

@@ -7,9 +7,9 @@ import { ResPostType } from '@/domain/post/types';
 import Tag from '@/components/Tag';
 import { useEffect, useRef, useState } from 'react';
 import '@/components/editor.css';
-import { topicCategory } from '@/utils/topicCategory';
+import { topicCategory } from '@/shared/utils/topicCategory';
 import Link from 'next/link';
-import { getStringDateAndTime } from '@/utils';
+import { getStringDateAndTime } from '@/shared/utils';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,7 +29,7 @@ import { Label } from '@/components/ui/label';
 import Image from 'next/image';
 import Editor from '@/components/Editor';
 import useFindPost from '@/domain/post/hooks/useFindPost';
-import { tracking } from '@/utils/mixPanel';
+import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 
 type PostDetailViewProps = {

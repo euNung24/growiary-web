@@ -1,4 +1,4 @@
-import { IconProps } from '@/utils/topicCategory';
+import { IconProps } from '@/shared/utils/topicCategory';
 
 const RemembranceIcon = ({ color = '#002861', width = 24, height = 24 }: IconProps) => {
   return (

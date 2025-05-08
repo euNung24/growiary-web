@@ -11,9 +11,9 @@ import {
 } from '@/components/ui/dialog';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
-import ServiceTerm from '@/views/common/ServiceTerm';
-import PrivateTerm from '@/views/common/PrivateTerm';
-import { tracking } from '@/utils/mixPanel';
+import ServiceTerm from '@/shared/views/common/ServiceTerm';
+import PrivateTerm from '@/shared/views/common/PrivateTerm';
+import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 
 type LoginDialogProps = {

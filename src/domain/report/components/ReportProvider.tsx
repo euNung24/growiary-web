@@ -4,7 +4,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { ReportType } from '@/domain/report/type';
 import useGetReport from '@/domain/report/hooks/useGetReport';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { TodayState } from '@/store/todayStore';
+import { TodayState } from '@/shared/store/todayStore';
 import useProfileContext from '@/profile/hooks/useProfileContext';
 import { ReportState } from '@/domain/report/store';
 import Image from 'next/image';

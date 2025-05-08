@@ -6,8 +6,8 @@ import {
   TopicType,
   UpdateTopicType,
 } from '@/domain/topic/type';
-import withToken from '@/apis/withToken';
-import { ApiSuccessResponse } from '@/types';
+import withToken from '@/shared/apis/withToken';
+import { ApiSuccessResponse } from '@/shared/types';
 
 const topicApiUrl = process.env.NEXT_PUBLIC_API + '/topic';
 

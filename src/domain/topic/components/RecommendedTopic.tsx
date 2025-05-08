@@ -10,8 +10,8 @@ import {
 import { Button, ButtonIcon } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { topicCategory } from '@/utils/topicCategory';
-import { tracking } from '@/utils/mixPanel';
+import { topicCategory } from '@/shared/utils/topicCategory';
+import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/components/ui/skeleton';
 

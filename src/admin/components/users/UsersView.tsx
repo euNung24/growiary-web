@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { ResPostType } from '@/domain/post/types';
 import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
 import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
-import { getFormatDate } from '@/utils';
+import { getFormatDate } from '@/shared/utils';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';
@@ -27,7 +27,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
-import { handleError } from '@/apis/token/client';
+import { handleError } from '@/shared/apis/token/client';
 import useGetProfile from '@/profile/hooks/useGetProfile';
 
 type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {

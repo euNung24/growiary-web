@@ -1,10 +1,10 @@
-import { SAMPLE_DATA } from '@/utils/sampleData';
+import { SAMPLE_DATA } from '@/shared/utils/sampleData';
 import { cn } from '@/lib/utils';
 import Chip from '@/components/Chip';
 import Link from 'next/link';
 import { CardChip } from '@/components/ui/card';
-import { topicCategory } from '@/utils/topicCategory';
-import { getStringDateAndTime, getTwoFormatDate } from '@/utils';
+import { topicCategory } from '@/shared/utils/topicCategory';
+import { getStringDateAndTime, getTwoFormatDate } from '@/shared/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Ellipsis } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -24,10 +24,10 @@ import useProfileContext from '@/profile/hooks/useProfileContext';
 import { ResPostType } from '@/domain/post/types';
 import { deletePost } from '@/domain/post/api';
 import { toast } from '@/components/ui/use-toast';
-import { tracking } from '@/utils/mixPanel';
+import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useRecoilValue } from 'recoil';
-import { TodayState } from '@/store/todayStore';
+import { TodayState } from '@/shared/store/todayStore';
 import { Dispatch, SetStateAction } from 'react';
 
 type PostHistoryProps = {

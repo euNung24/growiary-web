@@ -7,12 +7,12 @@ import { format } from 'date-fns';
 import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
 import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
 import { useRecoilValue } from 'recoil';
-import { TodayState } from '@/store/todayStore';
+import { TodayState } from '@/shared/store/todayStore';
 import AvgPostChart from '@/admin/components/total/AvgPostChart';
-import { getFormatDate } from '@/utils';
+import { getFormatDate } from '@/shared/utils';
 import ActiveUserCard from '@/admin/components/total/ActiveUserCard';
 import TotalCard from '@/admin/components/total/TotalCard';
-import { handleError } from '@/apis/token/client';
+import { handleError } from '@/shared/apis/token/client';
 import useGetProfile from '@/profile/hooks/useGetProfile';
 
 const isTodayPost = (postDate: string) => {

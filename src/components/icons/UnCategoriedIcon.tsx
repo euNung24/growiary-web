@@ -1,4 +1,4 @@
-import { IconProps } from '@/utils/topicCategory';
+import { IconProps } from '@/shared/utils/topicCategory';
 
 const UnCategoriedIcon = ({ color = '#8A9299', width = 24, height = 24 }: IconProps) => {
   return (

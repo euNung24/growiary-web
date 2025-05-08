@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import RectAreaChart from '@/components/RectAreaChart';
 import { useEffect, useRef, useState } from 'react';
 import useReportContext from '@/domain/report/hooks/useReportContext';
-import { getPercentage, TIME } from '@/utils';
+import { getPercentage, TIME } from '@/shared/utils';
 import Image from 'next/image';
 
 const ReportByTime = () => {

@@ -1,6 +1,6 @@
 import Editor from '@/components/Editor';
 import { TopicCategory, TopicType } from '@/domain/topic/type';
-import { topicCategory } from '@/utils/topicCategory';
+import { topicCategory } from '@/shared/utils/topicCategory';
 import { Controller, useFormContext } from 'react-hook-form';
 
 type FormContentProps = {

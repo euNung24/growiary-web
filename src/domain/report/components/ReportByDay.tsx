@@ -3,7 +3,7 @@ import PolarChart from '@/components/PolarChart';
 import useReportContext from '@/domain/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { WEEK } from '@/utils';
+import { WEEK } from '@/shared/utils';
 
 const COLORS = ['#154284', '#204C90', '#3B619D', '#4F72A7', '#6E86B4', '#8094B0'];
 type WeekDataType = {

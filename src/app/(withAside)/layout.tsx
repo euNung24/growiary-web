@@ -1,4 +1,4 @@
-import Sidebar from '@/views/common/Sidebar';
+import Sidebar from '@/shared/views/common/Sidebar';
 import { ReactNode } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import ServerProfile from '@/components/server/ServerProfile';

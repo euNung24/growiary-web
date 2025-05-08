@@ -1,6 +1,6 @@
-import LandingInitEffects from '@/views/landing/LandingInitEffects';
-import StartButton from '@/views/landing/StartButton';
-import LandingView from '@/views/LandingView';
+import LandingInitEffects from '@/shared/views/landing/LandingInitEffects';
+import StartButton from '@/shared/views/landing/StartButton';
+import LandingView from '@/shared/views/LandingView';
 
 export default function Home() {
   return (

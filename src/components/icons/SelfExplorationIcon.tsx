@@ -1,4 +1,4 @@
-import { IconProps } from '@/utils/topicCategory';
+import { IconProps } from '@/shared/utils/topicCategory';
 
 const SelfExplorationIcon = ({
   color = '#8A9299',

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { UserState } from '@/store/userStore';
+import { UserState } from '@/shared/store/userStore';
 
 const loginView = () => {
   const setUserState = useSetRecoilState(UserState);

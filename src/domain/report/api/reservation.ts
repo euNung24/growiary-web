@@ -1,9 +1,9 @@
-import withTokenPost from '@/apis/withToken';
+import withTokenPost from '@/shared/apis/withToken';
 import {
   ReservationType,
   ResReservationType,
 } from '@/domain/report/type/reservationType';
-import { ApiSuccessResponse } from '@/types';
+import { ApiSuccessResponse } from '@/shared/types';
 
 const reserveApiUrl = process.env.NEXT_PUBLIC_API + '/reserve';
 

@@ -11,7 +11,7 @@ import { Braces, List } from 'lucide-react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import useGetTopicsByCategory from '@/domain/topic/hooks/useGetTopicsByCategory';
-import { checkIsTopicCategory, topicCategory } from '@/utils/topicCategory';
+import { checkIsTopicCategory, topicCategory } from '@/shared/utils/topicCategory';
 import { TopicCategory } from '@/domain/topic/type';
 import { useRef, useState } from 'react';
 import {

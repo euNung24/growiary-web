@@ -4,10 +4,10 @@ import Chip from '@/components/Chip';
 import useReportContext from '@/domain/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/domain/post/types';
-import { topicCategory } from '@/utils/topicCategory';
+import { topicCategory } from '@/shared/utils/topicCategory';
 import { TopicCategory } from '@/domain/topic/type';
-import { getPercentage } from '@/utils';
-import { tracking } from '@/utils/mixPanel';
+import { getPercentage } from '@/shared/utils';
+import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 
 const CHART_COLOR = ['bg-gray-600', 'bg-gray-400', 'bg-gray-200', 'bg-gray-100'];
