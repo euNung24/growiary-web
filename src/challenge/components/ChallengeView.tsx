@@ -13,9 +13,9 @@ import {
 } from '@/components/BadgeCard';
 import * as React from 'react';
 import { BADGE_INFO } from '@/utils/challenge';
-import useGetUserBadgeInfo from '@/hooks/challenge/useGetUserBadgeInfo';
+import useGetUserBadgeInfo from '@/challenge/hooks/useGetUserBadgeInfo';
 import { useEffect, useState } from 'react';
-import { BadgeKeyType } from '@/types/challengeTypes';
+import { BadgeKeyType } from '@/challenge/type';
 import { VariantProps } from 'class-variance-authority';
 import Image from 'next/image';
 import {
@@ -24,7 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import useChangeUserTitleBadge from '@/hooks/challenge/useChangeUserTitleBadge';
+import useChangeUserTitleBadge from '@/challenge/hooks/useChangeUserTitleBadge';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { cn } from '@/lib/utils';
 import { tracking } from '@/utils/mixPanel';

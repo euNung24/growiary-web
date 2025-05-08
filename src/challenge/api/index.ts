@@ -1,7 +1,7 @@
 'use client';
 
 import { ApiSuccessResponse } from '@/types';
-import { ChallengeType } from '@/types/challengeTypes';
+import { ChallengeType } from '@/challenge/type';
 import { withTokenGet } from '@/apis/withToken';
 
 const challengeApiUrl = process.env.NEXT_PUBLIC_API + '/challenge';

@@ -1,6 +1,6 @@
 import { updateUserTitleBadge } from '@/apis/profile';
 import { useMutation } from '@tanstack/react-query';
-import { BadgeKeyType } from '@/types/challengeTypes';
+import { BadgeKeyType } from '@/challenge/type';
 
 const useChangeUserTitleBadge = () => {
   return useMutation({
