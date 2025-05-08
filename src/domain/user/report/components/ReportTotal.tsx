@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { ReportByTopicType } from '@/domain/user/report/type';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { TIME, WEEK } from '@/shared/utils';
-import { SAMPLE_REPORT } from '@/shared/utils/report';
+import { SAMPLE_REPORT } from '@/domain/user/report/utils/sample';
 
 const ReportTotal = () => {
   const boxStyle = 'rounded-xl border border-gray-100 p-6';

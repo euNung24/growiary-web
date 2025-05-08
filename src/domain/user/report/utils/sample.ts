@@ -1,9 +1,3 @@
-export const color = {
-  first: '#96A8CA',
-  second: '#BFCADF',
-  third: '#E6EAF2',
-};
-
 export const SAMPLE_REPORT = {
   totalPost: 38,
   totalReport: 11310,

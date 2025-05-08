@@ -1,4 +1,4 @@
-import { BADGE_INFO } from '@/shared/utils/challenge';
+import { BADGE_INFO } from '@/domain/user/challenge/utils/badges';
 
 export type ChallengeType = {
   titleBadge?: Partial<keyof typeof BADGE_INFO>;

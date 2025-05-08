@@ -1,4 +1,4 @@
-import { SAMPLE_DATA } from '@/shared/utils/sampleData';
+import { SAMPLE_DATA } from '@/domain/user/history/utils/sample';
 import { cn } from '@/shared/utils/cn';
 import Chip from '@/shared/components/Chip';
 import Link from 'next/link';

@@ -4,7 +4,7 @@ import useReportContext from '@/domain/user/report/hooks/useReportContext';
 import Image from 'next/image';
 import { Context } from 'chartjs-plugin-datalabels';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
-import { SAMPLE_REPORT } from '@/shared/utils/report';
+import { SAMPLE_REPORT } from '@/domain/user/report/utils/sample';
 import { useEffect, useState } from 'react';
 import { debounce } from '@/shared/utils/utilFns';
 

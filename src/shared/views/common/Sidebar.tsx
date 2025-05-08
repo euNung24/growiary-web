@@ -9,7 +9,7 @@ import { Button } from '@/shared/components/ui/button';
 import { menu } from '@/shared/utils';
 import useProfileContext from '@/domain/profile/hooks/useProfileContext';
 import { ProfileType } from '@/domain/profile/type';
-import { BADGE_INFO } from '@/shared/utils/challenge';
+import { BADGE_INFO } from '@/domain/user/challenge/utils/badges';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useEffect, useState } from 'react';

@@ -12,7 +12,7 @@ import {
   badgeCardVariants,
 } from '@/shared/components/BadgeCard';
 import * as React from 'react';
-import { BADGE_INFO } from '@/shared/utils/challenge';
+import { BADGE_INFO } from '@/domain/user/challenge/utils/badges';
 import useGetUserBadgeInfo from '@/domain/user/challenge/hooks/useGetUserBadgeInfo';
 import { useEffect, useState } from 'react';
 import { BadgeKeyType } from '@/domain/user/challenge/type';
