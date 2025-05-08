@@ -1,7 +1,7 @@
 'use client';
 
 import FeedbackModal from '@/shared/views/common/FeedbackModal';
-import useProfileContext from '@/domain/profile/hooks/useProfileContext';
+import useProfileContext from '@/user/profile/hooks/useProfileContext';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { usePathname } from 'next/navigation';

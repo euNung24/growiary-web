@@ -5,9 +5,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import { cn } from '@/shared/utils/cn';
-import useProfileContext from '@/domain/profile/hooks/useProfileContext';
+import useProfileContext from '@/user/profile/hooks/useProfileContext';
 import Image from 'next/image';
-import ReportProvider from '@user/report/components/ReportProvider';
+import ReportProvider from '@/user/domain/report/components/ReportProvider';
 
 export type WithMoveMonthlyProps = {
   selectedMonth?: number;

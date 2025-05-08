@@ -18,7 +18,7 @@
       }
     ],
     "paths": {
-      "@user/*": ["./src/domain/user/*"],
+      "@user/*": ["./src/user/*"],
       "@admin/*": ["./src/admin/*"],
       "@/*": ["./src/*"]
     }

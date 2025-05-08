@@ -5,7 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { UsersType } from '@/admin/type';
 import { addDays, format, set, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@user/post/types';
+import { ResPostType } from '@/user/domain/post/types';
 import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
 import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
 import { getFormatDate } from '@/shared/utils';
@@ -28,7 +28,7 @@ import {
   HoverCardTrigger,
 } from '@/shared/components/ui/hover-card';
 import { handleError } from '@/shared/apis/token/client';
-import useGetProfile from '@/domain/profile/hooks/useGetProfile';
+import useGetProfile from '@/user/profile/hooks/useGetProfile';
 
 type UserTable = Pick<UsersType, 'createdAt' | 'email' | 'social'> & {
   profile: Pick<UsersType['profile'], 'nickname' | 'userId'>;
