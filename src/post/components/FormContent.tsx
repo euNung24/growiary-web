@@ -1,5 +1,5 @@
 import Editor from '@/components/Editor';
-import { TopicCategory, TopicType } from '@/types/topicTypes';
+import { TopicCategory, TopicType } from '@/topic/type';
 import { topicCategory } from '@/utils/topicCategory';
 import { Controller, useFormContext } from 'react-hook-form';
 

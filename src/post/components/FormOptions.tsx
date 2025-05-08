@@ -10,9 +10,9 @@ import { Label } from '@/components/ui/label';
 import { Braces, List } from 'lucide-react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { cn } from '@/lib/utils';
-import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
+import useGetTopicsByCategory from '@/topic/hooks/useGetTopicsByCategory';
 import { checkIsTopicCategory, topicCategory } from '@/utils/topicCategory';
-import { TopicCategory } from '@/types/topicTypes';
+import { TopicCategory } from '@/topic/type';
 import { useRef, useState } from 'react';
 import {
   AlertDialog,
@@ -41,12 +41,12 @@ const FormOptions = () => {
 
   const { data: topics } = useGetTopicsByCategory();
   const checkModalTopicIds = topics?.['회고']?.map(v => v.id);
-  
+
   const categoryRef = useRef('');
   const [changeCategoryModalOpen, setChangeCategoryModalOpen] = useState(false);
-  
+
   const [category] = methods.watch(['category']);
-  
+
   const handleChangeCategory = (category: string) => {
     methods.setValue('category', category);
     methods.setValue('topicId', '');

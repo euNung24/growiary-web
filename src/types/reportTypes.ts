@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { ResPostType } from '@/post/types';
-import { TopicCategory } from '@/types/topicTypes';
+import { TopicCategory } from '@/topic/type';
 
 type ReportByPostType = {
   user: { [key: string]: number };

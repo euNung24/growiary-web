@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ResPostType } from '@/post/types';
 import { getTwoFormatDate } from '@/utils';
-import { TopicCategory } from '@/types/topicTypes';
+import { TopicCategory } from '@/topic/type';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';

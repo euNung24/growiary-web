@@ -1,5 +1,5 @@
 import { ApiSuccessResponse } from '@/types';
-import { TopicType } from '@/types/topicTypes';
+import { TopicType } from '@/topic/type';
 
 const topicApiUrl = process.env.NEXT_PUBLIC_API + '/topic';
 

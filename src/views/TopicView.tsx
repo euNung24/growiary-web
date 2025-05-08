@@ -2,11 +2,11 @@
 
 import { cn } from '@/lib/utils';
 import { topicCategory } from '@/utils/topicCategory';
-import { TopicCategory } from '@/types/topicTypes';
+import { TopicCategory } from '@/topic/type';
 import { useState } from 'react';
-import RecentTopic from '@/views/topic/RecentTopic';
-import RecommendedTopic from '@/views/topic/RecommendedTopic';
-import TopicList from '@/views/topic/TopicList';
+import RecentTopic from '@/topic/components/RecentTopic';
+import RecommendedTopic from '@/topic/components/RecommendedTopic';
+import TopicList from '@/topic/components/TopicList';
 
 const TopicView = () => {
   const [currentCategory, setCurrentCategory] = useState(() => {

@@ -1,8 +1,8 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getAllTopics } from '@/apis/topics';
-import { TopicCategory, TopicType } from '@/types/topicTypes';
+import { getAllTopics } from '@/topic/api/client';
+import { TopicCategory, TopicType } from '@/topic/type';
 
 const useGetTopicsByCategory = () => {
   return useQuery({

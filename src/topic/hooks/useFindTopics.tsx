@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { findTopic } from '@/apis/topics';
-import { FindTopicType } from '@/types/topicTypes';
+import { findTopic } from '@/topic/api/client';
+import { FindTopicType } from '@/topic/type';
 
 const useFindTopic = (id: FindTopicType['id']) => {
   return useMutation({

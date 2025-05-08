@@ -5,7 +5,7 @@ import useReportContext from '@/hooks/report/useReportContext';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/post/types';
 import { topicCategory } from '@/utils/topicCategory';
-import { TopicCategory } from '@/types/topicTypes';
+import { TopicCategory } from '@/topic/type';
 import { getPercentage } from '@/utils';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';

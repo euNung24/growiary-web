@@ -9,11 +9,11 @@ import { useSetRecoilState } from 'recoil';
 
 import { createPost, updatePost } from '@/post/api';
 import { ReqPostType, ResPostType } from '@/post/types';
-import { TopicCategory } from '@/types/topicTypes';
+import { TopicCategory } from '@/topic/type';
 import { NO_TOPIC_ID } from '@/utils';
 import { trackingAnalytics } from '@/utils/trackingAnalytics';
 import useFindPost from '@/post/hooks/useFindPost';
-import useGetTopicsByCategory from '@/hooks/topics/useGetTopicsByCategory';
+import useGetTopicsByCategory from '@/topic/hooks/useGetTopicsByCategory';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';

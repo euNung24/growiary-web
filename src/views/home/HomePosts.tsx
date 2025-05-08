@@ -20,7 +20,7 @@ import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/store/todayStore';
 import LinkOrLogin from '@/components/LinkOrLogin';
 import { topicCategory } from '@/utils/topicCategory';
-import { TopicCategory } from '@/types/topicTypes';
+import { TopicCategory } from '@/topic/type';
 import useProfileContext from '@/hooks/profile/useProfileContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import { onTrackingHandler } from '@/utils/trackingAnalytics';

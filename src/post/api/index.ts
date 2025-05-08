@@ -1,6 +1,6 @@
 import { DailyCheckerType, ReqPostType, ResPostType, UpdatePostType } from '@/post/types';
 import withToken from '@/apis/withToken';
-import { TopicCategory } from '@/types/topicTypes';
+import { TopicCategory } from '@/topic/type';
 import { ApiSuccessResponse } from '@/types';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';

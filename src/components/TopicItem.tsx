@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import Chip from '@/components/Chip';
 import Image from 'next/image';
-import { TopicType } from '@/types/topicTypes';
+import { TopicType } from '@/topic/type';
 const TopicItem = (topic: TopicType) => {
   return (
     <li

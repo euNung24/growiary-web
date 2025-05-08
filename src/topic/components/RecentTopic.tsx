@@ -9,9 +9,9 @@ import {
 import { Button, ButtonIcon } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import useGetUserRecentTopic from '@/hooks/topics/useGetUserRecentTopic';
+import useGetUserRecentTopic from '@/topic/hooks/useGetUserRecentTopic';
 import { useEffect, useState } from 'react';
-import { RecentTopicType } from '@/types/topicTypes';
+import { RecentTopicType } from '@/topic/type';
 import Image from 'next/image';
 import LoginDialog from '@/components/LoginDialog';
 import { topicCategory } from '@/utils/topicCategory';

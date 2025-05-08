@@ -1,4 +1,4 @@
-import useGetRecommendedTopic from '@/hooks/topics/useGetRecommendedTopic';
+import useGetRecommendedTopic from '@/topic/hooks/useGetRecommendedTopic';
 import {
   TopicCard,
   TopicCardChip,

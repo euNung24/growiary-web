@@ -1,4 +1,4 @@
-import { getRecommendedTopic } from '@/apis/topics';
+import { getRecommendedTopic } from '@/topic/api/client';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetRecommendedTopic = () => {
