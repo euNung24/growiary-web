@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/components/ui/button';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 

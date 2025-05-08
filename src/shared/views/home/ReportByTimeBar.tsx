@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ReportContext } from '@/domain/report/components/ReportProvider';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import { TIME } from '@/shared/utils';
 
 const MAX_BAR_HEIGHT = 121;

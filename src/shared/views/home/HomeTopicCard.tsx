@@ -1,7 +1,7 @@
-import LinkOrLogin from '@/components/LinkOrLogin';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { toast } from '@/components/ui/use-toast';
+import LinkOrLogin from '@/shared/components/LinkOrLogin';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import { Skeleton } from '@/shared/components/ui/skeleton';
+import { toast } from '@/shared/components/ui/use-toast';
 import { TopicCategory, TopicType } from '@/domain/topic/type';
 import { genRandomNum } from '@/shared/utils';
 import { topicCategory } from '@/shared/utils/topicCategory';

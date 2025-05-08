@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Chip from '@/components/Chip';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import Chip from '@/shared/components/Chip';
 import { ArrowDownRight, ArrowRight, ArrowUpRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 
 type ActiveUserCardProps = {
   title: string;

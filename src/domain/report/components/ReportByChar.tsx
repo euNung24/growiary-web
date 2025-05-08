@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import { Triangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/domain/post/types';

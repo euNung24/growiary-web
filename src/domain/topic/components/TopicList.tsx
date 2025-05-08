@@ -1,8 +1,8 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import Link from 'next/link';
 import Image from 'next/image';
-import Chip from '@/components/Chip';
-import { Skeleton } from '@/components/ui/skeleton';
+import Chip from '@/shared/components/Chip';
+import { Skeleton } from '@/shared/components/ui/skeleton';
 import useGetTopicsByCategory from '@/domain/topic/hooks/useGetTopicsByCategory';
 import { TopicCategory, TopicType } from '@/domain/topic/type';
 import useGetRecommendedTopic from '@/domain/topic/hooks/useGetRecommendedTopic';

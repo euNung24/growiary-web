@@ -1,6 +1,6 @@
 'use client';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { MENU_NAMES } from '@/shared/utils';
 import { DataTable } from '@/admin/components/feedback/DataTable';
 import { ColumnDef } from '@tanstack/react-table';

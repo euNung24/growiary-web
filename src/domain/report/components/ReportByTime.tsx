@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import RectAreaChart from '@/components/RectAreaChart';
+import { cn } from '@/shared/utils/cn';
+import RectAreaChart from '@/shared/components/RectAreaChart';
 import { useEffect, useRef, useState } from 'react';
 import useReportContext from '@/domain/report/hooks/useReportContext';
 import { getPercentage, TIME } from '@/shared/utils';

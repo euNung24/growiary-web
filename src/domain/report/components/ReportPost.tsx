@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import BarChart from '@/components/BarChart';
+import { cn } from '@/shared/utils/cn';
+import BarChart from '@/shared/components/BarChart';
 import useReportContext from '@/domain/report/hooks/useReportContext';
 import Image from 'next/image';
 import { Context } from 'chartjs-plugin-datalabels';

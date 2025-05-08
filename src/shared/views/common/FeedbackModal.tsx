@@ -8,10 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from '@/shared/components/ui/dialog';
+import { Button } from '@/shared/components/ui/button';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormLabel } from '@/shared/components/ui/form';
 import { Dot } from 'lucide-react';
 import {
   Select,
@@ -19,13 +19,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/shared/components/ui/select';
 import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/shared/components/ui/textarea';
 import { menu } from '@/shared/utils';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/shared/components/ui/use-toast';
 import Image from 'next/image';
 import { FeedbackType } from '@/shared/types/feedbackType';
 import { createFeedback } from '@/shared/apis/feedback';

@@ -10,7 +10,7 @@ import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
 import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
 import { getFormatDate } from '@/shared/utils';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';
 import * as React from 'react';
 import { DateRange, SelectRangeEventHandler } from 'react-day-picker';
@@ -21,12 +21,12 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/shared/components/ui/tooltip';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/hover-card';
+} from '@/shared/components/ui/hover-card';
 import { handleError } from '@/shared/apis/token/client';
 import useGetProfile from '@/profile/hooks/useGetProfile';
 

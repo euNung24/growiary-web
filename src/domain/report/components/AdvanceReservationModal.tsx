@@ -7,17 +7,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from '@/shared/components/ui/dialog';
+import { Button } from '@/shared/components/ui/button';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormLabel } from '@/shared/components/ui/form';
 import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '@/components/ui/input';
-import { toast } from '@/components/ui/use-toast';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
+import { Input } from '@/shared/components/ui/input';
+import { toast } from '@/shared/components/ui/use-toast';
+import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group';
+import { Label } from '@/shared/components/ui/label';
 import { createReserve } from '@/domain/report/api/reservation';
 import { ReservationType } from '@/domain/report/type/reservationType';
 import { tracking } from '@/shared/utils/mixPanel';

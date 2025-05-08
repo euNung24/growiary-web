@@ -6,14 +6,14 @@ import {
   TopicCardFooter,
   TopicCardHeader,
   TopicCardTitle,
-} from '@/components/TopicCard';
-import { Button, ButtonIcon } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+} from '@/shared/components/TopicCard';
+import { Button, ButtonIcon } from '@/shared/components/ui/button';
+import { cn } from '@/shared/utils/cn';
 import Link from 'next/link';
 import { topicCategory } from '@/shared/utils/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from '@/shared/components/ui/skeleton';
 
 const RecommendedTopic = () => {
   const { data } = useGetRecommendedTopic();

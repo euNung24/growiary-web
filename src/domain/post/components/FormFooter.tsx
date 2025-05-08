@@ -1,7 +1,7 @@
-import LoginDialog from '@/components/LoginDialog';
-import { Button } from '@/components/ui/button';
+import LoginDialog from '@/shared/components/LoginDialog';
+import { Button } from '@/shared/components/ui/button';
 import useProfileContext from '@/profile/hooks/useProfileContext';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import { useFormContext } from 'react-hook-form';
 
 const FormFooter = () => {

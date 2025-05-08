@@ -1,7 +1,7 @@
 import Sidebar from '@/shared/views/common/Sidebar';
 import { ReactNode } from 'react';
-import { Toaster } from '@/components/ui/toaster';
-import ServerProfile from '@/components/server/ServerProfile';
+import { Toaster } from '@/shared/components/ui/toaster';
+import ServerProfile from '@/shared/components/server/ServerProfile';
 import DetailLayout from '@/app/(withAside)/detailLayout';
 
 type LayoutProps = {

@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button, ButtonIcon } from '@/components/ui/button';
+} from '@/shared/components/ui/dialog';
+import { Button, ButtonIcon } from '@/shared/components/ui/button';
 import Image from 'next/image';
 import useGetProfile from '@/profile/hooks/useGetProfile';
 import { ChevronRight } from 'lucide-react';

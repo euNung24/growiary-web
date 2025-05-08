@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import { MENU_NAMES } from '@/shared/utils';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';
 import { TopicCategory } from '@/domain/topic/type';
@@ -10,9 +10,9 @@ import { TopicCategory } from '@/domain/topic/type';
 import useGetProfile from '@/profile/hooks/useGetProfile';
 import useGetTopicsByCategory from '@/domain/topic/hooks/useGetTopicsByCategory';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import LinkOrLogin from '@/components/LinkOrLogin';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import HomeTopicCard from '@/shared/views/home/HomeTopicCard';
 
 const TOTAL_TOPIC_COUNT = 6;

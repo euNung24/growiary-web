@@ -1,9 +1,9 @@
-import CreativeIcon from '@/components/icons/CreativeIcon';
-import RemembranceIcon from '@/components/icons/RemembranceIcon';
-import ThinkIcon from '@/components/icons/ThinkIcon';
-import SelfExplorationIcon from '@/components/icons/SelfExplorationIcon';
+import CreativeIcon from '@/shared/components/icons/CreativeIcon';
+import RemembranceIcon from '@/shared/components/icons/RemembranceIcon';
+import ThinkIcon from '@/shared/components/icons/ThinkIcon';
+import SelfExplorationIcon from '@/shared/components/icons/SelfExplorationIcon';
 import { TopicCategory } from '@/domain/topic/type';
-import UnCategoriedIcon from '@/components/icons/UnCategoriedIcon';
+import UnCategoriedIcon from '@/shared/components/icons/UnCategoriedIcon';
 
 export type IconProps = {
   color?: string,

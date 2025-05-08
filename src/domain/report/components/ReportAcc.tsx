@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import { ReportType } from '@/domain/report/type';
 import { useRecoilValue } from 'recoil';
 import { ReportState } from '@/domain/report/store';

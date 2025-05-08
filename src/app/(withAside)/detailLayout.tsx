@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from 'react';
 import useProfileContext from '@/profile/hooks/useProfileContext';
 import TopStartButton from '@/shared/views/common/TopStartButton';
 import FooterFeedbackView from '@/shared/views/common/FooterFeedbackView';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function DetailLayout({ children }: { children: ReactNode }) {

@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button } from '@/shared/components/ui/button';
+import { cn } from '@/shared/utils/cn';
 import { Braces, List } from 'lucide-react';
 import { ResPostType } from '@/domain/post/types';
-import Tag from '@/components/Tag';
+import Tag from '@/shared/components/Tag';
 import { useEffect, useRef, useState } from 'react';
-import '@/components/editor.css';
+import '@/shared/components/editor.css';
 import { topicCategory } from '@/shared/utils/topicCategory';
 import Link from 'next/link';
 import { getStringDateAndTime } from '@/shared/utils';
@@ -21,13 +21,13 @@ import {
   AlertDialogTitle,
   AlertDialogTitleIcon,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { toast } from '@/components/ui/use-toast';
+} from '@/shared/components/ui/alert-dialog';
+import { toast } from '@/shared/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import useDeletePost from '@/domain/post/hooks/useDeletePosts';
-import { Label } from '@/components/ui/label';
+import { Label } from '@/shared/components/ui/label';
 import Image from 'next/image';
-import Editor from '@/components/Editor';
+import Editor from '@/shared/components/Editor';
 import useFindPost from '@/domain/post/hooks/useFindPost';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';

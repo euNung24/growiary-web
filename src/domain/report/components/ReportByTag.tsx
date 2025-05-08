@@ -1,8 +1,8 @@
 import useReportContext from '@/domain/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/domain/post/types';
-import Chip from '@/components/Chip';
-import { cn } from '@/lib/utils';
+import Chip from '@/shared/components/Chip';
+import { cn } from '@/shared/utils/cn';
 
 const SAMPLE_TAG = [
   {

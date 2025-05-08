@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/shared/utils/cn';
+import { buttonVariants } from '@/shared/components/ui/button';
 
 const items = [
   {

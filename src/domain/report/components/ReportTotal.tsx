@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import Chip from '@/components/Chip';
+import { cn } from '@/shared/utils/cn';
+import Chip from '@/shared/components/Chip';
 import useReportContext from '@/domain/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import { ReportByTopicType } from '@/domain/report/type';

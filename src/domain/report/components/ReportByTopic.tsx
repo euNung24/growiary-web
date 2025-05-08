@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
-import DonutChart from '@/components/DonutChart';
-import Chip from '@/components/Chip';
+import { cn } from '@/shared/utils/cn';
+import DonutChart from '@/shared/components/DonutChart';
+import Chip from '@/shared/components/Chip';
 import useReportContext from '@/domain/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@/domain/post/types';

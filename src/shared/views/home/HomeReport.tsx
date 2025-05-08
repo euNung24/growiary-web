@@ -1,16 +1,16 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/components/ui/button';
 import Image from 'next/image';
 import ReportByPostWithAll from '@/shared/views/home/ReportByPostWithAll';
 import ReportByWeekBar from '@/shared/views/home/ReportByWeekBar';
 import ReportByTimeBar from '@/shared/views/home/ReportByTimeBar';
 import useReportContext from '@/domain/report/hooks/useReportContext';
-import LinkOrLogin from '@/components/LinkOrLogin';
+import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import useProfileContext from '@/profile/hooks/useProfileContext';
 import { MENU_NAMES } from '@/shared/utils';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 
 const HomeReport = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';

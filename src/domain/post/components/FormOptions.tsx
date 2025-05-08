@@ -5,11 +5,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Label } from '@/components/ui/label';
+} from '@/shared/components/ui/select';
+import { Label } from '@/shared/components/ui/label';
 import { Braces, List } from 'lucide-react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import useGetTopicsByCategory from '@/domain/topic/hooks/useGetTopicsByCategory';
 import { checkIsTopicCategory, topicCategory } from '@/shared/utils/topicCategory';
 import { TopicCategory } from '@/domain/topic/type';
@@ -25,12 +25,12 @@ import {
   AlertDialogTitle,
   AlertDialogTitleIcon,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+} from '@/shared/components/ui/alert-dialog';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import Tag from '@/components/Tag';
+import { Button } from '@/shared/components/ui/button';
+import { Calendar } from '@/shared/components/ui/calendar';
+import Tag from '@/shared/components/Tag';
 
 const FormOptions = () => {
   const labelStyle =

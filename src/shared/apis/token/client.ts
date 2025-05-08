@@ -1,5 +1,5 @@
-import { decrypt, encrypt } from '@/components/LoginLoading';
-import { browserQueryClient } from '@/components/providers/ReactQueryProvider';
+import { decrypt, encrypt } from '@/shared/components/LoginLoading';
+import { browserQueryClient } from '@/shared/components/providers/ReactQueryProvider';
 import { ALERT_ERROR_MESSAGE, SERVER_ERROR } from '@/shared/utils/error';
 import Cookies from 'js-cookie';
 

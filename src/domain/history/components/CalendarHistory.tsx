@@ -1,4 +1,4 @@
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar } from '@/shared/components/ui/calendar';
 import { Dispatch, SetStateAction } from 'react';
 import { SelectSingleEventHandler } from 'react-day-picker';
 import useProfileContext from '@/profile/hooks/useProfileContext';

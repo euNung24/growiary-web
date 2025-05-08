@@ -1,4 +1,4 @@
-import { decrypt, encrypt } from '@/components/LoginLoading';
+import { decrypt, encrypt } from '@/shared/components/LoginLoading';
 import { SERVER_ERROR } from '@/shared/utils/error';
 import { cookies } from 'next/headers';
 

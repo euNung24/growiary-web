@@ -14,8 +14,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { cn } from '@/lib/utils';
+} from '@/shared/components/ui/table';
+import { cn } from '@/shared/utils/cn';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

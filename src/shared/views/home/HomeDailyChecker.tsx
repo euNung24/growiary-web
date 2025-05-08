@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import DailyChecker from '@/components/DailyChecker';
+import DailyChecker from '@/shared/components/DailyChecker';
 import { getDailyCheckerPost } from '@/domain/post/api';
 import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import { DailyCheckerType } from '@/domain/post/types';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from '@/shared/components/ui/skeleton';
 import useProfileContext from '@/profile/hooks/useProfileContext';
 import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';

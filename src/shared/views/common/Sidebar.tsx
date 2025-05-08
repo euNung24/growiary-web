@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import LoginDialog from '@/components/LoginDialog';
-import { Button } from '@/components/ui/button';
+import LoginDialog from '@/shared/components/LoginDialog';
+import { Button } from '@/shared/components/ui/button';
 import { menu } from '@/shared/utils';
 import useProfileContext from '@/profile/hooks/useProfileContext';
 import { ProfileType } from '@/profile/type';

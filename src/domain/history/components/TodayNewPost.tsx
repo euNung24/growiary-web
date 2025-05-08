@@ -1,4 +1,4 @@
-import Chip from '@/components/Chip';
+import Chip from '@/shared/components/Chip';
 import Link from 'next/link';
 import Image from 'next/image';
 

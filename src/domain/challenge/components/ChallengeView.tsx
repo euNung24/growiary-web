@@ -1,6 +1,6 @@
 'use client';
 
-import Chip from '@/components/Chip';
+import Chip from '@/shared/components/Chip';
 import {
   BadgeCard,
   BadgeCardDescription,
@@ -10,7 +10,7 @@ import {
   BadgeWideIcon,
   BadgeCardHeader,
   badgeCardVariants,
-} from '@/components/BadgeCard';
+} from '@/shared/components/BadgeCard';
 import * as React from 'react';
 import { BADGE_INFO } from '@/shared/utils/challenge';
 import useGetUserBadgeInfo from '@/domain/challenge/hooks/useGetUserBadgeInfo';
@@ -23,10 +23,10 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/shared/components/ui/tooltip';
 import useChangeUserTitleBadge from '@/domain/challenge/hooks/useChangeUserTitleBadge';
 import useProfileContext from '@/profile/hooks/useProfileContext';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/cn';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useQueryClient } from '@tanstack/react-query';

@@ -5,20 +5,20 @@ import {
   TopicCardFooter,
   TopicCardHeader,
   TopicCardTitle,
-} from '@/components/TopicCard';
-import { Button, ButtonIcon } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+} from '@/shared/components/TopicCard';
+import { Button, ButtonIcon } from '@/shared/components/ui/button';
+import { cn } from '@/shared/utils/cn';
 import Link from 'next/link';
 import useGetUserRecentTopic from '@/domain/topic/hooks/useGetUserRecentTopic';
 import { useEffect, useState } from 'react';
 import { RecentTopicType } from '@/domain/topic/type';
 import Image from 'next/image';
-import LoginDialog from '@/components/LoginDialog';
+import LoginDialog from '@/shared/components/LoginDialog';
 import { topicCategory } from '@/shared/utils/topicCategory';
 import useProfileContext from '@/profile/hooks/useProfileContext';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from '@/shared/components/ui/skeleton';
 
 const RecentTopic = () => {
   const mutation = useGetUserRecentTopic();

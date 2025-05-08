@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
-import RecoilProvider from '@/components/providers/RecoilProvider';
+import ReactQueryProvider from '@/shared/components/providers/ReactQueryProvider';
+import RecoilProvider from '@/shared/components/providers/RecoilProvider';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
