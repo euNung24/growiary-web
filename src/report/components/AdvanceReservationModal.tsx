@@ -19,7 +19,7 @@ import { toast } from '@/components/ui/use-toast';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { createReserve } from '@/report/api/reservation';
-import { ReservationType } from '@/types/reservationType';
+import { ReservationType } from '@/report/type/reservationType';
 import { tracking } from '@/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 
