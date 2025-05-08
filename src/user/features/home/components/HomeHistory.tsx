@@ -15,7 +15,7 @@ import { getTwoFormatDate, MENU_NAMES } from '@/shared/utils';
 import NewCard from '@/user/features/home/components/NewCard';
 import { ResPostType } from '@user/post/models/post';
 import useGetPosts from '@user/post/use-cases/useGetPosts';
-import '@/shared/components/editor.css';
+import '@user/post/components/editor.css';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import LinkOrLogin from '@/user/features/home/components/LinkOrLogin';
