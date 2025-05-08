@@ -1,6 +1,6 @@
 import { ProfileType } from '@/user/profile/type';
 import withToken from '@/shared/apis/withToken';
-import { BadgeKeyType } from '@/user/domain/challenge/type';
+import { BadgeKeyType } from '@user/challenge/type';
 import { ApiSuccessResponse } from '@/shared/types';
 import { handleError } from '@/shared/apis/token/client';
 import Cookies from 'js-cookie';

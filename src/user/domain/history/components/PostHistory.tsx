@@ -1,4 +1,4 @@
-import { SAMPLE_DATA } from '@/user/domain/history/utils/sample';
+import { SAMPLE_DATA } from '@user/history/utils/sample';
 import { cn } from '@/shared/utils/cn';
 import Chip from '@/shared/components/Chip';
 import Link from 'next/link';
@@ -21,8 +21,8 @@ import {
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
-import { ResPostType } from '@/user/domain/post/types';
-import { deletePost } from '@/user/domain/post/api';
+import { ResPostType } from '@user/post/types';
+import { deletePost } from '@user/post/api';
 import { toast } from '@/shared/components/ui/use-toast';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';

@@ -3,8 +3,8 @@
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import { Braces, List } from 'lucide-react';
-import { ResPostType } from '@/user/domain/post/types';
-import Tag from '@/user/domain/post/components/Tag';
+import { ResPostType } from '@user/post/types';
+import Tag from '@user/post/components/Tag';
 import { useEffect, useRef, useState } from 'react';
 import '@/shared/components/editor.css';
 import { topicCategory } from '@/shared/utils/topicCategory';
@@ -24,11 +24,11 @@ import {
 } from '@/shared/components/ui/alert-dialog';
 import { toast } from '@/shared/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
-import useDeletePost from '@/user/domain/post/hooks/useDeletePosts';
+import useDeletePost from '@user/post/hooks/useDeletePosts';
 import { Label } from '@/shared/components/ui/label';
 import Image from 'next/image';
-import Editor from '@/user/domain/post/components/Editor';
-import useFindPost from '@/user/domain/post/hooks/useFindPost';
+import Editor from '@user/post/components/Editor';
+import useFindPost from '@user/post/hooks/useFindPost';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 

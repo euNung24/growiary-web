@@ -1,6 +1,6 @@
-import useReportContext from '@/user/domain/report/hooks/useReportContext';
+import useReportContext from '@user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@/user/domain/post/types';
+import { ResPostType } from '@user/post/types';
 import Chip from '@/shared/components/Chip';
 import { cn } from '@/shared/utils/cn';
 

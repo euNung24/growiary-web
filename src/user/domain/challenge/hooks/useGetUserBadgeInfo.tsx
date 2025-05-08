@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getUserBadge } from '@/user/domain/challenge/api';
+import { getUserBadge } from '@user/challenge/api';
 
 const useGetUserBadgeInfo = () => {
   const { data } = useQuery({

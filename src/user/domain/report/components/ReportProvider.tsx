@@ -1,12 +1,12 @@
 'use client';
 
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import { ReportType } from '@/user/domain/report/type';
-import useGetReport from '@/user/domain/report/hooks/useGetReport';
+import { ReportType } from '@user/report/type';
+import useGetReport from '@user/report/hooks/useGetReport';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
-import { ReportState } from '@/user/domain/report/store';
+import { ReportState } from '@user/report/store';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 

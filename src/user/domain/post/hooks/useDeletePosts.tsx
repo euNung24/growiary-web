@@ -1,6 +1,6 @@
 'use client';
 
-import { deletePost } from '@/user/domain/post/api';
+import { deletePost } from '@user/post/api';
 import { useMutation } from '@tanstack/react-query';
 
 const useDeletePost = (id: string) => {

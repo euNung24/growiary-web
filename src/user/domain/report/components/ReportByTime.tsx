@@ -1,7 +1,7 @@
 import { cn } from '@/shared/utils/cn';
-import RectAreaChart from '@/user/domain/report/components/RectAreaChart';
+import RectAreaChart from '@user/report/components/RectAreaChart';
 import { useEffect, useRef, useState } from 'react';
-import useReportContext from '@/user/domain/report/hooks/useReportContext';
+import useReportContext from '@user/report/hooks/useReportContext';
 import { getPercentage, TIME } from '@/shared/utils';
 import Image from 'next/image';
 

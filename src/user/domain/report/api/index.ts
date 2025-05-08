@@ -1,4 +1,4 @@
-import { ReportType } from '@/user/domain/report/type';
+import { ReportType } from '@user/report/type';
 import withToken from '@/shared/apis/withToken';
 import { ApiSuccessResponse } from '@/shared/types';
 

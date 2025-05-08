@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Op } from 'quill-delta';
-import { TopicCategory, TopicType } from '@/user/domain/topic/type';
+import { TopicCategory, TopicType } from '@user/topic/type';
 
 type PostType = {
   index?: number;

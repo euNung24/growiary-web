@@ -13,14 +13,14 @@ import {
 import { useEffect, useState } from 'react';
 import { getTwoFormatDate, MENU_NAMES } from '@/shared/utils';
 import NewCard from '@/shared/views/home/components/NewCard';
-import { ResPostType } from '@/user/domain/post/types';
-import useGetPosts from '@/user/domain/post/hooks/useGetPosts';
+import { ResPostType } from '@user/post/types';
+import useGetPosts from '@user/post/hooks/useGetPosts';
 import '@/shared/components/editor.css';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import { topicCategory } from '@/shared/utils/topicCategory';
-import { TopicCategory } from '@/user/domain/topic/type';
+import { TopicCategory } from '@user/topic/type';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';

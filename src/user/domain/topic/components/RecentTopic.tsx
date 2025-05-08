@@ -5,13 +5,13 @@ import {
   TopicCardFooter,
   TopicCardHeader,
   TopicCardTitle,
-} from '@/user/domain/topic/components/TopicCard';
+} from '@user/topic/components/TopicCard';
 import { Button, ButtonIcon } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import Link from 'next/link';
-import useGetUserRecentTopic from '@/user/domain/topic/hooks/useGetUserRecentTopic';
+import useGetUserRecentTopic from '@user/topic/hooks/useGetUserRecentTopic';
 import { useEffect, useState } from 'react';
-import { RecentTopicType } from '@/user/domain/topic/type';
+import { RecentTopicType } from '@user/topic/type';
 import Image from 'next/image';
 import LoginDialog from '@/shared/components/LoginDialog';
 import { topicCategory } from '@/shared/utils/topicCategory';

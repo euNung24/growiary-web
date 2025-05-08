@@ -1,6 +1,6 @@
 import { topicCategory } from '@/shared/utils/topicCategory';
-import { TopicCategory } from '@/user/domain/topic/type';
-import { SAMPLE_CATEGORY_DATA } from '@/user/domain/history/utils/sample';
+import { TopicCategory } from '@user/topic/type';
+import { SAMPLE_CATEGORY_DATA } from '@user/history/utils/sample';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
 
 type CategoryHistoryProps = {

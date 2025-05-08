@@ -1,4 +1,4 @@
-import useGetRecommendedTopic from '@/user/domain/topic/hooks/useGetRecommendedTopic';
+import useGetRecommendedTopic from '@user/topic/hooks/useGetRecommendedTopic';
 import {
   TopicCard,
   TopicCardChip,
@@ -6,7 +6,7 @@ import {
   TopicCardFooter,
   TopicCardHeader,
   TopicCardTitle,
-} from '@/user/domain/topic/components/TopicCard';
+} from '@user/topic/components/TopicCard';
 import { Button, ButtonIcon } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import Link from 'next/link';

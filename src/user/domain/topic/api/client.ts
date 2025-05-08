@@ -5,7 +5,7 @@ import {
   RecommendedTopic,
   TopicType,
   UpdateTopicType,
-} from '@/user/domain/topic/type';
+} from '@user/topic/type';
 import withToken from '@/shared/apis/withToken';
 import { ApiSuccessResponse } from '@/shared/types';
 

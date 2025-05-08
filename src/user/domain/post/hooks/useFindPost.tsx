@@ -1,6 +1,6 @@
 'use client';
 
-import { findPost } from '@/user/domain/post/api';
+import { findPost } from '@user/post/api';
 import { useMutation } from '@tanstack/react-query';
 
 const useFindPost = (id?: string) => {

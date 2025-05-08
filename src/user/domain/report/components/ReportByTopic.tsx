@@ -1,11 +1,11 @@
 import { cn } from '@/shared/utils/cn';
-import DonutChart from '@/user/domain/report/components/DonutChart';
+import DonutChart from '@user/report/components/DonutChart';
 import Chip from '@/shared/components/Chip';
-import useReportContext from '@/user/domain/report/hooks/useReportContext';
+import useReportContext from '@user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@/user/domain/post/types';
+import { ResPostType } from '@user/post/types';
 import { topicCategory } from '@/shared/utils/topicCategory';
-import { TopicCategory } from '@/user/domain/topic/type';
+import { TopicCategory } from '@user/topic/type';
 import { getPercentage } from '@/shared/utils';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';

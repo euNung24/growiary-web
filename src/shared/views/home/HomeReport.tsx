@@ -5,7 +5,7 @@ import Image from 'next/image';
 import ReportByPostWithAll from '@/shared/views/home/ReportByPostWithAll';
 import ReportByWeekBar from '@/shared/views/home/ReportByWeekBar';
 import ReportByTimeBar from '@/shared/views/home/ReportByTimeBar';
-import useReportContext from '@/user/domain/report/hooks/useReportContext';
+import useReportContext from '@user/report/hooks/useReportContext';
 import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
 import { MENU_NAMES } from '@/shared/utils';

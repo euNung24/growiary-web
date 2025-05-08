@@ -3,9 +3,9 @@ import {
   ReqPostType,
   ResPostType,
   UpdatePostType,
-} from '@/user/domain/post/types';
+} from '@user/post/types';
 import withToken from '@/shared/apis/withToken';
-import { TopicCategory } from '@/user/domain/topic/type';
+import { TopicCategory } from '@user/topic/type';
 import { ApiSuccessResponse } from '@/shared/types';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';

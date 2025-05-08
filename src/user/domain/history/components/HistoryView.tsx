@@ -4,21 +4,21 @@ import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { ResPostType } from '@/user/domain/post/types';
+import { ResPostType } from '@user/post/types';
 import { getTwoFormatDate } from '@/shared/utils';
-import { TopicCategory } from '@/user/domain/topic/type';
+import { TopicCategory } from '@user/topic/type';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { format } from 'date-fns';
 import { cn } from '@/shared/utils/cn';
 import { SelectSingleEventHandler } from 'react-day-picker';
-import useGetMonthlyPosts from '@/user/domain/post/hooks/useGetMonthlyPosts';
+import useGetMonthlyPosts from '@user/post/hooks/useGetMonthlyPosts';
 import { Button } from '@/shared/components/ui/button';
 import useProfileContext from '@/user/profile/hooks/useProfileContext';
 import LoginDialog from '@/shared/components/LoginDialog';
-import CategoryHistory from '@/user/domain/history/components/CategoryHistory';
-import TodayNewPost from '@/user/domain/history/components/TodayNewPost';
-import PostHistory from '@/user/domain/history/components/PostHistory';
-import CalendarHistory from '@/user/domain/history/components/CalendarHistory';
+import CategoryHistory from '@user/history/components/CategoryHistory';
+import TodayNewPost from '@user/history/components/TodayNewPost';
+import PostHistory from '@user/history/components/PostHistory';
+import CalendarHistory from '@user/history/components/CalendarHistory';
 
 type HistoryPostType = {
   [key: string]: ResPostType[];
