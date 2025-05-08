@@ -1,7 +1,7 @@
 import { cn } from '@/shared/utils/cn';
 import Chip from '@/shared/components/Chip';
 import Image from 'next/image';
-import { TopicType } from '@/domain/topic/type';
+import { TopicType } from '@/domain/user/topic/type';
 const TopicItem = (topic: TopicType) => {
   return (
     <li

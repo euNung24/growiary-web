@@ -1,4 +1,4 @@
-import PostView from '@/domain/post/components/PostView';
+import PostView from '@/domain/user/post/components/PostView';
 import { Suspense } from 'react';
 
 type PageProps = {
