@@ -15,7 +15,7 @@ import LoginDialog from '@/shared/components/LoginDialog';
 import { Button } from '@/shared/components/ui/button';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
-import useGetMonthlyPosts from '@/user/features/home/use-cases/useGetMonthlyPosts';
+import useGetMonthlyPosts from '@/user/features/home/queries/useGetMonthlyPosts';
 import { TopicCategory } from '@user/topic/types/topic';
 import { ResPostType } from '@user/history/types/post';
 import CategoryHistory from '@user/history/components/CategoryHistory';

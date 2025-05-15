@@ -12,7 +12,7 @@ import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
-import { getDailyCheckerPost } from '@/user/features/home/infra/homeApi';
+import { getDailyCheckerPost } from '@/user/features/home/apis/homeApi';
 import { DailyCheckerType } from '@user/history/types/post';
 
 const HomeDailyChecker = () => {
