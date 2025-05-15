@@ -1,8 +1,8 @@
 import withToken from '@/shared/utils/withToken';
 import { ApiSuccessResponse } from '@/shared/types/response';
 
-import { ResPostType } from '@user/post/models/post';
-import { TopicCategory } from '@user/topic/models/topic';
+import { ResPostType } from '@user/post/types/post';
+import { TopicCategory } from '@user/topic/types/topic';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 

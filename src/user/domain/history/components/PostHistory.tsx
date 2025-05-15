@@ -30,8 +30,8 @@ import { TodayState } from '@/shared/store/todayStore';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { SAMPLE_DATA } from '@user/history/constants/sample';
-import { ResPostType } from '@user/history/models/post';
-import { deletePost } from '@user/post/infra/postApi';
+import { ResPostType } from '@user/history/types/post';
+import { deletePost } from '@user/post/apis/postApi';
 
 type PostHistoryProps = {
   posts: { [key: string]: ResPostType[] };

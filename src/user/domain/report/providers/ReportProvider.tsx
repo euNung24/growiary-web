@@ -1,8 +1,8 @@
 'use client';
 
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import { ReportType } from '@user/report/models/report';
-import useGetReport from '@user/report/use-cases/useGetReport';
+import { ReportType } from '@user/report/types/report';
+import useGetReport from '@user/report/queries/useGetReport';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import useProfileContext from '@/shared/hooks/useProfileContext';

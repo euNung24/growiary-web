@@ -29,11 +29,11 @@ import { Label } from '@/shared/components/ui/label';
 import { topicCategory } from '@/shared/types/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 
-import { ResPostType } from '@user/post/models/post';
+import { ResPostType } from '@user/post/types/post';
 import Tag from '@user/post/components/Tag';
-import useDeletePost from '@user/post/use-cases/useDeletePosts';
+import useDeletePost from '@user/post/queries/useDeletePosts';
 import Editor from '@user/post/components/Editor';
-import useFindPost from '@user/post/use-cases/useFindPost';
+import useFindPost from '@user/post/queries/useFindPost';
 
 type PostDetailViewProps = {
   postId: string;

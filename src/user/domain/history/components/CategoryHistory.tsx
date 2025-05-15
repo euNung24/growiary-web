@@ -1,7 +1,7 @@
 import { topicCategory } from '@/shared/types/topicCategory';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
-import { TopicCategory } from '@user/topic/models/topic';
+import { TopicCategory } from '@user/topic/types/topic';
 import { SAMPLE_CATEGORY_DATA } from '@user/history/constants/sample';
 
 type CategoryHistoryProps = {

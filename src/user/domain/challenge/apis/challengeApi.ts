@@ -3,7 +3,7 @@
 import { ApiSuccessResponse } from '@/shared/types/response';
 import { withTokenGet } from '@/shared/utils/withToken';
 
-import { ChallengeType } from '@user/challenge/models/challenge';
+import { ChallengeType } from '@user/challenge/types/challenge';
 
 const challengeApiUrl = process.env.NEXT_PUBLIC_API + '/challenge';
 

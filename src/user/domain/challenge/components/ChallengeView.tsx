@@ -29,8 +29,8 @@ import {
 } from '@user/challenge/components/BadgeCard';
 import { BADGE_INFO } from '@user/challenge/constants/badges';
 import { BadgeKeyType } from '@user/challenge/constants/badges';
-import useGetUserBadgeInfo from '@user/challenge/use-cases/useGetUserBadgeInfo';
-import useChangeUserTitleBadge from '@user/challenge/use-cases/useChangeUserTitleBadge';
+import useGetUserBadgeInfo from '@user/challenge/queries/useGetUserBadgeInfo';
+import useChangeUserTitleBadge from '@user/challenge/queries/useChangeUserTitleBadge';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 
 const ChallengeView = () => {

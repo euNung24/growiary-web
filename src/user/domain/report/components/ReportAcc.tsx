@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/shared/utils/cn';
-import { ReportType } from '@user/report/models/report';
+import { ReportType } from '@user/report/types/report';
 import { useRecoilValue } from 'recoil';
 import { ReportState } from '@user/report/store';
 import useProfileContext from '@/shared/hooks/useProfileContext';

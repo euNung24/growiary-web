@@ -9,9 +9,9 @@ import {
 import { Button, ButtonIcon } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import Link from 'next/link';
-import useGetUserRecentTopic from '@user/topic/use-cases/useGetUserRecentTopic';
+import useGetUserRecentTopic from '@user/topic/queries/useGetUserRecentTopic';
 import { useEffect, useState } from 'react';
-import { RecentTopicType } from '@user/topic/models/topic';
+import { RecentTopicType } from '@user/topic/types/topic';
 import Image from 'next/image';
 import LoginDialog from '@/shared/components/LoginDialog';
 import { topicCategory } from '@/shared/types/topicCategory';

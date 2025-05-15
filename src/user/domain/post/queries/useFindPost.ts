@@ -2,7 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 
-import { findPost } from '@user/post/infra/postApi';
+import { findPost } from '@user/post/apis/postApi';
 
 const useFindPost = (id?: string) => {
   if (!id) return;

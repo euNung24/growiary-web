@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { ReportType } from '@user/report/models/report';
+import { ReportType } from '@user/report/types/report';
 
 export type ReportStoreType = {
   key: 'report';

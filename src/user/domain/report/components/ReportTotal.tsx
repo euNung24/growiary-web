@@ -2,7 +2,7 @@ import { cn } from '@/shared/utils/cn';
 import Chip from '@/shared/components/Chip';
 import useReportContext from '@user/report/hooks/useReportContext';
 import { useEffect, useState } from 'react';
-import { ReportByTopicType } from '@user/report/models/report';
+import { ReportByTopicType } from '@user/report/types/report';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { TIME, WEEK } from '@/shared/utils';
 import { SAMPLE_REPORT } from '@user/report/constants/sample';

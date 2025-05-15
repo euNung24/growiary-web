@@ -1,4 +1,4 @@
-import useGetRecommendedTopic from '@user/topic/use-cases/useGetRecommendedTopic';
+import useGetRecommendedTopic from '@user/topic/queries/useGetRecommendedTopic';
 import {
   TopicCard,
   TopicCardChip,

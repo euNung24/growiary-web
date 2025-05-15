@@ -31,8 +31,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
 
-import useGetTopicsByCategory from '@user/topic/use-cases/useGetTopicsByCategory';
-import { TopicCategory } from '@user/topic/models/topic';
+import useGetTopicsByCategory from '@user/topic/queries/useGetTopicsByCategory';
+import { TopicCategory } from '@user/topic/types/topic';
 import Tag from '@user/post/components/Tag';
 
 const FormOptions = () => {

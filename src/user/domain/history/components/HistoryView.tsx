@@ -16,8 +16,8 @@ import { Button } from '@/shared/components/ui/button';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import useGetMonthlyPosts from '@/user/features/home/use-cases/useGetMonthlyPosts';
-import { TopicCategory } from '@user/topic/models/topic';
-import { ResPostType } from '@user/history/models/post';
+import { TopicCategory } from '@user/topic/types/topic';
+import { ResPostType } from '@user/history/types/post';
 import CategoryHistory from '@user/history/components/CategoryHistory';
 import TodayNewPost from '@user/history/components/TodayNewPost';
 import PostHistory from '@user/history/components/PostHistory';

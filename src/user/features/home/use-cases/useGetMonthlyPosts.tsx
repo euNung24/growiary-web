@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
 
-import { getMonthlyPosts } from '@user/history/infra/historyApi';
+import { getMonthlyPosts } from '@user/history/apis/historyApi';
 
 const useGetMonthlyPosts = () => {
   const abortControllerRef = useRef<AbortController | null>(null);

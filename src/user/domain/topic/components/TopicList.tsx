@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Chip from '@/shared/components/Chip';
 import { Skeleton } from '@/shared/components/ui/skeleton';
-import useGetTopicsByCategory from '@user/topic/use-cases/useGetTopicsByCategory';
-import { TopicCategory, TopicType } from '@user/topic/models/topic';
-import useGetRecommendedTopic from '@user/topic/use-cases/useGetRecommendedTopic';
+import useGetTopicsByCategory from '@user/topic/queries/useGetTopicsByCategory';
+import { TopicCategory, TopicType } from '@user/topic/types/topic';
+import useGetRecommendedTopic from '@user/topic/queries/useGetRecommendedTopic';
 import { useEffect, useState } from 'react';
 
 type TopicListProps = {

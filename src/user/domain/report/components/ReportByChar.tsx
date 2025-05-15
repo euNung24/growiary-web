@@ -1,10 +1,10 @@
 import { cn } from '@/shared/utils/cn';
 import { Triangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { ResPostType } from '@user/post/models/post';
+import { ResPostType } from '@user/post/types/post';
 import useReportContext from '@user/report/hooks/useReportContext';
 import { format } from 'date-fns';
-import { ReportByCharCountType } from '@user/report/models/report';
+import { ReportByCharCountType } from '@user/report/types/report';
 
 const SAMPLE_CHAR_DATA: [string, Pick<ReportByCharCountType, 'sum'>][] = [
   ['2023-04', { sum: 11310 }],
