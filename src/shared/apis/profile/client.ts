@@ -11,7 +11,7 @@ export const getProfile = async (): Promise<ProfileType | undefined> => {
   const request = async () => {
     const accessToken = Cookies.get('accessToken');
 
-    if (!accessToken) return;
+    if (!accessToken) return null;
 
     const response = await fetch(profileApiUrl, {
       headers: {
