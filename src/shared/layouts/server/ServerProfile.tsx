@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { getProfile } from '@/shared/apis/profile/server';
-import UserProvider from '@/shared/providers/UserProvider';
 import ServerTopics from '@/shared/layouts/server/ServerTopics';
+import UserLayoutWrapper from '@/shared/layouts/UserLayoutWrapper';
 
 const ServerProfile = async ({ children }: PropsWithChildren) => {
   const queryClient = new QueryClient();
@@ -14,9 +14,9 @@ const ServerProfile = async ({ children }: PropsWithChildren) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <UserProvider>
+      <UserLayoutWrapper>
         <ServerTopics>{children}</ServerTopics>
-      </UserProvider>
+      </UserLayoutWrapper>
     </HydrationBoundary>
   );
 };
