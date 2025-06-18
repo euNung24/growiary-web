@@ -6,14 +6,14 @@ import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import { sendGAEvent } from '@next/third-parties/google';
 
-import DailyChecker from '@/user/features/home/components/DailyChecker';
+import DailyChecker from '@user/post/components/home/DailyChecker';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
-import { getDailyCheckerPost } from '@/user/features/home/apis/homeApi';
 import { DailyCheckerType } from '@user/history/types/post';
+import { getDailyCheckerPost } from '@user/post/apis/postApi';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';

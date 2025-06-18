@@ -2,11 +2,11 @@
 
 import { Button } from '@/shared/components/ui/button';
 import Image from 'next/image';
-import ReportByPostWithAll from '@/user/features/home/components/ReportByPostWithAll';
-import ReportByWeekBar from '@/user/features/home/components/ReportByWeekBar';
-import ReportByTimeBar from '@/user/features/home/components/ReportByTimeBar';
+import ReportByPostWithAll from '@user/report/components/home/ReportByPostWithAll';
+import ReportByWeekBar from '@user/report/components/home/ReportByWeekBar';
+import ReportByTimeBar from '@user/report/components/home/ReportByTimeBar';
 import useReportContext from '@user/report/hooks/useReportContext';
-import LinkOrLogin from '@/user/features/home/components/LinkOrLogin';
+import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { MENU_NAMES } from '@/shared/utils';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';

@@ -2,6 +2,7 @@ import withToken from '@/shared/utils/withToken';
 import { ApiSuccessResponse } from '@/shared/types/response';
 
 import { ReqPostType, ResPostType, UpdatePostType } from '@user/post/types/post';
+import { DailyCheckerType } from '@user/post/types/dailyChecker';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 
@@ -26,4 +27,9 @@ export const updatePost = (postData: UpdatePostType) =>
 export const deletePost = (id: string) =>
   withToken(postApiUrl + '/update', { body: { status: false, id } }) as Promise<
     ApiSuccessResponse<ResPostType>
+  >;
+
+export const getDailyCheckerPost = () =>
+  withToken(postApiUrl + '/continue-range') as Promise<
+    ApiSuccessResponse<DailyCheckerType>
   >;
