@@ -1,7 +1,6 @@
 'use client';
 
 import useGetProfile from '@/shared/hooks/useGetProfile';
-import { cn } from '@/shared/utils/cn';
 import { PropsWithChildren, useEffect } from 'react';
 
 const UserLayoutWrapper = ({ children }: PropsWithChildren) => {
@@ -18,7 +17,14 @@ const UserLayoutWrapper = ({ children }: PropsWithChildren) => {
     }
   }, []);
 
-  return <div className={cn('h-full', !data ? 'mt-0' : 'pt-[72px]')}>{children}</div>;
+  return (
+    <div
+      data-login={!!data}
+      className="h-full data-[login=false]:mt-0 data-[login=true]:pt-[72px]"
+    >
+      {children}
+    </div>
+  );
 };
 
 export default UserLayoutWrapper;
