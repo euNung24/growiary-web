@@ -1,22 +1,15 @@
 'use client';
 
-import { ReactNode, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { PropsWithChildren } from 'react';
+import { usePathname } from 'next/navigation';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import TopStartButton from '@/shared/layouts/TopStartButton';
 import FooterFeedbackView from '@/shared/layouts/FooterFeedbackView';
 
-const ContentLayout = ({ children }: { children: ReactNode }) => {
+const ContentLayout = ({ children }: PropsWithChildren) => {
   const { profile } = useProfileContext();
-  const router = useRouter();
   const pathname = usePathname();
   const isPostPage = /^\/(post|history\/.*)/g.test(pathname);
-
-  useEffect(() => {
-    if (!profile && /\/admin/.test(pathname)) {
-      router.push('/admin');
-    }
-  });
 
   return (
     <div
