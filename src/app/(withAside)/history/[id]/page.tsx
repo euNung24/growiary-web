@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import PostDetailView from '@/views/PostDetailView';
+import PostDetailView from '@user/post/components/PostDetailView';
 
 type PageProps = {
   params: { id: string };

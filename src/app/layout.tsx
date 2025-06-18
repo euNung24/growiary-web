@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
-import RecoilProvider from '@/components/providers/RecoilProvider';
+import ReactQueryProvider from '@/shared/providers/ReactQueryProvider';
+import RecoilProvider from '@/shared/providers/RecoilProvider';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { APP_INFO } from '@/utils/appInfo';
+import { APP_INFO } from '@/shared/constants/appInfo';
 import { Viewport } from 'next';
-import HotjarSnippet from '@/views/common/HotJarSnippet';
+import HotjarSnippet from '@/shared/layouts/HotJarSnippet';
 
 const font = localFont({
   src: './fonts/PretendardVariable.woff2',

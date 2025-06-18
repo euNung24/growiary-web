@@ -1,0 +1,297 @@
+┣ 📂admin
+┃ ┣ 📂apis
+┃ ┃ ┣ 📜feedbacks.ts
+┃ ┃ ┣ 📜posts.ts
+┃ ┃ ┗ 📜users.ts
+┃ ┣ 📂components
+┃ ┃ ┣ 📂feedback
+┃ ┃ ┃ ┣ 📜DataTable.tsx
+┃ ┃ ┃ ┗ 📜FeedbackView.tsx
+┃ ┃ ┣ 📂total
+┃ ┃ ┃ ┣ 📜ActiveUserCard.tsx
+┃ ┃ ┃ ┣ 📜AvgPostChart.tsx
+┃ ┃ ┃ ┣ 📜TotalCard.tsx
+┃ ┃ ┃ ┗ 📜TotalView.tsx
+┃ ┃ ┣ 📂users
+┃ ┃ ┃ ┣ 📜DataTable.tsx
+┃ ┃ ┃ ┣ 📜DatePickerWithRange.tsx
+┃ ┃ ┃ ┣ 📜FilterBox.tsx
+┃ ┃ ┃ ┗ 📜UsersView.tsx
+┃ ┃ ┣ 📜LoginView.tsx
+┃ ┃ ┗ 📜Sidebar.tsx
+┃ ┣ 📂hooks
+┃ ┃ ┣ 📜useGetAllFeedback.tsx
+┃ ┃ ┣ 📜useGetAllUsers.tsx
+┃ ┃ ┗ 📜useGetPostsByUser.tsx
+┃ ┗ 📂type
+┃ ┗ 📜index.ts
+┣ 📂app
+┃ ┣ 📂(withAside)
+┃ ┃ ┣ 📂@modal
+┃ ┃ ┃ ┣ 📂feedback
+┃ ┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┃ ┣ 📂settings
+┃ ┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┃ ┣ 📜default.tsx
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂challenge
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂history
+┃ ┃ ┃ ┣ 📂[id]
+┃ ┃ ┃ ┃ ┣ 📂edit
+┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂login
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂post
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂report
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂terms
+┃ ┃ ┃ ┗ 📂private
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂topics
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📜default.tsx
+┃ ┃ ┣ 📜layout.tsx
+┃ ┃ ┗ 📜page.tsx
+┃ ┣ 📂admin
+┃ ┃ ┣ 📂(total)
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂feedback
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂login
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┣ 📂users
+┃ ┃ ┃ ┗ 📜page.tsx
+┃ ┃ ┗ 📜layout.tsx
+┃ ┣ 📂fonts
+┃ ┃ ┗ 📜PretendardVariable.woff2
+┃ ┣ 📂landing
+┃ ┃ ┗ 📜page.tsx
+┃ ┣ 📜globals.css
+┃ ┗ 📜layout.tsx
+┣ 📂shared
+┃ ┣ 📂apis
+┃ ┃ ┣ 📂profile
+┃ ┃ ┃ ┣ 📜client.ts
+┃ ┃ ┃ ┗ 📜server.ts
+┃ ┃ ┣ 📂token
+┃ ┃ ┃ ┣ 📜client.ts
+┃ ┃ ┃ ┗ 📜server.ts
+┃ ┃ ┗ 📜feedback.ts
+┃ ┣ 📂components
+┃ ┃ ┣ 📂icons
+┃ ┃ ┃ ┣ 📜CreativeIcon.tsx
+┃ ┃ ┃ ┣ 📜RemembranceIcon.tsx
+┃ ┃ ┃ ┣ 📜SelfExplorationIcon.tsx
+┃ ┃ ┃ ┣ 📜ThinkIcon.tsx
+┃ ┃ ┃ ┗ 📜UnCategoriedIcon.tsx
+┃ ┃ ┣ 📂server
+┃ ┃ ┃ ┗ 📜ServerProfile.tsx
+┃ ┃ ┣ 📂ui
+┃ ┃ ┃ ┣ 📜alert-dialog.tsx
+┃ ┃ ┃ ┣ 📜button.tsx
+┃ ┃ ┃ ┣ 📜calendar.tsx
+┃ ┃ ┃ ┣ 📜card.tsx
+┃ ┃ ┃ ┣ 📜dialog.tsx
+┃ ┃ ┃ ┣ 📜form.tsx
+┃ ┃ ┃ ┣ 📜hover-card.tsx
+┃ ┃ ┃ ┣ 📜input.tsx
+┃ ┃ ┃ ┣ 📜label.tsx
+┃ ┃ ┃ ┣ 📜pagination.tsx
+┃ ┃ ┃ ┣ 📜popover.tsx
+┃ ┃ ┃ ┣ 📜radio-group.tsx
+┃ ┃ ┃ ┣ 📜select.tsx
+┃ ┃ ┃ ┣ 📜skeleton.tsx
+┃ ┃ ┃ ┣ 📜table.tsx
+┃ ┃ ┃ ┣ 📜tabs.tsx
+┃ ┃ ┃ ┣ 📜textarea.tsx
+┃ ┃ ┃ ┣ 📜toast.tsx
+┃ ┃ ┃ ┣ 📜toaster.tsx
+┃ ┃ ┃ ┣ 📜tooltip.tsx
+┃ ┃ ┃ ┗ 📜use-toast.ts
+┃ ┃ ┣ 📜Chip.tsx
+┃ ┃ ┣ 📜LoginDialog.tsx
+┃ ┃ ┣ 📜Preview.tsx
+┃ ┃ ┣ 📜PrivateTerm.tsx
+┃ ┃ ┗ 📜ServiceTerm.tsx
+┃ ┣ 📂constants
+┃ ┃ ┣ 📜appInfo.ts
+┃ ┃ ┗ 📜error.ts
+┃ ┣ 📂hooks
+┃ ┃ ┣ 📜useAvoidHydration.tsx
+┃ ┃ ┣ 📜useGetProfile.ts
+┃ ┃ ┗ 📜useProfileContext.tsx
+┃ ┣ 📂layouts
+┃ ┃ ┣ 📂server
+┃ ┃ ┃ ┣ 📜ServerProfile.tsx
+┃ ┃ ┃ ┗ 📜ServerTopics.tsx
+┃ ┃ ┣ 📜detailLayout.tsx
+┃ ┃ ┣ 📜FeedbackModal.tsx
+┃ ┃ ┣ 📜FooterFeedbackView.tsx
+┃ ┃ ┣ 📜HotJarSnippet.tsx
+┃ ┃ ┣ 📜Sidebar.tsx
+┃ ┃ ┗ 📜TopStartButton.tsx
+┃ ┣ 📂providers
+┃ ┃ ┣ 📜ReactQueryProvider.tsx
+┃ ┃ ┣ 📜RecoilProvider.tsx
+┃ ┃ ┗ 📜UserProvider.tsx
+┃ ┣ 📂store
+┃ ┃ ┣ 📜index.ts
+┃ ┃ ┣ 📜localStore.ts
+┃ ┃ ┣ 📜todayStore.ts
+┃ ┃ ┗ 📜userStore.ts
+┃ ┣ 📂types
+┃ ┃ ┣ 📜feedback.ts
+┃ ┃ ┣ 📜profile.ts
+┃ ┃ ┣ 📜response.ts
+┃ ┃ ┗ 📜topicCategory.ts
+┃ ┗ 📂utils
+┃ ┣ 📜cn.ts
+┃ ┣ 📜debounce.ts
+┃ ┣ 📜fetchOnServer.ts
+┃ ┣ 📜firebase.ts
+┃ ┣ 📜index.ts
+┃ ┣ 📜mixPanel.ts
+┃ ┣ 📜trackingAnalytics.ts
+┃ ┗ 📜withToken.tsx
+┣ 📂user
+┃ ┣ 📂domain
+┃ ┃ ┣ 📂challenge
+┃ ┃ ┃ ┣ 📂components
+┃ ┃ ┃ ┃ ┣ 📜BadgeCard.tsx
+┃ ┃ ┃ ┃ ┗ 📜ChallengeView.tsx
+┃ ┃ ┃ ┣ 📂constants
+┃ ┃ ┃ ┃ ┗ 📜badges.ts
+┃ ┃ ┃ ┣ 📂infra
+┃ ┃ ┃ ┃ ┗ 📜challengeApi.ts
+┃ ┃ ┃ ┣ 📂models
+┃ ┃ ┃ ┃ ┗ 📜challenge.ts
+┃ ┃ ┃ ┣ 📂use-cases
+┃ ┃ ┃ ┃ ┣ 📜useChangeUserTitleBadge.tsx
+┃ ┃ ┃ ┃ ┗ 📜useGetUserBadgeInfo.tsx
+┃ ┃ ┃ ┗ 📜.DS_Store
+┃ ┃ ┣ 📂history
+┃ ┃ ┃ ┣ 📂components
+┃ ┃ ┃ ┃ ┣ 📜CalendarHistory.tsx
+┃ ┃ ┃ ┃ ┣ 📜CategoryHistory.tsx
+┃ ┃ ┃ ┃ ┣ 📜HistoryView.tsx
+┃ ┃ ┃ ┃ ┣ 📜PostHistory.tsx
+┃ ┃ ┃ ┃ ┗ 📜TodayNewPost.tsx
+┃ ┃ ┃ ┣ 📂constants
+┃ ┃ ┃ ┃ ┗ 📜sample.ts
+┃ ┃ ┃ ┣ 📂infra
+┃ ┃ ┃ ┃ ┗ 📜historyApi.ts
+┃ ┃ ┃ ┗ 📂models
+┃ ┃ ┃ ┗ 📜post.ts
+┃ ┃ ┣ 📂post
+┃ ┃ ┃ ┣ 📂components
+┃ ┃ ┃ ┃ ┣ 📜editor.css
+┃ ┃ ┃ ┃ ┣ 📜Editor.tsx
+┃ ┃ ┃ ┃ ┣ 📜FormContent.tsx
+┃ ┃ ┃ ┃ ┣ 📜FormFooter.tsx
+┃ ┃ ┃ ┃ ┣ 📜FormOptions.tsx
+┃ ┃ ┃ ┃ ┣ 📜PostDetailView.tsx
+┃ ┃ ┃ ┃ ┣ 📜PostView.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReactQuill.tsx
+┃ ┃ ┃ ┃ ┣ 📜StopMovePage.tsx
+┃ ┃ ┃ ┃ ┗ 📜Tag.tsx
+┃ ┃ ┃ ┣ 📂infra
+┃ ┃ ┃ ┃ ┗ 📜postApi.ts
+┃ ┃ ┃ ┣ 📂models
+┃ ┃ ┃ ┃ ┗ 📜post.ts
+┃ ┃ ┃ ┣ 📂store
+┃ ┃ ┃ ┃ ┗ 📜index.ts
+┃ ┃ ┃ ┗ 📂use-cases
+┃ ┃ ┃ ┣ 📜useDeletePosts.ts
+┃ ┃ ┃ ┣ 📜useFindPost.ts
+┃ ┃ ┃ ┗ 📜useGetPosts.ts
+┃ ┃ ┣ 📂report
+┃ ┃ ┃ ┣ 📂components
+┃ ┃ ┃ ┃ ┣ 📜AdvanceReservation.tsx
+┃ ┃ ┃ ┃ ┣ 📜AdvanceReservationModal.tsx
+┃ ┃ ┃ ┃ ┣ 📜BarChart.tsx
+┃ ┃ ┃ ┃ ┣ 📜DonutChart.tsx
+┃ ┃ ┃ ┃ ┣ 📜PolarChart.tsx
+┃ ┃ ┃ ┃ ┣ 📜RectAreaChart.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportAcc.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportByChar.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportByDay.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportByTag.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportByTime.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportByTopic.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportPost.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportTotal.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportView.tsx
+┃ ┃ ┃ ┃ ┗ 📜withMoveMonthly.tsx
+┃ ┃ ┃ ┣ 📂constants
+┃ ┃ ┃ ┃ ┗ 📜sample.ts
+┃ ┃ ┃ ┣ 📂hooks
+┃ ┃ ┃ ┃ ┗ 📜useReportContext.ts
+┃ ┃ ┃ ┣ 📂infra
+┃ ┃ ┃ ┃ ┣ 📜reportApi.ts
+┃ ┃ ┃ ┃ ┗ 📜reservationApi.ts
+┃ ┃ ┃ ┣ 📂models
+┃ ┃ ┃ ┃ ┣ 📜report.ts
+┃ ┃ ┃ ┃ ┗ 📜reservation.ts
+┃ ┃ ┃ ┣ 📂providers
+┃ ┃ ┃ ┃ ┗ 📜ReportProvider.tsx
+┃ ┃ ┃ ┣ 📂store
+┃ ┃ ┃ ┃ ┗ 📜index.ts
+┃ ┃ ┃ ┗ 📂use-cases
+┃ ┃ ┃ ┗ 📜useGetReport.ts
+┃ ┃ ┣ 📂topic
+┃ ┃ ┃ ┣ 📂components
+┃ ┃ ┃ ┃ ┣ 📜RecentTopic.tsx
+┃ ┃ ┃ ┃ ┣ 📜RecommendedTopic.tsx
+┃ ┃ ┃ ┃ ┣ 📜TopicCard.tsx
+┃ ┃ ┃ ┃ ┣ 📜TopicList.tsx
+┃ ┃ ┃ ┃ ┗ 📜TopicView.tsx
+┃ ┃ ┃ ┣ 📂infra
+┃ ┃ ┃ ┃ ┣ 📜topicApi.client.ts
+┃ ┃ ┃ ┃ ┗ 📜topicApi.server.ts
+┃ ┃ ┃ ┣ 📂models
+┃ ┃ ┃ ┃ ┗ 📜topic.ts
+┃ ┃ ┃ ┗ 📂use-cases
+┃ ┃ ┃ ┣ 📜useFindTopics.ts
+┃ ┃ ┃ ┣ 📜useGetRecommendedTopic.ts
+┃ ┃ ┃ ┣ 📜useGetTopicsByCategory.ts
+┃ ┃ ┃ ┗ 📜useGetUserRecentTopic.ts
+┃ ┃ ┗ 📜.DS_Store
+┃ ┣ 📂features
+┃ ┃ ┣ 📂home
+┃ ┃ ┃ ┣ 📂components
+┃ ┃ ┃ ┃ ┣ 📜DailyChecker.tsx
+┃ ┃ ┃ ┃ ┣ 📜HomeDailyChecker.tsx
+┃ ┃ ┃ ┃ ┣ 📜HomeHistory.tsx
+┃ ┃ ┃ ┃ ┣ 📜HomeReport.tsx
+┃ ┃ ┃ ┃ ┣ 📜HomeTopic.tsx
+┃ ┃ ┃ ┃ ┣ 📜HomeTopicCard.tsx
+┃ ┃ ┃ ┃ ┣ 📜HomeView.tsx
+┃ ┃ ┃ ┃ ┣ 📜LinkOrLogin.tsx
+┃ ┃ ┃ ┃ ┣ 📜NewCard.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportByPostWithAll.tsx
+┃ ┃ ┃ ┃ ┣ 📜ReportByTimeBar.tsx
+┃ ┃ ┃ ┃ ┗ 📜ReportByWeekBar.tsx
+┃ ┃ ┃ ┣ 📂infra
+┃ ┃ ┃ ┃ ┗ 📜homeApi.ts
+┃ ┃ ┃ ┣ 📂models
+┃ ┃ ┃ ┃ ┗ 📜dailyChecker.ts
+┃ ┃ ┃ ┗ 📂use-cases
+┃ ┃ ┃ ┗ 📜useGetMonthlyPosts.tsx
+┃ ┃ ┣ 📂landing
+┃ ┃ ┃ ┗ 📂components
+┃ ┃ ┃ ┣ 📜LandingInitEffects.tsx
+┃ ┃ ┃ ┣ 📜LandingView.tsx
+┃ ┃ ┃ ┗ 📜StartButton.tsx
+┃ ┃ ┣ 📂login
+┃ ┃ ┃ ┗ 📂components
+┃ ┃ ┃ ┗ 📜LoginLoading.tsx
+┃ ┃ ┗ 📂setting
+┃ ┃ ┗ 📂components
+┃ ┃ ┗ 📜SettingModal.tsx
+┃ ┗ 📜.DS_Store
+┣ 📜.DS_Store
+┗ 📜middleware.ts
