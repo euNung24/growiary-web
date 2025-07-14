@@ -32,7 +32,7 @@ async function withToken<T, V>(
         throw new Error(res.message);
       }
     }
-    return response.json();
+    return await response.json();
   };
 
   try {
@@ -64,7 +64,7 @@ export async function withTokenGet<T, V>(
       if (response.status === 400) {
         let message = 'Unknown error';
         try {
-          message = await response.json();
+          message = (await response.json()).message;
         } catch (e) {
           if (e instanceof Error) {
             message = e.message;
@@ -73,7 +73,7 @@ export async function withTokenGet<T, V>(
         throw new Error(message);
       }
     }
-    return response.json();
+    return await response.json();
   };
 
   try {
