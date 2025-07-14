@@ -55,7 +55,7 @@ const LoginDialog = ({ open = false, children }: LoginDialogProps) => {
       <DialogTrigger asChild role="button" aria-label="login">
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <DialogHeader>
           <Image
             src="/assets/icons/logo/wide.png"
