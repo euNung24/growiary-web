@@ -1,11 +1,14 @@
 import { Suspense } from 'react';
 import Preview from '@/shared/components/Preview';
 import PostView from '@user/post/components/PostView';
+import ServerTopics from '@/shared/layouts/server/ServerTopics';
 
 export default function Home() {
   return (
     <Suspense>
-      <PostView />
+      <ServerTopics>
+        <PostView />
+      </ServerTopics>
       <Preview />
     </Suspense>
   );

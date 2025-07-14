@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import PostDetailView from '@user/post/components/PostDetailView';
+import ServerTopics from '@/shared/layouts/server/ServerTopics';
 
 type PageProps = {
   params: { id: string };
@@ -7,7 +8,9 @@ type PageProps = {
 export default async function Home({ params: { id } }: PageProps) {
   return (
     <Suspense>
-      <PostDetailView postId={id} />
+      <ServerTopics>
+        <PostDetailView postId={id} />
+      </ServerTopics>
     </Suspense>
   );
 }

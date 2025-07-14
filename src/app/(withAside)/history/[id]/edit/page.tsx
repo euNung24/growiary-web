@@ -1,3 +1,4 @@
+import ServerTopics from '@/shared/layouts/server/ServerTopics';
 import PostView from '@user/post/components/PostView';
 import { Suspense } from 'react';
 
@@ -8,7 +9,9 @@ type PageProps = {
 export default async function Home({ params: { id } }: PageProps) {
   return (
     <Suspense>
-      <PostView postId={id} />
+      <ServerTopics>
+        <PostView postId={id} />
+      </ServerTopics>
     </Suspense>
   );
 }
