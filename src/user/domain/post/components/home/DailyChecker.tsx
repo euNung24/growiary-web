@@ -27,7 +27,7 @@ const Tooltip = ({ text, className }: { text: string; className?: string }) => {
         className,
       )}
     >
-      <div className="absolute top-[-13px] left-1/2 translate-x-[-50%] w-4 h-4 border border-8 border-b-gray-500 border-t-transparent border-l-transparent border-r-transparent"></div>
+      <div className="absolute top-[-13px] left-1/2 translate-x-[-50%] w-4 h-4 border-8 border-b-gray-500 border-t-transparent border-l-transparent border-r-transparent"></div>
       {text}
     </div>
   );

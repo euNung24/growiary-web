@@ -115,7 +115,7 @@ const ReportByTag = () => {
                       : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
                   )}
                 >
-                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5 text-gray-900">
+                  <i className="bg-primary-50 rounded-full w-6 h-6 flex justify-center items-center not-italic	font-r10-5 text-gray-900">
                     {i + 1}
                   </i>
                   <span
@@ -153,7 +153,7 @@ const ReportByTag = () => {
                       : 'text-gray-900 hover:bg-primary-900 hover:text-white-0',
                   )}
                 >
-                  <i className="bg-primary-50 rounded-full w-6 h-6 inline-block flex justify-center items-center not-italic	font-r10-5 text-gray-900">
+                  <i className="bg-primary-50 rounded-full w-6 h-6 flex justify-center items-center not-italic	font-r10-5 text-gray-900">
                     {i + 1}
                   </i>
                   <span
