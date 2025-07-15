@@ -108,6 +108,10 @@ const HistoryView = () => {
   useEffect(() => {
     if (isLogin !== 'LOGIN') return;
     debouncedMutation(selectedYear, selectedMonth);
+
+    return () => {
+      debouncedMutation.cancel();
+    };
   }, [isLogin, selectedMonth]);
 
   return (

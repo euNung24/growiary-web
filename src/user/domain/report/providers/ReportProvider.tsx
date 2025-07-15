@@ -62,6 +62,10 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
   useEffect(() => {
     if (isLogin !== 'LOGIN') return;
     debouncedMutation(selectedYear || year, selectedMonth || month);
+
+    return () => {
+      debouncedMutation.cancel();
+    };
   }, [selectedMonth, isLogin]);
 
   return (
