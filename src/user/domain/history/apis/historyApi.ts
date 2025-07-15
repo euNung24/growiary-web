@@ -6,10 +6,7 @@ import { TopicCategory } from '@user/topic/types/topic';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 
-export const getMonthlyPosts = (
-  date: string,
-  { abortController }: { abortController: AbortController | null },
-) =>
-  withToken(postApiUrl + '/record', { body: { date }, abortController }) as Promise<
+export const getMonthlyPosts = (date: string) =>
+  withToken(postApiUrl + '/record', { body: { date } }) as Promise<
     ApiSuccessResponse<{ posts: ResPostType[]; category: Record<TopicCategory, number> }>
   >;
