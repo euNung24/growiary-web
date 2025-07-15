@@ -137,7 +137,7 @@ const Menu = ({ items, checkLogin = false, profile }: MenuProps) => {
               >
                 {item.indicator}
                 <X className="text-gray-200 cursor-pointer" width={16} height={16} />
-                <div className="absolute top-1/2 left-[-14px] -translate-y-1/2 w-4 h-4 border border-secondary-900 border-8 border-r-primary-900 border-t-transparent border-b-transparent border-l-transparent"></div>
+                <div className="absolute top-1/2 left-[-14px] -translate-y-1/2 w-4 h-4 border-secondary-900 border-8 border-r-primary-900 border-t-transparent border-b-transparent border-l-transparent"></div>
               </div>
             </>
           )}
@@ -170,7 +170,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px] z-10 mt-safeTop">
+    <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px] z-20 mt-safeTop">
       {/* 로고 */}
       <Link
         href="/"

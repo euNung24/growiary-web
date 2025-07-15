@@ -75,8 +75,8 @@ const SettingModal = () => {
       <DialogTrigger asChild>
         <Button className="hidden">설정 모달</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] gap-0">
-        <DialogHeader className="mb-14">
+      <DialogContent className="gap-0">
+        <DialogHeader className="mb-14 sm:mb-6">
           <DialogTitle className="text-primary-900 mt-10">설정하기</DialogTitle>
         </DialogHeader>
         {profile && Object.keys(profile) && (
@@ -95,7 +95,7 @@ const SettingModal = () => {
                 {profile ? profile.nickname || profile.email?.split('@')[0] : '그루미'}님
               </span>
             </div>
-            <section className="flex flex-col gap-y-1 mt-10 text-gray-900 font-r16">
+            <section className="flex flex-col gap-y-1 mt-10 text-gray-900 font-r16 sm:mt-6">
               <div className="flex justify-between py-[13px]">
                 <span>연결된 계정</span>
                 <div className="flex items-center">
@@ -147,7 +147,7 @@ const SettingModal = () => {
             </section>
             <Button
               size="lg"
-              className="bg-[#FFE501] text-[#3C1D1E] focus:bg-[#FFE501] w-[345px] mx-auto gap-x-2 mt-[128px]"
+              className="bg-[#FFE501] text-[#3C1D1E] focus:bg-[#FFE501] max-w-[345px] mx-auto gap-x-2 mt-[128px] sm:mt-4"
               onClick={handleAddKakaoChannel}
             >
               <ButtonIcon src="/assets/icons/kakao_icon.png" alt="kakao_channel" />

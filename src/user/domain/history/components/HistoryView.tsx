@@ -171,7 +171,7 @@ const HistoryView = () => {
                   </h4>
                 </PopoverTrigger>
                 <PopoverContent
-                  className="px-3 pt-2.5 pb-6 flex flex-col justify-center bg-white-0 mr-5 border-none !shadow-dialog hidden lg:block"
+                  className="px-3 pt-2.5 pb-6 bg-white-0 mr-5 border-none !shadow-dialog hidden lg:block"
                   align="start"
                 >
                   <CategoryHistory

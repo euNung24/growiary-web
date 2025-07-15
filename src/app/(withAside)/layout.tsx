@@ -2,7 +2,7 @@ import Sidebar from '@/shared/layouts/Sidebar';
 import { ReactNode } from 'react';
 import { Toaster } from '@/shared/components/ui/toaster';
 import ServerProfile from '@/shared/layouts/server/ServerProfile';
-import DetailLayout from '@/shared/layouts/detailLayout';
+import ContentLayout from '@/shared/layouts/ContentLayout';
 
 type LayoutProps = {
   children: ReactNode;
@@ -15,7 +15,7 @@ export default async function asLayout({ modal, children }: LayoutProps) {
       {modal}
       <ServerProfile>
         <Sidebar />
-        <DetailLayout>{children}</DetailLayout>
+        <ContentLayout>{children}</ContentLayout>
       </ServerProfile>
       <Toaster />
     </>

@@ -1,9 +1,12 @@
 import TopicView from '@user/topic/components/TopicView';
 import Preview from '@/shared/components/Preview';
+import ServerTopics from '@/shared/layouts/server/ServerTopics';
 export default function Home() {
   return (
     <>
-      <TopicView />
+      <ServerTopics>
+        <TopicView />
+      </ServerTopics>
       <Preview />
     </>
   );
