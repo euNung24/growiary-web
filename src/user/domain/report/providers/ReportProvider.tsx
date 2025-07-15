@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
 import { ReportType } from '@user/report/types/report';
 import useGetReport from '@user/report/queries/useGetReport';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -9,6 +9,7 @@ import useProfileContext from '@/shared/hooks/useProfileContext';
 import { ReportState } from '@user/report/store';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { debounce } from '@/shared/utils/debounce';
 
 export const ReportContext = createContext<{
   data: ReportType | null;
@@ -38,11 +39,10 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
   } = useRecoilValue(TodayState);
   const { isLogin } = useProfileContext();
 
-  useEffect(() => {
-    if (isLogin !== 'LOGIN') return;
-    const dateYYMM = `${selectedYear || year}-${(selectedMonth || month).toString().padStart(2, '0')}`;
+  const mutationFn = async (year: number, month: number) => {
+    const dateYYMM = `${year}-${month.toString().padStart(2, '0')}`;
 
-    mutation
+    return mutation
       .mutateAsync(dateYYMM)
       .then(res => {
         if (!res) return;
@@ -55,6 +55,13 @@ const ReportProvider = ({ children, selectedYear, selectedMonth }: ReportProvide
         setData({} as ReportType);
         setDataLength(0);
       });
+  };
+
+  const debouncedMutation = useMemo(() => debounce(mutationFn), []);
+
+  useEffect(() => {
+    if (isLogin !== 'LOGIN') return;
+    debouncedMutation(selectedYear || year, selectedMonth || month);
   }, [selectedMonth, isLogin]);
 
   return (
