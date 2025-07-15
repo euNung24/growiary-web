@@ -4,12 +4,11 @@ import Cookies from 'js-cookie';
 
 type WithTokenType<T> = {
   body?: T;
-  abortController?: AbortController | null;
 };
 
 async function withToken<T, V>(
   url: string,
-  { body, abortController }: WithTokenType<V> = {},
+  { body }: WithTokenType<V> = {},
 ): Promise<ApiSuccessResponse<T> | undefined> {
   const request = async () => {
     const accessToken = Cookies.get('accessToken');
@@ -22,7 +21,6 @@ async function withToken<T, V>(
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Bearer ${accessToken}`,
       },
-      signal: abortController?.signal,
       body: JSON.stringify(body),
     });
 

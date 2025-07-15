@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { format } from 'date-fns';
 import { useRecoilValue } from 'recoil';
@@ -22,6 +22,7 @@ import CategoryHistory from '@user/history/components/CategoryHistory';
 import TodayNewPost from '@user/history/components/TodayNewPost';
 import PostHistory from '@user/history/components/PostHistory';
 import CalendarHistory from '@user/history/components/CalendarHistory';
+import { debounce } from '@/shared/utils/debounce';
 
 type HistoryPostType = {
   [key: string]: ResPostType[];
@@ -73,6 +74,31 @@ const HistoryView = () => {
     });
   };
 
+  const mutationFn = async (year: number, month: number) => {
+    const dateYYMM = `${year}-${month.toString().padStart(2, '0')}`;
+
+    return mutation.mutateAsync(dateYYMM).then(res => {
+      if (!res) return;
+      if (!('posts' in res.data)) {
+        setPosts({});
+        setCategories({} as Record<TopicCategory, number>);
+        return;
+      }
+      const sortDataByDate = res.data.posts.reduce((f, v) => {
+        const date = format(new Date(v.writeDate), 'yyyy-MM-dd');
+        return {
+          ...f,
+          [date]: [...(f[date] || []), v],
+        };
+      }, {} as HistoryPostType);
+
+      setPosts(sortDataByDate);
+      setCategories(res.data.category);
+    });
+  };
+
+  const debouncedMutation = useMemo(() => debounce(mutationFn), []);
+
   useEffect(() => {
     if (isLogin === 'NOT_LOGIN') {
       setDate(new Date(2024, 3, 30, 0, 0, 0));
@@ -81,27 +107,11 @@ const HistoryView = () => {
 
   useEffect(() => {
     if (isLogin !== 'LOGIN') return;
+    debouncedMutation(selectedYear, selectedMonth);
 
-    mutation
-      .mutateAsync(`${selectedYear}-${selectedMonth.toString().padStart(2, '0')}`)
-      .then(res => {
-        if (!res) return;
-        if (!('posts' in res.data)) {
-          setPosts({});
-          setCategories({} as Record<TopicCategory, number>);
-          return;
-        }
-        const sortDataByDate = res.data.posts.reduce((f, v) => {
-          const date = format(new Date(v.writeDate), 'yyyy-MM-dd');
-          return {
-            ...f,
-            [date]: [...(f[date] || []), v],
-          };
-        }, {} as HistoryPostType);
-
-        setPosts(sortDataByDate);
-        setCategories(res.data.category);
-      });
+    return () => {
+      debouncedMutation.cancel();
+    };
   }, [isLogin, selectedMonth]);
 
   return (
