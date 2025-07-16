@@ -68,7 +68,8 @@ const PostHistory = ({ posts, setPosts, assignRef }: PostHistoryProps) => {
   };
 
   return (isLogin === 'LOGIN' ? Object.keys(posts) : Object.keys(SAMPLE_DATA))
-    .toSorted((a, b) => (+a.slice(-2) > +b.slice(-2) ? -1 : 1))
+    .slice()
+    .sort((a, b) => (+a.slice(-2) > +b.slice(-2) ? -1 : 1))
     .map(date => (
       <div ref={assignRef(date)} id={date} key={date}>
         <div className="mb-3">
@@ -79,7 +80,8 @@ const PostHistory = ({ posts, setPosts, assignRef }: PostHistoryProps) => {
         </div>
         <div key={date} className="space-y-3">
           {(isLogin === 'LOGIN' ? posts[date] : SAMPLE_DATA[date])
-            .toSorted((a, b) => (new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1))
+            .slice()
+            .sort((a, b) => (new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1))
             .map(post => (
               <div key={post.id} className="relative">
                 <Link
