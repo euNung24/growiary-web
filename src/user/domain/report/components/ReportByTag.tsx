@@ -74,12 +74,13 @@ const ReportByTag = () => {
 
     const sortedNewMonthTag = Object.entries(monthNewTag)
       .map(([tag, posts]) => {
-        const sortedPostByWriteDate = posts.toSorted((a, b) =>
-          new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1,
-        );
+        const sortedPostByWriteDate = posts
+          .slice()
+          .sort((a, b) => (new Date(a.writeDate) > new Date(b.writeDate) ? -1 : 1));
         return [tag, sortedPostByWriteDate[0]] as [string, ResPostType];
       })
-      .toSorted((a, b) => (a[1].writeDate > b[1].writeDate ? -1 : 1));
+      .slice()
+      .sort((a, b) => (a[1].writeDate > b[1].writeDate ? -1 : 1));
 
     setSortedNewTags(sortedNewMonthTag);
   }, [data?.newTags, monthIndex]);

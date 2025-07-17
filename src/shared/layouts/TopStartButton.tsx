@@ -4,6 +4,7 @@ import LoginDialog from '@/shared/components/LoginDialog';
 import { Button } from '@/shared/components/ui/button';
 import { usePathname } from 'next/navigation';
 import useProfileContext from '@/shared/hooks/useProfileContext';
+import Image from 'next/image';
 
 const TopStartButton = () => {
   const pathname = usePathname();
@@ -24,6 +25,7 @@ const TopStartButton = () => {
                 시작하기
               </Button>
             </LoginDialog>
+            <PreloadedImages />
           </div>
         </div>
       </div>
@@ -32,3 +34,23 @@ const TopStartButton = () => {
 };
 
 export default TopStartButton;
+
+const PreloadedImages = () => {
+  return (
+    <div className="w-0 h-0 overflow-hidden" aria-placeholder="preloaded images">
+      <Image src="/assets/icons/logo/wide.png" alt="logo" width={133.84} height={32} />
+      <Image
+        src="/assets/icons/login_kakao.png"
+        alt="kakao_login"
+        width={308}
+        height={52}
+      />
+      <Image
+        src="/assets/icons/login_google.png"
+        alt="google_login"
+        width={308}
+        height={52}
+      />
+    </div>
+  );
+};

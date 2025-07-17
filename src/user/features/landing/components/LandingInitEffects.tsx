@@ -5,6 +5,7 @@ import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { browserQueryClient } from '@/shared/providers/ReactQueryProvider';
 import { getProfile } from '@/shared/apis/profile/client';
+import { getAllTopics } from '@user/topic/apis/topicApi.client';
 
 const LandingInitEffects = () => {
   useEffect(() => {
@@ -17,6 +18,12 @@ const LandingInitEffects = () => {
       queryKey: ['profile'],
       queryFn: getProfile,
       staleTime: 5 * 60 * 1000,
+    });
+
+    browserQueryClient?.prefetchQuery({
+      queryKey: ['allTopics'],
+      queryFn: getAllTopics,
+      staleTime: 60 * 60 * 1000,
     });
   }, []);
 

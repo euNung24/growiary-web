@@ -17,8 +17,6 @@ export function debounce<T extends (...args: Parameters<T>) => ReturnType<T>>(
 
   debounced.cancel = () => {
     if (timeout) {
-      console.log('cancle', timeout);
-
       clearTimeout(timeout);
       timeout = null;
     }
