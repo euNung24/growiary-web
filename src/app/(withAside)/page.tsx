@@ -1,8 +1,8 @@
-import HomeDailyChecker from '@user/post/components/home/HomeDailyChecker';
-import HomeReport from '@user/report/components/home/HomeReport';
-import HomeTopic from '@user/topic/components/home/HomeTopic';
-import HomePosts from '@user/history/components/home/HomeHistory';
-import ReportProvider from '@user/report/providers/ReportProvider';
+import HomeDailyChecker from '@/user/features/post/components/home/HomeDailyChecker';
+import HomeReport from '@/user/features/report/components/home/HomeReport';
+import HomeTopic from '@/user/features/topic/components/home/HomeTopic';
+import HomePosts from '@/user/features/history/components/home/HomeHistory';
+import ReportProvider from '@/user/features/report/providers/ReportProvider';
 import Preview from '@/shared/components/Preview';
 import ServerTopics from '@/shared/layouts/server/ServerTopics';
 

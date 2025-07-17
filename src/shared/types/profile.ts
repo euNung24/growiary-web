@@ -1,4 +1,4 @@
-import { BadgeKeyType } from '@user/challenge/constants/badges';
+import { BadgeKeyType } from '@/user/features/challenge/constants/badges';
 
 export type ProfileType = {
   userId: string;

@@ -1,5 +1,5 @@
 import ServerTopics from '@/shared/layouts/server/ServerTopics';
-import PostView from '@user/post/components/PostView';
+import PostView from '@/user/features/post/components/PostView';
 import { Suspense } from 'react';
 
 type PageProps = {

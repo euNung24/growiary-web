@@ -2,7 +2,7 @@ import CreativeIcon from '@/shared/components/icons/CreativeIcon';
 import RemembranceIcon from '@/shared/components/icons/RemembranceIcon';
 import ThinkIcon from '@/shared/components/icons/ThinkIcon';
 import SelfExplorationIcon from '@/shared/components/icons/SelfExplorationIcon';
-import { TopicCategory } from '@user/topic/types/topic';
+import { TopicCategory } from '@/user/features/topic/types/topic';
 import UnCategoriedIcon from '@/shared/components/icons/UnCategoriedIcon';
 
 export type IconProps = {
