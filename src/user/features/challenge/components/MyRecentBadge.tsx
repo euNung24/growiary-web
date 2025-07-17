@@ -6,6 +6,7 @@ import {
   BadgeWideIcon,
 } from '@/user/features/challenge/components/BadgeCard';
 import { BADGE_INFO } from '@user/challenge/constants/badges';
+import { memo } from 'react';
 
 type MyRecentBadgeProps = {
   badge: keyof typeof BADGE_INFO;
@@ -38,4 +39,4 @@ const MyRecentBadge = ({ badge }: MyRecentBadgeProps) => {
   );
 };
 
-export default MyRecentBadge;
+export default memo(MyRecentBadge);
