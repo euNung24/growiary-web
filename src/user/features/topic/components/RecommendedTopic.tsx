@@ -20,7 +20,7 @@ const RecommendedTopic = () => {
   const topTopic = data?.top;
 
   return (
-    <div>
+    <div className="flex flex-col [&>div]:grow">
       {topTopic ? (
         <TopicCard>
           <TopicCardHeader>
