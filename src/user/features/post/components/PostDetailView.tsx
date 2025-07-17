@@ -95,7 +95,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
     <div className={cn('flex flex-col mx-auto', 'h-[calc(100%+72px)]')} ref={formRef}>
       {post && (
         <>
-          <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-2.5 py-4 text-gray-900">
+          <div className="flex w-full rounded-md bg-background font-r28 px-2.5 py-4 text-gray-900">
             {post.title}
           </div>
           <div>
