@@ -5,7 +5,6 @@ import { BadgeKeyType } from '@user/challenge/constants/badges';
 
 const useChangeUserTitleBadge = () => {
   return useMutation({
-    mutationKey: ['titleBadge'],
     mutationFn: (badgeKey: BadgeKeyType) => updateUserTitleBadge(badgeKey),
   });
 };
