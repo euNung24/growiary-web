@@ -99,7 +99,7 @@ const CardTitle = React.forwardRef<
   const { size, variant } = useContext(CardContext);
 
   return (
-    <h3
+    <h4
       ref={ref}
       {...props}
       className={cn(

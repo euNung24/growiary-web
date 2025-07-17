@@ -2,7 +2,7 @@ import { cn } from '@/shared/utils/cn';
 import * as React from 'react';
 import { HTMLAttributes } from 'react';
 
-type ChipProps = HTMLAttributes<HTMLDivElement> & {
+type ChipProps = HTMLAttributes<HTMLSpanElement> & {
   variant?: 'secondary' | 'gray';
   size?: 'lg' | 'md';
 };
@@ -22,7 +22,7 @@ const Chip = ({ className, variant, size = 'md', ...props }: ChipProps) => {
   }
 
   return (
-    <div
+    <span
       {...props}
       className={cn(
         'inline-block font-r14 rounded self-start',
