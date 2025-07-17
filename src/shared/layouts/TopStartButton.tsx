@@ -37,7 +37,7 @@ export default TopStartButton;
 
 const PreloadedImages = () => {
   return (
-    <div className="w-0 h-0 overflow-hidden" aria-placeholder='"preloaded images"'>
+    <div className="w-0 h-0 overflow-hidden" aria-placeholder="preloaded images">
       <Image src="/assets/icons/logo/wide.png" alt="logo" width={133.84} height={32} />
       <Image
         src="/assets/icons/login_kakao.png"
