@@ -46,7 +46,7 @@ TopicCard.displayName = 'TopicCard';
 
 const TopicCardChip = (props: TopicCardProps) => {
   return (
-    <div
+    <h3
       {...props}
       className={cn(
         'inline-block font-r14 rounded px-1.5 self-start mb-2 bg-primary-400 text-white-0',
