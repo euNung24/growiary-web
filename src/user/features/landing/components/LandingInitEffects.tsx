@@ -6,6 +6,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 import { browserQueryClient } from '@/shared/providers/ReactQueryProvider';
 import { getProfile } from '@/shared/apis/profile/client';
 import { getAllTopics } from '@user/topic/apis/topicApi.client';
+import { topicKeys } from '@user/topic/queries/topicKeys';
 
 const LandingInitEffects = () => {
   useEffect(() => {
@@ -21,7 +22,7 @@ const LandingInitEffects = () => {
     });
 
     browserQueryClient?.prefetchQuery({
-      queryKey: ['allTopics'],
+      queryKey: topicKeys.lists(),
       queryFn: getAllTopics,
       staleTime: 60 * 60 * 1000,
     });
