@@ -1,61 +1,37 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
-import { format } from 'date-fns';
-import { useRecoilValue } from 'recoil';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { format, subMonths } from 'date-fns';
 import { SelectSingleEventHandler } from 'react-day-picker';
 
 import { cn } from '@/shared/utils/cn';
-import { TodayState } from '@/shared/store/todayStore';
-import { getTwoFormatDate } from '@/shared/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import LoginDialog from '@/shared/components/LoginDialog';
 import { Button } from '@/shared/components/ui/button';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
-import useGetMonthlyPosts from '@/user/features/post/queries/useGetMonthlyPosts';
 import { TopicCategory } from '@/user/features/topic/types/topic';
-import { ResPostType } from '@/user/features/history/types/post';
 import CategoryHistory from '@/user/features/history/components/CategoryHistory';
-import TodayNewPost from '@/user/features/history/components/TodayNewPost';
 import PostHistory from '@/user/features/history/components/PostHistory';
 import CalendarHistory from '@/user/features/history/components/CalendarHistory';
-import { debounce } from '@/shared/utils/debounce';
+import MonthNavigator from '@user/history/components/MonthNavigator';
 
-type HistoryPostType = {
-  [key: string]: ResPostType[];
-};
 const HistoryView = () => {
-  const {
-    date: { year, month, date: todayDate },
-  } = useRecoilValue(TodayState);
   const { isLogin, profile } = useProfileContext();
-  const mutation = useGetMonthlyPosts();
 
   const postsRef = useRef<{ [id: string]: HTMLDivElement }>({});
   const topStickyElRef = useRef<HTMLDivElement | null>(null);
-  const [date, setDate] = useState<Date>(new Date());
-  const [posts, setPosts] = useState<HistoryPostType>({});
+  const [date, setDate] = useState<Date>(() =>
+    profile ? new Date() : subMonths(new Date(), 1),
+  );
   const [categories, setCategories] = useState<Record<TopicCategory, number>>(
     {} as Record<TopicCategory, number>,
   );
-
-  const today = `${year}-${getTwoFormatDate(month)}-${getTwoFormatDate(todayDate)}`;
-  const selectedYear = date?.getFullYear();
-  const selectedMonth = (date?.getMonth() || 0) + 1;
+  const selectedMonth = (date.getMonth() || 0) + 1;
 
   const assignRef = (index: string) => (element: HTMLDivElement) => {
     postsRef.current[index] = element;
-  };
-
-  const handleClickPrevMonth = () => {
-    setDate(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(), 0, 0, 0));
-  };
-
-  const handleClickNextMonth = () => {
-    setDate(new Date(date.getFullYear(), date.getMonth() + 1, date.getDate(), 0, 0, 0));
   };
 
   const handleSelectADay: SelectSingleEventHandler = (day, selectedDay) => {
@@ -74,46 +50,6 @@ const HistoryView = () => {
     });
   };
 
-  const mutationFn = async (year: number, month: number) => {
-    const dateYYMM = `${year}-${month.toString().padStart(2, '0')}`;
-
-    return mutation.mutateAsync(dateYYMM).then(res => {
-      if (!res) return;
-      if (!('posts' in res.data)) {
-        setPosts({});
-        setCategories({} as Record<TopicCategory, number>);
-        return;
-      }
-      const sortDataByDate = res.data.posts.reduce((f, v) => {
-        const date = format(new Date(v.writeDate), 'yyyy-MM-dd');
-        return {
-          ...f,
-          [date]: [...(f[date] || []), v],
-        };
-      }, {} as HistoryPostType);
-
-      setPosts(sortDataByDate);
-      setCategories(res.data.category);
-    });
-  };
-
-  const debouncedMutation = useMemo(() => debounce(mutationFn), []);
-
-  useEffect(() => {
-    if (isLogin === 'NOT_LOGIN') {
-      setDate(new Date(2024, 3, 30, 0, 0, 0));
-    }
-  }, [isLogin]);
-
-  useEffect(() => {
-    if (isLogin !== 'LOGIN') return;
-    debouncedMutation(selectedYear, selectedMonth);
-
-    return () => {
-      debouncedMutation.cancel();
-    };
-  }, [isLogin, selectedMonth]);
-
   return (
     isLogin && (
       <div
@@ -127,52 +63,11 @@ const HistoryView = () => {
             className="flex justify-between sticky z-10 top-0 bg-white-0 border-b border-gray-100"
             ref={topStickyElRef}
           >
-            <div className="py-5 flex gap-x-3 items-center">
-              <ChevronLeft
-                width={24}
-                height={24}
-                className={cn(
-                  'cursor-pointer',
-                  !profile && 'cursor-default pointer-events-none text-gray-400',
-                )}
-                onClick={handleClickPrevMonth}
-              />
-              <div className="relative">
-                <span className="block px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50 lg:hidden">
-                  {selectedYear}년 {selectedMonth}월
-                </span>
-                <Popover>
-                  <PopoverTrigger asChild role="button">
-                    <span className="px-6 py-1.5 rounded-[30px] text-primary-900 font-sb18 bg-primary-50 hidden break-keep text-center lg:block">
-                      {selectedYear}년 {selectedMonth}월
-                    </span>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className="flex flex-col justify-center bg-white-0 w-auto"
-                    align="start"
-                  >
-                    <CalendarHistory
-                      date={date}
-                      setDate={setDate}
-                      handleSelectADay={handleSelectADay}
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-              <ChevronRight
-                width={24}
-                height={24}
-                className={cn(
-                  'cursor-pointer',
-                  +(
-                    selectedYear.toString() + selectedMonth.toString().padStart(2, '0')
-                  ) >= +(year.toString() + month.toString().padStart(2, '0')) &&
-                    'cursor-default pointer-events-none text-gray-400',
-                  !profile && 'cursor-default pointer-events-none text-gray-400',
-                )}
-                onClick={handleClickNextMonth}
-              />
-            </div>
+            <MonthNavigator
+              date={date}
+              setDate={setDate}
+              handleSelectADay={handleSelectADay}
+            />
             <div className="flex gap-x-[18px] items-center flex-wrap-reverse justify-end ">
               <Popover>
                 <PopoverTrigger asChild>
@@ -203,24 +98,7 @@ const HistoryView = () => {
               )}
             </div>
           </div>
-          <section className="flex flex-col gap-y-[72px] pb-5 mx-2.5 my-4 pt-3">
-            {(isLogin === 'NOT_LOGIN' ||
-              (mutation.isSuccess &&
-                !posts[today] &&
-                year === selectedYear &&
-                month === selectedMonth)) && (
-              <TodayNewPost
-                assignRef={assignRef}
-                year={year}
-                month={month}
-                date={todayDate}
-              />
-            )}
-            {(isLogin === 'NOT_LOGIN' || mutation.isSuccess) && (
-              <PostHistory posts={posts} assignRef={assignRef} setPosts={setPosts} />
-            )}
-            <div className="h-[300px]"></div>
-          </section>
+          <PostHistory assignRef={assignRef} date={date} setCategories={setCategories} />
         </div>
         <div className="sticky h-screen w-[240px] top-0 pt-3 border-l lg:hidden">
           <CalendarHistory
