@@ -6,8 +6,6 @@ import { z } from 'zod';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 import { Input } from '@/shared/components/ui/input';
-import { TopicCategory } from '@/user/features/topic/types/topic';
-import useGetTopicsByCategory from '@/user/features/topic/queries/useGetTopicsByCategory';
 import { ReqPostType } from '@/user/features/post/types/post';
 import StopMovePage from '@/user/features/post/components/StopMovePage';
 import FormFooter from '@/user/features/post/components/FormFooter';
@@ -21,14 +19,7 @@ interface PostFormProps {
 }
 
 const PostForm = ({ form, onSubmit }: PostFormProps) => {
-  const { data: topics } = useGetTopicsByCategory();
-
-  const [category, topicIdValue] = form.watch(['category', 'topicId']);
   const { isSubmitSuccessful } = form.formState;
-
-  const selectedTopic = topics?.[category as TopicCategory]?.find(
-    topic => topic.id === +topicIdValue,
-  );
 
   return (
     <FormProvider {...form}>
@@ -51,7 +42,7 @@ const PostForm = ({ form, onSubmit }: PostFormProps) => {
         />
         <FormOptions />
         <Suspense>
-          <FormContent selectedTopic={selectedTopic} />
+          <FormContent />
         </Suspense>
         <FormFooter />
       </form>

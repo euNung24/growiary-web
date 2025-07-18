@@ -3,15 +3,18 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { topicCategory } from '@/shared/types/topicCategory';
 
 import Editor from '@/user/features/post/components/Editor';
-import { TopicCategory, TopicType } from '@/user/features/topic/types/topic';
+import { TopicCategory } from '@/user/features/topic/types/topic';
+import useGetTopicsByCategory from '@user/topic/queries/useGetTopicsByCategory';
 
-type FormContentProps = {
-  selectedTopic?: TopicType;
-};
-
-const FormContent = ({ selectedTopic }: FormContentProps) => {
+const FormContent = () => {
   const methods = useFormContext();
-  const category = methods.watch('category');
+  const { data: topics } = useGetTopicsByCategory();
+
+  const [category, topicIdValue] = methods.watch(['category', 'topicId']);
+
+  const selectedTopic = topics?.[category as TopicCategory]?.find(
+    topic => topic.id === +topicIdValue,
+  );
 
   return (
     <div className="relative flex-1 mb-4 border border-[#ccc] rounded-xl overflow-hidden mt-[15px]">
