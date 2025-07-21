@@ -60,7 +60,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
       toast({
         description: '기록이 삭제되었습니다',
         onEndToast: () => {
-          router.push('/history');
+          router.push('/posts');
         },
       });
     });
@@ -195,7 +195,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
               </AlertDialogContent>
             </AlertDialog>
             <Button type="button" variant="outlineGray" size="sm" asChild>
-              <Link href={`/history/${post.id}/edit`}>수정하기</Link>
+              <Link href={`/post/${post.id}/edit`}>수정하기</Link>
             </Button>
           </div>
         </>

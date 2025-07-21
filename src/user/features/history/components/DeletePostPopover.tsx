@@ -38,7 +38,7 @@ const DeletePostPopover = ({ postId, onDelete }: DeletePostPopoverProps) => {
       </PopoverTrigger>
       <PopoverContent className="flex flex-col justify-center overflow-hidden bg-white-0 w-auto p-0 [&>*]:py-2.5 [&>*]:px-10 [&>*]:block [&>*]:font-r14">
         <Button asChild variant="ghostGrayHover">
-          <Link href={`/history/${postId}/edit`}>수정하기</Link>
+          <Link href={`/post/${postId}/edit`}>수정하기</Link>
         </Button>
         <AlertDialog>
           <AlertDialogTrigger asChild>

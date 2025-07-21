@@ -81,7 +81,7 @@ const HomePosts = () => {
       <div className="flex justify-between">
         <h2 className="title">나의 기록</h2>
         <LinkOrLogin
-          href="/history"
+          href="/posts"
           handleClick={onTrackingHandler(MENU_NAMES['나의 기록들'])}
         >
           <Button
@@ -101,7 +101,7 @@ const HomePosts = () => {
             <>
               <NewCard />
               {posts.map(post => (
-                <Link key={post.id} href={`/history/${post.id}`}>
+                <Link key={post.id} href={`/post/${post.id}`}>
                   <Card className="shrink-0" size="lg">
                     <CardHeader>
                       <CardChip size="lg">

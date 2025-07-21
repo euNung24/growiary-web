@@ -32,7 +32,7 @@ const PostEditView = ({ postId }: PostEditViewProps) => {
   });
 
   const movePageAfterSubmit = (id: string) => {
-    router.push(`/history/${id}`);
+    router.push(`/post/${id}`);
     toast({
       description: '기록이 저장되었습니다',
     });

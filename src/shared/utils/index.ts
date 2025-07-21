@@ -44,9 +44,9 @@ export const menu = [
   },
   {
     src: '/assets/icons/calendar',
-    alt: 'history',
+    alt: 'posts',
     name: MENU_NAMES['나의 기록들'],
-    href: '/history',
+    href: '/posts',
     placeholder: '',
     indicator: '작성된 기록은 이곳에서 볼 수 있어요',
     indicatorLeft: '117px',

@@ -26,7 +26,7 @@ const HistoryCard = ({ post, onDelete }: HistoryCardProps) => {
   return (
     <div key={post.id} className="relative">
       <Link
-        href={profile ? `/history/${post.id}` : ''}
+        href={profile ? `/post/${post.id}` : ''}
         onClick={handleClickDetailLink}
         className={cn('block', !profile && 'cursor-default pointer-events-none')}
       >

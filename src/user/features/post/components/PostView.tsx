@@ -45,7 +45,7 @@ const PostView = () => {
   });
 
   const movePageAfterSubmit = (post: ResPostType) => {
-    router.push(`/history/${post.id}`);
+    router.push(`/post/${post.id}`);
     toast({
       description: '기록이 저장되었습니다',
     });
