@@ -32,6 +32,8 @@ import { BadgeKeyType } from '@user/challenge/constants/badges';
 import useGetUserBadgeInfo from '@user/challenge/queries/useGetUserBadgeInfo';
 import useChangeUserTitleBadge from '@user/challenge/queries/useChangeUserTitleBadge';
 import useProfileContext from '@/shared/hooks/useProfileContext';
+import { profileKeys } from '@/shared/queries/profile/profileKeys';
+import { challengeKeys } from '@user/challenge/queries/challengeKeys';
 
 const ChallengeView = () => {
   const descriptionStyle = 'font-r28 text-gray-900 mt-4 mb-6';
@@ -63,8 +65,8 @@ const ChallengeView = () => {
     mutation
       .mutateAsync(badgeKey)
       .then(() => {
-        queryClient.invalidateQueries({ queryKey: ['profile'] });
-        queryClient.invalidateQueries({ queryKey: ['badge'] });
+        queryClient.invalidateQueries({ queryKey: profileKeys.all });
+        queryClient.invalidateQueries({ queryKey: challengeKeys.lists() });
       })
       .catch(() => {
         alert('뱃지 변경에 실패했습니다.');

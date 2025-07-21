@@ -7,7 +7,7 @@ import { MENU_NAMES } from '@/shared/utils';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';
 import { TopicCategory } from '@user/topic/types/topic';
 
-import useGetProfile from '@/shared/hooks/useGetProfile';
+import useGetProfile from '@/shared/queries/profile/useGetProfile';
 import useGetTopicsByCategory from '@user/topic/queries/useGetTopicsByCategory';
 
 import { Button } from '@/shared/components/ui/button';

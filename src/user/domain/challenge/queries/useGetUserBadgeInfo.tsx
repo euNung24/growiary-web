@@ -3,10 +3,11 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getUserBadge } from '@user/challenge/apis/challengeApi';
+import { challengeKeys } from '@user/challenge/queries/challengeKeys';
 
 const useGetUserBadgeInfo = () => {
   const { data } = useQuery({
-    queryKey: ['badge'],
+    queryKey: challengeKeys.lists(),
     queryFn: getUserBadge,
     staleTime: 0,
   });

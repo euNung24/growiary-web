@@ -6,8 +6,8 @@ import { UserType } from '@admin/types/user';
 import { addDays, format, set, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { ResPostType } from '@admin/types/post';
-import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
-import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
+import useGetAllUsers from '@admin/queries/useGetAllUsers';
+import useGetPostsByUser from '@admin/queries/useGetPostsByUser';
 import { getFormatDate } from '@/shared/utils';
 import Image from 'next/image';
 import { Button } from '@/shared/components/ui/button';
@@ -28,7 +28,7 @@ import {
   HoverCardTrigger,
 } from '@/shared/components/ui/hover-card';
 import { handleError } from '@/shared/apis/token/client';
-import useGetProfile from '@/shared/hooks/useGetProfile';
+import useGetProfile from '@/shared/queries/profile/useGetProfile';
 
 type UserTable = Pick<UserType, 'createdAt' | 'email' | 'social'> & {
   profile: Pick<UserType['profile'], 'nickname' | 'userId'>;

@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui
 import { useEffect, useState } from 'react';
 import { UserType } from '@admin/types/user';
 import { format } from 'date-fns';
-import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
-import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
+import useGetAllUsers from '@admin/queries/useGetAllUsers';
+import useGetPostsByUser from '@admin/queries/useGetPostsByUser';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import AvgPostChart from '@/admin/components/total/AvgPostChart';
@@ -13,7 +13,7 @@ import { getFormatDate } from '@/shared/utils';
 import ActiveUserCard from '@/admin/components/total/ActiveUserCard';
 import TotalCard from '@/admin/components/total/TotalCard';
 import { handleError } from '@/shared/apis/token/client';
-import useGetProfile from '@/shared/hooks/useGetProfile';
+import useGetProfile from '@/shared/queries/profile/useGetProfile';
 
 const isTodayPost = (postDate: string) => {
   return format(new Date(postDate), 'yyyyMMdd') === format(new Date(), 'yyyyMMdd');
