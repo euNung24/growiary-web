@@ -28,7 +28,7 @@ import {
   HoverCardTrigger,
 } from '@/shared/components/ui/hover-card';
 import { handleError } from '@/shared/apis/token/client';
-import useGetProfile from '@/shared/hooks/useGetProfile';
+import useGetProfile from '@/shared/queries/profile/useGetProfile';
 
 type UserTable = Pick<UserType, 'createdAt' | 'email' | 'social'> & {
   profile: Pick<UserType['profile'], 'nickname' | 'userId'>;

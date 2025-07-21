@@ -1,6 +1,6 @@
 'use client';
 
-import useGetProfile from '@/shared/hooks/useGetProfile';
+import useGetProfile from '@/shared/queries/profile/useGetProfile';
 
 const useProfileContext = () => {
   const { data } = useGetProfile();
