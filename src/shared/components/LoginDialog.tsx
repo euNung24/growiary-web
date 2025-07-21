@@ -50,9 +50,25 @@ const LoginDialog = ({ open = false, children }: LoginDialogProps) => {
     }
   };
 
+  const handleMarkPerformanceStart = () => {
+    performance.mark('login-dialog-start');
+  };
+
+  const handleMarkPerformanceEnd = () => {
+    if (performance.getEntriesByName('login-dialog-start').length > 0) {
+      performance.mark('login-dialog-end');
+      performance.measure('ImageLoaded', 'login-dialog-start', 'login-dialog-end');
+    }
+  };
+
   return (
     <Dialog defaultOpen={open} onOpenChange={open => onOpenChange(open)}>
-      <DialogTrigger asChild role="button" aria-label="login">
+      <DialogTrigger
+        onClick={handleMarkPerformanceStart}
+        asChild
+        role="button"
+        aria-label="login"
+      >
         {children}
       </DialogTrigger>
       <DialogContent>
@@ -78,6 +94,7 @@ const LoginDialog = ({ open = false, children }: LoginDialogProps) => {
             height={52}
             className="cursor-pointer"
             onClick={kakaoLogin}
+            onLoad={handleMarkPerformanceEnd}
             priority
           />
           <Image
