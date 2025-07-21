@@ -39,11 +39,11 @@ const RecentTopic = () => {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col [&>div]:grow">
       {profile &&
         (recentTopic ? (
           Object.keys(recentTopic).length > 0 ? (
-            <div>
+            <>
               <TopicCard>
                 <TopicCardHeader>
                   <TopicCardChip>최근에 기록한</TopicCardChip>
@@ -94,9 +94,9 @@ const RecentTopic = () => {
                     : recentTopic.day + '일 전에'}{' '}
                 기록한 주제
               </p>
-            </div>
+            </>
           ) : (
-            <TopicCard className="shrink-0 bg-primary-50 border-none">
+            <TopicCard className="shrink-0 bg-primary-50 border-none mb-[38px]">
               <TopicCardHeader>
                 <TopicCardChip>최근에 기록한</TopicCardChip>
               </TopicCardHeader>
@@ -129,10 +129,10 @@ const RecentTopic = () => {
             </TopicCard>
           )
         ) : (
-          <Skeleton className="w-full h-[284px]" />
+          <Skeleton className="w-full h-[284px] mb-[38px]" />
         ))}
       {!profile && (
-        <div>
+        <>
           <TopicCard className="shrink-0">
             <TopicCardHeader>
               <TopicCardChip>최근에 기록한</TopicCardChip>
@@ -159,9 +159,9 @@ const RecentTopic = () => {
           <p className="text-gray-400 font-r16 ml-3 mt-3">
             그루미님이 최근에 기록한 주제
           </p>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

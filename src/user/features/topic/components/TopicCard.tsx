@@ -13,7 +13,7 @@ import * as React from 'react';
 import { cn } from '@/shared/utils/cn';
 
 const topicCardVariants = cva(
-  'group hover:shadow w-full h-[284px] px-8 py-6 flex flex-col',
+  'group hover:shadow w-full min-h-[284px] h-auto px-8 py-6 flex flex-col',
   {
     variants: {
       variant: {
@@ -23,7 +23,7 @@ const topicCardVariants = cva(
       },
       size: {
         default: 'rounded-lg pt-6 px-8 pb-[22px] font-r14',
-        lg: 'rounded-xl h-[380px] p-6 font-r16',
+        lg: 'rounded-xl min-h-[380px] p-6 font-r16',
       },
     },
     defaultVariants: {
@@ -46,7 +46,7 @@ TopicCard.displayName = 'TopicCard';
 
 const TopicCardChip = (props: TopicCardProps) => {
   return (
-    <div
+    <h3
       {...props}
       className={cn(
         'inline-block font-r14 rounded px-1.5 self-start mb-2 bg-primary-400 text-white-0',

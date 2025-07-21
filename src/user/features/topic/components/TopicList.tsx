@@ -1,76 +1,35 @@
-import { cn } from '@/shared/utils/cn';
-import Link from 'next/link';
-import Image from 'next/image';
-import Chip from '@/shared/components/Chip';
-import { Skeleton } from '@/shared/components/ui/skeleton';
-import useGetTopicsByCategory from '@/user/features/topic/queries/useGetTopicsByCategory';
 import { TopicCategory, TopicType } from '@/user/features/topic/types/topic';
-import useGetRecommendedTopic from '@/user/features/topic/queries/useGetRecommendedTopic';
-import { useEffect, useState } from 'react';
+import TopicItem from '@user/topic/components/TopicItem';
 
 type TopicListProps = {
-  currentCategory: TopicCategory;
+  category: TopicCategory;
+  topics: TopicType[];
+  recommendedTopic: TopicType;
+  hidden: boolean;
 };
-const TopicList = ({ currentCategory }: TopicListProps) => {
-  const { data: topics } = useGetTopicsByCategory();
-  const { data } = useGetRecommendedTopic();
-  const bestTopics = data?.category;
-  const [currentTopics, setCurrentTopics] = useState<TopicType[]>([]);
 
-  useEffect(() => {
-    if (!bestTopics || !topics) return;
-    const bestTopic = bestTopics[currentCategory];
-    const filteredBestTopic = topics[currentCategory]?.filter(
-      topic => topic.id !== bestTopic.id,
-    );
-    setCurrentTopics(
-      Object.keys(bestTopic).length
-        ? [bestTopic, ...filteredBestTopic]
-        : filteredBestTopic,
-    );
-  }, [topics, bestTopics, currentCategory]);
+const TopicList = ({ recommendedTopic, category, topics, hidden }: TopicListProps) => {
+  const bestTopic = recommendedTopic;
+  const nonBestTopics =
+    bestTopic && topics ? topics?.filter(topic => topic.id !== bestTopic.id) : [];
+
+  const prioritizedTopics =
+    bestTopic && Object.keys(bestTopic).length
+      ? [bestTopic, ...nonBestTopics]
+      : nonBestTopics;
 
   return (
-    <>
-      {topics && bestTopics
-        ? currentTopics?.map((topic, i) => (
-            <li
-              key={i}
-              className={cn(
-                'group rounded-md hover:bg-primary-900 border border-gray-100 hover:shadow',
-              )}
-            >
-              <Link
-                href={`/post?topic=${topic.id}&category=${topic.category}`}
-                className="px-6 py-4 font-r16 inline-block text-gray-700 group-hover:text-white-0 transition-colors duration-150"
-              >
-                <Image
-                  src="/assets/icons/edit_white.png"
-                  alt="icon"
-                  width={22}
-                  height={22}
-                  className="hidden	group-hover:inline-block group-hover:mr-3"
-                />
-                {topic?.title?.replaceAll('/n ', '')}
-                {i === 0 && (
-                  <Chip className="ml-3 font-r12 group-hover:bg-gray-50 group-hover:text-gray-900">
-                    Best
-                  </Chip>
-                )}
-              </Link>
-            </li>
-          ))
-        : [...Array(4)].map((card, i) => (
-            <li
-              key={i}
-              className={cn(
-                'group px-6 py-4 rounded-md hover:bg-primary-900 border border-gray-100',
-              )}
-            >
-              <Skeleton className="w-1/4 h-6" />
-            </li>
-          ))}
-    </>
+    <ul
+      className="hidden flex-col gap-6 mt-9 data-[hidden=false]:flex"
+      role="tabpanel"
+      id={`panel-${category}`}
+      aria-labelledby={`tab-${category}`}
+      data-hidden={hidden}
+    >
+      {prioritizedTopics.map((topic, i) => (
+        <TopicItem key={topic.id} topic={topic} best={i === 0} />
+      ))}
+    </ul>
   );
 };
 
