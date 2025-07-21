@@ -2,19 +2,20 @@
 
 import { PropsWithChildren } from 'react';
 import { usePathname } from 'next/navigation';
-import useProfileContext from '@/shared/hooks/useProfileContext';
 import TopStartButton from '@/shared/layouts/TopStartButton';
 import FooterFeedbackView from '@/shared/layouts/FooterFeedbackView';
+import useGetProfile from '@/shared/queries/profile/useGetProfile';
 
 const ContentLayout = ({ children }: PropsWithChildren) => {
-  const { profile } = useProfileContext();
   const pathname = usePathname();
-  const isPostPage = /^\/(post\/.*)/g.test(pathname);
+  const isPostPage = /^\/post(?:\/.*)?$/g.test(pathname);
+  const { data } = useGetProfile();
 
   return (
     <div
-      data-user-post={isPostPage && !!profile}
-      className="w-full h-full flex flex-col pl-[200px] lg:pl-[68px] data-[user-post=true]:mt-[-48px] data-[user-post=true]:h-[calc(100%+48px)]"
+      data-post={isPostPage}
+      data-user-post={isPostPage && !!data?.userId}
+      className="w-full flex flex-col pl-[200px] lg:pl-[68px] data-[user-post=true]:mt-[-48px] data-[post=false]:h-auto data-[post=true]:h-full"
     >
       <TopStartButton />
       <main
