@@ -1,7 +1,7 @@
 'use client';
 
 import Chip from '@/shared/components/Chip';
-import useGetProfile from '@/shared/hooks/useGetProfile';
+import useGetProfile from '@/shared/queries/profile/useGetProfile';
 import Image from 'next/image';
 
 type TopPercentIndicatorProps = {
