@@ -5,7 +5,6 @@ import { getAllUsers } from '@/admin/apis/users';
 
 const useGetUsersInfo = () => {
   return useMutation({
-    mutationKey: ['usersInfo'],
     mutationFn: getAllUsers,
     onError: async error => {
       return error;

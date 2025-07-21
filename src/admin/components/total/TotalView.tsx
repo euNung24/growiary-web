@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui
 import { useEffect, useState } from 'react';
 import { UserType } from '@admin/types/user';
 import { format } from 'date-fns';
-import useGetAllUsers from '@/admin/hooks/useGetAllUsers';
-import useGetPostsByUser from '@/admin/hooks/useGetPostsByUser';
+import useGetAllUsers from '@admin/queries/useGetAllUsers';
+import useGetPostsByUser from '@admin/queries/useGetPostsByUser';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import AvgPostChart from '@/admin/components/total/AvgPostChart';

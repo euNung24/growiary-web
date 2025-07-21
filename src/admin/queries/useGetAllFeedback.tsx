@@ -2,10 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getAllFeedback } from '@/admin/apis/feedbacks';
+import { feedbackKeys } from '@admin/queries/feedbackKeys';
 
 const useGetAllFeedback = () => {
   return useQuery({
-    queryKey: ['All feedback'],
+    queryKey: feedbackKeys.all,
     queryFn: getAllFeedback,
     select: res => res.data,
   });

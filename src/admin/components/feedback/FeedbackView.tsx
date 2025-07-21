@@ -6,7 +6,7 @@ import { DataTable } from '@/admin/components/feedback/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { ResFeedbackType } from '@/shared/types/feedback';
-import useGetAllFeedback from '@/admin/hooks/useGetAllFeedback';
+import useGetAllFeedback from '@admin/queries/useGetAllFeedback';
 
 export const columns: ColumnDef<ResFeedbackType>[] = [
   {

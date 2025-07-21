@@ -5,7 +5,6 @@ import { getPostsByUser } from '@/admin/apis/posts';
 
 const useGetPostsByUser = () => {
   const query = useMutation({
-    mutationKey: ['postsByUser'],
     mutationFn: getPostsByUser,
   });
 
