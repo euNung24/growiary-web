@@ -6,7 +6,7 @@ import CalendarHistory from '@/user/features/history/components/CalendarHistory'
 import { format } from 'date-fns';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { SelectSingleEventHandler } from 'react-day-picker';
-import useGetProfile from '@/shared/hooks/useGetProfile';
+import useGetProfile from '@/shared/queries/profile/useGetProfile';
 
 type MonthNavigatorProps = {
   date: Date;
