@@ -9,7 +9,7 @@ import FooterFeedbackView from '@/shared/layouts/FooterFeedbackView';
 const ContentLayout = ({ children }: PropsWithChildren) => {
   const { profile } = useProfileContext();
   const pathname = usePathname();
-  const isPostPage = /^\/(post|history\/.*)/g.test(pathname);
+  const isPostPage = /^\/(post\/.*)/g.test(pathname);
 
   return (
     <div
