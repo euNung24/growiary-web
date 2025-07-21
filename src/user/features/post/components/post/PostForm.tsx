@@ -7,10 +7,10 @@ import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 import { Input } from '@/shared/components/ui/input';
 import { ReqPostType } from '@/user/features/post/types/post';
-import StopMovePage from '@/user/features/post/components/StopMovePage';
-import FormFooter from '@/user/features/post/components/FormFooter';
-import FormContent from '@/user/features/post/components/FormContent';
-import FormOptions from '@/user/features/post/components/FormOptions';
+import StopMovePage from '@/user/features/post/components/post/StopMovePage';
+import FormFooter from '@/user/features/post/components/post/FormFooter';
+import FormContent from '@/user/features/post/components/post/FormContent';
+import FormOptions from '@/user/features/post/components/post/FormOptions';
 import { FormSchema } from '@user/post/constant/FormSchema';
 
 interface PostFormProps {

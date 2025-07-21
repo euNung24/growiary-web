@@ -12,10 +12,10 @@ import {
 } from '@/shared/components/ui/card';
 import { useEffect, useState } from 'react';
 import { getTwoFormatDate, MENU_NAMES } from '@/shared/utils';
-import NewCard from '@/user/features/history/components/home/NewCard';
+import NewCard from '@user/post/components/home/NewCard';
 import { ResPostType } from '@/user/features/post/types/post';
 import useGetPosts from '@/user/features/post/queries/useGetPosts';
-import '@user/post/components/editor.css';
+import '@user/post/components/post/editor.css';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import LinkOrLogin from '@/shared/components/LinkOrLogin';

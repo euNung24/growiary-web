@@ -19,7 +19,7 @@ type QuillComponentProps = {
 const Editor = dynamic(
   async () => {
     const { default: QuillComponent } = await import(
-      '@/user/features/post/components/ReactQuill'
+      '@/user/features/post/components/post/ReactQuill'
     );
     const Quill = ({
       defaultValue,

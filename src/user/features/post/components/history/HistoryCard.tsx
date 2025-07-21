@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { cn } from '@/shared/utils/cn';
 import { getStringDateAndTime } from '@/shared/utils';
 import { topicCategory } from '@/shared/types/topicCategory';
-import DeletePostPopover from '@user/history/components/DeletePostPopover';
+import DeletePostPopover from '@user/post/components/history/DeletePostPopover';
 import Chip from '@/shared/components/Chip';
 import { CardChip } from '@/shared/components/ui/card';
-import { ResPostType } from '@user/history/types/post';
+import { ResPostType } from '@user/post/types/post';
 import { trackingAnalytics } from '@/shared/utils/trackingAnalytics';
 import useProfileContext from '@/shared/hooks/useProfileContext';
-import { SamplePostType } from '@user/history/types/samplePost';
+import { SamplePostType } from '@user/post/types/samplePost';
 
 type HistoryCardProps = {
   post: ResPostType | SamplePostType;

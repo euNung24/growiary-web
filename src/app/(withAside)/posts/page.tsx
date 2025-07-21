@@ -1,4 +1,4 @@
-import HistoryView from '@/user/features/history/components/HistoryView';
+import HistoryView from '@/user/features/post/components/history/HistoryView';
 import Preview from '@/shared/components/Preview';
 import ServerTopics from '@/shared/layouts/server/ServerTopics';
 

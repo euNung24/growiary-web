@@ -12,7 +12,7 @@ import { useToast } from '@/shared/components/ui/use-toast';
 import { updatePost } from '@/user/features/post/apis/postApi';
 import { ReqPostType } from '@/user/features/post/types/post';
 import useFindPost from '@/user/features/post/queries/useFindPost';
-import PostForm from '@user/post/components/PostForm';
+import PostForm from '@user/post/components/post/PostForm';
 import { FormSchema } from '@user/post/constant/FormSchema';
 
 type PostEditViewProps = {

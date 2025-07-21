@@ -2,7 +2,7 @@ import { cn } from '@/shared/utils/cn';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import CalendarHistory from '@/user/features/history/components/CalendarHistory';
+import CalendarHistory from '@/user/features/post/components/history/CalendarHistory';
 import { format } from 'date-fns';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { SelectSingleEventHandler } from 'react-day-picker';

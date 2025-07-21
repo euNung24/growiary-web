@@ -1,5 +1,5 @@
 import { TopicCategory } from '@/user/features/topic/types/topic';
-import { SamplePostType } from '@user/history/types/samplePost';
+import { SamplePostType } from '@user/post/types/samplePost';
 import { format, subMonths } from 'date-fns';
 
 export const SAMPLE_CATEGORY_DATA: Record<TopicCategory, number> = {

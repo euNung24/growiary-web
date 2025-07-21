@@ -2,7 +2,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { topicCategory } from '@/shared/types/topicCategory';
 
-import Editor from '@/user/features/post/components/Editor';
+import Editor from '@/user/features/post/components/post/Editor';
 import { TopicCategory } from '@/user/features/topic/types/topic';
 import useGetTopicsByCategory from '@user/topic/queries/useGetTopicsByCategory';
 

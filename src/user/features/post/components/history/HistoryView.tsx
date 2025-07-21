@@ -12,10 +12,10 @@ import { Button } from '@/shared/components/ui/button';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { TopicCategory } from '@/user/features/topic/types/topic';
-import CategoryHistory from '@/user/features/history/components/CategoryHistory';
-import PostHistory from '@/user/features/history/components/PostHistory';
-import CalendarHistory from '@/user/features/history/components/CalendarHistory';
-import MonthNavigator from '@user/history/components/MonthNavigator';
+import CategoryHistory from '@/user/features/post/components/history/CategoryHistory';
+import PostHistory from '@/user/features/post/components/history/PostHistory';
+import CalendarHistory from '@/user/features/post/components/history/CalendarHistory';
+import MonthNavigator from '@user/post/components/history/MonthNavigator';
 
 const HistoryView = () => {
   const { isLogin, profile } = useProfileContext();

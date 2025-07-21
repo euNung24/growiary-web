@@ -11,7 +11,7 @@ import { useSetRecoilState } from 'recoil';
 import { useToast } from '@/shared/components/ui/use-toast';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { NO_TOPIC_ID } from '@/shared/utils';
-import PostForm from '@user/post/components/PostForm';
+import PostForm from '@user/post/components/post/PostForm';
 import { FormSchema } from '@user/post/constant/FormSchema';
 import { PostState } from '@user/post/store';
 import { ReqPostType, ResPostType } from '@user/post/types/post';

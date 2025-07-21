@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { Braces, List } from 'lucide-react';
 import { sendGAEvent } from '@next/third-parties/google';
 
-import '@user/post/components/editor.css';
+import '@user/post/components/post/editor.css';
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import { getStringDateAndTime } from '@/shared/utils';
@@ -30,9 +30,9 @@ import { topicCategory } from '@/shared/types/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 
 import { ResPostType } from '@/user/features/post/types/post';
-import Tag from '@/user/features/post/components/Tag';
+import Tag from '@/user/features/post/components/post/Tag';
 import useDeletePost from '@/user/features/post/queries/useDeletePosts';
-import Editor from '@/user/features/post/components/Editor';
+import Editor from '@/user/features/post/components/post/Editor';
 import useFindPost from '@/user/features/post/queries/useFindPost';
 
 type PostDetailViewProps = {

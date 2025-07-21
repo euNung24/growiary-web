@@ -3,16 +3,16 @@ import Chip from '@/shared/components/Chip';
 import { toast } from '@/shared/components/ui/use-toast';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
-import { SAMPLE_DATA } from '@/user/features/history/constants/sample';
+import { SAMPLE_DATA } from '@user/post/constant/sample';
 import { deletePost } from '@/user/features/post/apis/postApi';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { ResPostType } from '@user/history/types/post';
-import TodayNewPost from '@user/history/components/TodayNewPost';
+import { ResPostType } from '@user/post/types/post';
+import TodayNewPost from '@user/post/components/history/TodayNewPost';
 import { format } from 'date-fns';
 import useGetMonthlyPosts from '@user/post/queries/useGetMonthlyPosts';
 import { debounce } from '@/shared/utils/debounce';
 import { TopicCategory } from '@user/topic/types/topic';
-import HistoryCard from '@user/history/components/HistoryCard';
+import HistoryCard from '@user/post/components/history/HistoryCard';
 
 type PostHistoryProps = {
   assignRef: (index: string) => (element: HTMLDivElement) => void;
