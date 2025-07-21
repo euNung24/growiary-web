@@ -2,7 +2,7 @@ import { topicCategory } from '@/shared/types/topicCategory';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { TopicCategory } from '@/user/features/topic/types/topic';
-import { SAMPLE_CATEGORY_DATA } from '@/user/features/history/constants/sample';
+import { SAMPLE_CATEGORY_DATA } from '@user/post/constant/sample';
 
 type CategoryHistoryProps = {
   selectedMonth: number;

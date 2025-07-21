@@ -7,6 +7,7 @@ import {
   UpdatePostType,
 } from '@/user/features/post/types/post';
 import { DailyCheckerType } from '@/user/features/post/types/dailyChecker';
+import { TopicCategory } from '@user/topic/types/topic';
 
 const postApiUrl = process.env.NEXT_PUBLIC_API + '/post';
 
@@ -36,4 +37,9 @@ export const deletePost = (id: string) =>
 export const getDailyCheckerPost = () =>
   withToken(postApiUrl + '/continue-range') as Promise<
     ApiSuccessResponse<DailyCheckerType>
+  >;
+
+export const getMonthlyPosts = (date: string) =>
+  withToken(postApiUrl + '/record', { body: { date } }) as Promise<
+    ApiSuccessResponse<{ posts: ResPostType[]; category: Record<TopicCategory, number> }>
   >;

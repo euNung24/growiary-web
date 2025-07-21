@@ -12,7 +12,7 @@ const TopStartButton = () => {
 
   return (
     !profile &&
-    !['/history'].includes(pathname) && (
+    !['/posts'].includes(pathname) && (
       <div className={'sticky top-0 bg-white-0 z-10'}>
         <div className="flex justify-end py-[23px] mx-auto bg-white-0">
           <div className="flex-[0_0_960px] md:flex-[0_0_640px] sm:flex-[0_0_320px] mx-auto px-2.5 text-end">

@@ -1,8 +1,8 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
+import { getMonthlyPosts } from '@user/post/apis/postApi';
 
-import { getMonthlyPosts } from '@/user/features/history/apis/historyApi';
 
 const useGetMonthlyPosts = () => {
   return useMutation({

@@ -1,25 +1,21 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import Chip from '@/shared/components/Chip';
+import { format } from 'date-fns';
 
 type TodayNewPostProps = {
   assignRef: (index: string) => (element: HTMLDivElement) => void;
-  year: number;
-  month: number;
-  date: number;
 };
-const TodayNewPost = ({ assignRef, year, month, date }: TodayNewPostProps) => {
+
+const TodayNewPost = ({ assignRef }: TodayNewPostProps) => {
+  const [curretDate] = useState(() => new Date());
+
   return (
-    <div
-      ref={assignRef(
-        `${year}-${month.toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`,
-      )}
-    >
+    <div ref={assignRef(`${format(curretDate, 'yyyy-MM-dd')}`)}>
       <div className="mb-3">
-        <span className="mr-2">
-          {month}월 {date}일
-        </span>
+        <span className="mr-2">{format(curretDate, 'M월 d일')}</span>
         <Chip variant="gray">오늘</Chip>
       </div>
       <div className="bg-gray-50o flex flex-col gap-y-[13px] justify-center items-center h-[149px] rounded-2xl text-gray-900 font-r16	">

@@ -12,10 +12,10 @@ import {
 } from '@/shared/components/ui/card';
 import { useEffect, useState } from 'react';
 import { getTwoFormatDate, MENU_NAMES } from '@/shared/utils';
-import NewCard from '@/user/features/history/components/home/NewCard';
+import NewCard from '@user/post/components/home/NewCard';
 import { ResPostType } from '@/user/features/post/types/post';
 import useGetPosts from '@/user/features/post/queries/useGetPosts';
-import '@user/post/components/editor.css';
+import '@user/post/components/post/editor.css';
 import { useRecoilValue } from 'recoil';
 import { TodayState } from '@/shared/store/todayStore';
 import LinkOrLogin from '@/shared/components/LinkOrLogin';
@@ -81,7 +81,7 @@ const HomePosts = () => {
       <div className="flex justify-between">
         <h2 className="title">나의 기록</h2>
         <LinkOrLogin
-          href="/history"
+          href="/posts"
           handleClick={onTrackingHandler(MENU_NAMES['나의 기록들'])}
         >
           <Button
@@ -101,7 +101,7 @@ const HomePosts = () => {
             <>
               <NewCard />
               {posts.map(post => (
-                <Link key={post.id} href={`/history/${post.id}`}>
+                <Link key={post.id} href={`/post/${post.id}`}>
                   <Card className="shrink-0" size="lg">
                     <CardHeader>
                       <CardChip size="lg">

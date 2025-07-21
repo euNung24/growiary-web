@@ -33,7 +33,7 @@ import { Calendar } from '@/shared/components/ui/calendar';
 
 import useGetTopicsByCategory from '@/user/features/topic/queries/useGetTopicsByCategory';
 import { TopicCategory } from '@/user/features/topic/types/topic';
-import Tag from '@/user/features/post/components/Tag';
+import Tag from '@/user/features/post/components/post/Tag';
 
 const FormOptions = () => {
   const labelStyle =

@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { Braces, List } from 'lucide-react';
 import { sendGAEvent } from '@next/third-parties/google';
 
-import '@user/post/components/editor.css';
+import '@user/post/components/post/editor.css';
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/utils/cn';
 import { getStringDateAndTime } from '@/shared/utils';
@@ -30,9 +30,9 @@ import { topicCategory } from '@/shared/types/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 
 import { ResPostType } from '@/user/features/post/types/post';
-import Tag from '@/user/features/post/components/Tag';
+import Tag from '@/user/features/post/components/post/Tag';
 import useDeletePost from '@/user/features/post/queries/useDeletePosts';
-import Editor from '@/user/features/post/components/Editor';
+import Editor from '@/user/features/post/components/post/Editor';
 import useFindPost from '@/user/features/post/queries/useFindPost';
 
 type PostDetailViewProps = {
@@ -60,7 +60,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
       toast({
         description: '기록이 삭제되었습니다',
         onEndToast: () => {
-          router.push('/history');
+          router.push('/posts');
         },
       });
     });
@@ -95,7 +95,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
     <div className={cn('flex flex-col mx-auto', 'h-[calc(100%+72px)]')} ref={formRef}>
       {post && (
         <>
-          <div className="flex w-full rounded-md bg-background px-0 py-2 font-r28 px-2.5 py-4 text-gray-900">
+          <div className="flex w-full rounded-md bg-background font-r28 px-2.5 py-4 text-gray-900">
             {post.title}
           </div>
           <div>
@@ -195,7 +195,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
               </AlertDialogContent>
             </AlertDialog>
             <Button type="button" variant="outlineGray" size="sm" asChild>
-              <Link href={`/history/${post.id}/edit`}>수정하기</Link>
+              <Link href={`/post/${post.id}/edit`}>수정하기</Link>
             </Button>
           </div>
         </>

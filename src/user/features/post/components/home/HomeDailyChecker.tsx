@@ -12,8 +12,8 @@ import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';
 
 import useProfileContext from '@/shared/hooks/useProfileContext';
-import { DailyCheckerType } from '@/user/features/history/types/post';
 import { getDailyCheckerPost } from '@/user/features/post/apis/postApi';
+import { DailyCheckerType } from '@user/post/types/dailyChecker';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';

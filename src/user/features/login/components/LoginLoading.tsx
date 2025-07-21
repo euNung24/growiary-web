@@ -99,7 +99,7 @@ const LoginLoading = () => {
     if (firstPost.title) {
       createPostByPostValue().then(res => {
         setFirstPost({} as ReqPostType);
-        push(`/history/${res.data[0].id}`);
+        push(`/post/${res.data[0].id}`);
       });
     } else {
       if (userState.isAdminLogin) {
