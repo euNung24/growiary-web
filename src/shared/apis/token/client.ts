@@ -2,6 +2,7 @@ import { decrypt, encrypt } from '@/user/features/login/components/LoginLoading'
 import { browserQueryClient } from '@/shared/providers/ReactQueryProvider';
 import { ALERT_ERROR_MESSAGE, SERVER_ERROR } from '@/shared/constants/error';
 import Cookies from 'js-cookie';
+import { ROUTES } from '@/shared/constants/routes';
 
 let refreshingTokenPromise: Promise<string | void> | null = null;
 
@@ -48,7 +49,7 @@ const handleInvalidToken = () => {
 
   alert(ALERT_ERROR_MESSAGE.INVALID_TOKEN);
   clearAuthCookies();
-  window.location.href = '/landing';
+  window.location.href = ROUTES.landing;
 };
 
 export const handleError = async (error: unknown, retry?: () => Promise<unknown>) => {
@@ -68,7 +69,7 @@ export const handleError = async (error: unknown, retry?: () => Promise<unknown>
         return;
       case SERVER_ERROR.ONLY_ADMIN_ACCESS:
         alert(ALERT_ERROR_MESSAGE.ONLY_ADMIN_ACCESS);
-        window.location.href = '/';
+        window.location.href = ROUTES.main;
 
         return;
       default:

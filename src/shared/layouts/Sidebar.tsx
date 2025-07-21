@@ -18,6 +18,7 @@ import { X } from 'lucide-react';
 import * as React from 'react';
 import { useRecoilState } from 'recoil';
 import { LocalState } from '@/shared/store/localStore';
+import { ROUTES } from '@/shared/constants/routes';
 
 type MenuType = {
   src: string;
@@ -155,13 +156,13 @@ const Sidebar = () => {
       src: '/assets/icons/settings',
       alt: 'setting',
       name: '설정하기',
-      href: '/settings',
+      href: ROUTES.settings,
     },
     {
       src: '/assets/icons/forward-message',
       alt: 'feedback',
       name: '의견 보내기',
-      href: '/feedback',
+      href: ROUTES.feedback,
     },
   ];
 
@@ -173,7 +174,7 @@ const Sidebar = () => {
     <aside className="fixed w-[200px] h-screen top-0 bg-[#F7F7F7] min-h-screen lg:w-[68px] z-20 mt-safeTop">
       {/* 로고 */}
       <Link
-        href="/"
+        href={ROUTES.main}
         className="block py-[22px]"
         onClick={() => {
           tracking('메인 페이지');

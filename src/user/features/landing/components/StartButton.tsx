@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import { Button } from '@/shared/components/ui/button';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
+import { ROUTES } from '@/shared/constants/routes';
 
 const getCookieExpireDate = () => {
   const date = new Date();
@@ -25,7 +26,7 @@ const StartButton = () => {
     tracking(`메인 페이지`);
     sendGAEvent({ event: '메인 페이지' });
     performance.mark('landing-to-main-start');
-    router.push('/');
+    router.push(ROUTES.main);
   };
 
   return (

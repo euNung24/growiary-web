@@ -8,6 +8,7 @@ import { topicCategory } from '@/shared/types/topicCategory';
 import { onTrackingHandler, trackingAnalytics } from '@/shared/utils/trackingAnalytics';
 import { RotateCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { ROUTES } from '@/shared/constants/routes';
 
 type HomeTopicCardProps = {
   category: TopicCategory;
@@ -65,7 +66,7 @@ const HomeTopicCard = ({ category, topics }: HomeTopicCardProps) => {
 
   return (
     <LinkOrLogin
-      href={`/post?topic=${selectedTopic.id}&category=${category}`}
+      href={`${ROUTES.post.newFilter({ topic: selectedTopic.id, category })}`}
       handleClick={onTrackingHandler('기록하기')}
     >
       <Card className="shrink-0">

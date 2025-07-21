@@ -34,6 +34,7 @@ import Tag from '@/user/features/post/components/post/Tag';
 import useDeletePost from '@/user/features/post/queries/useDeletePosts';
 import Editor from '@/user/features/post/components/post/Editor';
 import useFindPost from '@/user/features/post/queries/useFindPost';
+import { ROUTES } from '@/shared/constants/routes';
 
 type PostDetailViewProps = {
   postId: string;
@@ -60,7 +61,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
       toast({
         description: '기록이 삭제되었습니다',
         onEndToast: () => {
-          router.push('/posts');
+          router.push(ROUTES.post.list);
         },
       });
     });
@@ -195,7 +196,7 @@ const PostDetailView = ({ postId }: PostDetailViewProps) => {
               </AlertDialogContent>
             </AlertDialog>
             <Button type="button" variant="outlineGray" size="sm" asChild>
-              <Link href={`/post/${post.id}/edit`}>수정하기</Link>
+              <Link href={ROUTES.post.edit(post.id)}>수정하기</Link>
             </Button>
           </div>
         </>

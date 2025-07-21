@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import Chip from '@/shared/components/Chip';
 import { format } from 'date-fns';
+import { ROUTES } from '@/shared/constants/routes';
 
 type TodayNewPostProps = {
   assignRef: (index: string) => (element: HTMLDivElement) => void;
@@ -20,7 +21,7 @@ const TodayNewPost = ({ assignRef }: TodayNewPostProps) => {
       </div>
       <div className="bg-gray-50o flex flex-col gap-y-[13px] justify-center items-center h-[149px] rounded-2xl text-gray-900 font-r16	">
         <p>오늘 작성한 글이 없어요</p>
-        <Link href="/post" className="flex gap-x-2.5 text-gray-500 font-r14">
+        <Link href={ROUTES.post.new} className="flex gap-x-2.5 text-gray-500 font-r14">
           <Image src="/assets/icons/edit.png" alt="post" width={20} height={20} />
           새로운 기록하기
         </Link>

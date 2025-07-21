@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Chip from '@/shared/components/Chip';
 import { TopicType } from '@user/topic/types/topic';
 import { memo } from 'react';
+import { ROUTES } from '@/shared/constants/routes';
 
 type TopicItemProps = {
   topic: TopicType;
@@ -14,7 +15,7 @@ const TopicItem = ({ topic, best }: TopicItemProps) => {
   return (
     <li className="group rounded-md hover:bg-primary-900 border border-gray-100 hover:shadow">
       <Link
-        href={`/post?topic=${topic.id}&category=${topic.category}`}
+        href={`${ROUTES.post.newFilter({ topic: topic.id, category: topic.category })}`}
         className="px-6 py-4 font-r16 inline-block text-gray-700 group-hover:text-white-0 transition-colors duration-150"
       >
         <Image

@@ -16,6 +16,7 @@ import {
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
 import useProfileContext from '@/shared/hooks/useProfileContext';
+import { ROUTES } from '@/shared/constants/routes';
 
 type DeletePostPopoverProps = {
   postId: string;
@@ -38,7 +39,7 @@ const DeletePostPopover = ({ postId, onDelete }: DeletePostPopoverProps) => {
       </PopoverTrigger>
       <PopoverContent className="flex flex-col justify-center overflow-hidden bg-white-0 w-auto p-0 [&>*]:py-2.5 [&>*]:px-10 [&>*]:block [&>*]:font-r14">
         <Button asChild variant="ghostGrayHover">
-          <Link href={`/post/${postId}/edit`}>수정하기</Link>
+          <Link href={ROUTES.post.edit(postId)}>수정하기</Link>
         </Button>
         <AlertDialog>
           <AlertDialogTrigger asChild>

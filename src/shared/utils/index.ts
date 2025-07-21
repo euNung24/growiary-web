@@ -1,3 +1,4 @@
+import { ROUTES } from '@/shared/constants/routes';
 import { format } from 'date-fns';
 
 export const genRandomNum = (min: number, max: number) => {
@@ -37,7 +38,7 @@ export const menu = [
     src: '/assets/icons/edit',
     alt: 'write a diary',
     name: MENU_NAMES['기록하기'],
-    href: '/post',
+    href: ROUTES.post.new,
     placeholder: '',
     indicator: '새로운 기록을 시작해볼까요?',
     indicatorLeft: '104px',
@@ -46,7 +47,7 @@ export const menu = [
     src: '/assets/icons/calendar',
     alt: 'posts',
     name: MENU_NAMES['나의 기록들'],
-    href: '/posts',
+    href: ROUTES.post.list,
     placeholder: '',
     indicator: '작성된 기록은 이곳에서 볼 수 있어요',
     indicatorLeft: '117px',
@@ -55,7 +56,7 @@ export const menu = [
     src: '/assets/icons/multi-window',
     alt: 'recommended topics',
     name: MENU_NAMES['추천 주제'],
-    href: '/topics',
+    href: ROUTES.topics,
     placeholder: '간직하고 있는 좋은 질문이 있다면 공유해주세요',
     footer: true,
   },
@@ -63,7 +64,7 @@ export const menu = [
     src: '/assets/icons/report',
     alt: 'report',
     name: MENU_NAMES['기록 데이터 보기'],
-    href: '/report',
+    href: ROUTES.report,
     placeholder: '더 알고 싶은 기록 관련 데이터가 있다면 알려주세요',
     indicator: '내가 쓴 기록의 통계를 확인해보세요',
     indicatorLeft: '144px',
@@ -79,7 +80,7 @@ export const menu = [
     src: '/assets/icons/challenge',
     alt: 'challenge',
     name: MENU_NAMES['도전과제'],
-    href: '/challenge',
+    href: ROUTES.challenge,
     footer: true,
   },
 ];

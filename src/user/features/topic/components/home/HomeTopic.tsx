@@ -14,6 +14,7 @@ import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import LinkOrLogin from '@/shared/components/LinkOrLogin';
 import HomeTopicCard from '@/user/features/topic/components/home/HomeTopicCard';
+import { ROUTES } from '@/shared/constants/routes';
 
 const TOTAL_TOPIC_COUNT = 6;
 
@@ -29,7 +30,7 @@ const HomeTopic = () => {
       <div className="flex justify-between">
         <h2 className="title">오늘의 추천 주제</h2>
         <LinkOrLogin
-          href="/topics"
+          href={ROUTES.topics}
           handleClick={onTrackingHandler(MENU_NAMES['추천 주제'])}
         >
           <Button

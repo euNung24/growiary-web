@@ -17,6 +17,7 @@ import { ALERT_ERROR_MESSAGE } from '@/shared/constants/error';
 import LoginDialog from '@/shared/components/LoginDialog';
 import { useAvoidHydration } from '@/shared/hooks/useAvoidHydration';
 import { useQueryClient } from '@tanstack/react-query';
+import { ROUTES } from '@/shared/constants/routes';
 
 const secretKey = process.env.NEXT_PUBLIC_LOGIN_SECRET_KEY || '';
 
@@ -99,13 +100,13 @@ const LoginLoading = () => {
     if (firstPost.title) {
       createPostByPostValue().then(res => {
         setFirstPost({} as ReqPostType);
-        push(`/post/${res.data[0].id}`);
+        push(ROUTES.post.detail(res.data[0].id));
       });
     } else {
       if (userState.isAdminLogin) {
-        push('/admin');
+        push(ROUTES.admin);
       } else {
-        push('/');
+        push(ROUTES.main);
       }
     }
   }, [profile, error, isClient]);

@@ -14,6 +14,7 @@ import { topicCategory } from '@/shared/types/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/shared/components/ui/skeleton';
+import { ROUTES } from '@/shared/constants/routes';
 
 const RecommendedTopic = () => {
   const { data } = useGetRecommendedTopic();
@@ -54,7 +55,7 @@ const RecommendedTopic = () => {
               asChild
             >
               <Link
-                href={`/post?topic=${topTopic.topic.id}&category=${topTopic.topic.category}`}
+                href={`${ROUTES.post.newFilter({ topic: topTopic.topic.id, category: topTopic.topic.category })}`}
                 onClick={() => {
                   tracking('주간 인기');
                   sendGAEvent({ event: '주간 인기' });
