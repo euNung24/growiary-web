@@ -25,6 +25,7 @@ import useProfileContext from '@/shared/hooks/useProfileContext';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';
 import { cn } from '@/shared/utils/cn';
+import { ROUTES } from '@/shared/constants/routes';
 
 const SAMPLE_POSTS: (Pick<ResPostType, 'title' | 'tags'> & {
   topic: {
@@ -81,7 +82,7 @@ const HomePosts = () => {
       <div className="flex justify-between">
         <h2 className="title">나의 기록</h2>
         <LinkOrLogin
-          href="/posts"
+          href={ROUTES.post.list}
           handleClick={onTrackingHandler(MENU_NAMES['나의 기록들'])}
         >
           <Button
@@ -101,7 +102,7 @@ const HomePosts = () => {
             <>
               <NewCard />
               {posts.map(post => (
-                <Link key={post.id} href={`/post/${post.id}`}>
+                <Link key={post.id} href={ROUTES.post.detail(post.id)}>
                   <Card className="shrink-0" size="lg">
                     <CardHeader>
                       <CardChip size="lg">

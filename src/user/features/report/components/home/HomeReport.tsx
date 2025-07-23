@@ -11,6 +11,7 @@ import useProfileContext from '@/shared/hooks/useProfileContext';
 import { MENU_NAMES } from '@/shared/utils';
 import { onTrackingHandler } from '@/shared/utils/trackingAnalytics';
 import { cn } from '@/shared/utils/cn';
+import { ROUTES } from '@/shared/constants/routes';
 
 const HomeReport = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -22,7 +23,7 @@ const HomeReport = () => {
       <div className="flex justify-between">
         <h2 className="title">기록 데이터</h2>
         <LinkOrLogin
-          href="/report"
+          href={ROUTES.report}
           handleClick={onTrackingHandler(MENU_NAMES['기록 데이터 보기'])}
         >
           <Button

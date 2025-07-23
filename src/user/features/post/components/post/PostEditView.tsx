@@ -14,6 +14,7 @@ import { ReqPostType } from '@/user/features/post/types/post';
 import useFindPost from '@/user/features/post/queries/useFindPost';
 import PostForm from '@user/post/components/post/PostForm';
 import { FormSchema } from '@user/post/constant/FormSchema';
+import { ROUTES } from '@/shared/constants/routes';
 
 type PostEditViewProps = {
   postId: string;
@@ -32,7 +33,7 @@ const PostEditView = ({ postId }: PostEditViewProps) => {
   });
 
   const movePageAfterSubmit = (id: string) => {
-    router.push(`/post/${id}`);
+    router.push(ROUTES.post.detail(id));
     toast({
       description: '기록이 저장되었습니다',
     });

@@ -14,6 +14,7 @@ import { MENU_NAMES } from '@/shared/utils';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { getDailyCheckerPost } from '@/user/features/post/apis/postApi';
 import { DailyCheckerType } from '@user/post/types/dailyChecker';
+import { ROUTES } from '@/shared/constants/routes';
 
 const HomeDailyChecker = () => {
   const headerDescriptionStyle = 'font-r16 text-gray-700 mt-1 mb-6';
@@ -116,7 +117,7 @@ const HomeDailyChecker = () => {
                   ))
                   .reverse()}
                 {/* 오늘 */}
-                <Link href="/post" onClick={handleClickNewPost}>
+                <Link href={ROUTES.post.new} onClick={handleClickNewPost}>
                   <DailyChecker variant="today" date={today} count={data.today} />
                 </Link>
                 {/* 빈 값 */}

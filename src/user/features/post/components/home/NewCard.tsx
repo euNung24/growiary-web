@@ -13,6 +13,7 @@ import { topicCategory } from '@/shared/types/topicCategory';
 import { tracking } from '@/shared/utils/mixPanel';
 import { MENU_NAMES } from '@/shared/utils';
 import { sendGAEvent } from '@next/third-parties/google';
+import { ROUTES } from '@/shared/constants/routes';
 
 type NewCardProps = {
   isLogin?: boolean;
@@ -25,7 +26,7 @@ const NewCard = ({ isLogin = true }: NewCardProps) => {
   };
 
   return isLogin ? (
-    <Link href="/post" onClick={handleClickNewPost}>
+    <Link href={ROUTES.post.new} onClick={handleClickNewPost}>
       <NewCardContent isLogin={isLogin} />
     </Link>
   ) : (

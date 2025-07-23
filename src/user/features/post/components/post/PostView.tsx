@@ -16,6 +16,7 @@ import { FormSchema } from '@user/post/constant/FormSchema';
 import { PostState } from '@user/post/store';
 import { ReqPostType, ResPostType } from '@user/post/types/post';
 import { createPost } from '@user/post/apis/postApi';
+import { ROUTES } from '@/shared/constants/routes';
 
 const PostView = () => {
   const router = useRouter();
@@ -45,7 +46,7 @@ const PostView = () => {
   });
 
   const movePageAfterSubmit = (post: ResPostType) => {
-    router.push(`/post/${post.id}`);
+    router.push(ROUTES.post.detail(post.id));
     toast({
       description: '기록이 저장되었습니다',
     });

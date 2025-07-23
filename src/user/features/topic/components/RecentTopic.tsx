@@ -19,6 +19,7 @@ import useProfileContext from '@/shared/hooks/useProfileContext';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/shared/components/ui/skeleton';
+import { ROUTES } from '@/shared/constants/routes';
 
 const RecentTopic = () => {
   const mutation = useGetUserRecentTopic();
@@ -77,7 +78,7 @@ const RecentTopic = () => {
                     onClick={onClickNewPost}
                   >
                     <Link
-                      href={`/post?topic=${recentTopic.topicId}&category=${recentTopic.topic?.category}`}
+                      href={`${ROUTES.post.newFilter({ topic: recentTopic.topicId, category: recentTopic.topic?.category })}`}
                     >
                       <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />이
                       주제로 기록하기
@@ -120,7 +121,7 @@ const RecentTopic = () => {
                   )}
                   asChild
                 >
-                  <Link href={`/post`} onClick={onClickNewPost}>
+                  <Link href={ROUTES.post.new} onClick={onClickNewPost}>
                     <ButtonIcon src="/assets/icons/edit_primary.png" alt="write" />
                     자유주제로 기록하기
                   </Link>

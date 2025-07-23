@@ -10,6 +10,7 @@ import { ResPostType } from '@user/post/types/post';
 import { trackingAnalytics } from '@/shared/utils/trackingAnalytics';
 import useProfileContext from '@/shared/hooks/useProfileContext';
 import { SamplePostType } from '@user/post/types/samplePost';
+import { ROUTES } from '@/shared/constants/routes';
 
 type HistoryCardProps = {
   post: ResPostType | SamplePostType;
@@ -26,7 +27,7 @@ const HistoryCard = ({ post, onDelete }: HistoryCardProps) => {
   return (
     <div key={post.id} className="relative">
       <Link
-        href={profile ? `/post/${post.id}` : ''}
+        href={profile ? ROUTES.post.detail(post.id) : ''}
         onClick={handleClickDetailLink}
         className={cn('block', !profile && 'cursor-default pointer-events-none')}
       >
