@@ -26,12 +26,14 @@ export type RecentTopicType = {
   day: number;
 };
 
-export type RecommendedTopic = {
-  top: {
-    topicId: number;
-    topic: TopicType;
-    users: number; // 해당 topicId를 사용한 유저수
-    count: number; // 전체 유저가 해당 topicId를 사용한 수
-  };
+export type WeeklyHotTopicType = {
+  topicId: number;
+  topic: TopicType;
+  users: number; // 해당 topicId를 사용한 유저수
+  count: number; // 전체 유저가 해당 topicId를 사용한 수
+};
+
+export type RecommendedTopicType = {
+  top: WeeklyHotTopicType;
   category: Record<TopicCategory, TopicType>;
 };

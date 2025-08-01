@@ -6,7 +6,7 @@ import { topicCategory } from '@/shared/types/topicCategory';
 import useGetTopicsByCategory from '@/user/features/topic/queries/useGetTopicsByCategory';
 import { TopicCategory } from '@user/topic/types/topic';
 import TopicList from '@user/topic/components/TopicList';
-import useGetRecommendedTopic from '@/user/features/topic/queries/useGetRecommendedTopic';
+import useGetRecommendedTopic from '@user/topic/queries/useGetRecommendedTopic';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 
 const TopicTabList = () => {
@@ -49,7 +49,7 @@ const TopicTabList = () => {
             key={category}
             category={category}
             topics={topicsByCategory?.[category]}
-            recommendedTopic={recommendedTopicByCategory?.category?.[category]}
+            recommendedTopic={recommendedTopicByCategory?.[category]}
             hidden={currentCategory !== category}
           />
         ))
