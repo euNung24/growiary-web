@@ -20,8 +20,8 @@ import { ROUTES } from '@/shared/constants/routes';
 import useGetProfile from '@/shared/queries/profile/useGetProfile';
 
 const RecentTopic = () => {
-  const { data: recentTopic, isLoading, isError } = useGetUserRecentTopic();
   const { data: profile } = useGetProfile();
+  const { data: recentTopic, isLoading, isError } = useGetUserRecentTopic();
   const hasRecentPost = recentTopic && Object.keys(recentTopic).length > 0;
 
   const onClickNewPost = () => {
@@ -59,7 +59,7 @@ const RecentTopic = () => {
   }
 
   if (isLoading) {
-    return <Skeleton className="w-full h-[284px] mb-[38px]" />;
+    return <Skeleton className="w-full h-[284px] mb-[38px]" data-testid="loading" />;
   }
 
   if (isError) {
