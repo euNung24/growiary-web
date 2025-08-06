@@ -1,8 +1,8 @@
 'use client';
 
-import RecentTopic from '@user/topic/components/RecentTopic';
-import RecommendedTopic from '@user/topic/components/RecommendedTopic';
-import TopicTabList from '@user/topic/components/TopicTabList';
+import RecentTopic from '@user/topic/components/RecentTopic/RecentTopic';
+import WeeklyHotTopic from '@user/topic/components/WeeklyHotTopic/WeeklyHotTopic';
+import TopicTabList from '@user/topic/components/TopicTabList/TopicTabList';
 
 const TopicView = () => {
   return (
@@ -10,7 +10,7 @@ const TopicView = () => {
       <section>
         <h2 className="title">다채로운 질문들을 만나보세요</h2>
         <div className="flex flex-wrap gap-5 mt-6 [&>*]:flex-[1_0_460px] sm:[&>*]:shrink">
-          <RecommendedTopic />
+          <WeeklyHotTopic />
           <RecentTopic />
         </div>
       </section>

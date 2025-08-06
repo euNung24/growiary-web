@@ -19,6 +19,7 @@ import * as React from 'react';
 import { useRecoilState } from 'recoil';
 import { LocalState } from '@/shared/store/localStore';
 import { ROUTES } from '@/shared/constants/routes';
+import { NICKNAME } from '@/shared/constants/nickname';
 
 type MenuType = {
   src: string;
@@ -239,7 +240,7 @@ const Sidebar = () => {
           {/* 닉네임 */}
           {profile ? (
             <span className="font-sb16 text-gray-900 lg:hidden">
-              {profile.nickname || '그루미'}
+              {profile.nickname || NICKNAME}
             </span>
           ) : (
             <div>

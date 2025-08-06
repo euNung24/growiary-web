@@ -1,6 +1,7 @@
 'use client';
 
 import Chip from '@/shared/components/Chip';
+import { NICKNAME } from '@/shared/constants/nickname';
 import useGetProfile from '@/shared/queries/profile/useGetProfile';
 import Image from 'next/image';
 
@@ -16,7 +17,7 @@ const TopPercentIndicator = ({ rate }: TopPercentIndicatorProps) => {
   return (
     <section>
       <p className="font-r16 text-gray-900">
-        <span className="font-sb16 text-primary-900">{data?.nickname || '그루미'}님</span>
+        <span className="font-sb16 text-primary-900">{data?.nickname || NICKNAME}님</span>
         은 전체 이용자중 상위
         <Chip variant="gray" className="text-primary-900 font-m16 mx-1">
           {rate || 100}%

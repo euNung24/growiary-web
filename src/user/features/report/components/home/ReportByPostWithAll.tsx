@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import useReportContext from '@/user/features/report/hooks/useReportContext';
 import useProfileContext from '@/shared/hooks/useProfileContext';
+import { NICKNAME } from '@/shared/constants/nickname';
 
 const MAX_BAR_HEIGHT = 147;
 type ReportByPostWithAllProps = {
@@ -89,7 +90,7 @@ const ReportByPostWithAll = ({ date }: ReportByPostWithAllProps) => {
                 }}
               />
               <span className="text-gray-500 font-r16">
-                {profile?.nickname || '그루미'}님
+                {profile?.nickname || NICKNAME}님
               </span>
             </div>
           </div>

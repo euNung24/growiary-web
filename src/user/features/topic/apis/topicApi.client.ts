@@ -2,11 +2,11 @@ import {
   FindTopicType,
   PostTopicType,
   RecentTopicType,
-  RecommendedTopic,
+  RecommendedTopicType,
   TopicType,
   UpdateTopicType,
 } from '@/user/features/topic/types/topic';
-import withToken from '@/shared/utils/withToken';
+import withToken, { withTokenGet } from '@/shared/utils/withToken';
 import { ApiSuccessResponse } from '@/shared/types/response';
 
 const topicApiUrl = process.env.NEXT_PUBLIC_API + '/topic';
@@ -17,7 +17,7 @@ export const getAllTopics = async (): Promise<ApiSuccessResponse<TopicType[]>> =
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
-  return response.json();
+  return await response.json();
 };
 
 export const createTopic = async (body: PostTopicType) =>
@@ -38,9 +38,9 @@ export const findTopic = async (id: FindTopicType['id']) =>
   }) as Promise<ApiSuccessResponse<TopicType>>;
 
 export const getUserRecentTopic = () =>
-  withToken(topicApiUrl + '/recent') as Promise<ApiSuccessResponse<RecentTopicType>>;
+  withTokenGet(topicApiUrl + '/recent') as Promise<ApiSuccessResponse<RecentTopicType>>;
 
-export const getRecommendedTopic = async (): Promise<RecommendedTopic> => {
+export const getRecommendedTopic = async (): Promise<RecommendedTopicType> => {
   const response = await fetch(topicApiUrl + '/recommendation', {
     method: 'GET',
     headers: {
