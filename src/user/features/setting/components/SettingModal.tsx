@@ -20,6 +20,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { tracking } from '@/shared/utils/mixPanel';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAvoidHydration } from '@/shared/hooks/useAvoidHydration';
+import { NICKNAME } from '@/shared/constants/nickname';
 
 const SettingModal = () => {
   const router = useRouter();
@@ -92,7 +93,7 @@ const SettingModal = () => {
                 />
               </div>
               <span className="ml-[18px] font-r22 text-gray-900">
-                {profile ? profile.nickname || profile.email?.split('@')[0] : '그루미'}님
+                {profile ? profile.nickname || profile.email?.split('@')[0] : NICKNAME}님
               </span>
             </div>
             <section className="flex flex-col gap-y-1 mt-10 text-gray-900 font-r16 sm:mt-6">

@@ -18,6 +18,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { ROUTES } from '@/shared/constants/routes';
 import useGetProfile from '@/shared/queries/profile/useGetProfile';
+import { NICKNAME } from '@/shared/constants/nickname';
 
 const RecentTopic = () => {
   const { data: profile } = useGetProfile();
@@ -53,7 +54,9 @@ const RecentTopic = () => {
             </LoginDialog>
           </TopicCardFooter>
         </TopicCard>
-        <p className="text-gray-400 font-r16 ml-3 mt-3">그루미님이 최근에 기록한 주제</p>
+        <p className="text-gray-400 font-r16 ml-3 mt-3">
+          {NICKNAME}님이 최근에 기록한 주제
+        </p>
       </div>
     );
   }
@@ -116,7 +119,7 @@ const RecentTopic = () => {
             </TopicCardFooter>
           </TopicCard>
           <p className="text-gray-400 font-r16 ml-3 mt-3">
-            {profile.nickname || '그루미'}님이{' '}
+            {profile.nickname || NICKNAME}님이{' '}
             {recentTopic.day === 0
               ? '오늘'
               : recentTopic.day === 1

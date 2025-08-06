@@ -1,0 +1,1 @@
+export const NICKNAME = '그루미'

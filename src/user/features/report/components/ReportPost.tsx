@@ -7,6 +7,7 @@ import useProfileContext from '@/shared/hooks/useProfileContext';
 import { SAMPLE_REPORT } from '@/user/features/report/constants/sample';
 import { useEffect, useState } from 'react';
 import { debounce } from '@/shared/utils/debounce';
+import { NICKNAME } from '@/shared/constants/nickname';
 
 const MAX_BAR_HEIGHT = 147;
 const MEDIUM_WINDOW_WIDTH = 708;
@@ -238,7 +239,7 @@ const ReportPost = () => {
                   }}
                 />
                 <span className="text-gray-500 font-r16">
-                  {report ? profile?.nickname : '그루미'}님
+                  {report ? profile?.nickname : NICKNAME}님
                 </span>
               </div>
             </div>
