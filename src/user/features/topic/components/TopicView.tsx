@@ -2,7 +2,7 @@
 
 import RecentTopic from '@user/topic/components/RecentTopic/RecentTopic';
 import WeeklyHotTopic from '@user/topic/components/WeeklyHotTopic/WeeklyHotTopic';
-import TopicTabList from '@user/topic/components/TopicTabList';
+import TopicTabList from '@user/topic/components/TopicTabList/TopicTabList';
 
 const TopicView = () => {
   return (

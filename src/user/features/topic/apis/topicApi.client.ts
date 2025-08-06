@@ -17,7 +17,7 @@ export const getAllTopics = async (): Promise<ApiSuccessResponse<TopicType[]>> =
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
-  return response.json();
+  return await response.json();
 };
 
 export const createTopic = async (body: PostTopicType) =>

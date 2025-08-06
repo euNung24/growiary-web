@@ -32,6 +32,7 @@ const TopicTabList = () => {
             role="tab"
             aria-selected={currentCategory === category}
             aria-controls={`panel-${category}`}
+            data-category={category}
             id={`tab-${category}`}
             className="flex font-sb16 p-3 gap-2 cursor-pointer text-gray-500 aria-selected:text-primary-900 aria-selected:border-b-2 aria-selected:border-primary-900"
             onClick={() => handleClickCategory(category)}
@@ -54,7 +55,7 @@ const TopicTabList = () => {
           />
         ))
       ) : (
-        <ul className="flex flex-col gap-6 mt-9">
+        <ul className="flex flex-col gap-6 mt-9" data-testid="loading">
           {[...Array(4)].map((_, i) => (
             <li
               key={i}

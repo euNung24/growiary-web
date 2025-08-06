@@ -9,15 +9,6 @@ type TopicListProps = {
 };
 
 const TopicList = ({ recommendedTopic, category, topics, hidden }: TopicListProps) => {
-  const bestTopic = recommendedTopic;
-  const nonBestTopics =
-    bestTopic && topics ? topics?.filter(topic => topic.id !== bestTopic.id) : [];
-
-  const prioritizedTopics =
-    bestTopic && Object.keys(bestTopic).length
-      ? [bestTopic, ...nonBestTopics]
-      : nonBestTopics;
-
   return (
     <ul
       className="hidden flex-col gap-6 mt-9 data-[hidden=false]:flex"
@@ -25,9 +16,10 @@ const TopicList = ({ recommendedTopic, category, topics, hidden }: TopicListProp
       id={`panel-${category}`}
       aria-labelledby={`tab-${category}`}
       data-hidden={hidden}
+      aria-hidden={hidden}
     >
-      {prioritizedTopics.map((topic, i) => (
-        <TopicItem key={topic.id} topic={topic} best={i === 0} />
+      {topics.map(topic => (
+        <TopicItem key={topic.id} topic={topic} best={recommendedTopic.id === topic.id} />
       ))}
     </ul>
   );
